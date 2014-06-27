@@ -1,4 +1,2 @@
-docs
-====
+#jsreport documentation repository
 
-jsreport documentation repository
