@@ -1,8 +1,6 @@
-#API
+You can communicate with jsreport using it's REST based API. jsreport will provide some wrappers for the most popular languages but using it directly is very easy when jsreport client wrapper does not exist for your language. This article is about using jsreport API in it's raw natural form.
 
-You can communicate with jsreport using it's REST based API. jsreport will provide some wrappers for the most popular languages but using it directly is very easy when jsreport client wrapper does not exist for your language. This article is about using jsreport API in it's raw natural form. 
-
-jsreport API is split into two different use cases:
+jsreport API can be split into two different use cases:
 
 1. Rendering reports - use it when you need to invoke rendering process
 2. Querying and CRUD - use it when you want to maintain templates, do exports ...
@@ -12,15 +10,16 @@ Next two sections are describing these use cases in detail.
 >You should sent body in json format. Content negotiation is supported for some parts of API, but anyway it's not recommended since jsreport is running in javascript.
 
 ## Rendering report
-Invoking rendering process is the most common API method you will call. The next snippet shows the service enpoint url as well as the body schema.
+Invoking rendering process is the most common API method you will call. The next snippet shows the service enpoint url as well as the body schema. Options and data fields are optional.
 
-> `POST:` https://test.jsreportonline.net/api/report
+> `POST:` https://test.jsreportonline.net/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js 
    { 
       "template": { "shortid" : "g1PyBkARK" },
       "data" : { ... },
-     ["options": { timeout: 60000 }]
+      "options": { timeout: 60000 }
    } 
 >```
 
@@ -35,10 +34,11 @@ Using this dialog is quite important because options you have may be different b
 In the advanced scenario where you have some kind of a dynamic template, you can remove `shortid` value from the request and fill template attributes manually as you want. Look at the following snippet rendering simple hello world.
 
 > `POST:` https://test.jsreportonline.net/api/report
+> `Headers`: Content-Type: application/json
 > `BODY:`
 >```js 
    { 
-      "template": { "html" : "Hello world", "recipe" : "phantom-pdf" },
+      "template": { "content" : "Hello world", "recipe" : "phantom-pdf" },
    } 
 >```
 

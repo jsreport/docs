@@ -1,61 +1,96 @@
-# Getting started
+<a class="button large bg-emerald bg-hover-gray fg-white" id="createFlatWindow">Quick Start Video<i class="icon-arrow-right-3 on-right fg-white"></i></a>
 
-This is the very first article from series of tutorials about jsreport, business reporting platform based on javascript. This article is kind of "Hello world" into jsreport which will cover basic principles you need to understand to get started with jsreport. You may see the full list of all tutorials [here](http://jsreport.net/learn). 
+jsreport is an open source reporting server running cross platform using [node.js](http://nodejs.org/). It allows to create any pdf report you can think of without lame designers just using html and javascript. This article is kind of `Hello world` into jsreport and covers basic principles you need to understand to get started.
 
-## Basic concepts
+##Basic workflow
 
-To be able to render reports, you need to have access to first jsreport server first. The server is responsible for rendering reports and it also hosts html based studio you can use to design and maintain your report templates.
+1. get jsreport server
+2. define sample input data
+3. define report template
+4. test and preview report
+5. send real input data into API and get back report
 
-You can choose from three versions of jsreport server: 
+##Getting jsreport server
+You need to have access to jsreport server to be able to render reports. You can use [jsreport as a service solution](http://jsreport.net/online) or you can [download](http://jsreport.net/on-prem) and run it to on own on premise server.
 
- * [playground](http://jsreport.net/playground) for trying and fiddling with reports
- * [on-prem](http://jsreport.net/on-prem) for installing jsreport on your server
- * [online](http://jsreport.net/online) for using multitenant SaaS jsreport in the cloud
+No matter what option you will choose you will get access to jsreport html based studio you're going to need for designing and testing reports.
 
-How to install jsreport on your server or how to register to online version is not topic of this article, but you can read about it if you will follow the links. It does not matter which version you choose right now. Basic principles are applicable to all of them so if you haven't decided yet you can just open [playground](http://jsreport.net/plaground) and continue with the tutorial. 
+<a href="http://jsreport.net/screenshots/studio.png" target="_blank">
+<img src="http://jsreport.net/screenshots/studio.png" alt="studio" style="width: 600px;"/>
+</a>
 
-When you have jsreport server you need to create a report template defining how will the report look like and how it will be rendered. The best way to define report template is to use html based studio which is hosted in jsreport server and you can access it using any web browser.
 
-![jsreport studio](http://jsreport.net/screenshots/studio.png)
+##Defining sample data
+Now when you have access to [jsreport online](https://jsreportonline.net) or have your own jsreport server running you can start preparing reports. But before actually designing report's layout it's good to define some sample data you will use for previewing and testing reports first.
 
-Typical scenario is that you will define a report template during design time and call jsreport API in runtime to render reports. The input of rendering process is the report template and some kind of a data report will display. For example if you want a monthly sales report for your company. You will have one report template, but the report data will be different every month.
+You can create sample data in jsreport studio using `actions/create data` menu. Whole jsreport including API is based on javascript so you guess right that sample data are based on `json` format. Sample data can in fact contain any `json` object.
 
-![architecture](http://jsreport.net/screenshots/architecture.png)
+<a href="http://jsreport.net/img/sample-data.png" target="_blank">
+<img src="http://jsreport.net/img/sample-data.png" alt="sample data" style="width: 600px;"/>
+</a>
 
-## Report templates
 
-Report template together with the rendering process is the hearth of jsreport. Template defines how will the result report look like and it's used together with input data every time you render a new report.
+##Defining report template
+
+Report template is together with the rendering process the heart of jsreport. Template defines how the result report is going to look like and is used together with input data every time you render a new report. You can create report template again in jsreport studio using `actions/create template` menu. When the template is created you can immediately add sample data you previously created.
+
+<a href="http://jsreport.net/img/sample-data-selection.png" target="_blank">
+<img src="http://jsreport.net/img/sample-data-selection.png" alt="sample data selection" style="width: 150px;"/>
+</a>
 
 ### Templating engines
 
-The templates are defined using common javascript templating engines (like [jsrender](https://github.com/BorisMoore/jsrender) or [handlebars](http://handlebarsjs.com/)). You can bind input data, use loops, conditions or javascript helpers... Templating engines basicaly provides you way to define any custom report you like.
+The templates are defined using common javascript templating engines (like [jsrender](https://github.com/BorisMoore/jsrender) or [handlebars](http://handlebarsjs.com/)). You can bind input data, use loops, conditions or javascript helpers... Templating engines basically provides you a way to define any custom report you like. So for example the following code will print table of all books we defined previously.
 
 ```html
-<div class="entry">
-  {{#if author}}
-    <h1>{{firstName}} {{lastName}}</h1>
-  {{else}}
-    <h1>Unknown Author</h1>
-  {{/if}}
+<table style='border-style:solid'>
+  <tr>
+    <th>Name</th>
+    <th>Author</th>
+    <th>Sales</th>
+  </tr>
+  {{#each books}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{author}}</td>
+    <td>{{sales}}</td>
+  </tr>  
+  {{/each}}    
+</table>
 </div>
 ```
 
-Every template can use different templating engine. And it's up to you which you will choose. They have very similar feature scope and only use different syntax, but every one has different prefferences.
+Every template can use different templating engine. And it's up to you which you will choose. They have very similar feature scope and only use different syntax, but every one has different prefferences. You can find more informations about jsreport templating engines [here](http://jsreport.net/learn/templating-engines).
 
 ![engine specification](http://jsreport.net/screenshots/engine.png)
 
 ### Recipes
-jsreport is not only great for rendering output formats based on xml like html. It can also easily convert html into pdf using [phantomjs](http://phantomjs.org). Or even generate precise pdf using [Apache FOP](http://xmlgraphics.apache.org/fop). You can customize the rendering process and output format with specifying report template recipe. 
+
+Specifying report output format is done using feature called recipes. For example setting report template recipe to phantom-pdf will make report output a pdf file printed using [phantomjs](http://phantomjs.org) screen capture feature.
 
 ![recipe specification](http://jsreport.net/screenshots/recipe.png)
 
-Currently there are three recipes you can choose:
+You can find more informations about jsreport recipes [here](http://jsreport.net/learn/recipes).
 
-1. `html` - only use specified templating engine and output html result
-2. `phantom-pdf` - use html recipe to render html and print html into pdf using phantomjs
-3. `fop-pdf` - apply specified templating engine on the fop based xml and transform using xslt transformations into pdf using Apache FOP
+##Test and preview report
+Now it's time to finish report template and preview it from sample data until you are satisfied.
 
-Many other recipes should come in the near future, or you can even define your own.
+You might find helpful several features jsreport ships out of the box in the form of extensions during this time. You can for example [upload images](http://jsreport.net/learn/images) to report or split bigger template into small [child templates](http://jsreport.net/learn/child-templates). Checkout all jsreport extensions [here](http://jsreport.net/learn/extensions).
 
-## Extensions
-jsreport is designed to be highly extensible from the start. You can not only define your own recipes but you can also define your own extensions that will add special attributes to the templates or customize jsreport studio. jsreport ships out of the box with several extensions and if you want to read more about it, follow the next tutorials. 
+##Use API to render report
+
+Now you are ready to integrate your application with jsreport API. It's very simple and in the most cases you just need to do one REST call. You can even try it from your browser's REST plugin. Only one thing needed before you start is report template `shortid`. You can find it for example in jsreport studio url (`https://localhost/#extension/templates/eygi2w2axR`).
+
+Following request will invoke rendering previously defined template with shortid `eygi2w2axR`. Response will be stream to a pdf report.
+> `POST:` https://localhost/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
+> `BODY:`
+>```js 
+   { 
+      "template": { "shortid" : "eygi2w2axR" },
+      "data" : { "books" : [...]},
+   } 
+>```
+
+
+More information about jsrepotr API can be found [here](http://jsreport.net/learn/api).

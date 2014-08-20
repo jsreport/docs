@@ -1,5 +1,3 @@
-#Scripts extension
-
 jsreport is designed to be highly extensible, but defining your own recipe or extension is often not necessary for simple customizations. Let's say you want to add standard set of helper functions to templates or you want to actively download and include some input data from jsreport server. For these kind of things jsreport offers `Scripts` extension.
 
 `Scripts` extensions allows you to run any custom code in javascript before the actual report rendering process starts. This script is evaluated on the jsreport server in the sandbox but allows you to modify rendering process inputs.
