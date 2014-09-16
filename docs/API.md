@@ -34,7 +34,9 @@ Using this dialog is quite important because options you have may be different b
 In the advanced scenario where you have some kind of a dynamic template, you can remove `shortid` value from the request and fill template attributes manually as you want. Look at the following snippet rendering simple hello world.
 
 > `POST:` https://test.jsreportonline.net/api/report
+<br/>
 > `Headers`: Content-Type: application/json
+<br/>
 > `BODY:`
 >```js 
    { 

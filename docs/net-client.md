@@ -16,7 +16,8 @@ Main facade you will use to access jsreport from c# is called `ReportingService`
 
 >online
 >```c#
->var _reportingService = new ReportingService("https://[subdomain].jsreportonline.net", "email", "password");
+>var _reportingService = new ReportingService("https://[subdomain].jsreportonline.net",
+                                              "email", "password");
 >```
 
 >embedded
