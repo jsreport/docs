@@ -1,30 +1,51 @@
-jsreport is designed to be highly extensible, but defining your own recipe or extension is often not necessary for simple customizations. Let's say you want to add standard set of helper functions to templates or you want to actively download and include some input data from jsreport server. For these kind of things jsreport offers `Scripts` extension.
+> Run custom javascript to modify report inputs/outputs or to send a report
 
-`Scripts` extensions allows you to run any custom code in javascript before the actual report rendering process starts. This script is evaluated on the jsreport server in the sandbox but allows you to modify rendering process inputs.
+##Basics
 
-Every script can access global variable called `request` to modify process inputs. Any script can alter:
+Define global functions `beforeRender`  or (and) `afterRender` in script and use global variables `request` and `response` to reach your needs. You need to call `done()` at the end because script can be async. 
 
- - `request.template.html`
- - `request.template.helpers`
- - `request.data`
-
-Every script is interpreted asynchronously and you need to call global `done()` function when the script is finished.
-
-Follows the example of script that is downloading rss data from bbc and creates items collection on the input data which template can later iterate over and render.
 ```js
-//some of the node modules like feedparser are available to use
-var FeedParser = require("feedparser");
+//load some data from the remote API
+function beforeRender(done) {
+  require('request')({ url: 'http://someservice.url', json:true })(err, body, response) {
+    request.template.data = body;
+    done();
+  }
+}
 
-request.data = { items: [] };
+//send the pdf report by mail
+function afterRender(done) {
+  var SendGrid = require('sendgrid');
+  var sendgrid = new SendGrid('username', 'password');
 
-require('request')('http://www.bbc.co.uk/nature/collections.rss')
-   .pipe(new FeedParser())
-   .on('readable', function () {
-       var stream = this, item;
-       while (item = stream.read()) {
-           request.data.items.push(item);
-       }
-   })
-   //done is a function script must call at the end to signal async script is done
-   .on("end", done);
+  sendgrid.send({ to: '',  from: '', subject: '',
+          html: 'This is your report',
+          files: [ {filename: 'Report.pdf', content: new Buffer(response.content) }]
+  }, function(success, message) {          
+          done(success);
+  });
+}
 ```
+
+##request, response
+
+`request.template` - modify report template, mostly `content` and `helpers` attributes
+`request.data` - json object used to modify report input data
+`request.headers` - json object used to read input headers
+
+`response.content` - byte array with output report
+`response.headers` - output headers
+
+##Configuration
+
+Add `scripts` node to the standard [config](https://github.com/jsreport/jsreport/blob/master/config.md) file. The defaults are following.
+```js
+scripts: {
+  timeout: 30000
+  allowedModules: ["handlebars", "request-json", "feedparser", "request", "underscore", "constants", "sendgrid"]
+}
+```
+
+##Using script to load data
+Some people prefer to push data into jsreport from the client and some people prefer to use `scripts` extension to actively fetch them. Where pushing data to the jsreport is more straight forward, using `scripts` can provide better architecture with fully separated reporting server where report itself is responsible for defining input as well as fetching them. The choice is up to you. 
+

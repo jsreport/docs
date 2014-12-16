@@ -88,7 +88,7 @@ public class ReportingStartup {
 }
 ```
 
-Previous example configures visual studio to use embedded version of jsreport and registers action loading sample data from db. Now you should be able to find `SomeSampleData` in the `jsrep` editor combobox.
+Previous example configures visual studio to use embedded version of jsreport and registers action loading sample data from db. Now you should be able to find `SomeSampleData` in the `jsrep` editor combobox. Note that you should fill your connection string manually here instead of taking it from web.config. This is because report rendering in visual studio doesn't run in scope of an web application but as a dynamically invoked method using reflection.
 
 ##Recommendations
 It's recommended to have all reports in one visual studio project because switching between projects causes jsreport embedded server to restart. 
