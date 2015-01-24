@@ -1,3 +1,6 @@
+> Decompose templates into small reusable pieces
+
+##Basics
 Sometimes you'll get into situation where you find out that your report templates are starting to be too complicated. The html gets bigger and you need to copy paste several parts between templates quite often. You may consider using `Child templates` extension in this situation.
 
 `Child templates` allows you to include report templates into each other even in multiple levels. The realization of this is very easy. You just create a standard template for a part you want to reuse. Let's call it `Some table`. And then in every template  you want to use in just insert special tag `{#child Some table}`.

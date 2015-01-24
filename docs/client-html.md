@@ -1,6 +1,10 @@
-`client-html` recipe renders html using specified [javascript templating engine](/learn/templating-engines) on the **client side**. This is very significant difference form standard [html](/learn/html) recipe. 
+> `client-html` recipe renders html using specified [javascript templating engine](/learn/templating-engines) on the **client side**. This is very significant difference form standard [html](/learn/html) recipe. 
 
-The main purpose of `client-html` recipe is to make html reports more interactive and responsive. With client rendering you can interact with user by filtering or sorting input data and repainting just affected part of report. In this case it is no longer a report but rather an widget. In combination with jsreport [embedding extension](/learn/embedding) user can also in place customize widget in the embedded jsreport editor.
+The main purpose of `client-html` recipe is to make html reports more interactive and responsive. With client rendering you can interact with user by filtering or sorting input data and repainting just affected part of report. 
+
+The output of the template rendering based on the `client-html` recipe is an html page which wraps the template definition and render it on the client side when it's loaded. The wrapping page also links jsreport `embed.js` and exposes template definition in the javascript object `jsreport.template`. This is very handy for making self editable and exportable reports.
+
+Note that `client-html` rendering really runs in the browser which means other jsreport server extensions like adding images or running scripts won't be invoked.
 
 ##Example
 
@@ -47,60 +51,22 @@ Following example can be run in jsreport studio as it is with selected `client-h
 
 It is very similar to the standard `html` recipe except the templating engine runs in the browser. User interaction is handled by calling `jsreport.reload` reloading part of the report. Again at the browser side. 
 
-##Rendering outside jsreport studio
 
-You would soon realize `client-render` runs just in the studio and requests to render it on the server results into error with information it is a client side recipe. To actually run it outside jsreport studio you need to attach [jsreport embedded script](/learn/embedding) to page and call a function to render report. The example can look the following:
+##Rendering template into an iframe
 
-```html
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <!-- jquery is required for jsreport embedding -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
-<body>
-    <div style="height:100vh" id="placeholder"></div>
-    <script>
-        //jsreport will call jsreportInit function from global scope when its initialized
-        jsreportInit = function () {          
-            jsreport.render($("#placeholder"), "-JencUHkI");
-        };
-    </script>
+It is very common to render template based on `client-html`  recipe into an iframe as a part of the external application. In this case the template can use the parent page javascript functions and also share the authenticated session under condition iframe is loaded from the same domain. Therefore it is recommended to route the template rendering through your application server to avoid cross domain iframe problems. 
 
-    <script>
-        //add jsreport embedding script, just change url to jsreport server
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "http://local.net:2000/extension/embedding/public/embed.min.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'jsreport-embedding'));
-    </script>
-</body>
-</html>
+Then you can register any function in the main application global context:
+
+```js
+function loadData(cb) {
+	$.getJSON(....);
+}
 ```
 
-After opening this example in any browser it will render particular template.
-
-##Add common functions to the report
-
-You can easily add common functions or data from a wrapper page. This can be used for example to specify common functions loading data and use them in all reports.
-
-Adding a common function to the `client-html` recipe based report is done in the following way:
+and use it inside `client-html` template to load data under the authenticated user:
 ```js
-jsreport.setClientContext({
-	loadData: function(cb) {
-		cb(["foo"];
-	});
-```
-
-And then you can reach `jsreport.context` in the report
-```js
-jsreport.context.loadData(function(posts) {
+window.top.loadData(function(posts) {
 	jsreport.reload("#postsTable", { posts: posts })
 });
 ```

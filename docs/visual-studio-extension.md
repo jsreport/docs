@@ -2,6 +2,8 @@
 
 > **[Download from visual studio galery](http://visualstudiogallery.msdn.microsoft.com/b684060e-5785-461f-832a-ffb0243a3874)**
 
+> **[Download example from GitHub](https://github.com/jsreport/net/tree/master/examples/ContosoUniversity)**
+
 Along with html based studio jsreport provides also visual studio extension for managing and designing report templates. You can find it in [visual studio galery](http://visualstudiogallery.msdn.microsoft.com/b684060e-5785-461f-832a-ffb0243a3874) under name `jsreport visual studio tools`.
 
 

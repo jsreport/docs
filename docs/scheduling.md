@@ -39,3 +39,5 @@ scheduling: {
 }
 ```
 
+##Quick links
+> **[Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)**

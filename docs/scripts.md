@@ -46,6 +46,40 @@ scripts: {
 }
 ```
 
+##API
+You can use standard OData API to manage and query script entities. For example you can query all scripts using
+> `GET` http://jsreport-host/odata/scripts
+
+A custom script is usually linked to the report template by its shortid. In this case template structure with the report looks following in json:
+
+```js
+  template : {
+	  content: "foo",
+	  script: {
+		  shortid: "sd543fds"		  
+	  }
+  }
+```  
+
+Scripts extension also supports inline scripts directly in the `Template` entity. This is used in [embedding extension](/learn/embedding) and you can use it also when you want to render a custom report from the API. 
+
+Inline script looks following in json:
+
+```js
+  template : {
+	  content: "foo",
+	  script: {
+		  content: "request.template.content='hello'; done();"		  
+	  }
+  }
+```
+
+
 ##Using script to load data
 Some people prefer to push data into jsreport from the client and some people prefer to use `scripts` extension to actively fetch them. Where pushing data to the jsreport is more straight forward, using `scripts` can provide better architecture with fully separated reporting server where report itself is responsible for defining input as well as fetching them. The choice is up to you. 
 
+
+##Quick links
+> **[Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)**
+
+> **[Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)**

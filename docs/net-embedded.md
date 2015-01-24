@@ -1,5 +1,7 @@
 > Install-Package [jsreport.Embedded](https://www.nuget.org/packages/jsreport.Embedded)
 
+##Basics
+
 jsreport can be easily installed using [nuget package](https://www.nuget.org/packages/jsreport.Embedded) into c# project and run with the same lifecycle as orignal .NET process. Everything needed is inside a package and no node.js or any other dependency installation is required.
 
 When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and then you are ready to print any pdf report you want.

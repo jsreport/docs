@@ -1,3 +1,6 @@
+> **[Download examples from GitHub](https://github.com/jsreport/net/tree/master/examples)**
+
+##Basics
 jsreport comes with .NET c# client which wraps REST API and is very convenient to use if you are in .NET environment. You can use .NET c# client to connect to a remote jsreport server and also to [jsreport .NET embedded server](http://jsreport.net/learn/net-embedded).
 
 ## Get Started
@@ -7,14 +10,19 @@ I assume that you already understand basic jsreport concepts. If you don't, plea
 Installing jsreport c# client is easy using nuget package:
 > PM> Install-Package [jsreport.Client](https://www.nuget.org/packages/jsreport.Client/)
 
-Main facade you will use to access jsreport from c# is called `ReportingService`. This class has different ways of creation for on-prem, online and embedded version:
+Main facade you will use to access jsreport from c# is called `ReportingService`. 
 
->on-prem
+>on-prem without authentication
 >```c#
 >var _reportingService = new ReportingService("https://192.168.02.01");
 >```
 
->online
+>on-prem with authentication
+>```c#
+>var _reportingService = new ReportingService("https://192.168.02.01", "username", "password);
+>```
+
+>jsreportonline
 >```c#
 >var _reportingService = new ReportingService("https://[subdomain].jsreportonline.net",
                                               "email", "password");
@@ -49,34 +57,33 @@ var report = await _reportingService.RenderAsync(new RenderRequest() {
             });
 ```
 
-`Template` class contains only attributes that are in the core of jsreport. If you are working on your own extensions and adding some additional values into jsreport report template you can send them using dynamic property called `additional`. jsreport client will send `additional` as the content would be directly inside `Template`.
+`Template` class contains only attributes that are in the core of jsreport. If you want to add    some additional values into jsreport report template you can send them using dynamic property called `additional`. jsreport client will send `additional` as the content would be directly inside `Template`. This is very useful when using an extension which is adding some attributes into `Template`.
 
+Next example shows how to add a [custom script](/learn/scripts) into template.
 ```c#
 var report = await _reportingService.RenderAsync(new RenderRequest() {
-                template = new Template() {  shortid = "asd34fsd"  },
+                template = new Template() {  content = "foo"  },
                 additional = new {
-                        someExtension = new {
-                            valie = "specific value"
+                        script= new {
+                            content = "request.template.content='Hello'; done()"
                         }
                     }
             });
 ```
 
-The best way in these scenarios is to use jsreport studio API helper to get possible values. API helper  is located at the report template. You can read more about it in the [API section](http://jsreport.net/learn/api).
+You can use same approach for `options` property. Next example shows how to use [reports extension](/learn/reports) to permanently store rendering output.
 
-##Using reports extension
-
-When you have `reports` extension enabled, you can send `saveResult=true`  option and let the jsreport server take care of storing output report. You just need to store output `report.PermanentLink` and later use it for downloading actual report content.
-
-```c#
-var report = await _reportingService.RenderAsync(new RenderRequest()
-            {
-                template = new Template() { shortid = "g1xcKBanJc" },
-                options = new RenderOptions() { saveResult = true }
+```js
+var report = await _reportingService.RenderAsync(new RenderRequest() {
+                template = new Template() {  content = "foo"  },
+                options = new RenderOptions()
+	                {
+	                       additional = new  {
+	                           reports = new { save = true }
+                           }
+			        }
             });
-
-var loadedReport = await _reportingService.ReadReportAsync(report.PermanentLink);
-```
+```            
 
 ##Synchronizing visual studio templates
 jsreport client can synchronize reports defined inside visual studio project using [jsreport visual studio tools](http://jsreport.net/learn/visual-studio-extension) against embedded or remote jsreport server.
@@ -126,5 +133,43 @@ await _reportingService.CreateODataClient()
                 content = "Some modified content"
             })
         .UpdateEntryAsync();
-
 ```
+
+##Embedding
+jsreport includes [embedding extension](/learn/embedding) which you can use to add report editor into your web pages and allow your customers to customize their reports. `jsreport.Client` package makes this easier by providing`JsReportWebHandler` class. This asp.net http handler can be used as a tunnel forwarding requests from jsreport web into jsreport server through your web application. This is very convenient especially together with [jsreport.Embedded](/learn/netembedded) package because it securely hides jsreport behind your application and meanwhile provide it to your web users.
+
+First add `JsReportWebHandler` to your web config.
+```xml
+<system.webServer>
+  <handlers>
+      <add  name="jsreport" verb="*" path="jsreport.axd" type="jsreport.Client.JsReportWebHandler" />
+  </handlers>
+</system.webServer>
+```
+
+Then initialize handler by adding jsreport server uri during application startup
+```cs
+JsReportWebHandler.ReportingService = EmbeddedReportingServer.ReportingService ;
+
+//you can also use standalone jsreport with authentication enabled
+JsReportWebHandler.ReportingService = new ReportingService("http://jsreport-host", "username", "password");
+```
+
+Last you need to add jsreport `embed.js` to your page in the following way
+```js
+ <script>           
+	(function (d, s, id) {
+	    var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+	        return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "/jsreport.axd?url=/extension/embedding/public/js/embed.js";
+        fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'jsreport-embedding'));
+</script>
+```
+
+You can find example for embedding jsreport into asp.net application on [github](https://github.com/jsreport/net/tree/master/examples/EndUserCustomizations) and also online running at [net-embedding.jsreport.net](http://net-embedding.jsreport.net/) and general documentation for embedding functions [here](/learn/embedding).
+

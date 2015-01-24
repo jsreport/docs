@@ -1,6 +1,36 @@
-The input to the report generation process is the report template and some json input data. You will provide these data to the jsreport API in the runtime, but it's not very effective to call jsreport API every time you want to see how will the report look like. There for jsreport comes with extension `Inline Data`.
+> Use sample testing data during template development
 
-`Inline data` extension allows you to statically define input data directly in jsreport studio and easilly test your templates. The input data are defined using json syntax. You can define single input data and reuse them in many templates in `online` and `on-prem` version where you can use only one data for one template in `playground`.
+##Basics
 
+The input to the report generation process is the report template and some json input data. You will provide these data to the jsreport API in the runtime, but it's not very effective to call jsreport API every time you want to see how will the report look like. There for jsreport comes with `Data` extension.
 
+`Data` extension allows you to statically define input data using JSON syntax directly in jsreport studio and easily test your templates. 
 
+##API
+
+You can use standard OData API to manage and query `data` entities. For example you can query all items using:
+> `GET` http://jsreport-host/odata/data
+
+A sample data item is usually linked to the report template by its shortid. In this case template structure with the report looks following in json:
+
+```js
+  template : {
+	  content: "foo",
+	  data: {
+		  shortid: "sd543fds"		  
+	  }
+  }
+```  
+
+Data extension also supports inline data directly in the `Template` entity. This is used mainly in [embedding extension](/learn/embedding).
+
+Data inline into template then looks following in json:
+
+```js
+  template : {
+	  content: "foo",
+	  data: {
+		  dataJson: "{ \n \"price\": 10\n}"		  
+	  }
+  }
+```

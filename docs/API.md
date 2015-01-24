@@ -1,3 +1,4 @@
+##Basics
 You can communicate with jsreport using it's REST based API. jsreport will provide some wrappers for the most popular languages but using it directly is very easy when jsreport client wrapper does not exist for your language. This article is about using jsreport API in it's raw natural form.
 
 jsreport API can be split into two different use cases:
@@ -12,7 +13,7 @@ Next two sections are describing these use cases in detail.
 ## Rendering report
 Invoking rendering process is the most common API method you will call. The next snippet shows the service enpoint url as well as the body schema. Options and data fields are optional.
 
-> `POST:` https://test.jsreportonline.net/api/report<br/>
+> `POST:` https://jsreport-host/api/report<br/>
 > `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js 
@@ -48,19 +49,25 @@ In the advanced scenario where you have some kind of a dynamic template, you can
 
 Querying and CRUD API in jsreport is based on [odata](http://www.odata.org) protocol. You can use it to query or CRUD any object jsreport server contains. For example, to get list of all jsreport entities, you can call standard odata notation endpoint.
 
-> `GET:` https://test.jsreportonline.net/odata/$metadata
+> `GET:` https://jsreport-host/odata/$metadata
 
 Or to get list of all template names:
 
-> `GET:` http://test.jsreportonline.net/odata/templates?$select=name
+> `GET:` http://jsreport-host/odata/templates?$select=name
 
 Odata protocol has client libraries for various languages and you should be able to find a wrapper for yours [here](http://www.odata.org/libraries).
 
 ## Authentication
-`On-Premise` jsreport version is currently single user based. There for you can reach the API on the same url as the studio is hosted on using `https` and you don't need to send any authorization headers.
 
-`Online` jsreport version uses [basic http authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) so you should be able to authenticate easily from any platform using your userename and password sent throught authorization header.
+When jsreport server has [authentication extension](/learn/authentication) enabled or when using [jsreportonline](/online) you need to add authentication header to all API requests. The header is based on [basic http authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) so you should be able to authenticate easily from any platform. 
 
-`Playground` version is just for fiddling and does not provide any API.
+
+
+`Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==`
+
+Where the hash is based on username and password:  
+`base64(username:password)`
+
+
 
 
