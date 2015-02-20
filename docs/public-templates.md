@@ -1,4 +1,4 @@
-> Expose report template with secure token granting permissions to the unauthenticated users
+> Expose report template with secure token granting permissions to the unauthenticated users. Requires [authentication](/learn/authentication) and [authorization](/learn/authorization) extensions to be enabled.
 
 [Authentication](/learn/authentication) extension grants access to jsreport only for the authenticated users and [authorization](/learn/authorization) extension assures users gets access only to the permitted operations. `public-templates` extension comes into play if you want to share the template with someone who doesn't have any credentials into jsreport.
 
