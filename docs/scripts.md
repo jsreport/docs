@@ -2,7 +2,7 @@
 
 ##Basics
 
-Define global functions `beforeRender`  or (and) `afterRender` in script and use global variables `request` and `response` to reach your needs. You need to call `done()` at the end because script can be async. 
+Define global functions `beforeRender`  or (and) `afterRender` in script and use global variables `request` and `response` and `reporter` to reach your needs. You need to call `done()` at the end because script can be async. 
 
 ```js
 //load some data from the remote API
@@ -27,7 +27,7 @@ function afterRender(done) {
 }
 ```
 
-##request, response
+##request, response, reporter
 
 `request.template` - modify report template, mostly `content` and `helpers` attributes
 `request.data` - json object used to modify report input data
@@ -35,6 +35,24 @@ function afterRender(done) {
 
 `response.content` - byte array with output report
 `response.headers` - output headers
+
+`reporter.render(req, cb)` - invoke rendering process of another template
+
+##Rendering another template from script
+
+Script can be used also to invoke rendering of another template. 
+```
+function afterRender(done) {
+    reporter.render({ template: { shortid: "EyeVA2_k-" }}, function(err, res) {
+        if (err)
+            return done(err);
+        
+        response.headers = res.headers;
+        response.content = res.content;
+        done();
+    });    
+}
+```
 
 ##Configuration
 

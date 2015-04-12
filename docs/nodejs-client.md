@@ -41,28 +41,3 @@ app.get("/report", function(req, res, next) {
     });
 });
 ```
-
-## Operating with entities
-Querying and manipulating remote jsreport entities can be done using [jaydata](http://jaydata.org/) entity context provided also from the `Client` object. The entity context covers various use cases from custom queries or CRUD to transactions. It can be obtained using `createDataContext` function on `Client` object.
-
-```js
-//query
-client.createDataContext(function(err, context) {
-	context.templates.toArray(then(function(list) {
-		console.log(list);
-	});
-});
-
-//CRUD
-client.createDataContext(function(err, context) {
-	var template = context.templates.add({
-		content: "Hello World",
-		recipe: "phantom-pdf",
-		engine: "jsrender"
-	});
-
-	context.saveChanges().then(function() {
-		console.log(template.shortid);
-	});
-});
-```
