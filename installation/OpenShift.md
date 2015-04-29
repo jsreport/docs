@@ -2,9 +2,9 @@
 
 This page contain jsreport installation notes for OpenShift by RedHat
 
-jsreport starts internally several web servers to optimize and distribute report rendering. This is a problem for OepnShift because it unlocks for your application only specific host and specific port range.  Fortunately it can be easily configured in jsreport to start up internal web servers on specific host and specific port range.
+jsreport starts internally several web servers to optimize and distribute report rendering. This is a problem for OpenShift because it unlocks for your application only specific host and specific port range.  Fortunately it can be easily configured in jsreport to start up internal web servers on specific host and specific port range.
 
-To configure jsreport for OepnShift edit `server.js` and add following:
+To configure jsreport for OpenShift edit `server.js` and add following:
 ```js
 var options = {
 	tasks: {
