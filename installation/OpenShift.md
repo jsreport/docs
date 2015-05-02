@@ -52,7 +52,7 @@ Now you have to add jsreport - modify the template code:
 
 ###2. check package.json
 
-The application should include a package.json file in the root of their project. OpenShift and npm are both configured to check your (scripts.start and main) fields for information on how to launch your server. So be sure that you have these files and jsreport in dependencies:
+The application should include a package.json file in the root of their project. OpenShift and npm are both configured to check your (scripts.start and main) fields for information on how to launch your server. So be sure that you have these files and the jsreport in dependencies:
 
 ```js
 {
@@ -70,7 +70,7 @@ The application should include a package.json file in the root of their project.
 }
 ```
 
-###3. modyif server.js
+###3. modify server.js
 
 OpenShift’s Node.js cartridge automatically publishes server connection information to your application’s environment via the following environment variables: OPENSHIFT_NODEJS_PORT and OPENSHIFT_NODEJS_IP
 
