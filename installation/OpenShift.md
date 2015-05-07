@@ -61,7 +61,8 @@ The application should include a package.json file in the root of their project.
 	...
 
 	"dependencies": {
-		"jsreport": "^0.5.0"
+		"jsreport": "^0.5.0",
+
 	},
 	"scripts": {
 			"start": "node server.js"
@@ -78,52 +79,33 @@ Include a small check to test for the presence of these configuration strings to
 
 ```js
 #!/bin/env node
- //  OpenShift jsreport Node application
+//  OpenShift jsreport Node application
 
 var servHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var servPort = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var servPort = process.env.OPENSHIFT_NODEJS_PORT || 5000;
 var jsreport = require('jsreport');
 var app = require('express')();
-
-console.log('Starting jsreport on ' + servHost + ':' + servPort);
-
-require('jsreport').bootstrapper({
+var options = {
     express: {
         app: app
     },
-    options : {
-        tasks: {
-            host: servHost,
-            portLeftBoundary: 15000,
-            portRightBoundary: 35530
-        },
-        phantom: {
-            host: servHost,
-            portLeftBoundary: 15000,
-            portRightBoundary: 35530
-        }
+    tasks: {
+        host: servHost,
+        portLeftBoundary: 15000,
+        portRightBoundary: 35530
+    },
+    phantom: {
+        host: servHost,
+        portLeftBoundary: 15000,
+        portRightBoundary: 35530
     }
-}).start().then(function() {
-    app.listen(servPort, servHost);
-    console.log((new Date()) + ' Server is listening on ' + servHost + ':' + servPort);
+};
 
-}).catch(function(e) {
-    console.log('Error: ' + err);
+jsreport.bootstrapper(options).start().then(function() {
+    app.listen(servPort, servHost);
 });
 ```
 
-###2. add dev / prod.config.json for jsreport
-Your jsreport application should include a dev / prod.config.json file in the root of their project. In this file you can configure jsreport, detailed instructions are available at: ...https://github.com/jsreport/docs/blob/master/docs/configuration.md
-
-for the start we can use a very simple configuration like below:
-```js
-{
-    "connectionString": {
-        "name": "neDB"
-    },
-    "blobStorage": "inMemory"
-}
-```
 ###4. add dev / prod.config.json for jsreport
 Your jsreport application should include a dev / prod.config.json file in the root of their project. In this file you can configure jsreport, detailed instructions are available at: ...https://github.com/jsreport/docs/blob/master/docs/configuration.md
 
