@@ -130,3 +130,43 @@ Done
 you can now checkout your working jsreport application at:
 
 	http://<appname>-<yournamespace>.rhcloud.com
+
+
+<br /> <br />
+Appendix
+-----------
+###Store the data in MongoDB on OpenShift
+
+####1. add the mongodb cartridge on OpenShift
+
+	$ rhc cartridge add mongodb-2.4 -a <appname>
+
+####2. add the mongodb node package to the app
+
+	$ npm install mongodb --save
+
+####3. modify server.js
+
+The mongodb cartridge provides several environment variables, we need to reference these variables in our app to be able to connect with MongoDB on OpenShift from our jsreport app.
+
+#####3.1 variables
+```js
+var dbHost = process.env.OPENSHIFT_MONGODB_DB_HOST || '127.0.0.1';
+var dbPort = process.env.OPENSHIFT_MONGODB_DB_PORT || 27017;
+var dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME || 'admin';
+var dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD || 'secret';
+```
+#####3.2 options
+```js
+connectionString: {
+		name: 'mongoDB',
+		address: dbUser + ':' + dbPass + '@' + dbHost,
+		port: dbPort,
+		databaseName: <appname>
+}
+```
+###4. push your changed app to OpenShift
+commit and push back up to your OpenShift application using:
+		git add --all
+    git commit -m "mongodb added"
+    git push
