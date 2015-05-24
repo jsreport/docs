@@ -27,7 +27,7 @@ function beforeRender(done) {
 ###Define a template
 Now its time to create a report template and associate previously created script with it. You can do it again from jsreport studio using `ACTIONS/Create Template` menu and associate the script in the designer's left panel.
 
-It is convenient to explore the input data before actually designing the template. I do it personally with a custom helper function which "stringifies" the input data. Then I put the helper function output somewhere at the top of the template. Run the template and then copy paste the output into JSON [online parser](http://json.parser.online.fr/).
+It is convenient to explore the input data before actually designing the template. I do it personally with a custom hepler function which "stringifies" the input data. Then I put the helper function output somewhere at the top of the template. Run the template and then copy paste the output into JSON [online parser](http://json.parser.online.fr/).
 
 In [jsrender](/learn/jsrender) it looks like this:
 
