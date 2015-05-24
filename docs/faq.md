@@ -7,6 +7,7 @@ How to...
 
 **Phantom pdf recipe**
 - [National characters are not displayed properly](#national-characters)
+- [Highcharts are not printed into pdf properly](#highcharts)
 
 
 #### <a name="update-server"></a>Update existing jsreport server to the latest version
@@ -38,4 +39,8 @@ You need to add proper charset to the html head meta:
 ```
 
 For details check *National characters* section in the [documentation](/learn/phantom-pdf).
+
+#### <a name="highcharts"></a>Highcharts are not printed into pdf properly
+
+[Highcharts](http://www.highcharts.com/) are using complex animations by default preventing proper pdf printing. To go through it you need to disable highcharts animation like shown on [playground example](https://playground.jsreport.net/#playground/e77zeliQO/2).
 
