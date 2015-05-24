@@ -6,9 +6,18 @@ jsreport makes it super simple to print html into pdf using [phantomjs](http://p
 > npm install jsreport
 
 ```js
-require("jsreport").render("<h1>Hello world</h1>").then(function(out) {
-	out.result.pipe(resp);
-});
+var http = require('http');
+var jsreport = require('jsreport');
+
+http.createServer(function (req, res) {
+
+  jsreport.render("<h1>Hello world</h1>").then(function(out) {
+    out.result.pipe(res);
+  }).catch(function(e) {	
+    res.end(e.message);
+  });
+  
+}).listen(1337, '127.0.0.1');
 ```
 
 Note html can contain any complex javascript including jquery or charting libraries so the output pdf can look anything you want.
@@ -121,4 +130,5 @@ client.render({
         resp.pipe(out);
 });
 ```
+
 

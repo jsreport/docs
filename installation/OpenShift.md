@@ -1,34 +1,8 @@
-#OpenShift
+﻿#Starting with jsreport on OpenShift (step by step instruction)
 
-This page contain jsreport installation notes for OpenShift by RedHat
+This description helps you get up and running quickly with a jsreport installation on OpenShift.
 
-jsreport starts internally several web servers to optimize and distribute report rendering. This is a problem for OpenShift because it unlocks for your application only specific host and specific port range.  Fortunately it can be easily configured in jsreport to start up internal web servers on specific host and specific port range.
-
-To configure jsreport for OpenShift edit `server.js` and add following:
-```js
-var options = {
-	tasks: {
-		host: process.env.OPENSHIFT_NODEJS_IP,
-		portLeftBoundary: 15000,
-		portRightBoundary: 35530
-	},
-	phantom: {
-		host: process.env.OPENSHIFT_NODEJS_IP,
-		portLeftBoundary: 15000,
-		portRightBoundary: 35530
-	}
-}
-
-require('jsreport').bootstrapper(options).start();
-```
-
-
-#Starting with jsreport on OpenShift (step by step instruction)
-
-This description helps you get up and running quickly w/ a jsreport installation on OpenShift.
-
-Running jsreport app on OpenShift
--------------------------------
+##Running jsreport app on OpenShift
 
 Create an account at https://www.openshift.com
 
@@ -61,8 +35,7 @@ The application should include a package.json file in the root of their project.
 	...
 
 	"dependencies": {
-		"jsreport": "^0.5.0",
-
+		"jsreport": "^0.6.0"
 	},
 	"scripts": {
 			"start": "node server.js"
@@ -73,64 +46,53 @@ The application should include a package.json file in the root of their project.
 
 ###3. modify server.js
 
-OpenShift’s Node.js cartridge automatically publishes server connection information to your application’s environment via the following environment variables: OPENSHIFT_NODEJS_PORT and OPENSHIFT_NODEJS_IP
-
-Include a small check to test for the presence of these configuration strings to ensure your project’s portability:
+OpenShift’s Node.js cartridge automatically publishes server connection information to your application’s environment via the environment variables. These values needs to be forwarded to jsreport in this case in `server.js`.
 
 ```js
 #!/bin/env node
 //  OpenShift jsreport Node application
 
+var jsreport = require('jsreport');
+
 var servHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var servPort = process.env.OPENSHIFT_NODEJS_PORT || 5000;
-var jsreport = require('jsreport');
-var app = require('express')();
-var options = {
-    express: {
-        app: app
-    },
-    tasks: {
-        host: servHost,
-        portLeftBoundary: 15000,
-        portRightBoundary: 35530
-    },
-    phantom: {
-        host: servHost,
-        portLeftBoundary: 15000,
-        portRightBoundary: 35530
-    }
+
+var options = { 
+  tasks: {
+    host: servHost,
+    portLeftBoundary: 15000,
+    portRightBoundary: 35530
+  },
+  phantom: {
+    host: servHost,
+    portLeftBoundary: 15000,
+    portRightBoundary: 35530
+  },
+  hostname: servHost,
+  httpPort: servPort
 };
 
+
 jsreport.bootstrapper(options).start().then(function() {
-    app.listen(servPort, servHost);
+  console.log("isreport is running!");
+}).catch(function(e) {
+  console.log(e);
 });
 ```
 
-###4. add dev / prod.config.json for jsreport
-Your jsreport application should include a dev / prod.config.json file in the root of their project. In this file you can configure jsreport, detailed instructions are available at: ...https://github.com/jsreport/docs/blob/master/docs/configuration.md
-
-for the start we can use a very simple configuration like below:
-```js
-{
-    "connectionString": {
-        "name": "neDB"
-    },
-    "blobStorage": "inMemory"
-}
-```
-
-###5. push your jsreport app to OpenShift
+###4. push your jsreport app to OpenShift
 commit and push back up to your OpenShift application using:
 		git add --all
     git commit -m "jsreport added"
     git push
 
-Done
------------
-you can now checkout your working jsreport application at:
+##Done
+
+You can now checkout your working jsreport application at:
 
 	http://<appname>-<yournamespace>.rhcloud.com
 
+See the [documentation](http://jsreport.net/learn) for other options you can use for jsreport like adding authentication/authotization or how to use [config files](https://github.com/jsreport/docs/blob/master/docs/configuration.md).
 
 <br /> <br />
 Appendix
@@ -165,7 +127,7 @@ connectionString: {
 		databaseName: <appname>
 }
 ```
-###4. push your changed app to OpenShift
+####4. push your changed app to OpenShift
 commit and push back up to your OpenShift application using:
 		git add --all
     git commit -m "mongodb added"
