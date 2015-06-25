@@ -12,7 +12,7 @@ var jsreport = require('jsreport');
 http.createServer(function (req, res) {
 
   jsreport.render("<h1>Hello world</h1>").then(function(out) {
-    out.result.pipe(res);
+    out.stream.pipe(res);
   }).catch(function(e) {	
     res.end(e.message);
   });
@@ -52,7 +52,7 @@ require("jsreport").render({
 	data: { name: "jsreport" }
 }).then(function(out) {
 	//pipes pdf with Hello world from JSREPORT
-	out.result.pipe(resp);
+	out.stream.pipe(resp);
 });
 ```
 
@@ -70,7 +70,7 @@ require("jsreport").render({
 	data: { name: "jsreport" }
 }).then(function(out) {
 	//pipes plain text with Hello world from jsreport
-	out.result.pipe(resp);
+	out.stream.pipe(resp);
 });
 ```
 
@@ -94,7 +94,7 @@ jsreport.renderDefaults.logger.providerName = "console";
 jsreport.renderDefaults.phantom.numberOfWorkers = 4;
 
 jsreport.render("<h1>Hello world</h1>").then(function(out) {
-    out.result.pipe(resp);
+    out.stream.pipe(resp);
 };
 ```
 

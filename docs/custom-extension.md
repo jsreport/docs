@@ -1,6 +1,10 @@
 ##Introduction
 jsreport is built with extensibility in mind since the very start. Whole platform is build from many independent pieces called **extensions** which can be plugged or unplugged as needed. There is for example an extension allowing to store report templates or an extension for running custom scripts. The extensions are written same as the whole platform in javascript. This article describes how you can write and plug in your custom extension. Such an extension can be then easily distributed through npm and help the community with solving common tasks.
 
+> **[How to write custom a engine](/learn/custom-engine)**
+
+> **[How to write custom a recipe](/learn/custom-recipe)**
+
 ##jsreport.config.js
 A jsreport extension can be stored anywhere in the application directory tree, but needs to contain specific file `jsreport.config.js` in its root directory. This file defines the basic extension attributes like its name, dependencies or main entry point.
 
@@ -172,3 +176,7 @@ When the custom extension is published in `npm` user just need to type single co
 
 ##Further study
 This is article is far away from being a full reference to creating custom extension. It's rather a quick start to the basic architecture. If you are interested in creating advanced extensions check out the source code of the existing ones. There are 25 extensions available on [github](https://github.com/jsreport/jsreport/tree/master/extension) right now to give you examples you need.
+
+> **[How to write a custom engine](/learn/custom-engine)**
+
+> **[How to write a custom recipe](/learn/custom-recipe)**
