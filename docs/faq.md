@@ -1,13 +1,14 @@
 How to...
 
 **General questions**
-- [Update existing jsreport server to the latest version](#update-server)
-- [Migrate templates from the test to the production server](#migrate-templates)
+- [Update existing jsreport server to the latest version](#update-server)    
+- [Migrate templates from the test to the production server](#migrate-templates)    
 - [Run jsreport on different port](#port-config)
+- [Increase performance](#performance)    
 
 **Phantom pdf recipe**
-- [National characters are not displayed properly](#national-characters)
-- [Highcharts are not printed into pdf properly](#highcharts)
+- [National characters are not displayed properly](#national-characters)    
+- [Highcharts are not printed into pdf properly](#highcharts)    
 
 
 #### <a name="update-server"></a>Update existing jsreport server to the latest version
@@ -23,6 +24,23 @@ jsreport stores by default templates in the `application\data` folder. To migrat
 #### <a name="port-config"></a>Run jsreport on different port
 
 You need to open `prod.config.json` file and edit `httpsPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
+
+#### <a name="performance"></a>Increase performance
+
+jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests.
+
+Open `prod.config.json` and update following:
+
+```js
+"phantom": {     
+	"strategy": "phantom-server"
+},
+"tasks": {       
+	"strategy": "http-server"
+}
+```
+
+See [configuration documentation](/learn/configuration) for details.
 
 #### <a name="national-characters"></a>National characters are not displayed properly
 

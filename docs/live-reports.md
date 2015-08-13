@@ -5,11 +5,11 @@ jsreport is not limited for rendering static documents like pdf or excel. You ca
 This example shows how to create a self contained, excel and pdf exportable and user interactive report using jsreport together with [pivottable](https://github.com/nicolaskruchten/pivottable) javascript component.
 
 ###Sample data
-As in the first example, we need to prepare some sample data for this report before we start designing report template. The sample data we use this time are stored [here](http://nicolas.kruchten.com/pivottable/examples/mps.json). Just take the json from there and put it into new sample data inside jsreport studio. Make just a tiny modification and wrap the array from the source into an object with property  Just wrapped the collection into .
+As in the first example, we need to prepare some sample data for this report before we start designing report template. The sample data we use this time are stored [here](http://nicolas.kruchten.com/pivottable/examples/mps.json). Just take the json from there and put it into a new sample data inside jsreport studio. Make just a tiny modification and wrap the array from the json into an object with property carrying the array.
 
 
 ### Define a template
-The live reports are designed to run inside browser so you should choose from the recipes producing html.  This example use [wrapped-html](/learn/wrapped-html) which produces html with prepacked jsreport libraries that helps with exporting, editing or refreshing template. Lets create a template with this recipe for the start.
+The live reports are designed to run inside browser so you should choose from the recipes producing html.  This example use [wrapped-html](/learn/wrapped-html) which produces html with prepacked jsreport libraries that helps with exporting, editing or refreshing templates. Lets create a template with this recipe for now.
 
 The template needs to link the pivot table library. This includes custom css, pivot table script, jquery and jquery ui.
 
@@ -36,7 +36,7 @@ Now its time to add add pivot table to the template and load input data in it. T
 Now you should be able to run the template and play with the live pivot table. You can also add a server side javascript templating engines rendering, [images](learn/images), [child templates](/learn/child-templates) or anything you already know from jsreport.
 
 ###Export report
-Another feature you can add to jsreport live report is export capability into excel or pdf.  This can be achieved by calling jsreport server API directly from the live report. You basically virtually  create a template with particular recipe like `phantom-pdf` and render it remotely in jsreport server. To do it you use `render` function provided by the global `jsreport`. The best is to show it on example:
+Another feature you can add to jsreport live report is exporting capability into excel or pdf.  This can be achieved by calling jsreport server API directly from the live report. You basically virtually  create a template with particular recipe like `phantom-pdf` and render it remotely in jsreport server. To do it you use `render` function provided by the global `jsreport` object. The best is to show it on an example:
 
 ```js
 $("#printCommand").click(function() {
@@ -52,7 +52,7 @@ $("#printCommand").click(function() {
 });
 ```
 
-This example clones the original template and modifies it's recipe because we want to export to the pdf. It also takes the snapshot of the current html because we want to reflect the current configuration user made in the pivot table.  Calling the `render` method should open a new browser tab with exported pdf.
+This example clones the original template and modifies it's recipe because we want to export to the pdf. It also takes the snapshot of the current html because we want to reflect the current configuration user made in the pivot table.  Calling the `render` method should open a new browser tab with the exported pdf.
 
 You can use the same approach also to export to the excel. The nice thing about it is that you can assemble the exporting content dynamically. For example just snapshot part of the page or construct completely customized printing template.
 
@@ -65,15 +65,15 @@ $("#printExcel").click(function() {
 });
 ```
 
-You can find full running example [here in playground](https://playground.jsreport.net/#/playground/-yaLa6luK).
+You can find the full running example [here in the playground](https://playground.jsreport.net/#/playground/-yaLa6luK).
 
 ###API
 
-Rendering such a live report through API is the same as any other report. 
+Rendering such a live report through API is the same as any other report:
 
-> `POST:` https://localhost/api/report
-> `Headers`: Content-Type: application/json
-> `BODY:`
+> `POST:` https://localhost/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
+> `BODY:`<br/>
 >```js
    {
       "template": { "shortid" : "eygi2w2axR" },

@@ -8,7 +8,7 @@ Define global functions `beforeRender`  or (and) `afterRender` in script and use
 //load some data from the remote API
 function beforeRender(done) {
   require('request')({ url: 'http://someservice.url', json:true })(err, body, response) {
-    request.template.data = body;
+    request.data = body;
     done();
   }
 }

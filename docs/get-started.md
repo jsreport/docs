@@ -1,6 +1,6 @@
 <a class="button large bg-emerald bg-hover-gray fg-white" id="createFlatWindow">Quick Start Video<i class="icon-arrow-right-3 on-right fg-white"></i></a>
 
-jsreport is an open source reporting server running cross platform on [node.js](http://nodejs.org/). It allows  to create various reports in various formats like [pdf](/learn/phantom-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame  designers but using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have. 
+jsreport is an open source reporting server running cross platforms on [node.js](http://nodejs.org/). It allows  to create various reports in various formats like [pdf](/learn/phantom-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame  designers but using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have. 
 
 jsreport is fully capable reporting server including advanced features like scheduling, sending reports in emails, authentication, authorization, sub reports, report designer, API, embedded widgets and many other features. It is also greatly extensible what proves growing list of extensions.
 
@@ -26,7 +26,7 @@ No matter what option you choose you get access to jsreport html based studio yo
 
 ##Defining sample data
 
-Before you actually create pdf invoice layout you should prepare some sample data you will later use to preview invoice. You can create sample data in jsreport studio using `ACTIONS/Create Data` menu. The sample data needs to be defined in `json` format and for our super simple invoice it can contain following:
+Before you actually create a pdf invoice layout you should prepare some sample data you will later use to preview it. You can create sample data in jsreport studio using `ACTIONS/Create Data` menu. The sample data needs to be defined in `json` format and for our super simple invoice it can contain the following:
 ```js
 {
 	"to": "Pavel Sladek",
@@ -45,7 +45,7 @@ For the invoice tutorial the first thing you need to do is associate sample data
 
 ### Recipes
 
-As it was mentioned in the introduction jsreport supports various reports and various output formats. To specify output format you choose jsreport [Recipe](/learn/recipes). Recipe doesn't only define the output format but also how it is produced. You can for example define html template and then just with changing recipe decide if the output should be a pdf, html or excel. Or you don't have to stick with html and use some advanced recipes to create pdf using Apache FOP or excel file from Open XML.
+As it was mentioned in the introduction, jsreport supports various reports and various output formats. To specify output format you choose jsreport [recipe](/learn/recipes). Recipe doesn't only define the output format but also how it is produced. You can for example define html template and then just with changing recipe decide if the output should be a pdf, html or excel. Or you don't have to stick with html and use some advanced recipes to create pdf using Apache FOP or excel file from Open XML.
 
 The easiest way to create a pdf invoice is to use html to pdf conversion provided by [phantom-pdf](/learn/phantom-pdf) recipe, so lets switch to that.
 
@@ -55,7 +55,7 @@ Templates are defined using common javascript [templating engines](/learn/templa
 
 Every template can use different templating engine and it's up to you which you will choose. They have very similar feature scope and only use different syntax, but every one has different preferences.
 
-Now you can fill the invoice template with html and [handlebars](/learn/handlebars). In a very simple way it can look following:
+Now you can fill the invoice template with html and [handlebars](/learn/handlebars). In a very simple way it can look the following:
 
 ```html
 <h1> Invoice </h1>

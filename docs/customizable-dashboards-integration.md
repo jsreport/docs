@@ -9,9 +9,9 @@ This sample shows how to integrate jsreport designer into an application and pro
 The sample covers following areas:
 
  - how to create a report template (widget definition) using jsreport API
- - how to render a report template into application web
- - how to open jsreport designer directly from the application web
- - how to securely access application data from the widget
+ - how to render a report template into application's web
+ - how to open jsreport designer directly from the application's web
+ - how to securely access application's data from the widget
  - how to secure jsreport server
 
 The provided source codes for this sample are using node.js for easiness, but it should be easily transformable into any server language. This article even doesn't use any server side language for examples and it is mostly about describing principles and REST calls.
@@ -20,10 +20,10 @@ If you want to try the integration on your own you need to install jsreport on y
 
 ##Create templates using API
 
-The first thing the application should be able to do on the server side is create a report templates later used as a widgets. This can be done by a single rest call:
+The first thing the application should be able to do on the server side is create a report templates later used as widgets. This can be done by a single rest call:
 
-> `POST:` http://localhost:4000/odata/templates
-> `Headers`: Content-Type: application/json
+> `POST:` http://localhost:4000/odata/templates<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js
    {
@@ -31,14 +31,14 @@ The first thing the application should be able to do on the server side is creat
    }
 >```
 
-The response is a newly created report template including `shortid` attribute which needs to be stored for later identifying the template. 
+The response is a newly created report template including `shortid` attribute which needs to be stored for the later identification of the template. 
 
 ##Render template from the server
 
-When the report template is created you should be able to render it using API. This action could be also invoked from the browser but for the security reasons explained later you should do it from the application server.
+When the report template is created you should be able to render it using API. This action could be also invoked from the browser but for the security reasons explained later you should do it from the application's server side.
 
-> `POST:` http://localhost:4000/api/report
-> `Headers`: Content-Type: application/json
+> `POST:` http://localhost:4000/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js
    {
@@ -46,7 +46,7 @@ When the report template is created you should be able to render it using API. T
    }
 >```
 
-The response should be a stream with the content of the newly created report. The application wraps the template rendering call and expose it as a route with `shortid` parameter in the web application .
+The response should be a stream with the content of the newly created report. The application wraps the template rendering call and expose it as a route with `shortid` parameter in the web application.
 
 ##Render template from the browser
 
@@ -74,14 +74,14 @@ This can be done directly on the page load and it should fill the iframe with th
 
 ##Embeddeding designer
 
-To be able to open widget designer application main page needs to link jsreport `embed.js` script and also its`jquery` dependency.
+To be able to open widget designer, application main page needs to link jsreport `embed.js` script and also its`jquery` dependency.
 
 ```html
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://localhost:4000/extension/embedding/public/js/embed.js"></script>
 ```
 
-Then the application gets access to the global javascript object named `jsreport`. This object can be used for opening designer in which user can easily preview and modify the widget. When the designer pop up is closed application can for example reload the page to reflect changes.
+Then the application gets access to the global javascript object named `jsreport`. This object can be used for opening designer in which user can easily preview and modify the widget. When the designer pop up is closed, application can for example reload the page to reflect the changes.
 
 ```js
 jsreport.openEditor({{widget.shortid}}, { useStandardStorage: true })
@@ -98,8 +98,8 @@ The application user should be able to customize widget in jsreport designer now
 
 The first approach pushes data into the widget during rendering. The widget can then access data provided by the application in the common way. This is secure by design because application can push only authorized data into the rendering and there is no other way for the widget to access something else.
 
-> `POST:` http://localhost:4000/api/report
-> `Headers`: Content-Type: application/json
+> `POST:` http://localhost:4000/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js
    {
@@ -125,7 +125,7 @@ This is the easiest approach to implement and also secure by design. However it 
 ###Use server script
 The next approach uses jsreport [scripts](/learn/scripts) extension to access the data from the widget. This extension allows user to write a custom javascript function which then runs on jsreport server each time the widget is being rendered. This is particularly helpful for doing an extra request and fetch data from the original application. Fetched data can be then used in the widget in the common way.
 
-Assuming the application has an API for data access the custom script loading data can look the following:
+Assuming the application has an API for data access then the custom script loading data can look the following:
 
 ```js
 function beforeRender(done) {
@@ -141,8 +141,8 @@ function beforeRender(done) {
 
 The user can fill such a script directly in the jsreport embedded designer or the application can pre-create it. This can be done just by modifying creating template:
  
-> `POST:` http://localhost:4000/odata/templates
-> `Headers`: Content-Type: application/json
+> `POST:` http://localhost:4000/odata/templates<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js
    {
@@ -157,8 +157,8 @@ This is a very flexible way to define scope of the widget input data however not
 
 To give a secure token to the widget you can adapt the rendering in the following way:
 
-> `POST:` http://localhost:4000/api/report
-> `Headers`: Content-Type: application/json
+> `POST:` http://localhost:4000/api/report<br/>
+> `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js
    {
@@ -182,12 +182,12 @@ Now you can add the security token into the custom script:
 }
 ```
 
-The last piece is just to verify the token inside the application `/data` route. Note that you need to use the same code for opening the jsreport designer as in the previous approach to propagate security token also to the previewing the widget.
+The last piece is just to verify the token inside the application `/data` route. Note that you need to use the same code for opening the jsreport designer as in the previous approach to propagate security token also to previewing the widget.
 
 ###Reuse browser session
 The last approach takes advantage of the fact that widget iframe has the same domain as the parent application. This means the script widget can easily access the global functions of the parent page or share its cookie. In other words widget can use the same security mechanism as the parent page for doing calls directly from the browser. This can be for example used together with the [client-html](/learn/client-html) for designing and rendering widgets completely on the client side.
 
-To see it in an action let's define a global function getting some data from the server in the parent page 
+To see it in the action let's define a global function getting some data from the server in the parent page 
 
 ```js
 function loadData(cb) {
@@ -234,16 +234,16 @@ This whole article assumed that jsreport server is exposed to the public without
 
 Enabling authentication forces the application to include credentials to the server requests:
 
-> `POST:` http://localhost:4000/api/report
-> `Headers`:    
-> Content-Type: application/json
+> `POST:` http://localhost:4000/api/report <br/>
+> `Headers`:<br/>
+> Content-Type: application/json    
 >Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== 
 
 The next mechanism which needs to be secured is editing widgets.  This can be done using [public-templates](/learn/public-templates) extension and granting edit access to the template during rendering:
 
-> `POST:` http://localhost:4000/api/report
-> `Headers`: Content-Type: application/json
-> `BODY:`
+> `POST:` http://localhost:4000/api/report <br/>
+> `Headers`: Content-Type: application/json   <br/>
+> `BODY:`    
 >```js
    {
       "template": { "shortid" : "dsra23" },

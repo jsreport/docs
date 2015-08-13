@@ -57,3 +57,16 @@ Starting embedded server will also create a separate thread pinging jsreport ser
 
 ##Html studio
 When running embedded jsreport you can still access it's html based studio. Just start it and go to url http://localhost:2000 and it should pop up. This also can be very handy for testing report templates for external people not having visual studio installed.
+
+##Configuration
+jsreport server supports various configuration options like timeout limits or security settings. You can find all configuration options [here](http://jsreport.net/learn/configuration).  To change these settings in embedded jsreport you can unzip `jsreport-net-embedded.zip` and change `prod.config.json` or you can provide the configuration options directly in c#. This can be done through `Configuration` property on `EmbeddedReportingServer`.
+
+```cs
+var embeddedServer = new EmbeddedReportingServer() { 
+	Configuration = new {
+		tasks = new {
+			timeout = 120000,
+		}
+	}
+};
+```

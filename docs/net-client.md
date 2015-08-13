@@ -135,6 +135,13 @@ await _reportingService.CreateODataClient()
         .UpdateEntryAsync();
 ```
 
+##Timeouts
+`ReportingService` uses .NET `HttpClient` to make http calls. This library has default timeout of 100seconds for a request. This doesn't have to be enough for bigger reports therefore you may need to change this default timeout.
+
+```cs
+reportingService.HttpClientTimeout = TimeSpan.FromMinutes(10);
+```
+
 ##Embedding
 jsreport includes [embedding extension](/learn/embedding) which you can use to add report editor into your web pages and allow your customers to customize their reports. `jsreport.Client` package makes this easier by providing`JsReportWebHandler` class. This asp.net http handler can be used as a tunnel forwarding requests from jsreport web into jsreport server through your web application. This is very convenient especially together with [jsreport.Embedded](/learn/netembedded) package because it securely hides jsreport behind your application and meanwhile provide it to your web users.
 
