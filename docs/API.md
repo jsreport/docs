@@ -18,21 +18,20 @@ Invoking rendering process is the most common API method you will call. The next
 > `BODY:`
 >```js 
    { 
-      "template": { "shortid" : "g1PyBkARK" },
+      "template": { "shortid" : "g1PyBkARK"  },
       "data" : { ... },
       "options": { timeout: 60000 }
    } 
 >```
 
-In the most typical case, you will just insert your template shortid and input data. The best way to find out shortid and to get other informations is to use API button in the template designer. This button will popup dialog with very usefull informations for the particular template you should have in order to render it using API.
-Using this dialog is quite important because options you have may be different based on the extensions you have activated. 
+In the most typical case, you will just insert your template **shortid** or template **name** and input data. The best way to find out shortid and to get other informations is to use API button in the template designer. This button will popup dialog with very useful information for the particular template you should have in order to render it using API.
 
 ![API dialog](http://jsreport.net/screenshots/API.png)
 
 
 > See the POST response headers to get usefull informations about report like content type.
 
-In the advanced scenario where you have some kind of a dynamic template, you can remove `shortid` value from the request and fill template attributes manually as you want. Look at the following snippet rendering simple hello world.
+In the advanced scenario where you have some kind of a dynamic template, you can remove `shortid` or `name` identification from the request and fill the template attributes manually as you want. Look at the following snippet rendering simple hello world.
 
 > `POST:` https://test.jsreportonline.net/api/report
 <br/>
