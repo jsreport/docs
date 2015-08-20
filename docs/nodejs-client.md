@@ -19,7 +19,7 @@ client.render({
 	template: { content: "hello {{:someText}}", recipe: "html",
 				engine: "jsrender" },
 	data: { someText: "world!!" }
-}, function(err, resp) {
+}, function(err, response) {
 	response.body(function(body) {
 		//prints hello world!!
 		console.log(body.toString());
