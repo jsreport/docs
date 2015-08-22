@@ -1,5 +1,4 @@
-﻿
-`Phantom-pdf` recipe is using [phantomjs](http://phantomjs.org/) screen capture feature to print html content into pdf files. This approach is very productive in defining report templates and also the most used one with jsreport.
+﻿`Phantom-pdf` recipe is using [phantomjs](http://phantomjs.org/) screen capture feature to print html content into pdf files. This approach is very productive in defining report templates and also the most used one with jsreport.
 
 `Pantom-pdf` recipe is capable of rendering any html and javascript you provide. This means you can also use external javascript libraries or canvas to print visual charts.
 
@@ -93,3 +92,5 @@ This is because header and footer is printed into pdf in a synchronous way. This
 Solution:    
 Add the same image to template content and hide it with style display:none. Then you can add it to the header and it will show up because it is already cached and no asynchronous request is needed. This is required to do for both image referenced with url as well for Data URI scheme base64 image.
 
+##Twitter Bootstrap
+Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
