@@ -26,7 +26,7 @@ $("#editCommand").click(function() {
 ```
 
 ##Security
-Note that jsreport server will reject anonymous requests for exporting or editing template as unauthorized when the [authentication](/learn/authentication) and [authorization](/authorization) extension is enabled. To provide this functionality to the public users you need to use [public-template](/learn/public-templates) extension and share the template in the designer or grant the access during rendering. In this case you should always clone the original template when assembling content for exporting because the original template contains required security token which allows you to do the exporting.
+Note that jsreport server will reject anonymous requests for exporting or editing template as unauthorized when the [authentication](/learn/authentication) and [authorization](/learn/authorization) extension is enabled. To provide this functionality to the public users you need to use [public-template](/learn/public-templates) extension and share the template in the designer or grant the access during rendering. In this case you should always clone the original template when assembling content for exporting because the original template contains required security token which allows you to do the exporting.
 
 ```js
 $("#printCommand").click(function() {

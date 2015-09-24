@@ -112,4 +112,4 @@ More information about jsrepotr API can be found [here](/learn/api).
 
 ##Further study
 
-To further study I recommend to checkout jsreport [playground](/learn/playground) which provides online set of examples demonstrating the most of the jsreport rendering capabilities. Then you can continue with the [next tutorials](/learn) and explore more advanced features.
+To further study I recommend to checkout jsreport [playground](/playground) which provides online set of examples demonstrating the most of the jsreport rendering capabilities. Then you can continue with the [next tutorials](/learn) and explore more advanced features.

@@ -33,7 +33,7 @@ Now its time to add add pivot table to the template and load input data in it. T
 </body>
 ```
 
-Now you should be able to run the template and play with the live pivot table. You can also add a server side javascript templating engines rendering, [images](learn/images), [child templates](/learn/child-templates) or anything you already know from jsreport.
+Now you should be able to run the template and play with the live pivot table. You can also add a server side javascript templating engines rendering, [images](/learn/images), [child templates](/learn/child-templates) or anything you already know from jsreport.
 
 ###Export report
 Another feature you can add to jsreport live report is exporting capability into excel or pdf.  This can be achieved by calling jsreport server API directly from the live report. You basically virtually  create a template with particular recipe like `phantom-pdf` and render it remotely in jsreport server. To do it you use `render` function provided by the global `jsreport` object. The best is to show it on an example:
