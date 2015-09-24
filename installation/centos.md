@@ -1,61 +1,52 @@
-#Ubuntu
+#CentOS
 
-This page contain some jsreport related troubleshooting on ubuntu.
+This page contain some jsreport related troubleshooting on CentOS.
 
-####Installing nodejs
-jsreport needs latest nodejs. Official ubuntu apt-get distribution contains some weird stuff so rather use following repository.
-```
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install python-software-properties python g++ make nodejs
-```
+##Installing nodejs
 
-####Fixing phantomjs
-Official ubuntu distribution is missing some fonts jsreport needs to be able to render pdf reports. Use following to include them.
-```
-sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
+``` bash
+sudo yum install epel-release
+sudo yum install nodejs
+sudo yum install npm
 ```
 
-[more info](http://phantomjs.org/download.html)
+##Fixing pdf fonts
 
-####Start jsreport as daemon
+```bash
+sudo yum install bzip2
+sudo yum install libXext  libXrender  fontconfig  libfontconfig.so.1
+sudo yum install urw-fonts
+```
+##Install jsreport and start
 
-Create conf file `/etc/init/jsreport.conf`
+```bash
+sudo npm install jsreport
+sudo node_modules/jsreport --init
+sudo node server.js
 
-```
-start on startup
-chdir [working directory]
-exec sudo npm start
-```
-
-And add execution rights to it
-```
-chmod -x jsreport.conf
-```
-
-####Installing mongodb
-jsreport uses embeded file system based storage and you don't need mongodb to run it. This is only optional.
-```
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-sudo apt-get update
-sudo apt-get install mongodb-org
-sudo apt-get install mongodb-org=2.6.1 mongodb-org-server=2.6.1 mongodb-org-shell=2.6.1 mongodb-org-mongos=2.6.1 mongodb-org-tools=2.6.1
-sudo /etc/init.d/mongod start
-```
-[more info](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
-
-####Installing git
-```
-sudo apt-get install git
 ```
 
-####Clone github repository
-```
-git clone https://github.com/jsreport/playground.git
+##wkhtmltopdf
+
+```bash
+sudo npm install jsreport-wkhtmltopdf
+sudo yum install xorg-x11-fonts-75dpi
+sudo yum install libjpeg
+sudo yum install xorg-x11-fonts-Type1
+sudo yum install libpng libpng12 wget
+sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
+sudo rpm -Uvh wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
+sudo echo "module.exports = '/usr/local/bin/wkhtmltopdf';" > node_modules/jsreport-wkhtmltopdf/node_modules/toner-wkhtmltopdf/node_modules/wkhtmltopdf-installer/lib/location.js
+sudo node server.js
 ```
 
 
+##fop
 
-
-
+```bash
+sudo yum install java
+sudo cd /opt
+sudo wget http://apache.miloslavbrada.cz/xmlgraphics/fop/binaries/fop-1.1-bin.tar.gz
+sudo tar -xvzf fop-1.1-bin.tar.gz
+sudo ln -s -t /usr/bin /opt/fop-1.1/fop
+```
