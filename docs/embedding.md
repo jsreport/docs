@@ -35,10 +35,10 @@ Use `jsreport.render` function to invoke template server side rendering. Functio
 
 ```js
 //render a template into the new tab
-jsreport.render({ conent: "foo", recipe: "phantom-pdf", engine: "jsrender" });
+jsreport.render({ content: "foo", recipe: "phantom-pdf", engine: "jsrender" });
 
 //render a template into the placeholder
-jsreport.render($("#placeholder"), { conent: "foo", recipe: "phantom-pdf", engine: "jsrender" });
+jsreport.render($("#placeholder"), { content: "foo", recipe: "phantom-pdf", engine: "jsrender" });
 ```
 
 ##Opening editor
