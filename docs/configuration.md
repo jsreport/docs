@@ -49,6 +49,7 @@ all extensions located under root directory if it's undefined or null. If the at
 **phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
 
 ##Script tasks
+This option affect the custom scripts as well as templating engines execution.
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension. 
 
@@ -57,6 +58,8 @@ all extensions located under root directory if it's undefined or null. If the at
 **tasks.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
 
 **tasks.timeout** (`number`) -  specify default timeout in ms for one task execution 
+
+**tasks.allowedModules** (`array`) - add list of modules which are then allowed to be `require[d]` the inside scripts or helpers. 
 
 **tasks.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
 
