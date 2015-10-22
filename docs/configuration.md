@@ -16,7 +16,7 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 ##Basics
 
-**connectionString** `object` - jsreport by default uses simple [nedb](https://github.com/louischatriot/nedb) to store data. This embeded db is enought for most of the cases. Only if you have high traffic and many templates you should consider connecting jsreport to mongo db. To start using mongodb use following connection string format:
+**connectionString** `object` - jsreport by default uses simple [nedb](https://github.com/louischatriot/nedb) to store data. This embeded db is enought for most of the cases. Only if you have high traffic and many templates you should consider connecting jsreport to mongo db. To start using mongodb you need to install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store) first. Then you can use following connection string format:
  `{ "name": "mongoDB", "address": "localhost", "port": 27017, "databaseName" : "jsreport" }`. Third option is to use `inMemory` provider what is default when integrating jsreport into existing node.js application. 
  
  **extensions** `string array` - this attribute is `optional`. jsreport will load all
