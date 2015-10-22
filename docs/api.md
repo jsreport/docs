@@ -44,6 +44,17 @@ In the advanced scenario where you have some kind of a dynamic template, you can
    } 
 >```
 
+##Content-Disposition and report name
+
+Use the `options['Content-Disposition']` to override the jsreport response with particular document name.
+> `BODY:`
+>```js 
+   { 
+      "template": { ... },
+      "options": {  "Content-Disposition": "attachment; filename=myreport.pdf" }
+   } 
+>```
+
 ## Querying and CRUD
 
 Querying and CRUD API in jsreport is based on [odata](http://www.odata.org) protocol. You can use it to query or CRUD any object jsreport server contains. For example, to get list of all jsreport entities, you can call standard odata notation endpoint.
