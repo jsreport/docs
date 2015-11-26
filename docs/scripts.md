@@ -38,6 +38,20 @@ function afterRender(done) {
 
 `reporter.render(req, cb)` - invoke rendering process of another template
 
+##phantom-pdf note
+Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `request.options.isChildRequest` property.
+
+```js
+function afterRender(done) {
+    //filter out script execution for phantom header
+    if (request.options.isChildRequest)
+      return done();
+
+    //your script
+    done();
+}
+```
+
 ##Rendering another template from script
 
 Script can be used also to invoke rendering of another template. 
