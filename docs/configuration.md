@@ -16,17 +16,16 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 ##Basics
 
-**connectionString** `object` - jsreport by default uses simple [nedb](https://github.com/louischatriot/nedb) to store data. This embeded db is enought for most of the cases. Only if you have high traffic and many templates you should consider connecting jsreport to mongo db. To start using mongodb you need to install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store) first. Then you can use following connection string format:
- `{ "name": "mongoDB", "address": "localhost", "port": 27017, "databaseName" : "jsreport" }`. Third option is to use `inMemory` provider what is default when integrating jsreport into existing node.js application. 
+**connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can for example install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store), change `connectionString.name` to `mongoDB` and start storing templates in mongodb.
  
  **extensions** `string array` - this attribute is `optional`. jsreport will load all
 all extensions located under root directory if it's undefined or null. If the attribute is defined, jsreport will only load specified extensions. All specified extensions must be present somewhere in the jsreport directory. Order is not relevant because extensions are reordered by it's dependencies.
 
-**rootDirectory** (`string`)  - optionally specifies where the application stores data, logs and temp files
+**rootDirectory** (`string`)  - optionally specifies where's the application root and where jsreport searches for extensions
 
-**dataDirectory** (`string`) - optionally specifies absolute path to directory where the application stores images, reports and database files when using `neDB`
+**dataDirectory** (`string`) - optionally specifies absolute path to directory where the application stores images, reports and database files
 
-**tempDirectory** (`string`) - optionally specifies absolute path to directory where the application stores temporary files. Currently `phantom-pdf` recipe stores there every report.
+**tempDirectory** (`string`) - optionally specifies absolute path to directory where the application stores temporary files
 
 **blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application. 
 
@@ -49,7 +48,6 @@ all extensions located under root directory if it's undefined or null. If the at
 **phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
 
 ##Script tasks
-This option affect the custom scripts as well as templating engines execution.
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension. 
 
@@ -58,8 +56,6 @@ This option affect the custom scripts as well as templating engines execution.
 **tasks.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
 
 **tasks.timeout** (`number`) -  specify default timeout in ms for one task execution 
-
-**tasks.allowedModules** (`array`) - add list of modules which are then allowed to be `require[d]` the inside scripts or helpers. 
 
 **tasks.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
 
