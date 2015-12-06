@@ -94,13 +94,13 @@ Solution:
 Add the same image to template content and hide it with style display:none. Then you can add it to the header and it will show up because it is already cached and no asynchronous request is needed. This is required to do for both image referenced with url as well for Data URI scheme base64 image.
 
 ##Printing triggers
-You may need to postpone pdf printing until some javascript async tasks are processed. If this is your case set the `phantom.waitForJS=true` in the API or `Wait for printing trigger` in the studio menu. Then the printing won't start until you set `window.PHANTOM_HTML_TO_PDF_READY=true` inside your template's javascript.
+You may need to postpone pdf printing until some javascript async tasks are processed. If this is your case set the `phantom.waitForJS=true` in the API or `Wait for printing trigger` in the studio menu. Then the printing won't start until you set `window.JSREPORT_READY_TO_START=true` inside your template's javascript.
 ```html
 ...
 <script>
     // do some calculations or something async
     setTimeout(function() {
-        window.PHANTOM_HTML_TO_PDF_READY = true; //this will start the pdf printing
+        window.JSREPORT_READY_TO_START = true; //this will start the pdf printing
     }, 500);
     ...
 </script>
