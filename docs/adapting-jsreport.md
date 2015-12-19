@@ -6,7 +6,7 @@ In addition to configuration file based settings you can also use [node.js](http
 
 Installing and initializing jsreport on premise will create `server.js` file containing following code:
 ```js
-require('jsreport').init();
+require('jsreport')().init();
 ```
 
 This is the most basic jsreport server startup. It searches for `[dev | prod].config.json` file depending on the nodejs environment and initialize server based on settings it finds in the configuration file or applies defaults. Same code can be also used when integrating jsreport directly to the existing nodejs application.
