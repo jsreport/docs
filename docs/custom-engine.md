@@ -22,8 +22,8 @@ Engines are added into jsreport through a [custom extension](/learn/custom-exten
 
 ![node project](http://jsreport.net/img/ejs.png)
 
-##jsreport.config.json
-Every extension needs to contain specific file `jsreport.config.json`. In this file you define extension's name and main javascript entry point.
+##jsreport.config.js
+Every extension needs to contain specific file `jsreport.config.js`. In this file you define extension's name and main javascript entry point.
 
 ```js
 module.exports = {
