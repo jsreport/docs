@@ -110,7 +110,7 @@ You can easily start whole jsreport application including user interface and pub
 
 ```js
 //starts default express.js application containing jsreport studio and api
-require('jsreport').bootstrapper({ httpPort: 2000}).start();
+require('jsreport')({ httpPort: 2000}).init();
 ```
 
 ##Render pdf in a remote server
