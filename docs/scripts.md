@@ -7,10 +7,13 @@ Define global functions `beforeRender`  or (and) `afterRender` in script and use
 ```js
 //load some data from the remote API
 function beforeRender(done) {
-  require('request')({ url: 'http://someservice.url', json:true })(err, body, response) {
-    request.data = body;
-    done();
-  }
+    require('request')({ 
+      url:"http://service.url", 
+      json:true 
+    }, function(err, response, body){
+        request.data = body;
+        done();
+    });
 }
 
 //send the pdf report by mail
