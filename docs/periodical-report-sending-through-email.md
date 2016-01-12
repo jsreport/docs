@@ -13,14 +13,13 @@ Tasks like preparing report input data should be implemented in the script's glo
 
 ```js
 function beforeRender(done) {
-  require('request')(
-    {
-      url: 'http://jsonplaceholder.typicode.com/posts',
-      json:true
-    })(err, body, response) {
-      request.template.data = { posts: body };
-      done();
-    }
+    require('request')({ 
+      url:"http://jsonplaceholder.typicode.com/posts", 
+      json:true 
+    }, function(err, response, body){
+        request.data = { posts: body };
+        done();
+    });
 }
 ```
 
