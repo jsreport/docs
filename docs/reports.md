@@ -23,6 +23,26 @@ To use `reports` extension you need extend rendering request in a following way:
 
 This will create a `Report` entity you can use in jsreport studio as well as in OData API. Additionally it will add custom header `Permanent-Link` to the response which you can later use to actually download the report content.
 
+##Async 
+Sending rendering request with `options.reports.save = true` will instruct the extension to save the report and add `Permanent-Link` header to the response, but the rendering is still synchronous and you receive response back after the process is finished. If you want to start the rendering process  asynchronously and receive the responds immediately you should set `options.reports.async = true`.
+
+> `POST:` https://jsreport-host/report
+> `BODY:`
+>```js 
+   { 
+      "template": { "shortid" : "g1PyBkARK" },
+      "data" : { ... },
+      "options": { 
+	      "reports": { "async": true }
+      }
+   } 
+>```
+
+In this case you receive response with `Location` header containing url to the rendering status page. It will be something like `http://jsreport-host/reports/id/status`. You can then ping the status page to check if the rendering is done. In that case the response status will be `201` and the location header will contain address to the stored report.
+ 
+
+##OData
+
 
  You can use standard OData API to manage and query report entities. For example you can query all reports using:
 > `GET` http://jsreport-host/odata/reports
