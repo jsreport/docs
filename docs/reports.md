@@ -9,7 +9,7 @@ Reports extension is not used by default for all rendering requests and you need
 
 To use `reports` extension you need extend rendering request in a following way:
 
-> `POST:` https://jsreport-host/report
+> `POST:` https://jsreport-host/api/report
 > `BODY:`
 >```js 
    { 
@@ -26,7 +26,7 @@ This will create a `Report` entity you can use in jsreport studio as well as in 
 ##Async 
 Sending rendering request with `options.reports.save = true` will instruct the extension to save the report and add `Permanent-Link` header to the response, but the rendering is still synchronous and you receive response back after the process is finished. If you want to start the rendering process  asynchronously and receive the responds immediately you should set `options.reports.async = true`.
 
-> `POST:` https://jsreport-host/report
+> `POST:` https://jsreport-host/api/report
 > `BODY:`
 >```js 
    { 
