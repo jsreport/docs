@@ -51,7 +51,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension. 
 
-**tasks.strategy** (`dedicated-process | http-server`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  
+**tasks.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy whit users' templates which can have potentially endless loops or other critical errors which could terminate the application.
 
 **tasks.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
 
@@ -70,8 +70,6 @@ all extensions located under root directory if it's undefined or null. If the at
 **ga** `object`: google analytics settings, example
 `"ga": { "name" : "jsreport.net", "id" : "UA-xxxxx-2" }`
 
-**cluster** `(object)` - defines if jsreport should be forked into cluster to increase throughtput of incoming requests. `cluster.numberOfWorkers` defines number of forked jsreport instances. jsreport will use number of cpus as default. Using `cluster.enabled` you can disable jsreport clustering and use just one single instance. Removing whole `cluster` node will have same effect.
-
 **daemon** (`true/false`) - default `false`, non windows only, jsreport will run as [daemon](https://www.npmjs.org/package/daemon) and will not block command line
 
 **express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
@@ -89,22 +87,18 @@ all extensions located under root directory if it's undefined or null. If the at
         "key": "certificates/jsreport.net.key",
         "cert": "certificates/jsreport.net.cert"
     },
-    "connectionString": { "name": "neDB" },
+    "connectionString": { "name": "fs" },
     "extensions": ["excel-parser", "express", "templates", "html", "phantom-pdf", "scripts", "data", "images", "statistics", "reports", "childTemplates", "sample-template"],
     "httpPort": 3000,
 	"blobStorage": "fileSystem",
-	"cluster": {
-        "numberOfWorkers": 2,
-        "enabled":  true
-    },
 	"phantom": {
         "numberOfWorkers" : 2,
         "timeout": 180000
     },
     "tasks": {
         "numberOfWorkers" : 2,
-        "timeout": 10000
-    },
-	"logger": { "providerName": "winston" }
+        "timeout": 10000,
+        "strategy": "http-server"
+    }	
 }
 ```
