@@ -106,5 +106,8 @@ You may need to postpone pdf printing until some javascript async tasks are proc
 </script>
 ```
 
+##phantomjs2
+To use the latest phantomjs first `npm install phantomjs-prebuilt` and then select `Use custom phantomjs` in the jsreport studio phantomjs menu.
+
 ##Twitter Bootstrap
 Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
