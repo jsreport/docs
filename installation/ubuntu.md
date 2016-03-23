@@ -3,11 +3,29 @@
 This page contain some jsreport related troubleshooting on ubuntu.
 
 ####Installing nodejs
-jsreport needs latest nodejs. Official ubuntu apt-get distribution contains some weird stuff so rather use following repository.
+Official ubuntu `apt-get` distribution contains outdated node.js. I prefer to use [nvm](https://github.com/creationix/nvm) to manage my node.js installation.
+```sh
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
 ```
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install python-software-properties python g++ make nodejs
+
+If you are using terminal like `putty`, you cannot pipe the installation to the bash, so you need to save it to file and run it. Afterwards you need to reopen the terminal.
+
+```sh
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > install.sh
+chmod +x install.sh
+./install.sh
+```
+
+Now install node.js
+
+```sh
+nvm install 5
+```
+
+To be able to `sudo run` the npm or node you need to also run the following command
+
+```sh
+n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; sudo cp -r $n/{bin,lib,share} /usr/local
 ```
 
 ####Fixing phantomjs
@@ -18,6 +36,18 @@ sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-
 
 [more info](http://phantomjs.org/download.html)
 
+####npm start
+Use npm to start the server on `https://localhost`
+```sh
+sudo npm start --production
+```
+
+Change the port in config file or directly through command line and run also without sudo
+```sh
+npm start --production -- --httpsPort=0 --httpPort=3000
+```
+
+
 ####Start jsreport as daemon
 
 Create conf file `/etc/init/jsreport.conf`
@@ -25,7 +55,7 @@ Create conf file `/etc/init/jsreport.conf`
 ```
 start on startup
 chdir [working directory]
-exec sudo npm start
+exec sudo npm start --production
 ```
 
 And add execution rights to it
@@ -52,7 +82,7 @@ sudo apt-get install git
 
 ####Clone github repository
 ```
-git clone https://github.com/jsreport/playground.git
+git clone https://github.com/jsreport/jsreport.git
 ```
 
 
