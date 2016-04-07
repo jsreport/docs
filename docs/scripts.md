@@ -41,6 +41,9 @@ function afterRender(done) {
 
 `reporter.render(req, cb)` - invoke rendering process of another template
 
+##Multiple scripts
+You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
+
 ##phantom-pdf note
 Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `request.options.isChildRequest` property.
 
@@ -85,28 +88,37 @@ scripts: {
 You can use standard OData API to manage and query script entities. For example you can query all scripts using
 > `GET` http://jsreport-host/odata/scripts
 
-A custom script is usually linked to the report template by its shortid. In this case template structure with the report looks following in json:
+A custom script is physically linked to the stored report template using its shortid or name. In this cases there is nothing to do in the API call, because the script is automatically applied.
 
 ```js
+POST: { template: { name: 'My Template with script' }, data: { }
+```
+
+If you are rendering anonymous template you can identify the script by its name or shortid
+
+```js
+POST: {
   template : {
 	  content: "foo",
-	  script: {
+	  scripts: [{
 		  shortid: "sd543fds"		  
-	  }
+	  }, {
+		  name: "My Script"  
+	  }]  	
   }
-```  
+}  
+```
 
-Scripts extension also supports inline scripts directly in the `Template` entity. This is used in [embedding extension](/learn/embedding) and you can use it also when you want to render a custom report from the API. 
-
-Inline script looks following in json:
-
+The last option is to specify the script content directly
 ```js
+POST: { 
   template : {
 	  content: "foo",
-	  script: {
-		  content: "request.template.content='hello'; done();"		  
-	  }
+	  scripts: [{
+		  content: "request.template.content='hello'; done();"           
+	  }]  	
   }
+}  
 ```
 
 
@@ -118,3 +130,4 @@ Some people prefer to push data into jsreport from the client and some people pr
 > **[Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)**
 
 > **[Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)**
+
