@@ -40,7 +40,7 @@ Example `request.json`:
 
 Additionally you can use `--template` option to specify report template separately. The request is then merged from both `--render` and `--template` values.
 
->jsreport.exe --render request.json --template tmpl.json --output.pdf
+>jsreport.exe --render request.json --template tmpl.json --output file.pdf
 
 Example `tmpl.json`:
 ```js
