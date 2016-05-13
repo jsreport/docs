@@ -114,4 +114,7 @@ Resources are stored directly in the template document. Additionally to the `res
 }
 >```
 
+##Example
+<iframe src='https://playground.jsreport.net/studio/workspace/VkLWfMyMb/7?embed=1' width="100%" height="400" frameborder="0"></iframe>
+
 
