@@ -11,28 +11,5 @@ Following properties are supported:
 - `height` - the excel row will get the highest height
 - `font-size` - font size
 
-> See the example in jsreport [**playground**](https://playground.jsreport.net/#/playground/Y3BG0fnPa)
 
-```html
-<style>
-    td {
-        background-color: yellow;
-        color: green;
-        border-style: solid;
-    }
-</style>
-
-<table>
-    <tr>
-        <td style="width: 250px; height: 50px; font-size: 35px">Hello world</td>
-    </tr>
-    <tr>
-        <td style="text-align:right">right</td>
-        <td>bb</td>
-    </tr>
-    <tr>
-        <td>aaaaaa</td>
-        <td>bb</td>
-    </tr>
-</table>
-```
+<iframe src='https://playground.jsreport.net/studio/workspace/Y3BG0fnPa/1?embed=1' width="100%" height="400" frameborder="0"></iframe>
