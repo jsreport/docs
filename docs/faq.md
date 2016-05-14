@@ -5,7 +5,7 @@ How to...
 - [Migrate templates from the test to the production server](#migrate-templates)    
 - [Run jsreport on different port](#port-config)
 - [Increase performance](#performance)    
-- [Windows deployment](#windows-deployment)    
+- [Windows path too long 256 characters limitation](#windows-path-too-long)    
 
 **Phantom pdf recipe**
 - [National characters are not displayed properly](#national-characters)    
@@ -43,14 +43,13 @@ Open `prod.config.json` and update following:
 
 See [configuration documentation](/learn/configuration) for details.
 
-#### <a name="windows-deployment"></a>Windows deployment
+#### <a name="windows-path-too-long"></a>Windows path too long 256 characters limitation
 
-Windows has limitation for maximum file path set to 256 characters. This is unfortunately not enough for node.js based application and it doesn't let you to easily copy paste jsreport to your production servers.  You can still use npm to deploy jsreport application but you may also like the following workaround which allows you to copy paste application without using npm:
+Windows has limitation for maximum file path set to 256 characters and this doesn't play well with nested paths used by older NPM versions. To make sure the windows deployment plays well please do update NPM to the latest release 3.
 
-1. use [npm shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) to prune the duplicate packages in `node_modules` folder
-2. then [flatten-packages](https://www.npmjs.com/package/flatten-packages) to limit the directory tree depth
-3. add `node.exe` to jsreport application path
-4. zip or just copy paste jsreport to you production servers
+```sh
+npm update npm
+```
 
 #### <a name="national-characters"></a>National characters are not displayed properly
 
