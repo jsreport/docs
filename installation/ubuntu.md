@@ -3,30 +3,12 @@
 This page contain some jsreport related troubleshooting on ubuntu.
 
 ####Installing nodejs
-Official ubuntu `apt-get` distribution contains outdated node.js. I prefer to use [nvm](https://github.com/creationix/nvm) to manage my node.js installation.
-```sh
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+
+```
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 
-If you are using terminal like `putty`, you cannot pipe the installation to the bash, so you need to save it to file and run it. Afterwards you need to reopen the terminal.
-
-```sh
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > install.sh
-chmod +x install.sh
-./install.sh
-```
-
-Now install node.js
-
-```sh
-nvm install 5
-```
-
-To be able to `sudo run` the npm or node you need to also run the following command
-
-```sh
-n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; sudo cp -r $n/{bin,lib,share} /usr/local
-```
 
 ####Fixing phantomjs
 Official ubuntu distribution is missing some fonts jsreport needs to be able to render pdf reports. Use following to include them.
