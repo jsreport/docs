@@ -21,7 +21,7 @@ sudo yum install urw-fonts
 
 ```bash
 sudo npm install jsreport --production
-sudo node_modules/jsreport --init
+sudo node node_modules/jsreport --init
 sudo node server.js
 
 ```
