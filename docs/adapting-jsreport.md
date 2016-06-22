@@ -41,6 +41,7 @@ jsreport.init().then(function () {
    });
 }).catch(function(e) {
   console.log(e)
+})
 ```
 
 See the [jsreport-core](https://github.com/jsreport/jsreport-core) for complete documentation for rendering.
