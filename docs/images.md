@@ -6,7 +6,7 @@
 
 You can upload images through jsreport studio as well as API. When you have uploaded image, you can insert it to the any template. 
 
-You can use following syntax to add base64 image into html template
+You can use following syntax to add data uri based image into html template
 ```html
 <img src='{#image Chrysanthemum}'/> 
 ```
@@ -27,6 +27,12 @@ In handlebars you can use
 or in jsrender
 ```html
 <img src="{#image {{:name}}}"/>
+```
+
+Alternatively you can get just the raw base64 encoded image content using
+
+```html
+{#image Chrysanthemum @encoding=base64}
 ```
 
 ##API
