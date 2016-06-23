@@ -47,7 +47,7 @@ jsreport.init().then(function () {
 See the [jsreport-core](https://github.com/jsreport/jsreport-core) for complete documentation for rendering.
 
 ## Attach to existing express app
-jsreprot by default starts [express.js](http://expressjs.com/) based server running on ports specified in config. This behavior can be overridden with passing `express` application instance to the options. In this case jsreport `express` extension will just add required routes and middle-wares to the passed instance. 
+jsreport by default starts [express.js](http://expressjs.com/) based server running on ports specified in config. This behavior can be overridden with passing `express` application instance to the options. In this case jsreport `express` extension will just add required routes and middle-wares to the passed instance. 
 
 ```js
 var express = require('express');
@@ -60,14 +60,18 @@ app.get('/', function (req, res) {
 var reportingApp = express();
 app.use('/reporting', reportingApp);
 
+var server = app.listen(3000);
+
 var jsreport = require('jsreport')({
-  express: { app :reportingApp } 
+  express: { app :reportingApp, server: server },
+  appPath: "/reporting"
 });
 
-jsreport.init().then(function() {
-  app.listen(3000);
+jsreport.init().catch(function (e) {
+  console.error(e);
 });
 ```
+
 ##Using rendering shortcut
 
 It can be convenient sometimes to use jsreport shortcut `require("jsreport").render` if you want just to render a report. This happens to be usefull when you are not interested in starting jsreport server or storing data in the document store. Shortcut doesn't use configuration files but instead you can add configurations dynamicaly into `require("jsreport").renderDefaults`.
