@@ -2,28 +2,53 @@
 
 ##Basics
 
-Define global functions `beforeRender`  or (and) `afterRender` in script and use global variables `request` and `response` and `reporter` to reach your needs. You need to call `done()` at the end because script can be async. 
+Define global functions `beforeRender`  or (and) `afterRender` in script and use parameters  `req` and `res` to reach your needs. You need to call `done()` at the end because script can be async. 
+
+```js
+function beforeRender(req, res, done) {
+  req.data = {
+    foo: "foo"
+  }
+  done()
+}
+```
+
+##Use external modules
+
+You can `require` external modules in the node.js way, however you need to first enable them in the config. 
+```js
+{
+  "scripts": {
+    "allowedModules": ["request"]
+  }
+}
+```
+
+Alternatively you can enable all modules using `scripts.allowedModules="*"`.
+
+
+The following example uses popular [request](https://github.com/request/request) module to make a rest call and [sendgrid](https://github.com/sendgrid/sendgrid-nodejs) service to email the output service.
 
 ```js
 //load some data from the remote API
-function beforeRender(done) {
+function beforeRender(req, res, done) {
     require('request')({ 
       url:"http://service.url", 
       json:true 
-    }, function(err, response, body){
-        request.data = body;
+    }, function(err, res, body){
+        req.data = body;
         done();
     });
 }
 
 //send the pdf report by mail
-function afterRender(done) {
+function afterRender(req, res, done) {
   var SendGrid = require('sendgrid');
   var sendgrid = new SendGrid('username', 'password');
 
   sendgrid.send({ to: '',  from: '', subject: '',
           html: 'This is your report',
-          files: [ {filename: 'Report.pdf', content: new Buffer(response.content) }]
+          files: [ {filename: 'Report.pdf', content: new Buffer(res.content) }]
   }, function(success, message) {          
           done(success);
   });
@@ -32,25 +57,25 @@ function afterRender(done) {
 
 ##request, response, reporter
 
-`request.template` - modify report template, mostly `content` and `helpers` attributes
-`request.data` - json object used to modify report input data
-`request.headers` - json object used to read input headers
+`req.template` - modify report template, mostly `content` and `helpers` attributes
+`req.data` - json object used to modify report input data
+`req.headers` - json object used to read input headers
 
-`response.content` - byte array with output report
-`response.headers` - output headers
+`res.content` - byte array with output report
+`res.headers` - output headers
 
-`reporter.render(req, cb)` - invoke rendering process of another template
+`req.reporter.render(request, cb)` - invoke rendering process of another template
 
 ##Multiple scripts
 You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
 
 ##phantom-pdf note
-Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `request.options.isChildRequest` property.
+Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.options.isChildRequest` property.
 
 ```js
-function afterRender(done) {
+function afterRender(req, res, done) {
     //filter out script execution for phantom header
-    if (request.options.isChildRequest)
+    if (req.options.isChildRequest)
       return done();
 
     //your script
@@ -62,13 +87,13 @@ function afterRender(done) {
 
 Script can be used also to invoke rendering of another template. 
 ```
-function afterRender(done) {
-    reporter.render({ template: { shortid: "EyeVA2_k-" }}, function(err, res) {
+function afterRender(req, res, done) {
+    req.reporter.render({ template: { shortid: "EyeVA2_k-" }}, function(err, response) {
         if (err)
             return done(err);
         
-        response.headers = res.headers;
-        response.content = res.content;
+        res.headers = response.headers;
+        res.content = response.content;
         done();
     });    
 }
@@ -76,11 +101,12 @@ function afterRender(done) {
 
 ##Configuration
 
-Add `scripts` node to the standard [config](https://github.com/jsreport/jsreport/blob/master/config.md) file. The defaults are following.
+Add `scripts` node to the standard config file:
+
 ```js
 scripts: {
-  timeout: 30000
-  allowedModules: ["handlebars", "request-json", "feedparser", "request", "underscore", "constants", "sendgrid"]
+  timeout: 30000,
+  allowedModules: "*"  
 }
 ```
 
