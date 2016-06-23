@@ -16,9 +16,9 @@ public static void RegisterGlobalFilters(GlobalFilterCollection filters)
   filters.Add(new HandleErrorAttribute());
 
   //when using .net embedded version you need to start server first
-  EmbeddedReportingServer = new EmbeddedReportingServer();
-  EmbeddedReportingServer.StartAsync().Wait();
-  filters.Add(new JsReportFilterAttribute(EmbeddedReportingServer.ReportingService));
+  EmbeddedReportingServer embeddedReportingServer = new EmbeddedReportingServer();
+  embeddedReportingServer.StartAsync().Wait();
+  filters.Add(new JsReportFilterAttribute(embeddedReportingServer.ReportingService));
 
   //when using on prem or online just instantiate ReportingService with correct url
   //filters.Add(new JsReportFilterAttribute(new ReportingService("http://localhost:2000")));
