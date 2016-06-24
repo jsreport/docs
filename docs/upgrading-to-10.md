@@ -45,5 +45,6 @@ jsreport now better distinguish between the production mode and development mode
 ## Default port
 This likely affects only new installations, however worth it to notice. We changed the default configuration `prod|dev.config.json` created through `node node_modules/jsreport --init`.  The major change is that the server now starts on http port 5488 instead of https and 443
 
-
+## Removed extensions
+Some rarely used extensions were removed from the default installation and you may need to additionally install them. This includes `client-html` and `client-app`.
 
