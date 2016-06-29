@@ -4,10 +4,10 @@ This tutorial shows how you can add a custom templating engine into jsreport.  A
 
 One of the templating engines you may like to add as a custom engine is [EJS](http://www.embeddedjs.com/). With EJS you can assemble html or xml in the quite convenient way using special tags inlining javascript.
 
-```html
+```ejs
 <ul>
 <% for(var i=0; i<supplies.length; i++) {%>
-   <li><%= supplies[i] %></li>
+   <li> <%= supplies[i] %> </li>
 <% } %>
 </ul>
 ```
