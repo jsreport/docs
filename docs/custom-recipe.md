@@ -1,161 +1,136 @@
  > **Sources on GitHub [jsreport-html-to-text](https://github.com/jsreport/jsreport-html-to-text)**
 
- This tutorial shows how you can add a custom recipe into jsreport. If you haven't already read [introduction into jsreport custom extensions](/learn/custom-extension), please do it first.
+ This tutorial shows how you can add a custom recipe into jsreport.  
 
  jsreport is quite often used to render and send emails. Where the email body is usually in html format but sometimes it is required to send the body just in the plain text. In this tutorial you will create a recipe which converts html into nicely structured text which can be
 then used for plain text emails.
-
- ***
-##Node project
  
-Recipes are added into jsreport through a [custom extension](/learn/custom-extension) so lets prepare one first. Extensions are written in [node](http://nodejs.org) so you should prepare a basic project for it.
+##Get started
 
-![node project](http://jsreport.net/img/html-to-text.png)
+The first download [extension starter kit](https://github.com/jsreport/jsreport-extension-starter-kit) and follow the installations instructions. Afterwards you should have the first extension ready. Lets create the recipe and integrate it into the extension now.
 
  ##jsreport.config.js
- Every extension needs to contain specific file `jsreport.config.js`. In this file you define extension's name and main javascript entry point.
+Every extension contains specific file `jsreport.config.js`. This file represents the basic configuration for the extension. It should be already in place in starter kit, so lets just change the extension name inside to something meaningful.
 
 ```js
- module.exports = {   
-	"name": "html-to-text",   
-	"dependencies": ["templates"],
-	"main": "lib/main.js" 
+module.exports = {
+  'name': 'html-to-text',
+  'dependencies': 'templates',
+  'main': 'lib/main.js'
 }
 ```
-##Main 
- Extension's main server javascript file has to export function which is then called by jsreport during initialization. In the function's body you should add the recipe into the collection.
 
-Recipe is identified by its name and function for actual rendering. We won't implement the html -> text conversion by hand but rather use already existing [html-to-text](https://github.com/werk85/node-html-to-text) package.
+##Server
+
+Before starting implementing the recipe, we will need to install additional thirdparty library that will help us with the html => text conversion logic. The one that exactly fits our needs can be found [here](https://github.com/werk85/node-html-to-text). To add it to the project you just need to call:
 
 ```bash
- npm install html-to-text 
+ npm install html-to-text --save 
 ```
 
- Recipe execution function accepts `request` and `response` parameters. There is already a buffer with output from templating engine in `response.content` which we just convert into the text using previously installed package and we are done.
+Now lets open the `lib/main.js` file and add implementation of the recipe. 
 
 ```js
-var convert = require("html-to-text");
+var convert = require('html-to-text')
 
 module.exports = function (reporter, definition) {
-    reporter.extensionsManager.recipes.push({
-        name: "html-to-text",
-        execute: function(request, response) {
-            response.content = new Buffer(convert.fromString(response.content.toString(), { }));
-        }
-    }); 
- };
+  reporter.extensionsManager.recipes.push({
+    name: 'html-to-text',
+    execute: function (request, response) {
+      response.content = new Buffer(convert.fromString(response.content.toString()))
+    }
+  })
+}
 ```
 
+As you see the `main.js` file exports the function which is called by jsreport during the initialization. The only thing we do in this function's body for now is adding the new recipe into the `reporter.extensionsManager.recipes` collection. 
 
+The recipe execution function accepts `request` and `response` parameters. There is already a buffer with output from templating engine in `response.content` which we just convert into the text using previously installed package and we are done.
 
 ##Testing
 
-To test the new recipe you just need to copy it somewhere into the folder where is  jsreport installed. After restarting jsreport and opening studio you should see the `html-to-text` in the recipes combo box.
+Now you can hit `npm start` and you should be able to reach jsreport studio on `http://localhost:5488` and test the recipe. 
 
 ##Distributing
 
-The easiest way to distribute the new recipe into the public audience is through the [npm](https://www.npmjs.com/). Afterwards adding new recipe into jsreport is just matter of a single command.
+The best way to distribute the new recipe into the public audience is through the [npm](https://www.npmjs.com/). To prepare the package for publishing you should change the package name, author and other attributes in `package.json` file. Afterwards you can simply type 
 
 ```bash
-npm install jsreport-html-to-text
+npm publish
 ```
+
+and the package will be publicly available in npm.
+
 
 ##Adding options
 [html-to-text](https://github.com/werk85/node-html-to-text) conversion accepts several parameters like number of characters on the line. Lets attach this configuration option into the jsreport template and expose it into database as well as API.
 
-You can reach the facade over jsreport storage as well as [odata](http://www.odata.org/) API through `reporter.documentStore`. First you use `registerComplexType` to register new custom object structure `HtmlToText` and then add it as a property into the jsreport template type. The loaded values or values from the API call can be then find on the`request.template.htmlToText.wordWrap`. The complete recipe source looks following.
+You can reach the facade over jsreport storage as well as [odata](http://www.odata.org/) API through `reporter.documentStore`. First you use `registerComplexType` to register new custom object structure `HtmlToText` and then add it as a property into the jsreport template type. The loaded values or values from the API call can be then find on the `request.template.htmlToText.wordWrap`. 
 
 ```js
-var convert = require("html-to-text");
+reporter.documentStore.registerComplexType('htmlToText', {
+  wordWrap: { type: 'Edm.Number' }
+})
 
-module.exports = function (reporter, definition) {
-    reporter.documentStore.registerComplexType("htmlToText", {
-        wordWrap: {type: "Edm.Number"}
-    });
+var templateType = reporter.documentStore.model.entityTypes['TemplateType']
+templateType.htmlToText = { type: 'jsreport.htmlToText' }
 
-    reporter.documentStore.model.entityTypes["TemplateType"].htmlToText = {type: "jsreport.htmlToText"};
-
-    reporter.extensionsManager.recipes.push({
-        name: "html-to-text",
-        execute: function(request, response) {
-            response.content = new Buffer(convert.fromString(response.content.toString(), {
-                wordwrap: (request.template.htmlToText || {}).wordWrap || 130
-            }));
-        }
-    });
-};
+reporter.extensionsManager.recipes.push({
+  name: 'html-to-text',
+  execute: function (request, response) {
+    response.content = new Buffer(convert.fromString(response.content.toString(), {
+      wordwrap: (request.template.htmlToText || {}).wordWrap || 130
+    }))
+  }
+})
 
 ```
 
 ##Adding UI
 The final missing piece is to let the user to change the `wordWrap` number in the studio UI. Lets add the same experience as setting a header and other options when using `phantom-pdf` recipe.
 
-First you need to add html template which will be displayed in the left panel menu when the `html-to-text` recipe is selected. The html template has to be stored in the folder `public/templates`. jsreport then automatically finds these templates and provides them to the client side js. The template can use jsrender templating engine with two-way binding out of the box.
-
-```html
-<a class="expandable-header"><i class="glyphicon glyphicon-sm glyphicon-file"></i>html-to-text<b class="caret caret-right"></b></a>
-<div class="expandable-body properties" style="display: none">
-    <span class="side-title">Word wrap</span>
-    <input type="text" class="form-control area-mini" placeholder="130" name="wordWrap" value="{{:wordWrap}}">
-</div>
-```
-
-
-
-jsreport studio automatically loads file `public/js/main.js` from every extension during startup. This file is the main entry to the extensions's client side. It should use [requirejs](http://requirejs.org/) to load dependencies and [marionettejs](http://marionettejs.com/) to render views and bind models. In this recipe you listen to event `template-extensions-render` and render view from previously defined html template into the provided region. For deeper understanding please check the documentation for  [marionettejs](http://marionettejs.com/). Here is the final piece of code.
+The jsreport studio is using [reactjs](https://facebook.github.io/react/) so you need to create first a react component which will represent the options panel displayed in the left side of the studio. Lets create this component in `studio/Properties.js`
 
 ```js
-//public/js/main.js 
-define(["jquery", "app", "marionette",
-        "core/view.Base", "core/basicModel"],
-    function ($, app, Marionette, ViewBase, ModelBase) {
+import React, { Component } from 'react'
 
-        var TemplateView = ViewBase.extend({
-            tagName: "li",
-            template: "html-to-text-template",
-        });
+export default class Properties extends Component {
+  render () {
+    const { entity, onChange } = this.props
+    const recipeProps = entity.htmlToText || {}
 
-        var Model = ModelBase.extend({
-            setTemplate: function (templateModel) {
-                this.templateModel = templateModel;
-
-                if (templateModel.get("htmlToText")) {
-                    if (templateModel.get("htmlToText").isModel)
-                        this.set(templateModel.get("htmlToText").toJSON());
-                    else
-                        this.set(templateModel.get("htmlToText"));
-                }
-
-                templateModel.set("htmlToText", this, {silent: true});
-
-                this.listenTo(this, "change", function () {
-                    templateModel.trigger("change");
-                });
-            }
-        });
-
-        app.on("template-extensions-render", function (context) {
-            var view;
-
-            function renderRecipeMenu() {
-                if (context.template.get("recipe") === "html-to-text") {
-                    var model = new Model();
-                    model.setTemplate(context.template);
-                    view = new TemplateView({model: model});
-
-                    context.extensionsRegion.show(view, "htmlToText");
-                } else {
-                    if (view != null)
-                        $(view.el).remove();
-                }
-            }
-
-            renderRecipeMenu();
-
-            context.template.on("change:recipe", function () {
-                renderRecipeMenu();
-            });
-        });
-    });
+    return (
+      <div className='properties-section'>
+        <div className='form-group'><label>word wrap</label>
+          <input
+            title='Wrap the line after x characters' type='number' placeholder='130' min='0' max='1000'
+            value={recipeProps.wordWrap}
+            onChange={(v) => onChange({_id: entity._id, htmlToText: {wordWrap: v.target.value}})} />
+        </div>
+      </div>
+    )
+  }
+}
 ```
+
+The important thing here is that the components receives `entity` in its `props`. This is is used to display the currently stored value. The second important attribute passed in `props` is the `onChange` function which is supposed to be called to notify about the user changes in the properties form.
+
+The second step to finish the ui is to register the properties component we just created. This needs to be done in the `studio/main_dev.js` file which represents the main entry point to the extension's UI part.
+
+```js
+import Properties from './Properties.js'
+import Studio from 'jsreport-studio'
+
+Studio.addPropertiesComponent('html-to-text', Properties, (entity) => entity.__entitySet === 'templates' && entity.recipe === 'html-to-text')
+```
+
+Calling `Studio.addPropertiesComponent` we add the new properties component with title `html-to-text`, the react function rendering the form implemented in `Properties.js` and the function determining when the properties form should be included in the left panel.
+
+Now start the studio again and see the result....
+```bash
+npm start
+```
+
+##More information
+There is dedicated article about extending the jsreport studio - [Extending studio](http://jsreport.net/learn/extending-studio) and also many  existing extensions which you can use as examples for further study available [on github](https://github.com/jsreport/jsreport-core#list-of-extensions).
 
