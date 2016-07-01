@@ -12,12 +12,12 @@ The first thing to do is create a script which will be used to request data from
 Tasks like preparing report input data should be implemented in the script's global function called `beforeRender`. We can use pre-installed [request](https://github.com/request/request) node.js module  to collect data from the external API for this case. Following snippet simply requests specified url and add parsed JSON response into the rendering request inputs.
 
 ```js
-function beforeRender(done) {
+function beforeRender(req, res, done) {
     require('request')({ 
       url:"http://jsonplaceholder.typicode.com/posts", 
       json:true 
     }, function(err, response, body){
-        request.data = { posts: body };
+        req.data = { posts: body };
         done();
     });
 }
@@ -45,7 +45,7 @@ Doing this you can explore the input data structure and bind it to the report te
 ###Send output in mail
 The report template should be now finished and the output report nicely visualized. The next thing to do is to automate the process of sending the output pdf through email. This can be achieved in the original script by adding `afterRender` global function which will be invoked when the output report is already prepared. To send an email you can use for example  [SendGrid](https://github.com/sendgrid/sendgrid-nodejs) node.js module.
 ```js
-function afterRender(done) {
+function afterRender(req, res, done) {
   var SendGrid = require('sendgrid');
   var sendgrid = new SendGrid('username', 'password');
 
@@ -53,7 +53,7 @@ function afterRender(done) {
           html: 'This is your report',
           files: [ {
 	          filename: 'Report.pdf',
-	          content: new Buffer(response.content) } ]
+	          content: new Buffer(res.content) } ]
 	  }, function(success, message) {
           done(success);
 	  });
