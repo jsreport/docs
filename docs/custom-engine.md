@@ -16,23 +16,18 @@ This tutorial shows you how to add support for EJS into jsreport as a custom ext
 
 ***
 
-##Node project
+##Get started
 
-Engines are added into jsreport through a [custom extension](/learn/custom-extension) so lets prepare one first. Extensions are written in [node](http://nodejs.org) so you should prepare a basic project for it.
-
-![node project](http://jsreport.net/img/ejs.png)
-
-##jsreport.config.js
-Every extension needs to contain specific file `jsreport.config.js`. In this file you define extension's name and main javascript entry point.
+The first thing to do is downloading and installing [extension starter kit](https://github.com/jsreport/jsreport-extension-starter-kit). As the second step you can rename the extension in  `jsreport.config.js`. 
 
 ```js
 module.exports = {
   "name": "ejs",
-  "main": "lib/ejs.js" 
+  "main": "lib/main.js" 
 }
 ```
 
-##Main entry point
+##Register engine
 Extension's main server javascript file has to export function which is then called by jsreport during initialization. In the function's body you should add the new EJS engine into the engines collection.
 
 Engine is identified by its name and path to the engine script. The engine implementation needs to be separated into the dedicated file because it will run in the different process for the security reasons.
@@ -51,32 +46,57 @@ module.exports  = function (reporter, definition) {
 
 Now it's time to finally implement the EJS rendering function, but first you need to install two packages the function will require.
 ```bash
-npm install ejs
-npm install node.extend
+npm install ejs --save
+npm install node.extend --save
 ```
 
 The rendering function is then very simple. Only thing you need to do is to merge `helpers` object and `data` object into one because EJS accepts the single context object with both functions and local attributes on it.
 ```js
 //engine.js
-var ejs = require('ejs');
-var extend = require("node.extend");
+var ejs = require('ejs')
+var extend = require('node.extend')
 
-module.exports = function (content, helpers, data) {
-    return ejs.render(content, extend(true, helpers, data));
-};
+module.exports = function (html, helpers, data) {
+  var template = ejs.compile(html)
+
+  return function (helpers, data) {
+    var ejsMix = extend(true, helpers, data)
+    delete ejsMix.filename
+    return template(ejsMix)
+  }
+}
 ```
 
-##Testing in jsreport
+##Testing
 
-To test the new extension you just need to copy it somewhere into the folder where is  jsreport installed. After restarting jsreport and opening studio you should see the ejs in the engines combo box.
-
+Now you can hit `npm start` and you should be able to reach the jsreport studio on `http://localhost:5488` and test the engine. 
 
 ##Distributing
 
-The easiest way to distribute the new engine into the public audience is through the [npm](https://www.npmjs.com/). Afterwards adding EJS into jsreport is just matter of a single command.
+The best way to distribute the new engine into the public audience is through the [npm](https://www.npmjs.com/). To prepare the package for publishing you should change the package name, author and other attributes in `package.json` file. Afterwards you can simply type 
 
 ```bash
-npm install jsreport-ejs
+npm publish
 ```
 
+and the package will be publicly available in npm.
+
+##Syntax highlighting in studio
+ The last optional step is to add a syntax highlighting into the jsreport studio, but fortunately, this will be easier than it looks like.
+
+jsreport studio uses [ace editor](https://ace.c9.io/) which supports syntax highlighting for the most of the currently used languages. The only thing we need to do is pack the syntax highlighting for ejs and configure the jsreport editor when to use it.
+
+The first lets download and install [brace](https://github.com/thlorenz/brace) package which includes the syntax highlighting sources
+```sh
+npm install brace --save-dev
+```
+
+Then  use `studio/main_dev.js` to reference particular brace ejs mode and `Studio.templateEditorModeResolvers` to register it.
+
+```js
+import Studio from 'jsreport-studio'
+import 'brace/mode/ejs'
+
+Studio.templateEditorModeResolvers.push((template) => template.engine === 'ejs' ? 'ejs' : null)
+```js
 
