@@ -1,8 +1,20 @@
 ﻿jsreport 1.0 looks dramatically different from the UI perspective, but the underlying server part is mostly back compatible with the previous releases. It shouldn't be a big problem to update, mostly it will just work. Here are some notes for problematic and incompatible features.
 
 ##Embedded store
-jsreport now doesn't include [jsreport-embedded-store](https://github.com/jsreport/jsreport-embedded-store) (`connectionString.name='nedb'`) in the default installation, however it doesn't mean it is not supported. You can easily install it and continue using it with the new jsreport: 
+jsreport now doesn't include deprecated [jsreport-embedded-store](https://github.com/jsreport/jsreport-embedded-store) (`connectionString.name='neDB`) in the default installation. If you still use it, you need to explicitly install it: 
 `npm install jsreport-embedded-store --save`
+
+However we recommend to migrate to the currently default [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store). 
+
+This can be done manually. Open two instances of jsreport on different ports and copy paste your templates from the instance running on `neDB` to the instance running on `fs`. 
+
+If you have many templates, you can take a look on migration utility [jsreport-migrate](https://www.npmjs.com/package/jsreport-migrate). This will help you to convert your templates, scripts and data items to the new format. 
+1. **backup!!!** your data folder
+2. make sure you have really `neDB` in your connection string
+3. `npm install jsreport-migrate -g`
+4. `jsreport-migrate`
+5. hit enter
+6. you may need to delete `data\schedules` afterwards
 
 ##Scripts and helpers custom modules
 jsreport 0.x enabled some modules to be used in custom scripts by default. These modules included request, underscore, sendgrid and several others. This is no longer true in jsreport@1 and you need to explicitly install and enable modules you like to use.
