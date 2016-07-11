@@ -74,6 +74,13 @@ Add an base64 encoded image provided by the block helper content into the sheet 
 ### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport-excel/blob/master/static/helpers.js)
 
+##Examples
+
+- [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
+- [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
+- [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/8)
+- [Pivot table](....)
+
 ## Preview in studio
 The excel preview in the studio uses Microsoft Excel Online service which requires a public access to the displayed file. This is why the recipe by default uploads the excel file to our publicly running server. This is happening only during the preview and you should not be leaking any production data through here. However you can disable or change this behavior in the configuration.
 
