@@ -22,11 +22,11 @@ var result = await embeddedServer.ReportingService.RenderAsync(new RenderRequest
 
 using (var fileStream = File.Create("C:\\temp\\report.pdf"))
 {
-    report.Content.CopyTo(fileStream);
+    result.Content.CopyTo(fileStream);
 }
 ```
 
-You can also combine it with [jsreport visual studio tools](http://jsreport.net) and design reports inside visual studio and render them in jsreport embedded. In this case you should also call `SynchronizeTemplatesAsync` to synchronize templates from visual studio project into jsreport before you start rendering. 
+You can also combine it with [jsreport visual studio tools](http://jsreport.net/learn/visual-studio-extension) and design reports inside visual studio and render them in jsreport embedded. In this case you should also call `SynchronizeTemplatesAsync` to synchronize templates from visual studio project into jsreport before you start rendering. 
 
 ```c#
 var embeddedServer = new EmbeddedReportingServer(port: 2000);
