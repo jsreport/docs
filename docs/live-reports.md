@@ -1,89 +1,46 @@
-jsreport is not limited for rendering static documents like pdf or excel. You can use it also to render live and user interactive reports. Reports where user can filter data, change the matrix or drill down. This is achieved by using one of the `html` recipes together with one of the external javascript data visualization components like [highcharts](http://www.highcharts.com), [pivot table](https://github.com/nicolaskruchten/pivottable) or any other.
+jsreport isn't limited for rendering static documents like pdf or excel. You can use it also to render live and user interactive reports. Reports where user can filter data, change the matrix or drill down. This is usually achieved with using the  [html-with-browser-client](http://jsreport.net/learn/html-with-browser-client) recipe together with one of the external javascript data visualization components like [D3.js](https://github.com/d3/d3), [pivot table](https://github.com/nicolaskruchten/pivottable), [chartjs](http://www.chartjs.org/) or any other.
 
-##Example
+![northwind dashboard](http://jsreport.net/img/northwind-dashboard.gif)
 
-This example shows how to create a self contained, excel and pdf exportable and user interactive report using jsreport together with [pivottable](https://github.com/nicolaskruchten/pivottable) javascript component.
+> **[See the full demo live here](https://playground.jsreport.net/workspace/HkqlE-Ww/17)**    
+> **[See the demo sources here](https://playground.jsreport.net/studio/workspace/HkqlE-Ww/17)**
 
-###Sample data
-As in the first example, we need to prepare some sample data for this report before we start designing report template. The sample data we use this time are stored [here](http://nicolas.kruchten.com/pivottable/examples/mps.json). Just take the json from there and put it into a new sample data inside jsreport studio. Make just a tiny modification and wrap the array from the json into an object with property carrying the array.
+This tutorial explains how to create a simple (master - detail) interactive report. However if you are rather curious how can look like a complex dashboard, don't hesitate to open the links below the image and come back to tutorial afterwards.
 
+##Master report template
 
-### Define a template
-The live reports are designed to run inside browser so you should choose from the recipes producing html.  This example use [wrapped-html](/learn/wrapped-html) which produces html with prepacked jsreport libraries that helps with exporting, editing or refreshing templates. Lets create a template with this recipe for now.
+This tutorial uses [NorthWind](https://northwinddatabase.codeplex.com) database and its live [REST endpoint](http://services.odata.org/V4/Northwind/Northwind.svc) as a data source for the reports. The first thing we do is create the master report template and [script]((http://jsreport.net/learn/scripts) which downloads the report input data from the endpoint.
 
-The template needs to link the pivot table library. This includes custom css, pivot table script, jquery and jquery ui.
+The script runs on the server side in [node.js](http://nodejs.org/) sandbox and has full capabilities to connect to any kind of data source like database or in this case REST endpoint. The easiest way to download data from the REST endpoint in the node.js is to install [request](https://github.com/request/request) module. Afterwards it is just about invoking the request and passing the response further to jsreport rendering pipeline.
 
-```html
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.3.0/pivot.min.css"/>
-<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.3.0/pivot.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-```
+At this point we just simply use [handlebars](http://jsreport.net/learn/handlebars) templating engine and [html](http://jsreport.net/learn/html) recipe to render static html table with the downloaded data.
 
-Now its time to add add pivot table to the template and load input data in it. To access the input data we can use global `jsreport` object which is automatically added by `wrapped-html` recipe. In the most simple case html body can look the following:
+<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/7?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-```html
-<body>
-	<div id="pivottable"></div>
-	<script>
-		$(function(){
-			$("#pivottable").pivotUI(jsreport.template.data.items);
-		});
-	</script>
-</body>
-```
+##Drilling down
+Time to make the report interactive. We need another script downloading particular customer's data, another template displaying customer detail and extend the master customers template with the drill down function.
 
-Now you should be able to run the template and play with the live pivot table. You can also add a server side javascript templating engines rendering, [images](/learn/images), [child templates](/learn/child-templates) or anything you already know from jsreport.
+The script downloading data additionally accepts `CustomerID` on the input, fetches orders and reduces them by quarter.
 
-###Export report
-Another feature you can add to jsreport live report is exporting capability into excel or pdf.  This can be achieved by calling jsreport server API directly from the live report. You basically virtually  create a template with particular recipe like `phantom-pdf` and render it remotely in jsreport server. To do it you use `render` function provided by the global `jsreport` object. The best is to show it on an example:
+The detail template is basically just plain html using input data and [chart.js](http://www.chartjs.org/) to visualize number of orders in time.
 
-```js
-$("#printCommand").click(function() {
-	var printTemplate = $.extend({}, jsreport.template);
-    printTemplate.recipe = "phantom-pdf";
-    printTemplate.content = document.documentElement.outerHTML;
-    
-    printTemplate.phantom = { 
-	    printDelay : 1000, /* wait a little bit for js rendering */
-	    blockJavaScript : true, /* block pivot table from new rendering */                       
-    };
-    jsreport.render(printTemplate);
-});
-```
+Afterwards we need to change the master template's recipe to the [html-with-browser-client](http://jsreport.net/learn/html-with-browser-client). This recipe adds to the page [browser client](http://jsreport.net/learn/browser-client) which is used to render the `detail` template when the user clicks on the customer.
 
-This example clones the original template and modifies it's recipe because we want to export to the pdf. It also takes the snapshot of the current html because we want to reflect the current configuration user made in the pivot table.  Calling the `render` method should open a new browser tab with the exported pdf.
+<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/9?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-You can use the same approach also to export to the excel. The nice thing about it is that you can assemble the exporting content dynamically. For example just snapshot part of the page or construct completely customized printing template.
+##Exporting static report
 
-```js
-$("#printExcel").click(function() {
-	var printTemplate = $.extend({}, jsreport.template);
-    printTemplate.recipe = "html-to-xlsx";
-    printTemplate.content = $(".pvtRendererArea")[0].outerHTML;
-    jsreport.render(printTemplate);
-});
-```
+Quite common functionality of dashboards or interactive reports is exporting into a static document like pdf or excel. This can be done again using [html-with-browser-client](http://jsreport.net/learn/html-with-browser-client) recipe. 
 
-You can find the full running example [here in the playground](https://playground.jsreport.net/#/playground/-yaLa6luK).
+To demonstrate this,  the master template needs to be extended with an export button and proper click event handler. In this tutorial the event handler simply renders and downloads the output of the same detail template. It only overrides its recipe to [phantom-pdf](http://jsreport.net/learn/phantom-pdf).
 
-###API
+To produce the proper pdf after the chart animation is finished, the detail template was extended with printing trigger which is called in the chart.js callback.
 
-Rendering such a live report through API is the same as any other report:
+<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/11?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-> `POST:` https://localhost/api/report<br/>
-> `Headers`: Content-Type: application/json<br/>
-> `BODY:`<br/>
->```js
-   {
-      "template": { "shortid" : "eygi2w2axR" },
-      "data" : { "items": [...] }
-   }
->```
+##Sharing link to report
+Now if you have the working live report, you can share it with others using simple link. You can find the button showing the link in the jsreport toolbar.
 
+If you have [authentication](http://jsreport.net/learn/authentication) enabled, you can also generate anonymous link with access token using `Share` toolbar button.
 
-
-
-
-
-
+![link-share.png](http://jsreport.net/img/link-share.png)
