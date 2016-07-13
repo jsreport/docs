@@ -15,18 +15,15 @@ This article shows you the most simple use case with jsreport which is creating 
 5. send real input data into API and get back report
 
 ##Getting jsreport server
-First you need [download and install](/on-prem) jsreport into your environment or register for [jsreport as a service solution](/online).
+First you need to [download and install](/downloads) jsreport into your environment, register for [jsreport as a service solution](/online) or start right away in [jsreport playground](https://playground.jsreport.net).
 
 No matter what option you choose you get access to jsreport html based studio you're going to need for designing and testing reports in this tutorial.
 
-<a href="http://jsreport.net/screenshots/studio.png?v=1" target="_blank">
-<img src="http://jsreport.net/screenshots/studio.png?v=1" alt="studio" style="width: 600px;"/>
-</a>
-
+![studio](http://jsreport.net/screenshots/studio.png?v=2)
 
 ##Defining sample data
 
-Before you actually create a pdf invoice layout you should prepare some sample data you will later use to preview it. You can create sample data in jsreport studio using `ACTIONS/Create Data` menu. The sample data needs to be defined in `json` format and for our super simple invoice it can contain the following:
+Before you actually create a pdf invoice layout you should prepare some sample data you will later use to preview it. You can create sample data in jsreport studio from the entity tree panel positioned in the top left. You just need to click the plus button next to the `data` entry.  The sample data needs to be defined in `json` format and for our super simple invoice it can contain the following:
 ```js
 {
 	"to": "Pavel Sladek",
@@ -35,19 +32,23 @@ Before you actually create a pdf invoice layout you should prepare some sample d
 }
 ```
 
+![sample-data](http://jsreport.net/screenshots/sample-data.png)
+
 ##Defining report template
 
-Report template is together with the rendering process the heart of jsreport. Template defines how the result report is going to look like and is used together with input data every time you render a new report. You can create report template in jsreport studio using `ACTIONS/Create Template` menu. This action will open jsreport designer you will use to define and test the template as well. 
+Report template is together with the rendering process the heart of jsreport. Template defines how the result report is going to look like and is used together with input data every time you render a new report. You can create a report template again from the entity tree panel on the top left.
 
 For the invoice tutorial the first thing you need to do is associate sample data you previously defined with the newly created template.
 
-![invoice-data](http://jsreport.net/screenshots/invoice-data.png)
+![invoice-data](http://jsreport.net/screenshots/invoice-data.png?v=3)
 
 ### Recipes
 
 As it was mentioned in the introduction, jsreport supports various reports and various output formats. To specify output format you choose jsreport [recipe](/learn/recipes). Recipe doesn't only define the output format but also how it is produced. You can for example define html template and then just with changing recipe decide if the output should be a pdf, html or excel. Or you don't have to stick with html and use some advanced recipes to create pdf using Apache FOP or excel file from Open XML.
 
-The easiest way to create a pdf invoice is to use html to pdf conversion provided by [phantom-pdf](/learn/phantom-pdf) recipe, so lets switch to that.
+The easiest way to create a pdf invoice is to use html to pdf conversion provided by [phantom-pdf](/learn/phantom-pdf) recipe, so lets stay with it.
+
+![recipe](http://jsreport.net/screenshots/recipe.png)
 
 ### Templating engines
 
@@ -72,7 +73,7 @@ Now you can fill the invoice template with html and [handlebars](/learn/handleba
 
 You can see it is just html with handlebars binding to the sample data you previously created. Now you can click the `Run` button in the jsreport designer and it should preview a pdf in the right pane. This is because you previously selected `phantom-pdf` which automatically converts html into pdf.
 
-To make it a little bit more complex lets add a tax calculation to the template. To do it you will need to define a custom javascript function calculating tax from the original price. Such a function can be added to the `helpers` tab in jsreport studio:
+To make it a little bit more complex lets add a tax calculation to the template. To do it you will need to define a custom javascript function calculating tax from the original price. Such a function can be added to the bottom panel in jsreport studio:
 
 ```js
 function tax(price) {
@@ -80,12 +81,15 @@ function tax(price) {
 }
 ```
 
-Then back in the `content` tab you can use the `tax` function to print the price.
+Then back in the top panel you can use the `tax` function to print the price.
 ```html
 <div>
     <span>tax: {{#tax price}}{{/tax}}$</span></span>
 </div>
 ```
+
+Finally it should be like this:
+<iframe src='https://playground.jsreport.net/studio/workspace/HJVhE0QP/2?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
 ##Test and preview report
 Now it's time to finish the invoice and preview it from the sample data until you are satisfied. You can find a styled and more complex invoice [here in the playground](https://playground.jsreport.net/#/playground/l1DbOPsN5) if you are lazy.
@@ -94,15 +98,15 @@ You might find helpful several features jsreport ships out of the box in the for
 
 ##Use API to render report
 
-Now you are ready to integrate your application with jsreport API. It's very simple and in the most cases you just need to do one REST call. You can even try it from your browser's REST plugin. Only one thing needed before you start is report template `shortid`. You can find it for example in jsreport studio url (`https://localhost/#extension/templates/eygi2w2axR`).
+Now you are ready to integrate your application with jsreport API. It's very simple and in the most cases you just need to do one REST call. You can even try it from your browser's REST plugin. 
 
-Following request will invoke rendering previously defined template with shortid `eygi2w2axR`. Response will be stream to a pdf report.
+The following request will invoke rendering previously defined template and response pdf stream back
 > `POST:` https://localhost/api/report<br/>
 > `Headers`: Content-Type: application/json<br/>
 > `BODY:`
 >```js 
    { 
-      "template": { "shortid" : "eygi2w2axR" },
+      "template": { "name" : "invoice-template" },
       "data" : { "to": "Pavel Sladek", 	"from": "Jan Blaha",  "price": 800 }
    } 
 >```
