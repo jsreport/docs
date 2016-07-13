@@ -89,7 +89,7 @@ Then back in the top panel you can use the `tax` function to print the price.
 ```
 
 Finally it should be like this:
-<iframe src='https://playground.jsreport.net/studio/workspace/HJVhE0QP/2?embed=1' width="100%" height="400" frameborder="0"></iframe>
+<iframe src='https://playground.jsreport.net/studio/workspace/HJVhE0QP/3?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
 ##Test and preview report
 Now it's time to finish the invoice and preview it from the sample data until you are satisfied. You can find a styled and more complex invoice [here in the playground](https://playground.jsreport.net/#/playground/l1DbOPsN5) if you are lazy.
