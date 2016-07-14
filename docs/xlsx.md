@@ -4,6 +4,16 @@
 
 <iframe src='https://playground.jsreport.net/studio/workspace/rJftqRaQ/10?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
+##Examples
+
+- [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
+- [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
+- [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
+- [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
+- [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
+- [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
+- [Pivot table](https://playground.jsreport.net/studio/workspace/HkJTIy4P/9)
+
 ## General concept
 
 Excel files are defined by several xml files zipped into one with xlsx extension. This recipe employs templating engine to directly modify these source files and produces excel files. 
@@ -73,13 +83,6 @@ Add an base64 encoded image provided by the block helper content into the sheet 
 
 ### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport-excel/blob/master/static/helpers.js)
-
-##Examples
-
-- [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
-- [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
-- [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/8)
-- [Pivot table](....)
 
 ## Preview in studio
 The excel preview in the studio uses Microsoft Excel Online service which requires a public access to the displayed file. This is why the recipe by default uploads the excel file to our publicly running server. This is happening only during the preview and you should not be leaking any production data through here. However you can disable or change this behavior in the configuration.
