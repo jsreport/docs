@@ -12,7 +12,7 @@
 - [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
 - [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
 - [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
-- [Pivot table](https://playground.jsreport.net/studio/workspace/HkJTIy4P/9)
+- [Pivot table](https://playground.jsreport.net/studio/workspace/HkJTIy4P/10)
 
 ## General concept
 
