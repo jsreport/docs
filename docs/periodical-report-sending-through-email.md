@@ -7,7 +7,9 @@ jsreport comes out of the box with pre-installed [scripts extension](/learn/scri
 As the example for this let's make a report which will request input data from an external service, render a pdf and send the result through the email.  As the external service we use public available JSON REST service [http://jsonplaceholder.typicode.com/posts](http://jsonplaceholder.typicode.com/posts) which provides us some sample data.
 
 ###Request input data
-The first thing to do is create a script which will be used to request data from the external API and later also send the output report. You can create script from the jsreport studio in the common way using `ACTIONS/Create Script` menu.
+The first thing to do is create a script which will be used to request data from the external API and later also send the output report. You can create a script from the jsreport studio in the left entity tree panel.
+
+![script](http://jsreport.net/screenshots/script.png)
 
 Tasks like preparing report input data should be implemented in the script's global function called `beforeRender`. We can use pre-installed [request](https://github.com/request/request) node.js module  to collect data from the external API for this case. Following snippet simply requests specified url and add parsed JSON response into the rendering request inputs.
 
@@ -23,49 +25,68 @@ function beforeRender(req, res, done) {
 }
 ```
 
-###Define a template
-Now it's time to create a report template and associate previously created script with it. You can do it again from the jsreport studio using `ACTIONS/Create Template` menu and then associate the script in the designer's left panel.
+Additionally to the script creation, you need to make sure [request](https://github.com/request/request) is locally installed. This is done with command:
+>npm install request --save
 
-It's convenient to explore the input data before actually designing the template. I do it personally with a custom helper function which "stringifies" the input data. Then I put the helper function output somewhere at the top of the template. Run the template and then copy paste the output into JSON [online parser](http://json.parser.online.fr/).
-
-In [jsrender](/learn/jsrender) it looks like this:
-
+And secondly you need to enable this module in the jsreport configuration. 
 ```js
-function log(data) {
-	return JSON.stringify(data)
+"scripts": {
+  "allowedModules": ["request"]    
 }
 ```
 
-```html
-{{:~log(#data)}}
-```
+###Define a template
+Now it's time to create a report template and associate previously created script with it. 
 
-Doing this you can explore the input data structure and bind it to the report template design. Designing the report template is not in the scope of this example because it was already explained previously in the [get started](/learn/get-started) article.
+![select script](http://jsreport.net/screenshots/select-script.png)
+
+The template has now the input data filled from the custom script. We can iterate over it and create a simple pdf.
+
+<iframe src='https://playground.jsreport.net/studio/workspace/r1G-1ULP/3?embed=1' width="100%" height="400" frameborder="0"></iframe>
+
 
 ###Send output in mail
-The report template should be now finished and the output report nicely visualized. The next thing to do is to automate the process of sending the output pdf through email. This can be achieved in the original script by adding `afterRender` global function which will be invoked when the output report is already prepared. To send an email you can use for example  [SendGrid](https://github.com/sendgrid/sendgrid-nodejs) node.js module.
+The next thing to do is to automate the process of sending the output pdf through email. This can be achieved in the original script by adding `afterRender` global function which will be invoked when the output report is already prepared. To send an email you can use for example  [nodemailer](https://github.com/nodemailer/nodemailer) node.js module. Note you need to again install it and enable it in the jsreport config.
+
+
 ```js
 function afterRender(req, res, done) {
-  var SendGrid = require('sendgrid');
-  var sendgrid = new SendGrid('username', 'password');
+    var mailer = require("nodemailer");
 
-  sendgrid.send({ to: '',  from: '', subject: '',
-          html: 'This is your report',
-          files: [ {
-	          filename: 'Report.pdf',
-	          content: new Buffer(res.content) } ]
-	  }, function(success, message) {
-          done(success);
-	  });
+    var smtpTransport = mailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+
+    var mail = {
+        from: "Jan Blaha <test@gmail.com>",
+        to: "foo@gmail.com",
+        subject: "Sending email from node.js",
+        text: "See the attached report",
+        html: "<b>See the attached report</b>",
+        attachments: [
+        {  
+            filename: 'Report.pdf',
+	        content: new Buffer(res.content)
+        }],
+    }
+
+    smtpTransport.sendMail(mail, function(error, response){
+        smtpTransport.close();
+        if(error){
+            return done(error);
+        }
+        
+        return done();
+    });
 }
 ```
 
-Now every time you render the template you should also receive an email with attached pdf. You can do it by rendering the template from inside jsreport designer or in [playground  example](https://playground.jsreport.net/#playground/bk1twCWht/8).
+Now every time you render the template you should also receive an email with attached pdf. 
 
 ##Scheduling
 You should have now a report template which automatically downloads data from an external REST API and send the output report through email. This is nice but you still need to trigger the rendering through API. In many cases this won't be necessary if you need to send the report periodically. In this cases you can use [sheduling](/learn/scheduling) extension to plan report rendering directly in jsreport. Then you don't need to integrate with jsreport at all and let it run as a standalone reporting server.
 
-To plan a periodical report rendering you should create a Schedule first using `ACTIONS/Create Schedule` menu. Then you should specify which report should be rendered and a period definition using CRON expression.
+To plan a periodical report rendering you should create a schedule, associate the template and specify its time plan using CRON expression.
+
+![schedule](http://jsreport.net/screenshots/schedule.png)
 
 ##Conclusion
 Now you have a self sufficient independent report which runs periodically on its own, downloads data and also distributes the output. All of this was done without touching your application or granting special access to the database. This usage makes jsreport fully capable reporting server.
