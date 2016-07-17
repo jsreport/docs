@@ -41,3 +41,16 @@ app.get("/report", function(req, res, next) {
     });
 });
 ```
+
+##Handling request timeout
+
+Optionally you can pass second parameter to the `render` function containing additional options of the made http request. These options are passed to the [request](https://github.com/request/request) module making actual rest call.  Most likely you should be interested in the timeout property:
+
+```js
+client.render({
+	template: { }	
+}, { timeout: 5000 },function(err, response) {
+
+});
+```
+
