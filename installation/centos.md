@@ -28,15 +28,16 @@ sudo node server.js
 
 ##wkhtmltopdf
 
+Assuming npm 3 is intalled.
 ```bash
-sudo npm install jsreport-wkhtmltopdf
+sudo npm install jsreport-wkhtmltopdf --production
 sudo yum install xorg-x11-fonts-75dpi
 sudo yum install libjpeg
 sudo yum install xorg-x11-fonts-Type1
 sudo yum install libpng libpng12 wget
 sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
 sudo rpm -Uvh wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
-sudo echo "module.exports = '/usr/local/bin/wkhtmltopdf';" > node_modules/jsreport-wkhtmltopdf/node_modules/toner-wkhtmltopdf/node_modules/wkhtmltopdf-installer/lib/location.js
+sudo echo "module.exports = '/usr/local/bin/wkhtmltopdf';" > node_modules/wkhtmltopdf-installer/lib/location.js
 sudo node server.js
 ```
 
@@ -50,3 +51,4 @@ sudo wget http://apache.miloslavbrada.cz/xmlgraphics/fop/binaries/fop-1.1-bin.ta
 sudo tar -xvzf fop-1.1-bin.tar.gz
 sudo ln -s -t /usr/bin /opt/fop-1.1/fop
 ```
+
