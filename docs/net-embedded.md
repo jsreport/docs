@@ -2,21 +2,26 @@
 
 ##Basics
 
-jsreport can be easily installed using [nuget package](https://www.nuget.org/packages/jsreport.Embedded) into c# project and run with the same lifecycle as orignal .NET process. Everything needed is inside a package and no node.js or any other dependency installation is required.
+jsreport can be easily installed using [nuget package](https://www.nuget.org/packages/jsreport.Embedded) into c# project and run with the same lifecycle as the orignal .NET process. Everything needed is inside a package and no node.js or any other dependency installation is required.
 
-When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and then you are ready to print any pdf report you want.
-
+When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and invoke pdf rendering using [c# .NET client](http://jsreport.net/learn/net-client) as there would be full jsreport running somewhere.
 
 ```c#
+// somewhere in application startup....
 var embeddedServer = new EmbeddedReportingServer(port: 2000);
 await embeddedServer.StartAsync();
 
+// local ReportingService ready to be used...
 var result = await embeddedServer.ReportingService.RenderAsync(new RenderRequest()
 {
     template = new Template()
     {
-        content = "<h1>Hello world</h1>",
-        recipe = "phantom-pdf"
+        content = "<h1>Hello from {{greetings}}</h1>",
+        recipe = "phantom-pdf",
+        engine = "handlebars"        
+    },
+    data = new {
+	    greetings = ".NET embedded jsreport"
     }
 });
 
@@ -26,47 +31,100 @@ using (var fileStream = File.Create("C:\\temp\\report.pdf"))
 }
 ```
 
-You can also combine it with [jsreport visual studio tools](http://jsreport.net/learn/visual-studio-extension) and design reports inside visual studio and render them in jsreport embedded. In this case you should also call `SynchronizeTemplatesAsync` to synchronize templates from visual studio project into jsreport before you start rendering. 
+##Project structure
+The nuget installation creates `jsreport` directory with the following structure.
 
-```c#
-var embeddedServer = new EmbeddedReportingServer(port: 2000);
-await embeddedServer.StartAsync();
-await embeddedServer.ReportingService.SynchronizeTemplatesAsync();
+![project structure](http://jsreport.net/screenshots/embedded-project.png?v=2)
 
-var result = await embeddedServer.ReportingService.RenderAsync("Report1", new { ... });
-```
+**`app`** - jsreport configuration, startup script and also the local dev installation
+**`reports`** -  report templates and other jsreport object definitions
+**`jsreport.zip`** - zipped jsreport from `app` folder with `node.exe` included. This is then taken form the bin folder, decompressed and started through `embeddedServer.StartAsync`.
+**`studio.cmd`** - windows batch starting jsreport local development server
+**`install.cmd`** - used by nuget to install jsreport into `app` folder and zip it into  `jsreport.zip`
+**`update.cmd`** - update jsreport local installation and pack it into `jsreport.zip`
 
+Most often you should ignore from the source control `app/node_modules` and `jsreport.zip`, because these are always created during nuget install.
 
-##Running in asp.net
-jsreport embedded will run from `bin` folder by default. This is not very good for asp.net applications where every change in bin folder forces application to restart. That's why using `RelativePathToServer` attribute you can configure where jsreport server is extracted and running. For asp.net it's recommended to use `App_Data` folder, so starting jsreport embedded in asp.net should look following:
+However if you are not interested in designing report templates and using local jsreport studio, you can delete completely everything except `jsreport.zip`. In this case nuget will skip any additional installation.
 
-```c#
-var embeddedServer = new EmbeddedReportingServer() { RelativePathToServer = "../App_Data" };
-await embeddedServer.StartAsync();
-```
+##Report studio
+jsreport comes with handy report studio which you can use to develop your report templates. 
 
+![project structure](http://jsreport.net/screenshots/vs-studio.gif)
 
-##How does it work
-
-Installing `jsreport.Embedded` nuget package will add into your project zipped version of jsreport and `node.exe` executable that is able to start jsreport server. Zipped jsreport is extracted and stared using `nodejs` after `EmbeddedReportingServer.StartAsync()` is called.
-
-Starting embedded server will also create a separate thread pinging jsreport server. Server itself will then  terminate when there are no ping requests comming. This will make sure jsreport server lifecycle is same as .NET original process. jsreport also automaticaly quits after application domain unloads.
-
-
-![jsreport](http://jsreport.net/img/embedded.png)
-
-##Html studio
-When running embedded jsreport you can still access it's html based studio. Just start it and go to url http://localhost:2000 and it should pop up. This also can be very handy for testing report templates for external people not having visual studio installed.
-
-##Configuration
-jsreport server supports various configuration options like timeout limits or security settings. You can find all configuration options [here](http://jsreport.net/learn/configuration).  To change these settings in embedded jsreport you can unzip `jsreport-net-embedded.zip` and change `prod.config.json` or you can provide the configuration options directly in c#. This can be done through `Configuration` property on `EmbeddedReportingServer`.
+1. Open the studio using `studio.cmd`
+2.  Then you can use studio to create new report templates and other report objects. 
+3. The new report templates are persisted in `jsreport\reports` directory. You need to manually include the new folders in the solution and set the build action to `Copy to output`.
+4. You can also use the Visual Studio editor to directly edit the templates. Just open the jsreport studio, navigate to particular template and try to edit it in the VS in the background. **You can see the jsreport studio automatically refreshes and re-renders the report after the change in VS.**
+5. Finally you can render the prepared templates using the following code
 
 ```cs
-var embeddedServer = new EmbeddedReportingServer() { 
-	Configuration = new {
-		tasks = new {
-			timeout = 120000,
-		}
-	}
-};
+embeddedServer.ReportingService.RenderAsync(new {
+    template = new {
+        name = "Sample template" 
+    },
+    data = new {
+	    greetings = ".NET embedded jsreport"
+    }
+});
 ```
+ 
+
+##Securing embedded server
+You can simply secure the jsreport embedded server from the outside world by the firewall rule. However if you want to secure also the local traffic, you can easily enable the authentication extension: 
+
+1.
+Edit `jsreport\app\prod.config.json`
+```js
+"authentication" : {
+    "cookieSession": {
+        "secret": "dasd321as56d1sd5s61vdv32"        
+    },
+    "admin": {
+        "username" : "admin",
+        "password": "password"
+    }
+}
+```
+2.
+And now create `EmbeddedReportingServer` with the specified credentials
+```cs
+new EmbeddedReportingServer(port: 2000) {
+	Username = "admin",
+	Password = "password"
+}	
+```
+
+
+##Additional extensions
+There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](http://jsreport.net/learn/wkhtmltopdf).
+
+1.
+Navigate to `jsreport/app` and run
+```sh
+"../../.bin/npm" install jsreport-wkhtmltopdf --production --save
+```
+2.
+Start jsreport studio using `start.cmd`. You should find `wkhtmltopdf` in the list of recipes
+
+3.
+Finally run `install.cmd` to pack the extended `app` into `jsreport.zip`
+
+4.
+Now you can easily run `wkhtmltopdf`  recipe from the c#
+```cs
+embeddedServer.ReportingService.RenderAsync(new {
+{
+    template = {
+        content = "Hello world from wkhtmltopdf",
+        engine = "handlebars",
+        recipe = "wkhtmltopdf"
+    }
+});
+```
+
+##Manage jsreport version
+
+ Installing `jsreport.Embedded` nuget to the empty project always installs the latest [jsreport from the npm](https://www.npmjs.com/package/jsreport). However restoring nuget package installs the same version as previously installed and mentioned in the file `jsreport/app/package.json`. This assures jsreport version to be consistent. 
+
+Updating jsreport can be done using `update.cmd` batch or simply updating the version manually in `package.json` and calling `install.cmd`.
