@@ -2,7 +2,7 @@
 
 ##Basics
 
-If you prefer to construct your reports rather using ASP.NET MVC engines like Razor you can benefit from `jsreport.MVC` nuget package. This package provides a filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. Keep in mind that this can be very simple to use however you will loose some of the jsreport features like end user customizations.
+If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from `jsreport.MVC` nuget package. This package provides a filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
 
 ##Get Started
 To get started you need to install `jsreport.MVC` package into your `asp.net mvc` project first.
@@ -46,11 +46,18 @@ And now you can try to visit the page and it should open a pdf respectively xlsx
 
 jsreport will evaluate all your css files and even javascript. You only need to keep in mind that every resource like script or style has to be linked with absolute url.
 
-####Quick notes for more sophisticated scenarios.
-
-If you want to add headers and footers to your page, look at the additional parameters of the `EnableJsReportAttribute`.
-
-For more sophisticated scenarios you can inherit from the `JsReportFilterAttribute` and override `RenderReport` method.
-
-For more informations see source codes on [github](https://github.com/jsreport/net/tree/master/examples/Mvc).
-
+####Dynamic recipe resolution
+The `EnableJsReport` doesn't let you pass anything dynamic, however you can fully specify the required rendering request and pass it to `ViewBag.jsreportRenderRequest` inside the action code.
+```cs
+[EnableJsReport()]
+public ActionResult Contact()
+{
+	ViewBag.jsreportRenderRequest = new RenderRequest() {
+	    template = new Template() {
+                            engine = "none",
+                            recipe = "phantom-pdf"
+                        }
+    };
+    return View();
+}
+```
