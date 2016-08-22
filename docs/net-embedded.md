@@ -36,12 +36,12 @@ The nuget installation creates `jsreport` directory with the following structure
 
 ![project structure](http://jsreport.net/screenshots/embedded-project.png?v=2)
 
-**`app`** - jsreport configuration, startup script and also the local dev installation
-**`reports`** -  report templates and other jsreport object definitions
-**`jsreport.zip`** - zipped jsreport from `app` folder with `node.exe` included. This is then taken form the bin folder, decompressed and started through `embeddedServer.StartAsync`.
-**`studio.cmd`** - windows batch starting jsreport local development server
-**`install.cmd`** - used by nuget to install jsreport into `app` folder and zip it into  `jsreport.zip`
-**`update.cmd`** - update jsreport local installation and pack it into `jsreport.zip`
+**`app`** - jsreport configuration, startup script and also the local dev installation    
+**`reports`** -  report templates and other jsreport object definitions    
+**`jsreport.zip`** - zipped jsreport from `app` folder with `node.exe` included. This is then taken form the bin folder, decompressed and started through `embeddedServer.StartAsync`.    
+**`studio.cmd`** - windows batch starting jsreport local development server    
+**`install.cmd`** - used by nuget to install jsreport into `app` folder and zip it into  `jsreport.zip`    
+**`update.cmd`** - update jsreport local installation and pack it into `jsreport.zip`    
 
 Most often you should ignore from the source control `app/node_modules` and `jsreport.zip`, because these are always created during nuget install.
 
