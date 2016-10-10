@@ -11,6 +11,8 @@ The script itself should be compatible with [webpack](https://webpack.github.io/
 
 ##Usage
 
+**rendering based on submitting hidden form, this works on legacy browsers **
+
 ```js
 jsreport.serverUrl = 'http://localhost:3000';
 
@@ -31,10 +33,23 @@ jsreport.render(document.getElementById('reportPlaceholder'), request);
 
 //open download dialog for report
 jsreport.download('myReport.pdf', request);
+```
+
+
+**rendering using ajax calls**
+```js
+//add custom headers to ajax calls
+jsreport.headers['Authorization'] = "Basic " + btoa("admin:password")
 
 //render through AJAX request and return promise with array buffer response
-jsreport.renderAsync(request).then(function(arrayBuffer) {
-  console.log(arrayBuffer);
+jsreport.renderAsync(request).then(function(res) {
+  console.log(res);
+  
+  //open in new window
+  window.open(res.toDataURI())
+  
+  //open download dialog
+  res.download('test.pdf')
 });
 
 jsreport.getTemplateByName(name).then(..)
