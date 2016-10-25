@@ -11,7 +11,7 @@ Sometimes you'll get into situation where you find out that your report template
 
 ##Set child template parameters
 
-The root request input data cascade throw child templates, but you can also pass additional data to the child template through its declaration
+The root request input data cascade through child templates, but you can also pass additional data to the child template through its declaration
 ```html
 {#child myChildTemplate @data.paramA=foo}
 ```
