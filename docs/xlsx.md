@@ -6,6 +6,7 @@
 
 - [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
 - [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
+- [Log and debug](https://playground.jsreport.net/studio/workspace/ryaUvq21e/3)
 - [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
 - [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
 - [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
@@ -31,7 +32,7 @@ The modification of source XML is used by several predefined helpers the recipe 
 {{{xlsxPrint}}}
 ```
 
-The parameter `xl/worksheets/sheet1.xml` is the physical path to the file representing the sheet. You can always verify the path by unzipping the xlsx file and observing its content.  The parameter `worksheet.sheetData[0].row` is then javascript based path into the particular xml. We use here javascript instead of XPath because we anyway keep in memory javascript representation of xml because it is more practical. Finally the value inside the `xlsxAdd` helper is xml which is added.
+The parameter `xl/worksheets/sheet1.xml` is the physical path to the file representing the sheet. You can always verify the path by unzipping the xlsx file and observing its content.  The parameter `worksheet.sheetData[0].row` is then javascript based path into the particular xml. We use here javascript instead of XPath because we anyway keep in memory javascript representation of xml because it is more practical. Check [this helper](https://playground.jsreport.net/studio/workspace/ryaUvq21e/3) if you are not sure how is the xml path constructed. Finally the value inside the `xlsxAdd` helper is xml which is added.
 
 At the end of the template, there always must be called helper `xlsxPrint` which prints the internal json representation into xml which is by recipe zipped into xlsx.
 
@@ -48,7 +49,7 @@ The must be the call to `xlsxPrint` at the end of every template.
 ```html
 {{#xlsxReplace filePath xmlPath}}...{{/xlsxReplace}}
 ```
-Replace the whole xml in `filePath` and `xmlPath` with the xml produced by the block helper
+Replace the whole xml in `filePath` and `xmlPath` with the xml produced by the block helper. 
 
 ### xlsxMerge
 ```html
