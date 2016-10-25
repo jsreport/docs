@@ -71,3 +71,23 @@ And then you can call function in handlebars using:
 say hello world loudly: {{{toUpperCase "hello world"}}}
 ```
 
+##Thirdparty helper libraries
+There are plenty of thirdparty libraries providing additional handlebars helpers like [handlebars-helpers](https://github.com/assemble/handlebars-helpers) or [handlebars-intl](http://formatjs.io/handlebars/). To use such a library in jsreport, you need to install it from npm and then `require` it at the top of the template's helpers.
+
+`npm install handlebars-intl`
+```js
+var handlebars = require('handlebars');
+
+var HandlebarsIntl = require('handlebars-intl');
+HandlebarsIntl.registerWith(handlebars);
+```
+
+`npm install handlebars-helpers`
+```js
+var handlebars = require('handlebars');
+
+var helpers = require('handlebars-helpers')({
+  handlebars: handlebars
+});
+```
+
