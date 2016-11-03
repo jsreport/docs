@@ -97,3 +97,17 @@ The excel preview in the studio uses Microsoft Excel Online service which requir
 
 The first options `previewInExcelOnline` will force the recipe to always return a file stream to the studio instead of the excel online preview.  The second option `publicUriForPreview` allows you to set url to the public server which should be used instead of jsreport.net. Such a server need to accept POST with the file stream, return a string id of the file which needs to be accessible afterwards with GET.
 
+## Configuration
+
+```js
+"xlsx": {
+  "previewInExcelOnline": false,
+  "publicUriForPreview": "http://mypublicSever",
+  // default is to escape & into &amp;amp;
+  "escapeAmp": true,
+  // recipe stops parsing xlsxAdd output into json after the following is reached
+  "numberOfParsedAddIterations": 50,
+  // huge reports are flushed into buffered files with the following size
+  "addBufferSize": 50000000,
+}
+```
