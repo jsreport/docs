@@ -69,6 +69,9 @@ function afterRender(req, res, done) {
 ##Multiple scripts
 You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
 
+##Global scripts
+You can set up a script to run for every single template by adding flag `isGlobal`. This can be done for example in jsreport studio script's properties. Global script can be useful for common tasks like adding common helpers or settings to templates.
+
 ##phantom-pdf note
 Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.options.isChildRequest` property.
 
