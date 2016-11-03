@@ -1,0 +1,51 @@
+> Embed static assets like styles, fonts or html
+
+## Creating assets
+
+You can create an asset using jsreport studio. The most common approach is to just upload a file like css. The second is to create an empty asset and edit its content using jsreport editor. The third option is to create an asset as link to an existing file. Such a link can be an absolute path or relative path to folder where the jsreport was started from.
+
+##Embedding assets
+
+The syntax for embedding asset is the following:
+```
+{#asset name.js}
+```
+
+Such a string will be then replaced in the output as the content of previously uploaded or linked `name.js` asset. There is no additional transformation running so it is way faster than extracting [child templates](http://jsreport.net/learn/child-templates).
+
+The asset can be embedded into template's content, helpers or [custom script](http://jsreport.net/learn/scripts). This enables scenarios like adding common helper functions or adding configuration files to scripts.
+
+The asset extraction is recursive which means you can create a hierarchies of assets. This lets you to group styles' links into a one asset.
+
+The asset extraction runs twice during the rendering. At the beginning after jsreport knows the template and also after the templating engines are executed. This means you can dynamically construct asset names. The following will for example work with jsreport [handlebars](http://jsreport.net/learn/handlebars) engine.
+```
+{#asset {{giveMeAssetName}}}
+```
+
+The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way
+
+```
+<img src='data:image/png;base64,{#asset logo.png @encoding=base64}'/>
+```
+
+##External files access
+
+Uploading or linking assets through jsreport studio is not required, although it gives you authorization and user interface by design. You can also enable option `assets.searchOnDiskIfNotFoundInStore=true` in the configuration and simple embed files in the same way without touching jsreport studio.
+
+
+##Configuration
+
+Add `assets` node to the standard config file:
+
+```js
+assets: {
+  // wildcard pattern for accessible linked or external files
+  allowedFiles: "static/**.css", 
+  // enables access to files not stored as linked assets in jsreport store    
+  searchOnDiskIfNotFoundInStore: false  
+}
+```
+
+##API
+You can use standard OData API to manage and query assets entities. For example you can query all assetsusing
+> `GET` http://jsreport-host/odata/assets
