@@ -109,8 +109,18 @@ You may need to postpone pdf printing until some javascript async tasks are proc
 </script>
 ```
 
+##macOS sierra
+The default phantomjs@1.9 currently doesn't work on the macOS sierra update, you need to use the phantomjs2. See the next chapter.
+
 ##phantomjs2
-To use the latest phantomjs first `npm install phantomjs-prebuilt` and then select `Use custom phantomjs` in the jsreport studio phantomjs menu.
+The recipe default installation uses phantomjs@1.9. You can additionally install other versions and use them in parallel. 
+
+1. Install additional phantomjs using
+`npm install phantomjs-exact-2-1-1`
+2. Switch template's phantomjs version property or set `"template.phantom.phantomjsVersion":"2.1.1"` in api call
+
+Note that phantomjs2 produces different sizes of fonts. Also it doesn't support repeating `thead` when the table spawns multiple pages.
+
 
 ##Twitter Bootstrap
 Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
