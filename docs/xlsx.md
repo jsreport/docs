@@ -13,6 +13,8 @@
 - [Pivot table tutorial](http://jsreport.net/learn/dynamic-excel-pivot-table)
 - [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
 - [Table](https://playground.jsreport.net/studio/workspace/Hy_V2BSh/4)
+- [Update cell](https://playground.jsreport.net/studio/workspace/Hkr4xanxg/7)
+- [Recalculate formulas](https://playground.jsreport.net/studio/workspace/BkcNMahxg/6)
 
 ## General concept
 
