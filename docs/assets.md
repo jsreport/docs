@@ -42,7 +42,7 @@ Assets can be also referenced as links. This is usually better performing in htm
 
 However this approach has several gotchas and you should use it only when it makes really sense.
 
-The first problem is that the asset links needs to be publicly accessible for phantomjs or external users browser. This can be opted in config:
+The first problem is that the asset links needs to be publicly accessible for phantomjs or external users' browsers. This can be opted in through config:
 
 ```js
 {
