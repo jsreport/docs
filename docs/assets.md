@@ -32,6 +32,33 @@ The assets doesn't need to be necessary text files. It can also be a binary file
 
 Uploading or linking assets through jsreport studio is not required, although it gives you authorization and user interface by design. You can also enable option `assets.searchOnDiskIfNotFoundInStore=true` in the configuration and simple embed files in the same way without touching jsreport studio.
 
+##Embedding assets as links
+
+Assets can be also referenced as links. This is usually better performing in html recipe because browsers can cache the assets or request them in parallel.
+
+```html
+<script src="{#asset jquery.js @encoding=link}"></script>
+```
+
+However this approach has several gotchas and you should use it only when it makes really sense.
+
+The first problem is that the asset links needs to be publicly accessible for phantomjs or external users browser. This can be opted in config:
+
+```js
+{
+   "assets": { 
+     "publicAccessEnabled": true
+   }
+}
+```
+
+The second problem is that the assets links are based on the jsreport server url and this is not always easy to automatically determine. There are three cases:
+
+1. The config contains a value for `assets.rootUrlForLinks` which is then always used as base
+2. The incoming http rendering request is used to construct the root url
+3. There is no incoming request (the rendering is triggered in different way) and the `rootUrlForLinks` is not set. In this case the `localhost:[PORT]` is used as base
+
+
 
 ##Configuration
 
@@ -42,7 +69,11 @@ assets: {
   // wildcard pattern for accessible linked or external files
   allowedFiles: "static/**.css", 
   // enables access to files not stored as linked assets in jsreport store    
-  searchOnDiskIfNotFoundInStore: false  
+  searchOnDiskIfNotFoundInStore: false,
+  // root url used when embedding assets as links {#asset foo.js @encoding=link}
+  rootUrlForLinks: "http://mydomain.com",
+  // make all assets accessible to anonymous requests
+  publicAccessEnabled: true
 }
 ```
 
