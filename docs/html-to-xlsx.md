@@ -10,6 +10,8 @@ Following properties are supported:
 - `width` - the excel column will get the highest width, it can be little bit inaccurate because of pixel to excel points conversion
 - `height` - the excel row will get the highest height
 - `font-size` - font size
+- `colspan`- numeric value that merges current column with columns to the right
+- `rowspan` - numeric value that merges current row with rows below.
 
 
 <iframe src='https://playground.jsreport.net/studio/workspace/Y3BG0fnPa/1?embed=1' width="100%" height="400" frameborder="0"></iframe>
