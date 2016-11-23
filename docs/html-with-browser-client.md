@@ -84,17 +84,19 @@ The last example shows how to use the [jsreport borwser client](https://github.c
     var template;
     var templateName = 'My editable report template';
     var data = { foo: '...' };
-    
-    //load template definition so we can edit it's content
-    jsreport.getTemplateByName(templateName).then(function(r) {
-       template = r;
-    });
+        
+    jsreportInit = function() {
+      //load template definition so we can edit it's content
+      jsreport.getTemplateByName(templateName).then(function(r) {
+         template = r;
+      });
  
-    //also render into the preview pane
-    jsreport.render('reportBox', { 
-      template: { name: templateName }, 
-      data: data 
-    });
+      //also render into the preview pane
+      jsreport.render('reportBox', { 
+        template: { name: templateName }, 
+        data: data 
+      });
+    }
     
     //open editor with the edited template content
     function edit() {
@@ -117,3 +119,6 @@ The last example shows how to use the [jsreport borwser client](https://github.c
     
 </script>
 ```
+
+##Performance and omitting data
+The recipe by default serializes the input data into the global `jsreport.data` javascript object. This can hurt performance if the data set is huge. In this case you can omit serializing data using property `template.omitDataFromOutput`. This can be set in API call or also in jsreport studio.
