@@ -1,3 +1,28 @@
-This extension allows you to export report template into a json file and import it back to the system. You can export only existing saved template. Saemo for importing templates, you can import only into existing template. Don't export and import examples, otherwise you will get them duplicated.
+> Export templates store into zip file and later recover the state or import to a different instance
 
-![import export](http://jsreport.net/screenshots/importExport.png)
+![export](http://jsreport.net/img/export.gif)
+
+##Migrating templates
+This extension can be used to move templates to different servers as well to different servers using different template stores. This means you can for example copy templates from default file system store to [mssql store](https://github.com/jsreport/jsreport-mssql-store) or [postgres store](https://github.com/jsreport/jsreport-postgres-store).
+
+##API
+
+###Export into zip stream
+```js
+POST: /api/export
+BODY: {
+  //optional
+  selection: ["id1", "id2" ...]
+}
+```
+
+
+
+###Import zip stream
+
+```js
+POST: /api/import
+BODY: /* multipart import.zip */
+```
+`
+
