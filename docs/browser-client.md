@@ -57,3 +57,5 @@ jsreport.updateTemplate(template).then(..)
 ```
 
 You can find more details about the `request` argument  [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
+
+Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
