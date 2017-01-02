@@ -25,7 +25,7 @@ The asset extraction runs twice during the rendering. At the beginning after jsr
 The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way
 
 ```
-<img src='data:image/png;base64,{#asset logo.png @encoding=base64}'/>
+<img src='{#asset logo.png @encoding=dataURI}'/>
 ```
 
 ##External files access
