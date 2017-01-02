@@ -1,3 +1,9 @@
+
+> **!!!THE JSREPORT VISUAL STUDIO EXTENSION IS DEPRECATED!!! **
+We promote using native jsreport studio. See [docs](http://jsreport.net/learn/net-embedded) fore details.
+
+The next applies only for jsreport@0.x
+
 <a class="button large bg-emerald bg-hover-gray fg-white" target="_blank" href="http://youtu.be/UQDAgWsCGzw">pdf reports in visual studio and c# youtube video<i class="icon-arrow-right-3 on-right fg-white"></i></a>
 
 > **[Download from visual studio galery](http://visualstudiogallery.msdn.microsoft.com/b684060e-5785-461f-832a-ffb0243a3874)**
