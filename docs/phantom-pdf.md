@@ -124,3 +124,6 @@ Note that phantomjs2 produces different sizes of fonts. Also it doesn't support 
 
 ##Twitter Bootstrap
 Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
+
+##Fonts
+The fonts can be easily embeded into pdf reports using [assets](http://jsreport.net/learn/assets) extension. You can find the tutorial how to do it [here](http://jsreport.net/blog/fonts-in-pdf).
