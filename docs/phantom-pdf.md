@@ -117,7 +117,15 @@ The recipe default installation uses phantomjs@1.9. You can additionally install
 
 1. Install additional phantomjs using
 `npm install phantomjs-exact-2-1-1`
-2. Switch template's phantomjs version property or set `"template.phantom.phantomjsVersion":"2.1.1"` in api call
+2. Use jsreport studio to switch phantomjs version in properties or set `"template.phantom.phantomjsVersion":"2.1.1"` in api call
+
+You can also set the default phantomjs version globally in the config:
+
+```js
+"phantom": {   
+    "defaultPhantomjsVersion": "2.1.1"
+  }
+```
 
 Note that phantomjs2 produces different sizes of fonts. Also it doesn't support repeating `thead` when the table spawns multiple pages.
 
