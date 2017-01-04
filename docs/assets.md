@@ -80,3 +80,7 @@ assets: {
 ##API
 You can use standard OData API to manage and query assets entities. For example you can query all assetsusing
 > `GET` http://jsreport-host/odata/assets
+
+##Examples
+- [Using assets to embed fonts into reports](http://jsreport.net/blog/fonts-in-pdf)
+- [Using assets to create template layouts](http://jsreport.net/blog/template-layouts)

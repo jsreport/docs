@@ -155,8 +155,9 @@ POST: {
 Some people prefer to push data into jsreport from the client and some people prefer to use `scripts` extension to actively fetch them. Where pushing data to the jsreport is more straight forward, using `scripts` can provide better architecture with fully separated reporting server where report itself is responsible for defining input as well as fetching them. The choice is up to you. 
 
 
-##Quick links
-> **[Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)**
+##Examples
+- [Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)
+- [Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)
+- [Using scripts to create template layouts](http://jsreport.net/blog/template-layouts)
 
-> **[Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)**
 
