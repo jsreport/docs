@@ -12,6 +12,8 @@ when using extensions default webpack configuration
     * [.readyListeners](#Studio+readyListeners) ⇒ <code>Array.&lt;function()&gt;</code>
     * [.previewListeners](#Studio+previewListeners) ⇒ <code>Array.&lt;function()&gt;</code>
     * [.templateEditorModeResolvers](#Studio+templateEditorModeResolvers) ⇒ <code>Array.&lt;function()&gt;</code>
+    * [.entityTreeIconResolvers](#Studio+entityTreeIconResolvers) ⇒ <code>Array.&lt;function()&gt;</code>
+    * [.entityTreeFilterItemResolvers](#Studio+entityTreeFilterItemResolvers) ⇒ <code>Array.&lt;function()&gt;</code>
     * [.locationResolver](#Studio+locationResolver)
     * [.toolbarVisibilityResolver](#Studio+toolbarVisibilityResolver)
     * [.referencesLoader](#Studio+referencesLoader)
@@ -21,8 +23,15 @@ when using extensions default webpack configuration
     * [.extensions](#Studio+extensions) ⇒ <code>Object</code>
     * [.rootUrl](#Studio+rootUrl) ⇒ <code>string</code>
     * [.TextEditor](#Studio+TextEditor) ⇒ <code>TextEditor</code>
+    * [.SplitPane](#Studio+SplitPane) ⇒ <code>SplitPane</code>
+    * [.Popover](#Studio+Popover) ⇒ <code>Popover</code>
+    * [.EntityTree](#Studio+EntityTree) ⇒ <code>EntityTree</code>
+    * [.EntityTreeButton](#Studio+EntityTreeButton) ⇒ <code>EntityTreeButton</code>
     * [.addEntitySet(entitySet)](#Studio+addEntitySet)
     * [.addToolbarComponent(toolbarComponent, position)](#Studio+addToolbarComponent)
+    * [.addEntityTreeWrapperComponent(entityTreeWrapperComponent)](#Studio+addEntityTreeWrapperComponent)
+    * [.addEntityTreeToolbarComponent(entityTreeToolbarComponent)](#Studio+addEntityTreeToolbarComponent)
+    * [.addEntityTreeItemComponent(entityTreeItemComponent, position)](#Studio+addEntityTreeItemComponent)
     * [.addTabTitleComponent(key, component)](#Studio+addTabTitleComponent)
     * [.addEditorComponent(key, component)](#Studio+addEditorComponent)
     * [.addPropertiesComponent(string, component, shouldDisplay)](#Studio+addPropertiesComponent)
@@ -51,6 +60,8 @@ when using extensions default webpack configuration
     * [.getActiveEntity()](#Studio+getActiveEntity) ⇒ <code>Object</code>
     * [.getLastActiveTemplate()](#Studio+getLastActiveTemplate) ⇒ <code>Object</code> &#124; <code>null</code>
     * [.getAllEntities()](#Studio+getAllEntities) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.getReferences()](#Studio+getReferences) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.resolveUrl(path)](#Studio+resolveUrl) ⇒ <code>String</code>
     * [.relativizeUrl(path)](#Studio+relativizeUrl) ⇒ <code>String</code>
 
 <a name="Studio+initializeListeners"></a>
@@ -65,19 +76,36 @@ Array of async functions invoked in sequence during initialization
 Array of async functions invoked in sequence after the app has been rendered
 
 **Kind**: instance property of <code>[Studio](#Studio)</code>  
+
 <a name="Studio+previewListeners"></a>
 
 ### studio.previewListeners ⇒ <code>Array.&lt;function()&gt;</code>
 Array of async functions invoked in sequence when preview process starts.
 
 **Kind**: instance property of <code>[Studio](#Studio)</code>  
+
 <a name="Studio+templateEditorModeResolvers"></a>
 
 ### studio.templateEditorModeResolvers ⇒ <code>Array.&lt;function()&gt;</code>
 Array of functions used to resolve ace editor mode for template content. This is used by custom templating engines
 to add highlighting support for jade,ejs...
 
-**Kind**: instance property of <code>[Studio](#Studio)</code>  
+**Kind**: instance property of <code>[Studio](#Studio)</code>
+
+<a name="Studio+entityTreeIconResolvers"></a>
+
+### studio.entityTreeIconResolvers ⇒ <code>Array.&lt;function()&gt;</code>
+Array of functions used to resolve entity icon in entity tree, function accepts entity and returns string like fa-cog
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>
+
+<a name="Studio+entityTreeFilterItemResolvers"></a>
+
+### studio.entityTreeFilterItemResolvers ⇒ <code>Array.&lt;function()&gt;</code>
+Array of functions used to resolve filtering in entity tree, function accepts entity, entitySets and filter info, should return boolean to determine if item should be skipped or not
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>
+
 <a name="Studio+locationResolver"></a>
 
 ### studio.locationResolver
@@ -88,7 +116,7 @@ Sets the function returning the browser url path
 
 | Param | Type |
 | --- | --- |
-| fn | <code>function</code> | 
+| fn | <code>function</code> |
 
 <a name="Studio+toolbarVisibilityResolver"></a>
 
@@ -100,7 +128,7 @@ Set the function retunring the visibility flag for particular toolbar button
 
 | Param | Type |
 | --- | --- |
-| fn | <code>function</code> | 
+| fn | <code>function</code> |
 
 <a name="Studio+referencesLoader"></a>
 
@@ -112,7 +140,7 @@ Override the default entities references loading with custom function
 
 | Param | Type |
 | --- | --- |
-| fn | <code>function</code> | 
+| fn | <code>function</code> |
 
 <a name="Studio+shouldOpenStartupPage"></a>
 
@@ -123,7 +151,7 @@ Optionally you can avoid displaying default startup page
 
 | Param | Type |
 | --- | --- |
-| trueOrFalse | <code>Boolean</code> | 
+| trueOrFalse | <code>Boolean</code> |
 
 <a name="Studio+api"></a>
 
@@ -153,6 +181,7 @@ Object[name] with registered extensions and its options
 absolute root url to the server, like http://localhost/reporting
 
 **Kind**: instance property of <code>[Studio](#Studio)</code>  
+
 <a name="Studio+TextEditor"></a>
 
 ### studio.TextEditor ⇒ <code>TextEditor</code>
@@ -163,6 +192,35 @@ Ace editor React wrapper
 ```js
 export default class DataEditor extends TextEditor { ... }
 ```
+
+<a name="Studio+SplitPane"></a>
+
+### studio.SplitPane ⇒ <code>SplitPane</code>
+Component used to split content with sliders
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>
+
+<a name="Studio+Popover"></a>
+
+### studio.Popover ⇒ <code>Popover</code>
+Component used to show content in a popover
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>  
+
+<a name="Studio+EntityTree"></a>
+
+### studio.EntityTree ⇒ <code>EntityTree</code>
+Component used to visualise entities
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>  
+
+<a name="Studio+EntityTreeButton"></a>
+
+### studio.EntityTreeButton ⇒ <code>EntityTreeButton</code>
+Component used to add actions in EntityTree toolbar
+
+**Kind**: instance property of <code>[Studio](#Studio)</code>
+
 <a name="Studio+addEntitySet"></a>
 
 ### studio.addEntitySet(entitySet)
@@ -172,7 +230,7 @@ Add new entity set, which will be automatically loaded through OData and display
 
 | Param | Type |
 | --- | --- |
-| entitySet | <code>Object</code> | 
+| entitySet | <code>Object</code> |
 
 **Example**  
 ```js
@@ -188,7 +246,41 @@ Add React component which will be displayed in toolbar
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | toolbarComponent | <code>ReactComponent</code> &#124; <code>function</code> |  |  |
-| position | <code>String</code> | <code>left</code> | left or settings |
+| position | <code>String</code> | <code>left</code> | left, right, settings or settingsBottom |
+
+<a name="Studio+addEntityTreeWrapperComponent"></a>
+
+### studio.addEntityTreeWrapperComponent(entityTreeWrapperComponent)
+Add React component which will be displayed as a wrapper/container for entity tree
+
+**Kind**: instance method of <code>[Studio](#Studio)</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entityTreeWrapperComponent | <code>ReactComponent</code> &#124; <code>function</code> |  |  |
+
+<a name="Studio+addEntityTreeToolbarComponent"></a>
+
+### studio.addEntityTreeToolbarComponent(entityTreeToolbarComponent)
+Add React component which will be displayed in toolbar of entity tree
+
+**Kind**: instance method of <code>[Studio](#Studio)</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entityTreeToolbarComponent | <code>ReactComponent</code> &#124; <code>function</code> |  |  |
+
+<a name="Studio+addEntityTreeItemComponent"></a>
+
+### studio.addEntityTreeItemComponent(entityTreeItemComponent, position)
+Add React component which will be displayed when rendering an item of entity tree
+
+**Kind**: instance method of <code>[Studio](#Studio)</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entityTreeItemComponent | <code>ReactComponent</code> &#124; <code>function</code> |  |  |
+| position | <code>String</code> | <code>left</code> | right, groupRight or container |
 
 <a name="Studio+addTabTitleComponent"></a>
 
@@ -236,8 +328,8 @@ Set additional custom header to all api calls
 
 | Param | Type |
 | --- | --- |
-| key | <code>String</code> | 
-| value | <code>String</code> | 
+| key | <code>String</code> |
+| value | <code>String</code> |
 
 <a name="Studio+addApiSpec"></a>
 
@@ -248,7 +340,7 @@ Merges in the object defining the api which is used in api fialog
 
 | Param | Type |
 | --- | --- |
-| obj | <code>Object</code> | 
+| obj | <code>Object</code> |
 
 <a name="Studio+setPreviewFrameSrc"></a>
 
@@ -260,7 +352,7 @@ setPreviewFrameSrc('data:text/html;charset=utf-8,foooooooo')
 
 | Param | Type |
 | --- | --- |
-| frameSrc | <code>String</code> | 
+| frameSrc | <code>String</code> |
 
 <a name="Studio+openModal"></a>
 
@@ -295,7 +387,7 @@ Open and activate new editor tab
 
 | Param | Type |
 | --- | --- |
-| tab | <code>Object</code> | 
+| tab | <code>Object</code> |
 
 **Example**  
 ```js
@@ -313,8 +405,8 @@ Loads entity, which reference is already present in the ui state, from the remot
 
 | Param | Type | Default |
 | --- | --- | --- |
-| id | <code>String</code> |  | 
-| force | <code>Boolean</code> | <code>false</code> | 
+| id | <code>String</code> |  |
+| force | <code>Boolean</code> | <code>false</code> |
 
 <a name="Studio+unloadEntity"></a>
 
@@ -325,7 +417,7 @@ Remove the additional entity properties from the state, keep just meta and id
 
 | Param | Type |
 | --- | --- |
-| id | <code>String</code> | 
+| id | <code>String</code> |
 
 <a name="Studio+addEntity"></a>
 
@@ -336,7 +428,7 @@ Add entity to the state
 
 | Param | Type |
 | --- | --- |
-| entity | <code>Object</code> | 
+| entity | <code>Object</code> |
 
 <a name="Studio+updateEntity"></a>
 
@@ -347,7 +439,7 @@ Update entity in the state
 
 | Param | Type |
 | --- | --- |
-| entity | <code>Object</code> | 
+| entity | <code>Object</code> |
 
 <a name="Studio+saveEntity"></a>
 
@@ -358,7 +450,7 @@ Call remote API and persist (insert or update) entity
 
 | Param | Type |
 | --- | --- |
-| id | <code>String</code> | 
+| id | <code>String</code> |
 
 <a name="Studio+addExistingEntity"></a>
 
@@ -369,7 +461,7 @@ Adds already existing (persisted) entity into the UI state
 
 | Param |
 | --- |
-| entity | 
+| entity |
 
 <a name="Studio+replaceEntity"></a>
 
@@ -380,8 +472,8 @@ Replace the existing entity in the state
 
 | Param | Type |
 | --- | --- |
-| oldId | <code>String</code> | 
-| entity | <code>Object</code> | 
+| oldId | <code>String</code> |
+| entity | <code>Object</code> |
 
 <a name="Studio+removeEntity"></a>
 
@@ -392,7 +484,7 @@ Remove entity from the state
 
 | Param | Type |
 | --- | --- |
-| id | <code>String</code> | 
+| id | <code>String</code> |
 
 <a name="Studio+startProgress"></a>
 
@@ -427,8 +519,8 @@ Save one setting in state and persist it on the server
 
 | Param | Type |
 | --- | --- |
-| key | <code>String</code> | 
-| value | <code>Object</code> | 
+| key | <code>String</code> |
+| value | <code>Object</code> |
 
 <a name="Studio+getSettingValueByKey"></a>
 
@@ -439,8 +531,8 @@ Get one setting value from the state
 
 | Param | Type | Default |
 | --- | --- | --- |
-| key | <code>String</code> |  | 
-| shouldThrow | <code>Boolean</code> | <code>true</code> | 
+| key | <code>String</code> |  |
+| shouldThrow | <code>Boolean</code> | <code>true</code> |
 
 <a name="Studio+getEntityByShortid"></a>
 
@@ -451,8 +543,8 @@ Searches for the entity in the UI state based on specified the shortid
 
 | Param | Type | Default |
 | --- | --- | --- |
-| shortid | <code>String</code> |  | 
-| shouldThrow | <code>Boolean</code> | <code>true</code> | 
+| shortid | <code>String</code> |  |
+| shouldThrow | <code>Boolean</code> | <code>true</code> |
 
 <a name="Studio+getActiveEntity"></a>
 
@@ -465,21 +557,42 @@ Returns the currently selected entity or null
 ### studio.getLastActiveTemplate() ⇒ <code>Object</code> &#124; <code>null</code>
 Returns last active entity
 
-**Kind**: instance method of <code>[Studio](#Studio)</code>  
+**Kind**: instance method of <code>[Studio](#Studio)</code>
+
 <a name="Studio+getAllEntities"></a>
 
 ### studio.getAllEntities() ⇒ <code>Array.&lt;Object&gt;</code>
 Get all entities including meta attributes in array
 
 **Kind**: instance method of <code>[Studio](#Studio)</code>  
-<a name="Studio+relativizeUrl"></a>
 
-### studio.relativizeUrl(path) ⇒ <code>String</code>
+<a name="Studio+getReferences"></a>
+
+### studio.getReferences() ⇒ <code>Array.&lt;Object&gt;</code>
+Get references to entities
+
+**Kind**: instance method of <code>[Studio](#Studio)</code>
+
+<a name="Studio+resolveUrl"></a>
+
+### studio.resolveUrl(path) ⇒ <code>String</code>
 Get the path in absolute form like /api/images and make it working also for jsreport running on subpath like myserver.com/reporting/api/images
 
 **Kind**: instance method of <code>[Studio](#Studio)</code>  
 
 | Param | Type |
 | --- | --- |
-| path | <code>String</code> | 
+| path | <code>String</code> |
 
+<a name="Studio+relativizeUrl"></a>
+
+### studio.relativizeUrl(path) ⇒ <code>String</code>
+**This method is deprecated, use .resolveUrl**
+
+Get the path in absolute form like /api/images and make it working also for jsreport running on subpath like myserver.com/reporting/api/images
+
+**Kind**: instance method of <code>[Studio](#Studio)</code>  
+
+| Param | Type |
+| --- | --- |
+| path | <code>String</code> |
