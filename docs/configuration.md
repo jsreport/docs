@@ -17,7 +17,7 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 ##Basics
 
 **connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can for example install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store), change `connectionString.name` to `mongoDB` and start storing templates in mongodb.
- 
+
  **extensions** `string array` - this attribute is `optional`. jsreport will load all
 all extensions located under root directory if it's undefined or null. If the attribute is defined, jsreport will only load specified extensions. All specified extensions must be present somewhere in the jsreport directory. Order is not relevant because extensions are reordered by it's dependencies.
 
@@ -27,7 +27,11 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tempDirectory** (`string`) - optionally specifies absolute path to directory where the application stores temporary files
 
-**blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application. 
+**blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application.
+
+##Studio
+
+**entityTreeOrder** `string array` - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
 
 ##Phantom
 
@@ -49,13 +53,13 @@ all extensions located under root directory if it's undefined or null. If the at
 
 ##Script tasks
 
-**tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension. 
+**tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension.
 
 **tasks.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy whit users' templates which can have potentially endless loops or other critical errors which could terminate the application.
 
 **tasks.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
 
-**tasks.timeout** (`number`) -  specify default timeout in ms for one task execution 
+**tasks.timeout** (`number`) -  specify default timeout in ms for one task execution
 
 **tasks.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
 
@@ -80,7 +84,6 @@ all extensions located under root directory if it's undefined or null. If the at
 
 ##Example of the config file
 
-
 ```javascript
 {
     "certificate": {
@@ -99,6 +102,9 @@ all extensions located under root directory if it's undefined or null. If the at
         "numberOfWorkers" : 2,
         "timeout": 10000,
         "strategy": "http-server"
-    }	
+    },
+    "studio": {
+        "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
+    }
 }
 ```
