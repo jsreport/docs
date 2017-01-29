@@ -1,6 +1,6 @@
 > Organize jsreport objects with tags
 
-![export](http://jsreport.net/img/tags.gif)
+![export](https://jsreport.net/img/tags.gif)
 
 ## Basics
 Enabling `tags` extension will add organizational capabilities to jsreport, enabling organize, filter and show jsreport objects with tags.

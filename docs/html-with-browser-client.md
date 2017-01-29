@@ -1,8 +1,8 @@
-`html-with-browser-client` creates html output with attached [browser client script](http://jsreport.net/learn/browser-client).
+`html-with-browser-client` creates html output with attached [browser client script](https://jsreport.net/learn/browser-client).
 
-The html output is then extended with [jsreport](http://jsreport.net/learn/browser-client) global object. That can be used to invoke jsreport server rendering directly from the output report.
+The html output is then extended with [jsreport](https://jsreport.net/learn/browser-client) global object. That can be used to invoke jsreport server rendering directly from the output report.
 
-See the [browser client docs](http://jsreport.net/learn/browser-client) for API details.
+See the [browser client docs](https://jsreport.net/learn/browser-client) for API details.
 
 
 ##Export part of the report to PDF
@@ -40,7 +40,7 @@ Hello from master....
 </script>
 ```
 
-The detail template can use data provided from the master template or use [custom script](http://jsreport.net/learn/scripts) to actively fetch required data. There can be also `back` button for navigating back to the master template.
+The detail template can use data provided from the master template or use [custom script](https://jsreport.net/learn/scripts) to actively fetch required data. There can be also `back` button for navigating back to the master template.
 ```html
 Hello from detail {{detailId}} ....
 <input type='button' onclick='window.history.back()' value='back'/>

@@ -1,11 +1,11 @@
 > **[Download examples from GitHub](https://github.com/jsreport/net/tree/master/examples)**
 
 ##Basics
-jsreport comes with .NET c# client which wraps REST API and is very convenient to use if you are in .NET environment. You can use .NET c# client to connect to a remote jsreport server and also to [jsreport .NET embedded server](http://jsreport.net/learn/net-embedded).
+jsreport comes with .NET c# client which wraps REST API and is very convenient to use if you are in .NET environment. You can use .NET c# client to connect to a remote jsreport server and also to [jsreport .NET embedded server](https://jsreport.net/learn/net-embedded).
 
 ## Get Started
 
-I assume that you already understand basic jsreport concepts. If you don't, please follow instruction in the [get started section](http://jsreport.net/learn/get-started).
+I assume that you already understand basic jsreport concepts. If you don't, please follow instruction in the [get started section](https://jsreport.net/learn/get-started).
 
 Installing jsreport c# client is easy using nuget package:
 > PM> Install-Package [jsreport.Client](https://www.nuget.org/packages/jsreport.Client/)
@@ -89,7 +89,7 @@ var report = await _reportingService.RenderAsync(new RenderRequest() {
             });
 ```
 
-If you want complete freedom, you can simply pass anonymous object into the `RenderAsync`. The object parameter only needs to follow the same structure which jsreport API expects. See more about it [here](http://jsreport.net/learn/api).
+If you want complete freedom, you can simply pass anonymous object into the `RenderAsync`. The object parameter only needs to follow the same structure which jsreport API expects. See more about it [here](https://jsreport.net/learn/api).
 
 ```cs
 var report = await _reportingService.RenderAsync(new {

@@ -92,7 +92,7 @@ You can now checkout your working jsreport application at:
 
 	http://<appname>-<yournamespace>.rhcloud.com
 
-See the [documentation](http://jsreport.net/learn) for other options you can use for jsreport like adding authentication/authotization or how to use [config files](https://github.com/jsreport/docs/blob/master/docs/configuration.md).
+See the [documentation](https://jsreport.net/learn) for other options you can use for jsreport like adding authentication/authotization or how to use [config files](https://github.com/jsreport/docs/blob/master/docs/configuration.md).
 
 <br /> <br />
 Appendix

@@ -23,7 +23,7 @@ Studio.readyListeners.push(async () => {
 })
 ```
 
-The `Studio` object represents a facade around whole studio API. It contains functions for opening new tabs, adding custom entity types or hooks for listening to events. The list of `Studio` members can be found separately in [Studio API reference](http://jsreport.net/learn/studio-api-reference).
+The `Studio` object represents a facade around whole studio API. It contains functions for opening new tabs, adding custom entity types or hooks for listening to events. The list of `Studio` members can be found separately in [Studio API reference](https://jsreport.net/learn/studio-api-reference).
 
 
 ##Technologies
@@ -51,5 +51,5 @@ As mentioned previously, the most of the standard extensions are including also 
 
 ##Reference
 
-The Studio API reference is availible [here](http://jsreport.net/learn/studio-api-reference).
+The Studio API reference is availible [here](https://jsreport.net/learn/studio-api-reference).
 

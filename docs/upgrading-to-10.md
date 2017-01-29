@@ -43,7 +43,7 @@ The same applies for the helper functions where you need to explicitly enable mo
 Eventually you can use `"allowedModules": "*"`  to enable all modules
 
 ## wrapped-html recipe
-`wrapped-html` has been replaced with new [html-with-browser-client](http://jsreport.net/learn/html-with-browser-client) recipe in the default installation. However you can additionally install it and it should still work: `npm install jsreport-embedding`
+`wrapped-html` has been replaced with new [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client) recipe in the default installation. However you can additionally install it and it should still work: `npm install jsreport-embedding`
 
 Unfortunately the embeddable editor included in `jsreport-embedding` won't work with jsreport@1. We were not able to port it to the newly rewritten studio. However we  may prepare through time an embeddable version of the new studio as well.
 

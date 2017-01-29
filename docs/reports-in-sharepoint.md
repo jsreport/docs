@@ -10,27 +10,27 @@ First find jsreport application in the [office store](https://store.office.com/)
 
 jsreport SharePoint app will add custom list to the site collection during installation. The list called *jsreport Templates* is used for storing report templates as well as rendering reports. Let's wait for application to be installed, refresh the page and navigate to the list.
 
-![report templates](http://jsreport.net/img/sharepoint1.png)
+![report templates](https://jsreport.net/img/sharepoint1.png)
 
 You will find a sample report template prepared for you. Navigate to it's detail.
 
-![list of templates](http://jsreport.net/img/sharepoint2.png)
+![list of templates](https://jsreport.net/img/sharepoint2.png)
 
 You should find a *Render report* button on the display form. This button is used for generating report to the new browser tab. You can try to render sample report and you should see output pdf.
 
-![rendering report](http://jsreport.net/img/sharepoint3.png)
+![rendering report](https://jsreport.net/img/sharepoint3.png)
 
 To edit the report you need to navigate to the edit form first.
 
-![edit item](http://jsreport.net/img/sharepoint4.png)
+![edit item](https://jsreport.net/img/sharepoint4.png)
 
 You can edit basic SharePoint properties like *Title* and *Description* in the common way. However if you want to edit report template itself you need to use *Open editor* button.
 
-![open editor](http://jsreport.net/img/sharepoint5.png)
+![open editor](https://jsreport.net/img/sharepoint5.png)
 
 This should pop up jsreport editor where you can edit the report layout, preview, close it and save it using standard SharePoint buttons afterwards. Note that everything is serialized and stored back to `jsreport Templates` list so you don't need to worry about data safety.
 
-![jsreport editor](http://jsreport.net/img/sharepoint6.png)
+![jsreport editor](https://jsreport.net/img/sharepoint6.png)
 
 ##Editor
 
@@ -40,7 +40,7 @@ Examining `Sample Report` you find html template defining report layout in the m
 
 jsreport is not limited to produce just pdf. It supports various output formats including Excel or csv. To specify one you need to choose the right jsreport recipe. The recipe not only defines what will be the output but also how it will be rendered. For example `phantom-pdf` recipe render pdf from html or `html-to-xlsx` render Excel xlsx table from html.
 
-![recipes](http://jsreport.net/img/sharepoint7.png)
+![recipes](https://jsreport.net/img/sharepoint7.png)
 
 Every recipe has it's purpose and input format and you cannot just switch them and send for example html into xlsx recipe. This would result into a wrong xlsx file and error warning in the preview pane. In this case rather check recipe specification in the [documentation](/learn/recipes).
 

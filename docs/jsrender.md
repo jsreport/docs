@@ -88,6 +88,6 @@ Then you can say to jsrender to use this sub template with following:
 {{for languages tmpl="itemTemplate"/}}
 ```
 
-It's a good practice to use jsrender sub templates together with jsreport [child templates](http://jsreport.net/learn/child-templates) and move sub templates into dedicated report templates. This will allow you to separate big template into multiple templates and keep things clear. Note that you should set jsreport child template to `None` engine and `html` recipe for this case.
+It's a good practice to use jsrender sub templates together with jsreport [child templates](https://jsreport.net/learn/child-templates) and move sub templates into dedicated report templates. This will allow you to separate big template into multiple templates and keep things clear. Note that you should set jsreport child template to `None` engine and `html` recipe for this case.
 
 

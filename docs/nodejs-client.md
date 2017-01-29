@@ -1,4 +1,4 @@
-jsreport node.js client is a wrapper around [jsreport api](http://jsreport.net/learn/api) allowing to connect to a remote jsreport server, render pdf reports and operate on the entities. It supports both local [on-premise](http://jsreport.net/on-prem) jsreport server as well as jsreport [online SaaS](http://jsreport.net/online).
+jsreport node.js client is a wrapper around [jsreport api](https://jsreport.net/learn/api) allowing to connect to a remote jsreport server, render pdf reports and operate on the entities. It supports both local [on-premise](https://jsreport.net/on-prem) jsreport server as well as jsreport [online SaaS](https://jsreport.net/online).
 
 ##Installation
 > npm install jsreport-client
@@ -12,7 +12,7 @@ var client = require("jsreport-client")(url, username, password)
 ```
 
 ##Rendering reports
-`Client` instance contains `render` method that triggers remote report rendering process and callbacks response. `Render` parameter is a request object that is posted to the jsreport server. It needs to contain a `template` property representing a reference to the existing jsreport template using `shortid` or raw definition of the template. Row definition typically defines `content`, `helpers`, `recipe` and `engine` property. Second but optional property of request is `data` representing report input data. See [API](http://jsreport.net/learn/api) documentation for details.
+`Client` instance contains `render` method that triggers remote report rendering process and callbacks response. `Render` parameter is a request object that is posted to the jsreport server. It needs to contain a `template` property representing a reference to the existing jsreport template using `shortid` or raw definition of the template. Row definition typically defines `content`, `helpers`, `recipe` and `engine` property. Second but optional property of request is `data` representing report input data. See [API](https://jsreport.net/learn/api) documentation for details.
 
 ```js
 client.render({

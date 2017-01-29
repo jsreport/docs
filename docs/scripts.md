@@ -156,8 +156,8 @@ Some people prefer to push data into jsreport from the client and some people pr
 
 
 ##Examples
-- [Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)
+- [Sending reports periodically in email article](https://jsreport.net/blog/sending-reports-periodically-in-email)
 - [Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)
-- [Using scripts to create template layouts](http://jsreport.net/blog/template-layouts)
+- [Using scripts to create template layouts](https://jsreport.net/blog/template-layouts)
 
 

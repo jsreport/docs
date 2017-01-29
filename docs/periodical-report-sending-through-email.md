@@ -9,7 +9,7 @@ As the example for this let's make a report which will request input data from a
 ###Request input data
 The first thing to do is create a script which will be used to request data from the external API and later also send the output report. You can create a script from the jsreport studio in the left entity tree panel.
 
-![script](http://jsreport.net/screenshots/script.png)
+![script](https://jsreport.net/screenshots/script.png)
 
 Tasks like preparing report input data should be implemented in the script's global function called `beforeRender`. We can use pre-installed [request](https://github.com/request/request) node.js module  to collect data from the external API for this case. Following snippet simply requests specified url and add parsed JSON response into the rendering request inputs.
 
@@ -38,7 +38,7 @@ And secondly you need to enable this module in the jsreport configuration.
 ###Define a template
 Now it's time to create a report template and associate previously created script with it. 
 
-![select script](http://jsreport.net/screenshots/select-script.png)
+![select script](https://jsreport.net/screenshots/select-script.png)
 
 The template has now the input data filled from the custom script. We can iterate over it and create a simple pdf.
 
@@ -86,7 +86,7 @@ You should have now a report template which automatically downloads data from an
 
 To plan a periodical report rendering you should create a schedule, associate the template and specify its time plan using CRON expression.
 
-![schedule](http://jsreport.net/screenshots/schedule.png)
+![schedule](https://jsreport.net/screenshots/schedule.png)
 
 ##Conclusion
 Now you have a self sufficient independent report which runs periodically on its own, downloads data and also distributes the output. All of this was done without touching your application or granting special access to the database. This usage makes jsreport fully capable reporting server.

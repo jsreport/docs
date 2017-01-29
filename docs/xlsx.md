@@ -10,7 +10,7 @@
 - [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
 - [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
 - [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
-- [Pivot table tutorial](http://jsreport.net/learn/dynamic-excel-pivot-table)
+- [Pivot table tutorial](https://jsreport.net/learn/dynamic-excel-pivot-table)
 - [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
 - [Table](https://playground.jsreport.net/studio/workspace/Hy_V2BSh/4)
 - [Update cell](https://playground.jsreport.net/studio/workspace/Hkr4xanxg/7)

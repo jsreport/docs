@@ -1,6 +1,6 @@
 
 > **!!!THE JSREPORT VISUAL STUDIO EXTENSION IS DEPRECATED!!! **
-We promote using native jsreport studio. See [docs](http://jsreport.net/learn/net-embedded) fore details.
+We promote using native jsreport studio. See [docs](https://jsreport.net/learn/net-embedded) fore details.
 
 The next applies only for jsreport@0.x
 
@@ -17,16 +17,16 @@ Along with html based studio jsreport provides also visual studio extension for 
 
 This extension adds new jsreport file templates into c# project which you will use to create report templates, images or sample data. But to be able to actually create and preview reports you need install first [jsreport.Embedded](https://www.nuget.org/packages/jsreport.Embedded) nuget package or just [jsreport.Client](https://www.nuget.org/packages/jsreport.Client) if you already have remote jsreport server running somewhere.
 
-<a href="http://jsreport.net/img/vstools-3.png" target="_blank">
-<img src="http://jsreport.net/img/vstools-3.png" alt="vstools" style="width: 600px;"/>
+<a href="https://jsreport.net/img/vstools-3.png" target="_blank">
+<img src="https://jsreport.net/img/vstools-3.png" alt="vstools" style="width: 600px;"/>
 </a>
 
 ##Creating report template
 
 jsreport report template creates for you grouped `Report.jsrep`, `Report.jsrep.html` and `Report.jsrep.js` and you can define report in them. The main `Report.jsrep` file provides a custom editor allowing you to configure basic report settings like paper size and orientation.
 
-<a href="http://jsreport.net/img/vstools-2.png" target="_blank">
-<img src="http://jsreport.net/img/vstools-2.png" alt="vstools" style="width: 600px;"/>
+<a href="https://jsreport.net/img/vstools-2.png" target="_blank">
+<img src="https://jsreport.net/img/vstools-2.png" alt="vstools" style="width: 600px;"/>
 </a>
 
 `Report.jsrep.html` file is used to define report template layout using specified javascript templating engine and `Report.jsrep.js` is a place for javascript helper functions. You can navigate to these files from visual studio solution or use buttons in jsreport editor.
@@ -35,8 +35,8 @@ To preview report click green `Preview` button or hit `F5` from any of the `.jsr
 
 Keep in mind you can redock report preview tab and keep report definition together with preview side by side.
 
-<a href="http://jsreport.net/img/vstools-1.png" target="_blank">
-<img src="http://jsreport.net/img/vstools-1.png" alt="vstools" style="width: 800px;"/>
+<a href="https://jsreport.net/img/vstools-1.png" target="_blank">
+<img src="https://jsreport.net/img/vstools-1.png" alt="vstools" style="width: 800px;"/>
 </a>
 
 > Note that all `*.jsrep` files are marked with `Copy Always`  option so they all are distributed with the application bin folder.
@@ -51,7 +51,7 @@ To assign testing data into particular report use `Sample Data` combobox in `jsr
 
 Reports quite often contain some static images for headers or background. You can easily create and use such an image from `jsreport image` project item template. This will create a `ReportImage.jsrep.png` which is nothing but an image with `.jsrep` saying to jsreport it should  be synchronized with the server.
 
-Adding image into report is done using special tag jsreport [images extension](http://jsreport.net/learn/images) recognizes and replaces with a real base64 image representation.
+Adding image into report is done using special tag jsreport [images extension](https://jsreport.net/learn/images) recognizes and replaces with a real base64 image representation.
 ```
 <img src="{#image ImageName}" height... />
 ```
@@ -69,7 +69,7 @@ public class ReportingStartup {
 }
 ```
 
-You can use `IVSReportingConfiguration` to specify if visual studio should use [embedded jsreport server](http://jsreport.net/learn/net-embedded) or a remote one. You can also define dynamically reports sample data.
+You can use `IVSReportingConfiguration` to specify if visual studio should use [embedded jsreport server](https://jsreport.net/learn/net-embedded) or a remote one. You can also define dynamically reports sample data.
 
 ```c#
 public class ReportingStartup {
@@ -101,7 +101,7 @@ Previous example configures visual studio to use embedded version of jsreport an
 ##Recommendations
 It's recommended to have all reports in one visual studio project because switching between projects causes jsreport embedded server to restart. 
 
-For more complex reports it's recommended to use [child templates](http://jsreport.net/learn/child-templates) and split big reports into several small ones. It's also a good practice to separate css styles into separate report templates and reuse them.
+For more complex reports it's recommended to use [child templates](https://jsreport.net/learn/child-templates) and split big reports into several small ones. It's also a good practice to separate css styles into separate report templates and reuse them.
 
 
 

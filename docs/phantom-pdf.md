@@ -94,7 +94,7 @@ Solution:
 Add the same image to template content and hide it with style display:none. Then you can add it to the header and it will show up because it is already cached and no asynchronous request is needed. This is required to do for both image referenced with url as well for Data URI scheme base64 image.
 
 ##Styles in header and footer
-phantomjs doesn't let you to link an external style to header and footer. You need to always inline it using `<style>` tag. If this becomes tedious, you can use [child template](http://jsreport.net/learn/child-templates) to extract and reuse it.
+phantomjs doesn't let you to link an external style to header and footer. You need to always inline it using `<style>` tag. If this becomes tedious, you can use [child template](https://jsreport.net/learn/child-templates) to extract and reuse it.
 
 ##Printing triggers
 You may need to postpone pdf printing until some javascript async tasks are processed. If this is your case set the `phantom.waitForJS=true` in the API or `Wait for printing trigger` in the studio menu. Then the printing won't start until you set `window.JSREPORT_READY_TO_START=true` inside your template's javascript.
@@ -134,4 +134,4 @@ Note that phantomjs2 produces different sizes of fonts. Also it doesn't support 
 Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
 
 ##Fonts
-The fonts can be easily embeded into pdf reports using [assets](http://jsreport.net/learn/assets) extension. You can find the tutorial how to do it [here](http://jsreport.net/blog/fonts-in-pdf).
+The fonts can be easily embeded into pdf reports using [assets](https://jsreport.net/learn/assets) extension. You can find the tutorial how to do it [here](https://jsreport.net/blog/fonts-in-pdf).

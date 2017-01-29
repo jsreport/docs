@@ -1,5 +1,5 @@
 
-**Update: This extension is not compatible with jsreport >= 1.0. The similiar functionality is now part of jsreport [browser client](http://jsreport.net/learn/browser-client) and [html with browser client recipe](http://jsreport.net/learn/html-with-browser-client).**
+**Update: This extension is not compatible with jsreport >= 1.0. The similiar functionality is now part of jsreport [browser client](https://jsreport.net/learn/browser-client) and [html with browser client recipe](https://jsreport.net/learn/html-with-browser-client).**
 
 > Link jsreport browser sdk into your page and easily render a report from the browser or open limited version of jsreport studio inside any web application and let end users to customize their reports. There are various scenarios where this can be used. Typical example can be when application is sending invoices to the customers and allows them to modify invoice template to the required design.
 

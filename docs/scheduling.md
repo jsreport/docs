@@ -40,4 +40,4 @@ scheduling: {
 ```
 
 ##Quick links
-> **[Sending reports periodically in email article](http://jsreport.net/blog/sending-reports-periodically-in-email)**
+> **[Sending reports periodically in email article](https://jsreport.net/blog/sending-reports-periodically-in-email)**

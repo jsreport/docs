@@ -132,5 +132,5 @@ npm start
 ```
 
 ##More information
-There is dedicated article about extending the jsreport studio - [Extending studio](http://jsreport.net/learn/extending-studio) and also many  existing extensions which you can use as examples for further study available [on github](https://github.com/jsreport/jsreport-core#list-of-extensions).
+There is dedicated article about extending the jsreport studio - [Extending studio](https://jsreport.net/learn/extending-studio) and also many  existing extensions which you can use as examples for further study available [on github](https://github.com/jsreport/jsreport-core#list-of-extensions).
 

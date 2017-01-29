@@ -4,7 +4,7 @@
 
 jsreport can be easily installed using [nuget package](https://www.nuget.org/packages/jsreport.Embedded) into c# project and run with the same lifecycle as the orignal .NET process. Everything needed is inside a package and no node.js or any other dependency installation is required.
 
-When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and invoke pdf rendering using [c# .NET client](http://jsreport.net/learn/net-client) as there would be full jsreport running somewhere.
+When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and invoke pdf rendering using [c# .NET client](https://jsreport.net/learn/net-client) as there would be full jsreport running somewhere.
 
 ```c#
 // somewhere in application startup....
@@ -34,7 +34,7 @@ using (var fileStream = File.Create("C:\\temp\\report.pdf"))
 ##Project structure
 The nuget installation creates `jsreport` directory with the following structure.
 
-![project structure](http://jsreport.net/screenshots/embedded-project.png?v=2)
+![project structure](https://jsreport.net/screenshots/embedded-project.png?v=2)
 
 **`app`** - jsreport configuration, startup script and also the local dev installation    
 **`reports`** -  report templates and other jsreport object definitions    
@@ -50,7 +50,7 @@ However if you are not interested in designing report templates and using local 
 ##Report studio
 jsreport comes with handy report studio which you can use to develop your report templates. 
 
-![project structure](http://jsreport.net/screenshots/vs-studio.gif)
+![project structure](https://jsreport.net/screenshots/vs-studio.gif)
 
 1. Open the studio using `studio.cmd`
 2.  Then you can use studio to create new report templates and other report objects. 
@@ -97,7 +97,7 @@ new EmbeddedReportingServer(port: 2000) {
 
 
 ##Additional extensions
-There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](http://jsreport.net/learn/wkhtmltopdf).
+There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](https://jsreport.net/learn/wkhtmltopdf).
 
 1.
 Navigate to `jsreport/app` and run

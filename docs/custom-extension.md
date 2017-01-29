@@ -104,7 +104,7 @@ reporter.documentStore.model.entityTypes["TemplateType"].foo = {type: "Edm.Strin
 
 ##Studio
 
-Extensions typically includes also adaptations for the browser based jsreport studio. This topic is fully covered in dedicated article [here](http://jsreport.net/learn/extending-studio).
+Extensions typically includes also adaptations for the browser based jsreport studio. This topic is fully covered in dedicated article [here](https://jsreport.net/learn/extending-studio).
 
 
 

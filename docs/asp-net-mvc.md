@@ -9,7 +9,7 @@ To get started you need to install `jsreport.MVC` package into your `asp.net mvc
 
 > Install-Package jsreport.MVC
 
-Then you need to add `JsReportFilterAttribute` to filters collection. This require access to jsreport server. You can use [.net embedded](http://jsreport.net/learn/net-embedded) or [on prem](http://jsreport.net/on-prem) or [jsreport online](http://jsreport.net/online) service.
+Then you need to add `JsReportFilterAttribute` to filters collection. This require access to jsreport server. You can use [.net embedded](https://jsreport.net/learn/net-embedded) or [on prem](https://jsreport.net/on-prem) or [jsreport online](https://jsreport.net/online) service.
 ```c#
 public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 {

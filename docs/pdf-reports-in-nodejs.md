@@ -24,7 +24,7 @@ Note html can contain any complex javascript including jquery or charting librar
 
 ##Paper size, headers and footers
 
-You can also submit various other options to rendering like paper size, paper margin, header and others.   You can find more information about jsreport and phantomjs integration [here](http://jsreport.net/learn/phantom-pdf). Following example will print pdf with landscape orientation, width 300px and a header.
+You can also submit various other options to rendering like paper size, paper margin, header and others.   You can find more information about jsreport and phantomjs integration [here](https://jsreport.net/learn/phantom-pdf). Following example will print pdf with landscape orientation, width 300px and a header.
 
 ```js
 require("jsreport").render({
@@ -40,7 +40,7 @@ require("jsreport").render({
 ```
 
 ### Dynamic pdf rendering
-jsreport evaluates javascript templating engines in submitted html. This means you don't have to render html dynamically on your own and let the hard work to be done by jsreport. JavaScript templaing engine can be specified in the overloaded `render` function. Currently it supports [jsrender](http://jsreport.net/learn/jsrender) and [handlebars](http://jsreport.net/learn/handlebars). You can also submit javascript templating engine input object together with helper functions. See example:
+jsreport evaluates javascript templating engines in submitted html. This means you don't have to render html dynamically on your own and let the hard work to be done by jsreport. JavaScript templaing engine can be specified in the overloaded `render` function. Currently it supports [jsrender](https://jsreport.net/learn/jsrender) and [handlebars](https://jsreport.net/learn/handlebars). You can also submit javascript templating engine input object together with helper functions. See example:
 
 ```js
 require("jsreport").render({
@@ -59,7 +59,7 @@ require("jsreport").render({
 
 
 ##Output formats
-jsreport is not strictly tight to phanomjs. It is just one of the supported technologies to print output in jsreport. You can for example just [print html](http://jsreport.net/learn/html) or print pdf using [apache fop](http://jsreport.net/learn/fop-pdf). Technology used for printing can be specified using `recipe` property. You can find more about supported recipes [here](http://jsreport.net/learn/recipes). Following example will evaluate javascript templating engines and return html.
+jsreport is not strictly tight to phanomjs. It is just one of the supported technologies to print output in jsreport. You can for example just [print html](https://jsreport.net/learn/html) or print pdf using [apache fop](https://jsreport.net/learn/fop-pdf). Technology used for printing can be specified using `recipe` property. You can find more about supported recipes [here](https://jsreport.net/learn/recipes). Following example will evaluate javascript templating engines and return html.
 
 ```js
 require("jsreport").render({
@@ -100,13 +100,13 @@ jsreport.render("<h1>Hello world</h1>").then(function(out) {
 
 ##Studio for designing reports
 
-jsreport has also a user interface you or users of your software can use to define and preview reports.  You can visit simplified [jsreport playground](http://jsreport.net/playground) and check it out.
+jsreport has also a user interface you or users of your software can use to define and preview reports.  You can visit simplified [jsreport playground](https://jsreport.net/playground) and check it out.
 
-<a href="http://jsreport.net/screenshots/studio.png" target="_blank">
-<img src="http://jsreport.net/screenshots/studio.png" alt="studio" style="width: 600px;"/>
+<a href="https://jsreport.net/screenshots/studio.png" target="_blank">
+<img src="https://jsreport.net/screenshots/studio.png" alt="studio" style="width: 600px;"/>
 </a>
 
-You can easily start whole jsreport application including user interface and public api. There you can create and test report templates and later trigger report rendering using remote client. You can find more information in section [adapting jsreport](http://jsreport.net/learn/adapting-jsreport).
+You can easily start whole jsreport application including user interface and public api. There you can create and test report templates and later trigger report rendering using remote client. You can find more information in section [adapting jsreport](https://jsreport.net/learn/adapting-jsreport).
 
 ```js
 //starts default express.js application containing jsreport studio and api
@@ -115,9 +115,9 @@ require('jsreport')({ httpPort: 2000}).init();
 
 ##Render pdf in a remote server
 
-In some cases your application just want to connect to an already running jsreport server. You may also want to use [reporting as a service](http://jsreport.net/online) provided by jsreport. In this cases you can use similar rendering functions remotely.
+In some cases your application just want to connect to an already running jsreport server. You may also want to use [reporting as a service](https://jsreport.net/online) provided by jsreport. In this cases you can use similar rendering functions remotely.
 
-To render pdf remotely you only need to install [jsreport-client](https://www.npmjs.org/package/jsreport-client) and call render in the same way as mentioned earlier in this blog post. Next example shows how to remotely print pdf "hello world". See the full documentation for `jsreport-client` npm package [here](http://jsreport.net/learn/nodejs-client).
+To render pdf remotely you only need to install [jsreport-client](https://www.npmjs.org/package/jsreport-client) and call render in the same way as mentioned earlier in this blog post. Next example shows how to remotely print pdf "hello world". See the full documentation for `jsreport-client` npm package [here](https://jsreport.net/learn/nodejs-client).
 
 > npm install jsreport-client
 

@@ -11,13 +11,13 @@ The syntax for embedding asset is the following:
 {#asset name.js}
 ```
 
-Such a string will be then replaced in the output as the content of previously uploaded or linked `name.js` asset. There is no additional transformation running so it is way faster than extracting [child templates](http://jsreport.net/learn/child-templates).
+Such a string will be then replaced in the output as the content of previously uploaded or linked `name.js` asset. There is no additional transformation running so it is way faster than extracting [child templates](https://jsreport.net/learn/child-templates).
 
-The asset can be embedded into template's content, helpers or [custom script](http://jsreport.net/learn/scripts). This enables scenarios like adding common helper functions or adding configuration files to scripts.
+The asset can be embedded into template's content, helpers or [custom script](https://jsreport.net/learn/scripts). This enables scenarios like adding common helper functions or adding configuration files to scripts.
 
 The asset extraction is recursive which means you can create a hierarchies of assets. This lets you to group styles' links into a one asset.
 
-The asset extraction runs twice during the rendering. At the beginning after jsreport knows the template and also after the templating engines are executed. This means you can dynamically construct asset names. The following will for example work with jsreport [handlebars](http://jsreport.net/learn/handlebars) engine.
+The asset extraction runs twice during the rendering. At the beginning after jsreport knows the template and also after the templating engines are executed. This means you can dynamically construct asset names. The following will for example work with jsreport [handlebars](https://jsreport.net/learn/handlebars) engine.
 ```
 {#asset {{giveMeAssetName}}}
 ```
@@ -82,5 +82,5 @@ You can use standard OData API to manage and query assets entities. For example 
 > `GET` http://jsreport-host/odata/assets
 
 ##Examples
-- [Using assets to embed fonts into reports](http://jsreport.net/blog/fonts-in-pdf)
-- [Using assets to create template layouts](http://jsreport.net/blog/template-layouts)
+- [Using assets to embed fonts into reports](https://jsreport.net/blog/fonts-in-pdf)
+- [Using assets to create template layouts](https://jsreport.net/blog/template-layouts)

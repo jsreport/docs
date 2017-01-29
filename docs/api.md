@@ -26,7 +26,7 @@ Invoking rendering process is the most common API method you will call. The next
 
 In the most typical case, you will just insert your template **shortid** or template **name** and input data. The best way to find out shortid and to get other informations is to use API button in the template designer. This button will popup dialog with very useful information for the particular template you should have in order to render it using API.
 
-![API dialog](http://jsreport.net/screenshots/API.png)
+![API dialog](https://jsreport.net/screenshots/API.png)
 
 
 > See the POST response headers to get usefull informations about report like content type.

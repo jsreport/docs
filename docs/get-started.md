@@ -19,7 +19,7 @@ First you need to [download and install](/downloads) jsreport into your environm
 
 No matter what option you choose you get access to jsreport html based studio you're going to need for designing and testing reports in this tutorial.
 
-![studio](http://jsreport.net/screenshots/studio.png?v=2)
+![studio](https://jsreport.net/screenshots/studio.png?v=2)
 
 ##Defining sample data
 
@@ -32,7 +32,7 @@ Before you actually create a pdf invoice layout you should prepare some sample d
 }
 ```
 
-![sample-data](http://jsreport.net/screenshots/sample-data.png)
+![sample-data](https://jsreport.net/screenshots/sample-data.png)
 
 ##Defining report template
 
@@ -40,7 +40,7 @@ Report template is together with the rendering process the heart of jsreport. Te
 
 For the invoice tutorial the first thing you need to do is associate sample data you previously defined with the newly created template.
 
-![invoice-data](http://jsreport.net/screenshots/invoice-data.png?v=3)
+![invoice-data](https://jsreport.net/screenshots/invoice-data.png?v=3)
 
 ### Recipes
 
@@ -48,7 +48,7 @@ As it was mentioned in the introduction, jsreport supports various reports and v
 
 The easiest way to create a pdf invoice is to use html to pdf conversion provided by [phantom-pdf](/learn/phantom-pdf) recipe, so lets stay with it.
 
-![recipe](http://jsreport.net/screenshots/recipe.png)
+![recipe](https://jsreport.net/screenshots/recipe.png)
 
 ### Templating engines
 
