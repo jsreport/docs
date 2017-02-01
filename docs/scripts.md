@@ -6,9 +6,9 @@ Define global functions `beforeRender`  or (and) `afterRender` in script and use
 
 ```js
 function beforeRender(req, res, done) {
-  req.data = {
-    foo: "foo"
-  }
+  // merge in some values for later use in engine
+  // and preserve other values which are already in
+  req.data = Object.assign({}, req.data, {foo: "foo"})
   done()
 }
 ```
@@ -36,7 +36,7 @@ function beforeRender(req, res, done) {
       url:"http://service.url", 
       json:true 
     }, function(err, res, body){
-        req.data = body;
+        req.data = Object.assign({}, req.data, body);
         done();
     });
 }
