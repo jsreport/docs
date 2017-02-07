@@ -80,7 +80,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
 
-**logger** (`object`) - optional, object should contain `providerName` property with values `console`, `dummy` or `winston` to specify particular logger. It can also optionally contain `logDirectory` specifying directory where should `winston` store logs. Default is `winston`.
+**logger** (`object`) - optional, object should contain `providerName` property with values `console`, `dummy` or `winston` to specify particular logger (Default is `winston`). An optionally `logDirectory` property will specify a directory where should `winston` store logs. , It can also optionally contain a `silent` property which will silent all transports in `winston` logger.
 
 ##Example of the config file
 
