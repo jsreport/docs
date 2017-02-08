@@ -74,8 +74,6 @@ all extensions located under root directory if it's undefined or null. If the at
 **ga** `object`: google analytics settings, example
 `"ga": { "name" : "jsreport.net", "id" : "UA-xxxxx-2" }`
 
-**daemon** (`true/false`) - default `false`, non windows only, jsreport will run as [daemon](https://www.npmjs.org/package/daemon) and will not block command line
-
 **express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
 **appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`

@@ -21,7 +21,7 @@ sudo yum install urw-fonts
 
 ```bash
 sudo npm install jsreport --production
-sudo node node_modules/jsreport --init
+sudo node_modules/.bin/jsreport init
 sudo node server.js
 
 ```
@@ -51,4 +51,3 @@ sudo wget http://apache.miloslavbrada.cz/xmlgraphics/fop/binaries/fop-1.1-bin.ta
 sudo tar -xvzf fop-1.1-bin.tar.gz
 sudo ln -s -t /usr/bin /opt/fop-1.1/fop
 ```
-
