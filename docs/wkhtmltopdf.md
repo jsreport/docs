@@ -8,8 +8,6 @@ npm install jsreport-wkhtmltopdf
 
 This recipe is using [wkhtmltopdf](http://wkhtmltopdf.org/) to transform html into pdf. Wkhtmltopdf includes more advanced pdf features like clickable links, table of contents or outlines(bookmarks). 
 
-Note that wkhtmltopdf recipe loads only resources specified with the absolute url including protocol like https://code.jquery.com/jquery-2.1.4.min.js . **This means you need to add the protocol to the sample template created by jsreport at the very first time**.
-
 ##Options
 Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/usage/wkhtmltopdf.txt) for details.  Currently supported options are:
 
@@ -31,6 +29,25 @@ Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/
 - tocTextSizeShrink
 - title
 
+##Configuration
+
+You can globally wkhtmltopdf recipe to add wkhtmltopdf supported options this way:
+```js
+"wkhtmltopdf": {
+  "proxy": "url",
+  "any other option supported by wkhtmltopdf": true || "value"
+},
+```
+
+See the list of supported options [here](http://wkhtmltopdf.org/usage/wkhtmltopdf.txt).
+
+##Local file access
+Accessing local files through wkhtmltopdf is disabled by default.  You can enable it using this config:
+```js
+"wkhtmltopdf": {
+	"allowLocalFilesAccess": true
+}
+```
 
 ##API
 
@@ -44,5 +61,3 @@ Rendering request template can include `wkhtmltopdf` property with specific opti
 	}
 }
 ```
-
-
