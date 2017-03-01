@@ -135,3 +135,16 @@ Using a responsive css framework for printing pdf may not be the best idea. Howe
 
 ##Fonts
 The fonts can be easily embeded into pdf reports using [assets](https://jsreport.net/learn/assets) extension. You can find the tutorial how to do it [here](https://jsreport.net/blog/fonts-in-pdf).
+
+##Different sizes on Windows vs Unix
+Both phantomjs 1.9.8 as well as 2.1.1 are producing different sizes of pdf elements when rendered on Windows vs Unix platform. This issue can be tracked [here](https://github.com/ariya/phantomjs/issues/12685). We recommend to design your reports on the same OS where you plan to run your production jsreport instance because of this. If this is not an option for you, you may try to apply the following css to adapt the sizes on your local or production templates.
+
+```css
+body { 
+  transform-origin: 0 0; 
+  -webkit-transform-origin: 0 0; 
+  transform: scale(0.654545); 
+  -webkit-transform: scale(0.654545); 
+}
+```
+
