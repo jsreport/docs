@@ -7,7 +7,7 @@ Enabling `authentication` extension will add a login screen into jsreport studio
 
 ##Configuration
 
-To enable authentication add following json into [configuration file](https://github.com/jsreport/jsreport/blob/master/config.md).
+To enable authentication add following json into [configuration file](/learn/configuration).
 
 ```js
 "authentication" : {

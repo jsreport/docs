@@ -19,7 +19,7 @@
 
 ##Configuration
 
-Use `phantom` node int the standard [config](https://github.com/jsreport/jsreport/blob/master/config.md) file.
+Use `phantom` node int the standard [config](/learn/configuration) file.
 ```js
 phantom: {
   numberOfWorkers: 1

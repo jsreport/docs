@@ -85,7 +85,7 @@ This is similar for phantomjs where jsreport will just recycle affected instance
 
 ##More options
 
-jsreport has tons of options and is very extensible.  You may want to change number of workers used for printing phantom pdf or enable particular extension. This can be achieved by modifying or extending `renderDefaults` object. Following example shows how to increase number of phantomjs workers and add a console logger. See [configuration documentation](https://github.com/jsreport/jsreport/blob/master/config.md) for other options.
+jsreport has tons of options and is very extensible.  You may want to change number of workers used for printing phantom pdf or enable particular extension. This can be achieved by modifying or extending `renderDefaults` object. Following example shows how to increase number of phantomjs workers and add a console logger. See [configuration documentation](/learn/configuration) for other options.
 
 ```js
 var jsreport = require('jsreport');

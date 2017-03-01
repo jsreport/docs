@@ -28,7 +28,7 @@ Some examples:
 You can find full document with specification [here](http://crontab.org/).
 
 ##Configuration
-Add `scheduling` node to the standard [config](https://github.com/jsreport/jsreport/blob/master/config.md) file. The defaults are following.
+Add `scheduling` node to the standard [config](/learn/configuration) file. The defaults are following.
 
 ```js
 scheduling: {

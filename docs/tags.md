@@ -11,7 +11,7 @@ You can create a tag using jsreport studio. In which you can specifiy informatio
 
 ## Configuration
 
-Add `tags` node to the [standard config file](https://github.com/jsreport/jsreport/blob/master/config.md).
+Add `tags` node to the [standard config file](/learn/configuration).
 
 ```js
 "tags" : {

@@ -1,5 +1,5 @@
 ##Configuration file
-The most common way to adapt jsreport settings is using configuration file. Configuration file is stored at the root directory with name `[dev | prod].config.json`. Editing this file you can change for example port service is running on or scale up number of worker processes jsreport uses. You can find full documentation of various options [here](https://github.com/jsreport/jsreport/blob/master/config.md).
+The most common way to adapt jsreport settings is using configuration file. Configuration file is stored at the root directory with name `[dev | prod].config.json`. Editing this file you can change for example port service is running on or scale up number of worker processes jsreport uses. You can find full documentation of various options [here](/learn/configuration).
 
 ##Configuring using nodejs
 In addition to configuration file based settings you can also use [node.js](http://nodejs.org) and dynamically adapt jsreport to your needs. Following chapters applies to those using jsreport on premise and want to apply some advanced configurations. 
