@@ -15,7 +15,7 @@ Assuming following input data object
 }
 ```
 
-you can use `{{:title}}` to pring `Helo world`
+you can use `{{:title}}` to print `Hello world`
 ```html
 <h1>{{:title}}</h1>
 ```
@@ -43,11 +43,11 @@ Then you can use `age` in condition in a following way:
 Assuming following input data object
 ```js
 {
-    "comments": [ {"title": "New job", "body": "js developers wanted at... " }]
+    "comments": [{"title": "New job", "body": "js developers wanted at... " }]
 }
 ```
 
-You can simply iterate over `comments` using `each`
+You can simply iterate over `comments` using `for`
 ```html
 {{for comments}}
   <h2>{{:title}}</h2>
