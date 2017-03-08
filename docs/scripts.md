@@ -57,14 +57,13 @@ function afterRender(req, res, done) {
 
 ##request, response, reporter
 
-`req.template` - modify report template, mostly `content` and `helpers` attributes
-`req.data` - json object used to modify report input data
-`req.headers` - json object used to read input headers
+* `req.template` - modify report template, mostly `content` and `helpers` attributes
+* `req.data` - json object used to modify report input data
+* `req.headers` - json object used to read input headers
+* `res.content` - byte array with output report
+* `res.headers` - output headers
+* `req.reporter.render(request, cb)` - invoke rendering process of another template
 
-`res.content` - byte array with output report
-`res.headers` - output headers
-
-`req.reporter.render(request, cb)` - invoke rendering process of another template
 
 ##Multiple scripts
 You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
