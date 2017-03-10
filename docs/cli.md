@@ -65,14 +65,14 @@ To get help about a particular command, you can type `jsreport <command> -h` to 
 
 The following are the supported commands.
 
-* [`init`](#init)
-* [`repair`](#repair)
-* [`configure`](#configure)
-* [`win-install`](#win-install)
-* [`win-uninstall`](#win-uninstall)
-* [`start`](#start)
-* [`render`](#render)
-* [`kill`](#kill)
+* [`init`](#-init-)
+* [`repair`](#-repair-)
+* [`configure`](#-configure-)
+* [`win-install`](#-win-install-)
+* [`win-uninstall`](#-win-uninstall-)
+* [`start`](#-start-)
+* [`render`](#-render-)
+* [`kill`](#-kill-)
 
 ### `init`
 
