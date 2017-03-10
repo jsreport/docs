@@ -7,7 +7,8 @@ Sometimes you'll get into situation where you find out that your report template
 
 ##How it works
 `Child templates` works the way that for every report rendering it searches for special tag `{#child [name]}` and replaces it content with real report output. It basicaly calls whole rendering process for child template and includes result instead of `{#child [name]}` special tag. 
-> **It's important to understand that child templates really do the whole rendering process and you probably want to set `recipe` of child templates to `html` otherwise jsreport will not be able to render root template with `phantom-pdf` recipe.**
+
+**It's important to understand that child templates really do the whole rendering process and you probably want to set `recipe` of child templates to `html` otherwise jsreport will not be able to render root template with `phantom-pdf` recipe.**    
 
 > `Child templates` extension can be used to centralize your css styles into one child template and include css to all other templates.
 
