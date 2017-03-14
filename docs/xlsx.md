@@ -70,9 +70,9 @@ Add xml provided by block helper into `filePath` and collection found at `xmlPat
 ### xlsxRemove
 
 ```html
-{{#xlsxRemove filePath  xmlPath}}...{{/xlsxRemove }}
+{{#xlsxRemove filePath  xmlPath index}}...{{/xlsxRemove }}
 ```
-Remove element from collection in `filePath` at `xmlPath`.
+Remove element from collection in `filePath` at `xmlPath` at `index`.
 
 ### xlsxAddImage
 
