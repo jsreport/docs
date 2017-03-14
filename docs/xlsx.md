@@ -41,7 +41,7 @@ At the end of the template, there always must be called helper `xlsxPrint` which
 
 Using other provided helper you should be able to manipulate the source xml into every desired shape.
 
-Unfortunately [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) is not very well documented and quite hard to handle. When you are lost, it is always good idea to create a test xlsx file in excel, unzip it and analyze its content. Another approach we recommend is to create the whole excel the first, upload it into jsreport and then only replace its data, which is simple.
+Unfortunately [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) is not very well documented and quite hard to handle, but you can look [here](http://officeopenxml.com/SScontentOverview.php) for a general overview of what tags and attributes are supported. When you are lost, it is always good idea to create a test xlsx file in excel, unzip it and analyze its content. Another approach we recommend is to create the whole excel the first, upload it into jsreport and then only replace its data, which is simple.
 
 ## Predefined helpers
 
