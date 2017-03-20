@@ -10,7 +10,7 @@ To get started you need to install `jsreport.MVC` package into your `asp.net mvc
 > Install-Package jsreport.MVC
 
 Then you need to add `JsReportFilterAttribute` to filters collection. This require access to jsreport server. You can use [.net embedded](https://jsreport.net/learn/net-embedded) or [on prem](https://jsreport.net/on-prem) or [jsreport online](https://jsreport.net/online) service.
-```c#
+```csharp
 public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 {
   filters.Add(new HandleErrorAttribute());
@@ -26,7 +26,7 @@ public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 ```
 The last step is to enable particular controller or action to use jsreport for rendering. You will do this using `EnableJsReport` attribute.
 
-```c#
+```csharp
 //render view as pdf converted from html
 [EnableJsReport(Recipe = "phantom-pdf")]
 public ActionResult Pdf()
@@ -48,7 +48,7 @@ jsreport will evaluate all your css files and even javascript. You only need to 
 
 ####Dynamic recipe resolution
 The `EnableJsReport` doesn't let you pass anything dynamic, however you can fully specify the required rendering request and pass it to `ViewBag.jsreportRenderRequest` inside the action code.
-```cs
+```csharp
 [EnableJsReport()]
 public ActionResult Contact()
 {

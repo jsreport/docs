@@ -6,7 +6,7 @@ jsreport can be easily installed using [nuget package](https://www.nuget.org/pac
 
 When you have nuget package installed you can just create `EmbeddedReportingServer`, start it and invoke pdf rendering using [c# .NET client](https://jsreport.net/learn/net-client) as there would be full jsreport running somewhere.
 
-```c#
+```csharp
 // somewhere in application startup....
 var embeddedServer = new EmbeddedReportingServer(port: 2000);
 await embeddedServer.StartAsync();
@@ -58,7 +58,7 @@ jsreport comes with handy report studio which you can use to develop your report
 4. You can also use the Visual Studio editor to directly edit the templates. Just open the jsreport studio, navigate to particular template and try to edit it in the VS in the background. **You can see the jsreport studio automatically refreshes and re-renders the report after the change in VS.**
 5. Finally you can render the prepared templates using the following code
 
-```cs
+```csharp
 embeddedServer.ReportingService.RenderAsync(new {
     template = new {
         name = "Sample template" 
@@ -88,7 +88,7 @@ Edit `jsreport\app\prod.config.json`
 ```
 2.
 And now create `EmbeddedReportingServer` with the specified credentials
-```cs
+```csharp
 new EmbeddedReportingServer(port: 2000) {
 	Username = "admin",
 	Password = "password"
@@ -112,7 +112,7 @@ Finally run `install.cmd` to pack the extended `app` into `jsreport.zip`
 
 4.
 Now you can easily run `wkhtmltopdf`  recipe from the c#
-```cs
+```csharp
 embeddedServer.ReportingService.RenderAsync(new {
 {
     template = {

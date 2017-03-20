@@ -61,7 +61,7 @@ Adding image into report is done using special tag jsreport [images extension](h
 You can hook into jsreport configuration by adding `ReporingStartup` class somewhere into your c# project. This class should contain public `Configure` method  accepting `IVSReportingConfiguration` as parameter.
 
 `ReportingStartup.cs`
-```c#
+```csharp
 public class ReportingStartup {
     public void Configure(IVSReportingConfiguration configuration) {
         configuration.UseRemoteServer("htt://196.168.0.5");
@@ -71,7 +71,7 @@ public class ReportingStartup {
 
 You can use `IVSReportingConfiguration` to specify if visual studio should use [embedded jsreport server](https://jsreport.net/learn/net-embedded) or a remote one. You can also define dynamically reports sample data.
 
-```c#
+```csharp
 public class ReportingStartup {
     public void Configure(IVSReportingConfiguration configuration) {
         configuration.UseEmbedded();
