@@ -1,4 +1,4 @@
-**> Export templates store into zip file and later recover the state or import to a different instance
+> Export templates store into zip file and later recover the state or import to a different instance
 
 ![export](https://jsreport.net/img/export.gif)
 

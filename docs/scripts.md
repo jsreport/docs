@@ -88,7 +88,8 @@ function afterRender(req, res, done) {
 ##Rendering another template from script
 
 Script can be used also to invoke rendering of another template. 
-```
+
+```js
 function afterRender(req, res, done) {
     req.reporter.render({ template: { shortid: "EyeVA2_k-" }}, function(err, response) {
         if (err)
