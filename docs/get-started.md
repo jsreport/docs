@@ -15,7 +15,7 @@ This article shows you the most simple use case with jsreport which is creating 
 5. send real input data into API and get back report
 
 ##Getting jsreport server
-First you need to [download and install](/downloads) jsreport into your environment, register for [jsreport as a service solution](/online) or start right away in [jsreport playground](https://playground.jsreport.net).
+First you need to [download and install](/on-prem) jsreport into your environment, register for [jsreport as a service solution](/online) or start right away in [jsreport playground](https://playground.jsreport.net).
 
 No matter what option you choose you get access to jsreport html based studio you're going to need for designing and testing reports in this tutorial.
 

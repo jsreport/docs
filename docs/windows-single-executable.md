@@ -1,4 +1,4 @@
-jsreport is mainly distributed through [node package manager](https://www.npmjs.com/package/jsreport), but for windows users we ship also convenient distribution in the single executable file. You simple [download](/downloads) the file `jsreport.exe` and run it. The executable automatically unpacks required files and runs the node process hosting jsreport server. Except .net runtime there is no need for any other dependency.
+jsreport is mainly distributed through [node package manager](https://www.npmjs.com/package/jsreport), but for windows users we ship also convenient distribution in the single executable file. You simple [download](/on-prem) the file `jsreport.exe` and run it. The executable automatically unpacks required files and runs the node process hosting jsreport server. Except .net runtime there is no need for any other dependency.
 
 ##Usage
 
