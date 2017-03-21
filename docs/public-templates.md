@@ -27,9 +27,6 @@ To include secure token in the rendering output just add `options.authorization.
 > }
 > ```
 
-See the [wrapped-html](/learn/wrapped-html) recipe for the usage of public templates.
-
-
 
 
 
