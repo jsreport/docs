@@ -144,7 +144,7 @@ POST: {
   template : {
 	  content: "foo",
 	  scripts: [{
-		  content: "request.template.content='hello'; done();"           
+		  content: "function beforeRender(req, res, done) { req.template.content='hello'; done();" }          
 	  }]  	
   }
 }  
