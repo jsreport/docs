@@ -1,8 +1,8 @@
-﻿#Starting with jsreport on OpenShift (step by step instruction)
+# Starting with jsreport on OpenShift (step by step instruction)
 
 This description helps you get up and running quickly with a jsreport installation on OpenShift.
 
-##Running jsreport app on OpenShift
+## Running jsreport app on OpenShift
 
 Create an account at https://www.openshift.com
 
@@ -19,12 +19,12 @@ you can now checkout your template application at:
 
 Now you have to add jsreport - modify the template code:
 
-###1. add jsreport
+### 1. add jsreport
 
 	npm install jsreport --save
 
 
-###2. check package.json
+### 2. check package.json
 
 The application should include a package.json file in the root of their project. OpenShift and npm are both configured to check your (scripts.start and main) fields for information on how to launch your server. So be sure that you have these files and the jsreport in dependencies:
 
@@ -44,7 +44,7 @@ The application should include a package.json file in the root of their project.
 }
 ```
 
-###3. modify server.js
+### 3. modify server.js
 
 OpenShift’s Node.js cartridge automatically publishes server connection information to your application’s environment via the environment variables. These values needs to be forwarded to jsreport in this case in `server.js`.
 
@@ -80,13 +80,13 @@ jsreport.bootstrapper(options).start().then(function() {
 });
 ```
 
-###4. push your jsreport app to OpenShift
+### 4. push your jsreport app to OpenShift
 commit and push back up to your OpenShift application using:
 		git add --all
     git commit -m "jsreport added"
     git push
 
-##Done
+## Done
 
 You can now checkout your working jsreport application at:
 
@@ -97,28 +97,28 @@ See the [documentation](https://jsreport.net/learn) for other options you can us
 <br /> <br />
 Appendix
 -----------
-###Store the data in MongoDB on OpenShift
+### Store the data in MongoDB on OpenShift
 
-####1. add the mongodb cartridge on OpenShift
+#### 1. add the mongodb cartridge on OpenShift
 
 	$ rhc cartridge add mongodb-2.4 -a <appname>
 
-####2. add the mongodb node package to the app
+#### 2. add the mongodb node package to the app
 
 	$ npm install mongodb --save
 
-####3. modify server.js
+#### 3. modify server.js
 
 The mongodb cartridge provides several environment variables, we need to reference these variables in our app to be able to connect with MongoDB on OpenShift from our jsreport app.
 
-#####3.1 variables
+##### 3.1 variables
 ```js
 var dbHost = process.env.OPENSHIFT_MONGODB_DB_HOST || '127.0.0.1';
 var dbPort = process.env.OPENSHIFT_MONGODB_DB_PORT || 27017;
 var dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME || 'admin';
 var dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD || 'secret';
 ```
-#####3.2 options
+##### 3.2 options
 ```js
 connectionString: {
 		name: 'mongoDB',
@@ -127,7 +127,7 @@ connectionString: {
 		databaseName: <appname>
 }
 ```
-####4. push your changed app to OpenShift
+#### 4. push your changed app to OpenShift
 commit and push back up to your OpenShift application using:
 		git add --all
     git commit -m "mongodb added"
