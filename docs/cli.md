@@ -4,6 +4,8 @@
 
 `cli` extension will give you a command line interface that will let you execute some tasks, known as commands. These commands will mainly help you to quickly start server or invoke report rendering right from the command line, but the feature list served by the `cli` is much longer. 
 
+The `cli` is also integrated directly into the jsreport distributed in the single file executable form. Please see also its [documentation](/learn/single-file-executable) if this distribution is convenient for you.
+
 ## Installation
 
 We recommend installing `cli` extension globally first, doing this will give you a global `jsreport` command available everywhere in your command line.
