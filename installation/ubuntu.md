@@ -1,8 +1,8 @@
-#Ubuntu
+# Ubuntu
 
 This page contain some jsreport related troubleshooting on ubuntu.
 
-####Installing nodejs
+#### Installing nodejs
 
 ```
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
@@ -10,7 +10,7 @@ sudo apt-get install -y nodejs
 ```
 
 
-####Fixing phantomjs
+#### Fixing phantomjs
 Official ubuntu distribution is missing some fonts jsreport needs to be able to render pdf reports. Use following to include them.
 ```
 sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
@@ -18,7 +18,7 @@ sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-
 
 [more info](http://phantomjs.org/download.html)
 
-####npm start
+#### npm start
 Use npm to start the server on `https://localhost`
 ```sh
 sudo npm start --production
@@ -30,7 +30,7 @@ npm start --production -- --httpsPort=0 --httpPort=3000
 ```
 
 
-####Start jsreport as daemon
+#### Start jsreport as daemon
 
 Create conf file `/etc/init/jsreport.conf`
 
@@ -45,7 +45,7 @@ And add execution rights to it
 chmod -x jsreport.conf
 ```
 
-####Installing mongodb
+#### Installing mongodb
 jsreport uses embeded file system based storage and you don't need mongodb to run it. This is only optional.
 ```
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
@@ -57,12 +57,12 @@ sudo /etc/init.d/mongod start
 ```
 [more info](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
 
-####Installing git
+#### Installing git
 ```
 sudo apt-get install git
 ```
 
-####Clone github repository
+#### Clone github repository
 ```
 git clone https://github.com/jsreport/jsreport.git
 ```
