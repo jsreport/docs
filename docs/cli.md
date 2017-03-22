@@ -2,62 +2,37 @@
 
 ## Basics
 
-`cli` extension will give you a command line interface that will let you execute some tasks, known as commands, these commands are designed to improve and facilitate your experience with jsreport and also to help you start an application very quickly and easily.
+`cli` extension will give you a command line interface that will let you execute some tasks, known as commands. These commands will mainly help you to quickly start server or invoke report rendering right from the command line, but the feature list served by the `cli` is much longer. 
 
-## Usage
+## Installation
 
 We recommend installing `cli` extension globally first, doing this will give you a global `jsreport` command available everywhere in your command line.
 
-`jsreport` command will have some commands available or not depending if you have a local installation of `jsreport-cli` in your project.
+```sh
+npm install jsreport-cli -g
+jsreport --help
+```
 
-Some commands will also need you to configure your jsreport project to have them working correctly, to configure and enable the `cli` in your jsreport project you will need to do the following steps:
+Please follow to [node.js project integration section](#node-js-project-integration) if you are installing `cli` into an existing node.js application, because this requires some additional steps.
 
-* **Declare a jsreport entry point in the `package.json` of your project**
+##Usage
 
-  A jsreport entry point is the file where you require and create a jsreport instance, usually the `server.js` file. You will need to add a `jsreport.entryPoint` field in `package.json` with the path to your project's jsreport entry point.
+###Starting jsreport
+As mentioned in the [download](/on-prem) page, the first use-case you touch `cli` is usually the jsreport installation and server startup.
+```sh
+jsreport init
+jsreport start --httpPort=6000
+```
 
-  Example of a `package.json` configured correctly, where `server.js` is the jsreport entry point of your proyect:
+###Rendering
+The main functionality provided by `cli` is the report rendering invocation which is implemented in the [render](#-render-) command. This command has many variations and switches however the main usage can look like this:
+```sh
+jsreport render 
+    --template.name=MyTemplate 
+    --data=mydata.json 
+    --out=myreport.xlsx
+```
 
-  ```json
-  {
-    "name": "jsreport-server",
-    "dependencies": {
-      "jsreport": "1.5.0"
-    },
-    "main": "server.js",
-    "jsreport": {
-      "entryPoint": "server.js"
-    }
-  }
-  ```
-
-* **Export a jsreport instance in the jsreport entry point of your project**
-
-  In your jsreport entry point file (usually `server.js`) you will need to export the jsreport instance of your project, but since you probably were using the same file to start the jsreport server (with `node server.js`) you will need to add a special condition to support both cases (server initialization and exporting the jsreport instance).
-
-  Example of a jsreport entry point supporting both cases:
-
-  ```js
-  // creating a jsreport instance
-  var jsreport = require('jsreport')()
-
-  if (require.main !== module) {
-    // when the file is required by other one export the
-    // jsreport instance to make it possible to usage of jsreport-cli
-    module.exports = jsreport
-  } else {
-    // when the file is started with node.js, start the jsreport server normally
-    jsreport.init().then(function () {
-      console.log('server started..')
-    }).catch(function (e) {
-      // error during startup
-      console.error(e.stack)
-      process.exit(1)
-    })
-  }
-  ```
-
-You can always see the list of available commands in your project (current working directory) using `jsreport -h` and use `jsreport -v` to see the version of your `cli`.
 
 ## Commands
 
@@ -141,3 +116,51 @@ Kill a daemon jsreport process.
 Use this command to kill any jsreport process running in background (for example a jsreport process created by `jsreport render --keepAlive ...`)
 
 To see available options and usage example type `jsreport kill -h`.
+
+##node.js project integration
+The jsreport `cli` is by default available in full form if you follow the official jsreport [download](/on-prem) instructions. However if you are integrating jsreport into a node.js application, you need to set up the following: 
+
+1. **Declare a jsreport entry point in the `package.json` of your project**
+
+  A jsreport entry point is the file where you require and create a jsreport instance, usually the `server.js` file. You will need to add a `jsreport.entryPoint` field in `package.json` with the path to your project's jsreport entry point.
+
+  Example of a `package.json` configured correctly, where `server.js` is the jsreport entry point of your proyect:
+
+  ```json
+  {
+    "name": "jsreport-server",
+    "dependencies": {
+      "jsreport": "1.5.0"
+    },
+    "main": "server.js",
+    "jsreport": {
+      "entryPoint": "server.js"
+    }
+  }
+  ```
+
+2. **Export a jsreport instance in the jsreport entry point of your project**
+
+  In your jsreport entry point file (usually `server.js`) you will need to export the jsreport instance of your project, but since you probably were using the same file to start the jsreport server (with `node server.js`) you will need to add a special condition to support both cases (server initialization and exporting the jsreport instance).
+
+  Example of a jsreport entry point supporting both cases:
+
+  ```js
+  // creating a jsreport instance
+  var jsreport = require('jsreport')()
+
+  if (require.main !== module) {
+    // when the file is required by other one export the
+    // jsreport instance to make it possible to usage of jsreport-cli
+    module.exports = jsreport
+  } else {
+    // when the file is started with node.js, start the jsreport server normally
+    jsreport.init().then(function () {
+      console.log('server started..')
+    }).catch(function (e) {
+      // error during startup
+      console.error(e.stack)
+      process.exit(1)
+    })
+  }
+```
