@@ -1,8 +1,8 @@
-#CentOS
+# CentOS
 
 This page contain some jsreport related troubleshooting on CentOS.
 
-##Installing nodejs
+## Installing nodejs
 
 ``` bash
 sudo yum install epel-release
@@ -10,14 +10,14 @@ sudo yum install nodejs
 sudo yum install npm
 ```
 
-##Fixing pdf fonts
+## Fixing pdf fonts
 
 ```bash
 sudo yum install bzip2
 sudo yum install libXext  libXrender  fontconfig  libfontconfig.so.1
 sudo yum install urw-fonts
 ```
-##Install jsreport and start
+## Install jsreport and start
 
 ```bash
 sudo npm install jsreport --production
@@ -26,7 +26,7 @@ sudo node server.js
 
 ```
 
-##wkhtmltopdf
+## wkhtmltopdf
 
 Assuming npm 3 is intalled.
 ```bash
@@ -42,7 +42,7 @@ sudo node server.js
 ```
 
 
-##fop
+## fop
 
 ```bash
 sudo yum install java
