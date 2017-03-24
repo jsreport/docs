@@ -19,7 +19,7 @@
 
 ##Configuration
 
-Use `phantom` node int the standard [config](/learn/configuration) file.
+Use `phantom` node in the standard [config](/learn/configuration) file.
 ```js
 phantom: {
   numberOfWorkers: 1
