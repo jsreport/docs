@@ -3,4 +3,17 @@ The most common way to print pdf report from jsreport is to use [phantom-pdf](ht
 
 `fop-pdf` is running on [playground](https://playground.jsreport.net) and [jsreport online](https://jsreportonline.net) but you need to explicitly install it for your on-prem jsreport server. To fullfill this you need to download [apache fop](http://xmlgraphics.apache.org/fop/) and java and also add its locations into your executable PATH environment variable.
 
+## Configuration
+
+Use `fop-pdf` node in the standard [config](/learn/configuration) file.
+
+```js
+"fop-pdf": {
+  // max output size allowed in bytes, if the pdf output is greater than
+  // this value the rendering will be terminated with an error.
+  // Defaults to 500kb (500 * 1024)
+  maxOutputSize: 500 * 1024
+}
+```
+
 <iframe src='https://playground.jsreport.net/studio/workspace/gkxJuycgR5/110?embed=1' width="100%" height="400" frameborder="0"></iframe>
