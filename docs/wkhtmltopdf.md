@@ -6,7 +6,7 @@ npm install jsreport-wkhtmltopdf
 
 ##Basics
 
-This recipe is using [wkhtmltopdf](http://wkhtmltopdf.org/) to transform html into pdf. Wkhtmltopdf includes more advanced pdf features like clickable links, table of contents or outlines(bookmarks). 
+This recipe is using [wkhtmltopdf](http://wkhtmltopdf.org/) to transform html into pdf. Wkhtmltopdf includes more advanced pdf features like clickable links, table of contents or outlines(bookmarks).
 
 ##Options
 Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/usage/wkhtmltopdf.txt) for details.  Currently supported options are:
@@ -16,6 +16,10 @@ Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/
 - footer
 - headerHeight
 - footerHeight
+- cover
+- dpi
+- javascriptDelay
+- windowStatus
 - marginBottom
 - marginLeft
 - marginRight
@@ -28,6 +32,9 @@ Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/
 - tocLevelIndentation
 - tocTextSizeShrink
 - title
+- keepRelativeLinks
+- printMediaType
+- disableSmartShrinking
 
 ##Configuration
 
