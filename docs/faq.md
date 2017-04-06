@@ -14,7 +14,7 @@ How to...
 
 #### <a name="update-server"></a>Update existing jsreport server to the latest version
 
-```sh
+```bash
 # install helpful tool to check the latest versions
 npm install -g npm-check-updates
 # check the latest versions of jsreport and additional extensions
