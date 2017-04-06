@@ -14,9 +14,16 @@ How to...
 
 #### <a name="update-server"></a>Update existing jsreport server to the latest version
 
-Updating is very simple using [npm](https://www.npmjs.com/). Just navigate to your application directory and type:
-
-`npm update`
+```sh
+# install helpful tool to check the latest versions
+npm install -g npm-check-updates
+# check the latest versions of jsreport and additional extensions
+ncu
+# update package.json
+ncu -u
+# install the latest versions
+npm install
+```
 
 #### <a name="migrate-templates"></a>Migrate templates from the test to the production server
 
@@ -24,7 +31,7 @@ jsreport stores by default templates in the `application\data` folder. To migrat
 
 #### <a name="port-config"></a>Run jsreport on different port
 
-You need to open `prod.config.json` file and edit `httpsPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
+You need to open `prod.config.json` file and edit `httpPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
 
 #### <a name="performance"></a>Increase performance
 
