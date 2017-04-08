@@ -17,6 +17,9 @@
 - blockJavaScript - block executing javascript
 - waitForJS - true/false
 
+These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.phantom` property. 
+
+
 ##Configuration
 
 Use `phantom` node in the standard [config](/learn/configuration) file.
