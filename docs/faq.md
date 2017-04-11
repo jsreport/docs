@@ -6,6 +6,7 @@ How to...
 - [Run jsreport on different port](#port-config)
 - [Increase performance](#performance)    
 - [Windows path too long 256 characters limitation](#windows-path-too-long)    
+- [How to apply license key](#how-to-apply-license-key)    
 
 **Phantom pdf recipe**
 - [National characters are not displayed properly](#national-characters)    
@@ -78,3 +79,12 @@ For details check *National characters* section in the [documentation](/learn/ph
 
 [Highcharts](http://www.highcharts.com/) are using complex animations by default preventing proper pdf printing. To go through it you need to disable highcharts animation like shown on [playground example](https://playground.jsreport.net/#playground/e77zeliQO/2).
 
+#### <a name="how-to-apply-license-key"></a>How to apply license key
+You can choose one from the options below:
+
+1. The license key can be saved into the application working directory or data folder as `license-key.txt`
+2. Filled in the configuration file in the property `license-key`
+3. Passed in the command line parameter as `--license-key=xxx`
+4. Set in the environment variable as `license-key`
+
+Make sure to remove all the white spaces around the key. 
