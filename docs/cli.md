@@ -2,7 +2,7 @@
 
 ## Basics
 
-`cli` extension will give you a command line interface that will let you execute some tasks, known as commands. These commands will mainly help you to quickly start server or invoke report rendering right from the command line, but the feature list served by the `cli` is much longer. 
+`cli` extension will give you a command line interface that will let you execute some tasks, known as commands. These commands will mainly help you to quickly start server or invoke report rendering right from the command line, but the feature list served by the `cli` is much longer.
 
 The `cli` is also integrated directly into the jsreport distributed in the single file executable form. Please see also its [documentation](/learn/single-file-executable) if this distribution is convenient for you.
 
@@ -29,9 +29,9 @@ jsreport start --httpPort=6000
 ###Rendering
 The main functionality provided by `cli` is the report rendering invocation which is implemented in the [render](#-render-) command. This command has many variations and switches however the main usage can look like this:
 ```sh
-jsreport render 
-    --template.name=MyTemplate 
-    --data=mydata.json 
+jsreport render
+    --template.name=MyTemplate
+    --data=mydata.json
     --out=myreport.xlsx
 ```
 
@@ -120,7 +120,7 @@ Use this command to kill any jsreport process running in background (for example
 To see available options and usage example type `jsreport kill -h`.
 
 ##node.js project integration
-The jsreport `cli` is by default available in full form if you follow the official jsreport [download](/on-prem) instructions. However if you are integrating jsreport into a node.js application, you need to set up the following: 
+The jsreport `cli` is by default available in full form if you follow the official jsreport [download](/on-prem) instructions. However if you are integrating jsreport into a node.js application, you need to set up the following:
 
 1. **Declare a jsreport entry point in the `package.json` of your project**
 
@@ -151,9 +151,9 @@ The jsreport `cli` is by default available in full form if you follow the offici
   // creating a jsreport instance
   var jsreport = require('jsreport')()
 
-  if (require.main !== module) {
-    // when the file is required by other one export the
-    // jsreport instance to make it possible to usage of jsreport-cli
+  if (process.env.JSREPORT_CLI) {
+    // when the file is required by jsreport-cli, export
+    // jsreport instance to make it possible the usage of jsreport-cli
     module.exports = jsreport
   } else {
     // when the file is started with node.js, start the jsreport server normally
