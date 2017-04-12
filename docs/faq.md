@@ -13,7 +13,7 @@ How to...
 - [Highcharts are not printed into pdf properly](#highcharts)    
 
 
-#### <a name="update-server"></a>Update existing jsreport server to the latest version
+### <a name="update-server"></a>Update existing jsreport server to the latest version
 
 ```bash
 # install helpful tool to check the latest versions
@@ -26,15 +26,15 @@ ncu -u
 npm install
 ```
 
-#### <a name="migrate-templates"></a>Migrate templates from the test to the production server
+### <a name="migrate-templates"></a>Migrate templates from the test to the production server
 
 jsreport stores by default templates in the `application\data` folder. To migrate templates you can just grab content of this folder and copy it to the production server.
 
-#### <a name="port-config"></a>Run jsreport on different port
+### <a name="port-config"></a>Run jsreport on different port
 
 You need to open `prod.config.json` file and edit `httpPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
 
-#### <a name="performance"></a>Increase performance
+### <a name="performance"></a>Increase performance
 
 jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests.
 
@@ -51,7 +51,7 @@ Open `prod.config.json` and update following:
 
 See [configuration documentation](/learn/configuration) for details.
 
-#### <a name="windows-path-too-long"></a>Windows path too long 256 characters limitation
+### <a name="windows-path-too-long"></a>Windows path too long 256 characters limitation
 
 Windows has limitation for maximum file path set to 256 characters and this doesn't play well with nested paths used by older NPM versions. To make sure the windows deployment plays well please do update NPM to the latest release 3.
 
@@ -59,7 +59,7 @@ Windows has limitation for maximum file path set to 256 characters and this does
 npm update npm
 ```
 
-#### <a name="national-characters"></a>National characters are not displayed properly
+### <a name="national-characters"></a>National characters are not displayed properly
 
 You need to add proper charset to the html head meta:
 ```html
@@ -75,11 +75,11 @@ You need to add proper charset to the html head meta:
 
 For details check *National characters* section in the [documentation](/learn/phantom-pdf).
 
-#### <a name="highcharts"></a>Highcharts are not printed into pdf properly
+### <a name="highcharts"></a>Highcharts are not printed into pdf properly
 
 [Highcharts](http://www.highcharts.com/) are using complex animations by default preventing proper pdf printing. To go through it you need to disable highcharts animation like shown on [playground example](https://playground.jsreport.net/#playground/e77zeliQO/2).
 
-#### <a name="how-to-apply-license-key"></a>How to apply license key
+### <a name="how-to-apply-license-key"></a>How to apply license key
 You can choose one from the options below:
 
 1. The license key can be saved into the application working directory or data folder as `license-key.txt`
