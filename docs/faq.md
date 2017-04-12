@@ -2,6 +2,7 @@ How to...
 
 **General questions**
 - [Update existing jsreport server to the latest version](#update-server)    
+- [Deploy to production](#deploy-to-production)
 - [Migrate templates from the test to the production server](#migrate-templates)    
 - [Run jsreport on different port](#port-config)
 - [Increase performance](#performance)    
@@ -25,6 +26,14 @@ ncu -u
 # install the latest versions
 npm install
 ```
+
+### <a name="deploy-to-production"></a>Deploy to production
+
+The simplest way to deploy local instance to the production is to compress the whole application folder, upload it to the server and decompress. You can even simply attach the `node` executable to the compressed package if you don't have `node.js` installed on the production server.  Such package should be able to run without other dependencies installed. This approach should work as long as you have the same OS architecture on the local and the production.
+
+The other options are to run install through `npm` on the production server and then just copy the templates.
+
+The most complex and powerful approach is to set up an image through `docker` for example.
 
 ### <a name="migrate-templates"></a>Migrate templates from the test to the production server
 
