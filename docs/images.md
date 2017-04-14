@@ -1,14 +1,21 @@
 > Upload static images into jsreport and add them into reports
 
-##Basics
+<h3>
+  <img src="/img/warning.png" style="width: 30px; height: 30px;" />
+  <span style="vertical-align: middle;">
+    This extension is in pending deprecation, we recommend to use [assets](https://jsreport.net/learn/assets) extension instead
+  </span>
+</h3>
 
-`Images` is very simple but very handy extension. Business reports very often contain static images like company logos, themes, headers, footers and others. It's possible to reference image from any web based provider like `skydrive` or `dropbox`, but it is not very efficient to download same pictures every time you are rendering a report. That's why jsreport ships with `Images` extension. 
+## Basics
 
-You can upload images through jsreport studio as well as API. When you have uploaded image, you can insert it to the any template. 
+`Images` is very simple but very handy extension. Business reports very often contain static images like company logos, themes, headers, footers and others. It's possible to reference image from any web based provider like `skydrive` or `dropbox`, but it is not very efficient to download same pictures every time you are rendering a report. That's why jsreport ships with `Images` extension.
+
+You can upload images through jsreport studio as well as API. When you have uploaded image, you can insert it to the any template.
 
 You can use following syntax to add data uri based image into html template
 ```html
-<img src='{#image Chrysanthemum}'/> 
+<img src='{#image Chrysanthemum}'/>
 ```
 
 or use a absolute link to the image
@@ -35,7 +42,7 @@ Alternatively you can get just the raw base64 encoded image content using
 {#image Chrysanthemum @encoding=base64}
 ```
 
-##API
+## API
 You can use standard OData API to manage and query image entities. For example you can query all images using:
 > `GET` http://jsreport-host/odata/images
 
