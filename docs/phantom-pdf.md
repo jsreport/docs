@@ -4,7 +4,7 @@
 
 ##Basic settings
 
-- margin - px or cm specification of margin used from page borders
+- margin - px or cm specification of margin used from page borders, you can also pass an `Object` or `JSON object string` for better control of each margin side. ex: `{ "top": "5px", "left": "10px", "right": "10px", "bottom": "5px" }`
 - format- predefined page sizes containing A3, A4, A5, Legal, Letter
 - width - px or cm page width, takes precedence over paper format
 - height - px or cm page height, takes precedence over paper format
@@ -17,7 +17,7 @@
 - blockJavaScript - block executing javascript
 - waitForJS - true/false
 
-These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.phantom` property. 
+These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.phantom` property.
 
 
 ##Configuration
@@ -116,7 +116,7 @@ You may need to postpone pdf printing until some javascript async tasks are proc
 The default phantomjs@1.9 currently doesn't work on the macOS sierra update, you need to use the phantomjs2. See the next chapter.
 
 ##phantomjs2
-The recipe default installation uses phantomjs@1.9. You can additionally install other versions and use them in parallel. 
+The recipe default installation uses phantomjs@1.9. You can additionally install other versions and use them in parallel.
 
 1. Install additional phantomjs using
 `npm install phantomjs-exact-2-1-1`
@@ -134,7 +134,7 @@ Note that phantomjs2 produces different sizes of fonts. Also it doesn't support 
 
 
 ##Twitter Bootstrap
-Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`. 
+Using a responsive css framework for printing pdf may not be the best idea. However it still works. Only thing you need to keep in mind is that output pdf typically won't look the same as html because bootstrap includes different printing styles under `@media print`.
 
 ##Fonts
 The fonts can be easily embeded into pdf reports using [assets](https://jsreport.net/learn/assets) extension. You can find the tutorial how to do it [here](https://jsreport.net/blog/fonts-in-pdf).
@@ -143,11 +143,10 @@ The fonts can be easily embeded into pdf reports using [assets](https://jsreport
 Both phantomjs 1.9.8 as well as 2.1.1 are producing different sizes of pdf elements when rendered on Windows vs Unix platform. This issue can be tracked [here](https://github.com/ariya/phantomjs/issues/12685). We recommend to design your reports on the same OS where you plan to run your production jsreport instance because of this. If this is not an option for you, you may try to apply the following css to adapt the sizes on your local or production templates.
 
 ```css
-body { 
-  transform-origin: 0 0; 
-  -webkit-transform-origin: 0 0; 
-  transform: scale(0.654545); 
-  -webkit-transform: scale(0.654545); 
+body {
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform: scale(0.654545);
+  -webkit-transform: scale(0.654545);
 }
 ```
-
