@@ -4,7 +4,7 @@
 
 You can create an asset using jsreport studio. The most common approach is to just upload a file like css. The second is to create an empty asset and edit its content using jsreport editor. The third option is to create an asset as link to an existing file. Such a link can be an absolute path or relative path to folder where the jsreport was started from.
 
-##Embedding assets
+## Embedding assets
 
 The syntax for embedding asset is the following:
 ```
@@ -22,17 +22,34 @@ The asset extraction runs twice during the rendering. At the beginning after jsr
 {#asset {{giveMeAssetName}}}
 ```
 
-The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way
+## Encoding options
+
+The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way using a `@encoding`
 
 ```
 <img src='{#asset logo.png @encoding=dataURI}'/>
 ```
 
-##External files access
+Supported encoding values:
+
+- `utf8` - default encoding used when not specified, embeds the asset as a raw string in utf8 character set
+
+- `string` - embeds the asset as a raw string in utf8 character set but escaping some characters (`"`, `'`, `\n`, etc) for usage inside a javascript context. Use this encoding when you want put asset content as part of a javascript variable
+ex: `var data = "{#asset vardata.txt @encoding=string}}"`
+
+- `link` - embeds the asset as a reference to a link (`http://<host>:<port>/assets/content/<asset name>`). for in deep usage and caveats see [Embedding assets as links](#embedding-assets-as-links)
+
+- `base64` - embeds the asset as a [base64](https://en.wikipedia.org/wiki/Base64) representation of its content
+
+- `dataURI` - embeds the asset as a [base64](https://en.wikipedia.org/wiki/Base64) representation of its content but using a [data URI](https://en.wikipedia.org/wiki/Data_URI_scheme). Useful when embedding images and fonts.
+
+Each encoding has different use cases, so make sure to use the correct one depending on your case.
+
+## External files access
 
 Uploading or linking assets through jsreport studio is not required, although it gives you authorization and user interface by design. You can also enable option `assets.searchOnDiskIfNotFoundInStore=true` in the configuration and simple embed files in the same way without touching jsreport studio.
 
-##Embedding assets as links
+## Embedding assets as links
 
 Assets can be also referenced as links. This is usually better performing in html recipe because browsers can cache the assets or request them in parallel.
 
@@ -46,7 +63,7 @@ The first problem is that the asset links needs to be publicly accessible for ph
 
 ```js
 {
-   "assets": { 
+   "assets": {
      "publicAccessEnabled": true
    }
 }
@@ -60,14 +77,14 @@ The second problem is that the assets links are based on the jsreport server url
 
 
 
-##Configuration
+## Configuration
 
 Add `assets` node to the standard config file:
 
 ```js
 assets: {
   // wildcard pattern for accessible linked or external files
-  allowedFiles: "static/**.css", 
+  allowedFiles: "static/**.css",
   // enables access to files not stored as linked assets in jsreport store    
   searchOnDiskIfNotFoundInStore: false,
   // root url used when embedding assets as links {#asset foo.js @encoding=link}
@@ -77,10 +94,10 @@ assets: {
 }
 ```
 
-##API
+## API
 You can use standard OData API to manage and query assets entities. For example you can query all assetsusing
 > `GET` http://jsreport-host/odata/assets
 
-##Examples
+## Examples
 - [Using assets to embed fonts into reports](https://jsreport.net/blog/fonts-in-pdf)
 - [Using assets to create template layouts](https://jsreport.net/blog/template-layouts)
