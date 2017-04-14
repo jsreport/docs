@@ -5,7 +5,7 @@ jsreport merges configuration from file, environment variables, command line arg
 > **Performance note**
 > Since version 0.8 jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests. Please see `phantom.strategy` and `tasks.strategy` for details.
 
-##Web
+## Web
 
 **httpPort** `(number)` - http port on which is jsreport running, if both `httpPort` and `httpsPort` are specified, jsreport will automaticaly create http redirects
 from http to https, if any of `httpPort` and `httpsPort` is specified default process.env.PORT will be used
@@ -14,7 +14,7 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **certificate** `object` - path to key and cert file used by https
 
-##Basics
+## Basics
 
 **connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can for example install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store), change `connectionString.name` to `mongoDB` and start storing templates in mongodb.
 
@@ -29,11 +29,11 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application.
 
-##Studio
+## Studio
 
 **entityTreeOrder** `string array` - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
 
-##Phantom
+## Phantom
 
 **phantom** (`object`) - this attribute is `optional` and is used to configure phantomjs which is used in various recipes
 
@@ -51,7 +51,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
 
-##Script tasks
+## Script tasks
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension.
 
@@ -67,7 +67,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tasks.portRightBoundary** (`number`) - set a specific port range for script execution server
 
-##Advanced
+## Advanced
 
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
@@ -82,7 +82,26 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **logger** (`object`) - optional, object should contain `providerName` property with values `console`, `dummy` or `winston` to specify particular logger (Default is `winston`). An optionally `logDirectory` property will specify a directory where should `winston` store logs. , It can also optionally contain a `silent` property which will silent all transports in `winston` logger.
 
-##Example of the config file
+## Disabling an extension
+
+You can disable any installed extension using `enabled: false` option in the options of the corresponding extension. When an extension is disabled jsreport will not load the extension when initializing
+
+```js
+{
+    // ..other options here..
+    "authentication": {
+      // disabling authentication extension
+      "enabled": false
+    },
+    "handlebars": {
+      // disabling handlebars extension
+      "enabled": false
+    },
+    // ..other options here..
+}
+```
+
+## Example of the config file
 
 ```javascript
 {
