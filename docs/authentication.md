@@ -51,6 +51,15 @@ To enable authentication add following json into [configuration file](/learn/con
 			// name of the field that jsreport will look at in the response from authorization server to
 			// determine if the token is valid or not. (optional, defaults to "active")
 			"activeField": "active",
+			// options to use if you want that jsreport checks for valid scopes in the token
+			// optional, defaults to null
+			"scope": {
+				// name of the field that jsreport will look at in the response from authorization server to
+				// determine the scope/scopes of the token. (optional, defaults to "scope")
+				"field": "scope",
+				// list of valid scopes that the token needs to have in order to be considered valid, the token must have at least one scope that match with some item in the list in order to be considered valid
+				"valid": ["myscope"]
+			},
 			// options to use if the authorization server is not public and requires authentication,
 			// if your authorization server is public just pass "auth": false
 			// (required)
@@ -95,6 +104,6 @@ When jsreport is configured to use an authorization server the authentication fl
 - jsreport will expect to get a token from `Authorization` header in any protected API call, the token must be sent using `Bearer` auth schema, this means that all your requests to the jsreport API must be using a header: `Authorization: Bearer <your token here>`
 - With the token in place, jsreport will send the token (`token=<value of your token>`, `token_type_hint=access_token` fields) along with any other configured data (`authorizationServer.tokenValidation.hint`) or credentials (`authorizationServer.tokenValidation.auth`) to the configured endpoint (`authorizationServer.tokenValidation.endpoint`)
 - The authorization server must return a json response with fields that describe if the token is valid or not (`authorizationServer.tokenValidation.activeField`), and with which user is associated (`authorizationServer.tokenValidation.usernameField`)
-- jsreport will check the information of the token returned from the authorization server (the active field `authorizationServer.tokenValidation.activeField` must be true if the token is valid and the username field `authorizationServer.tokenValidation.usernameField` must be a valid jsreport user) and then authenticate the user
+- jsreport will check the information of the token returned from the authorization server (the active field `authorizationServer.tokenValidation.activeField` must be true if the token is valid, the username field `authorizationServer.tokenValidation.usernameField` must be a valid jsreport user, and if scope validation is configured `authorizationServer.tokenValidation.scope` we will also check that the token has a valid `authorizationServer.tokenValidation.scope.valid` scope) and then authenticate the user
 
 Much of these steps are based on the [token introspection](https://tools.ietf.org/html/rfc7662#section-4) method, which is very common to see in authorization servers based on `OAuth2` or `OpenID Connect`, and if your authorization server is based on any other kind of implementation the described steps are very easy to implement, so you can achieve compatibility with most of the authorization servers.
