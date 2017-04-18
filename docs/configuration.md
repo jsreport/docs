@@ -109,11 +109,10 @@ You can disable any installed extension using `enabled: false` option in the opt
         "key": "certificates/jsreport.net.key",
         "cert": "certificates/jsreport.net.cert"
     },
-    "connectionString": { "name": "fs" },
-    "extensions": ["excel-parser", "express", "templates", "html", "phantom-pdf", "scripts", "data", "images", "statistics", "reports", "childTemplates", "sample-template"],
+    "connectionString": { "name": "fs" },   
     "httpPort": 3000,
-	"blobStorage": "fileSystem",
-	"phantom": {
+    "blobStorage": "fileSystem",
+    "phantom": {
         "numberOfWorkers" : 2,
         "timeout": 180000
     },
