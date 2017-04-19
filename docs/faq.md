@@ -7,11 +7,14 @@ How to...
 - [Run jsreport on different port](#port-config)
 - [Increase performance](#performance)    
 - [Windows path too long 256 characters limitation](#windows-path-too-long)    
-- [How to apply license key](#how-to-apply-license-key)    
 
 **Phantom pdf recipe**
 - [National characters are not displayed properly](#national-characters)    
 - [Highcharts are not printed into pdf properly](#highcharts)    
+
+**Licensing and payments**
+- [How to apply license key](#how-to-apply-license-key)    
+- [Update payment details](#update-payment-details)    
 
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
@@ -97,3 +100,12 @@ You can choose one from the options below:
 4. Set in the environment variable as `license-key`
 
 Make sure to remove all the white spaces around the key. 
+
+### <a name="#update-payment-details"></a>Update payment details
+
+jsreport enterprise or jsreportonline subscribers can update the payment details in the following way.
+
+1. Open your [gumroad account](https://gumroad.com/library)
+2. Login through the email you filled during the initial subscription. It is the same email your receipts are being sent to.
+3. Choose `My account/Settings` in the menu
+4. Select `Use different card` and update the account details
