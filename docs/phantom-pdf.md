@@ -79,7 +79,7 @@ Note that `Phantom-pdf` also evaluates javascript in the header and footer which
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   </head>
   <body>
-     Česko není Čečensko
+     ščřžý
   </body>
 </html>
 
