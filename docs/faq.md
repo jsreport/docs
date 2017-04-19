@@ -101,10 +101,10 @@ You can choose one from the options below:
 
 Make sure to remove all the white spaces around the key. 
 
-### <a name="#update-payment-details"></a>Update payment details
+### <a name="update-payment-details"></a>Update payment details
 
 jsreport enterprise or jsreportonline subscribers can update the payment details in the following way.
-
+ 
 1. Open your [gumroad account](https://gumroad.com/library)
 2. Login through the email you filled during the initial subscription. It is the same email your receipts are being sent to.
 3. Choose `My account/Settings` in the menu
