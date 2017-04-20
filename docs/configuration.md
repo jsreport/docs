@@ -67,6 +67,118 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tasks.portRightBoundary** (`number`) - set a specific port range for script execution server
 
+## Logging
+
+> Note: Logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package and many of its concepts apply the same for jsreport logging configuration
+
+**logger** (`object`) - To have complete control about logging in jsreport you can declare output (where should logs be sent) and log level using an object:
+
+```js
+{
+    "logger": {
+        "console": { "transport": "console", "level": "debug" },
+        "file": { "transport": "file", "level": "info", "filename": "logs/log.txt" },
+        "error": { "transport": "file", "level": "error", "filename": "logs/error.txt" }
+    }
+}
+```
+
+For example the above config specifies the following:
+
+- configure an output named `"console"` which sent all logs with level `debug`, and all levels with low priority than `debug` level (`"level": "debug"`) to the console (`"transport": "console"`)
+
+- configure and output named `"file"` which sent all logs with level `info`, and all levels with low priority than `info` level (`"level": "info"`) to the file system (`"transport": "file"`) storing them at `"logs/log.txt"` (`"filename": "logs/log.txt"`)
+
+- configure and output named `"error"` which sent all logs with level `error`, and all levels with low priority than `error` level (`"level": "error"`) to the file system (`"transport": "file"`) storing them at `"logs/error.txt"` (`"filename": "logs/error.txt"`)
+
+Each output object specifies where to send the logs using a `transport` property and which is the level that should taken in consideration using a `level` property.
+
+As you can see in the previous logging configuration each output object can take additional properties that let you configure the functionality of a `transport`, for example in the case of the output named "file", we are using the `filename` property to tell the file `transport` where to save the logs, each `transport` type supports a different set of properties to configure its behaviour.
+
+Values for the `transport` property:
+
+- `debug` -> specifies that logs should be sent to console but they only be visible when using `DEBUG=jsreport` env var
+- `console` -> specifies that logs should be sent to console, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#console-transport)
+- `file` -> specifies that logs should be sent to the file system, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#file-transport)
+- `http` -> specifies that logs should be sent to and http endpoint, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#http-transport)
+
+Available log `level` ordered by priority (top ones have more priority):
+
+- `silly`
+- `debug`
+- `verbose`
+- `info`
+- `warn`
+- `error`
+
+For advanced use cases we provide a way to configure output which can use a `transport` available from external modules using the `module` property, since logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package any external module that is compatible with winston transports will work in jsreport, for example to tell jsreport to use the third-party [winston-loggly](https://github.com/winstonjs/winston-loggly) transport you can create a configuration like the following:
+
+```js
+{
+    "logger": {
+        "loggly": {
+            "module": "winston-loggly", // module should be the name of the third-party module
+            "transport": "Loggly",
+            "level": "info",
+            // custom loggly transport options, see https://github.com/winstonjs/winston-loggly
+            "subdomain": "test",
+            "inputToken": "<your token here>",
+            "auth": {
+                "username": "<your-username>",
+                "password": "<your-password>"
+            }
+        }
+    }
+}
+```
+
+**Default logger configuration in jsreport:**
+
+```js
+{
+    "logger": {
+        "debug": {
+            "transport": "debug",
+            "level": "debug"
+        },
+        "console": {
+            "transport": "console",
+            "level": "debug" // "info" in production mode
+        },
+        "file": {
+            "transport": "file",
+            "level": "debug" // "info" in production mode
+        },
+        "error": {
+            "transport": "file",
+            "level": "error"
+        }
+    }
+}
+```
+
+Note that you can override all or just some part of the predefined configuration using:
+
+```js
+{
+    "logger": {
+        "console": {
+            "level": "error" // now only logs with level "error" will be sent to console, the rest of predefined outputs are still configured, we are only overriding the "level" option for the predefined console output here
+        }
+    }
+}
+```
+
+**Special options:**
+
+- **logger.silent** (`boolean`): handy option to silence (logs will not be stored) all outputs configured. default: false
+
+**Deprecated logger options (still present just for back compatibility with older versions, but that will be removed in next major versions):**
+
+- **logger.providerName** (`string`): valid values are `console` (to only send logs to console), `winston` (to sends logs to console and files), `dummy` (logs are not available unless `DEBUG=jsreport` env var is set). default: `winston`
+
+- **logger.logDirectory** (`string`): specifies the base directory where logs will be stored, only used when there is no output configured explicitly (like `"console": { "transport": "console", "level": "debug" }`). default: `your project directory (rootDirectory)/logs`
+
 ## Advanced
 
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
@@ -79,8 +191,6 @@ all extensions located under root directory if it's undefined or null. If the at
 **express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
 **appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
-
-**logger** (`object`) - optional, object should contain `providerName` property with values `console`, `dummy` or `winston` to specify particular logger (Default is `winston`). An optionally `logDirectory` property will specify a directory where should `winston` store logs. , It can also optionally contain a `silent` property which will silent all transports in `winston` logger.
 
 ## Disabling an extension
 
