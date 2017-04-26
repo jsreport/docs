@@ -27,7 +27,8 @@ Use `phantom` node in the standard [config](/learn/configuration) file.
 phantom: {
   numberOfWorkers: 1
   timeout: 180000,
-  allowLocalFilesAccess: false
+  allowLocalFilesAccess: false,
+  defaultPhantomjsVersion: '1.9.8'
 }
 ```
 

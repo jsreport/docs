@@ -51,6 +51,8 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
 
+**phantom.defaultPhantomjsVersion** (`string`) - set the default phantomjs version to use, note that if you are going to set this value other than the default you must install manually the desired phantomjs version (either using packages like `phantomjs-prebuilt` or `phantomjs-exact-2-1-1`). default: 1.9.8
+
 ## Script tasks
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension.
