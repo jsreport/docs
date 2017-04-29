@@ -14,4 +14,4 @@ Following properties are supported:
 - `rowspan` - numeric value that merges current row with rows below.
 
 
-<iframe src='https://playground.jsreport.net/studio/workspace/Y3BG0fnPa/1?embed=1' width="100%" height="400" frameborder="0"></iframe>
+<iframe src='https://playground.jsreport.net/studio/workspace/Y3BG0fnPa/1201?embed=1' width="100%" height="400" frameborder="0"></iframe>
