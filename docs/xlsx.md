@@ -2,7 +2,7 @@
 
 <iframe src='https://playground.jsreport.net/studio/workspace/rJftqRaQ/10?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-##Examples
+## Examples
 
 - [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
 - [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
@@ -10,6 +10,7 @@
 - [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
 - [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
 - [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
+- [Clone sheet](https://playground.jsreport.net/studio/workspace/rJWIm-2Rg/3)
 - [Pivot table tutorial](https://jsreport.net/learn/dynamic-excel-pivot-table)
 - [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
 - [Table](https://playground.jsreport.net/studio/workspace/Hy_V2BSh/4)

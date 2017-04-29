@@ -132,7 +132,7 @@ The jsreport `cli` is by default available in full form if you follow the offici
   {
     "name": "jsreport-server",
     "dependencies": {
-      "jsreport": "1.5.0"
+      "jsreport": "1.7.0"
     },
     "main": "server.js",
     "jsreport": {

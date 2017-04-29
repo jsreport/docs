@@ -24,7 +24,7 @@ To enable authentication add following json into [configuration file](/learn/con
 	// the configured authorization server, giving you the chance to expose
 	// jsreport as a product with Single Sign On support.
 	// see "Token based authentication using an authorization server" section of this document
-	// for more details.
+	// for more details and a link to a sample with real implementation.
 	"authorizationServer": {
 		"tokenValidation": {
 			// URL to the authorization server endpoint (required)
@@ -96,6 +96,8 @@ You can use standard OData API to manage and query user entities. For example yo
 
 ### Token based authentication using an authorization server
 
+> This feature is in preview mode, it means that we have implemented all the necessary steps to complete the authentication flow with an authorization server but we are looking for real feedback about the feature and determine if something is missing or incomplete for other use cases. If you have such feedback don't hesitate to raise a [question](https://forum.jsreport.net) or open an [issue](https://github.com/jsreport/jsreport/issues).
+
 If you would like to delegate all authentication in the **jsreport API** to an authorization server that supports token based authentication (Bearer auth schema), you will need to use the `authorizationServer` options, much likely you will only need this if you would like to expose jsreport as a product with Single Sign On support.
 
 When jsreport is configured to use an authorization server the authentication flow looks like the following:
@@ -107,3 +109,5 @@ When jsreport is configured to use an authorization server the authentication fl
 - jsreport will check the information of the token returned from the authorization server (the active field `authorizationServer.tokenValidation.activeField` must be true if the token is valid, the username field `authorizationServer.tokenValidation.usernameField` must be a valid jsreport user, and if scope validation is configured `authorizationServer.tokenValidation.scope` we will also check that the token has a valid `authorizationServer.tokenValidation.scope.valid` scope) and then authenticate the user
 
 Much of these steps are based on the [token introspection](https://tools.ietf.org/html/rfc7662#section-4) method, which is very common to see in authorization servers based on `OAuth2` or `OpenID Connect`, and if your authorization server is based on any other kind of implementation the described steps are very easy to implement, so you can achieve compatibility with most of the authorization servers.
+
+For a real implementation of jsreport + authorization server check our [official sample](https://github.com/bjrmatos/jsreport-with-authorization-server-sample)
