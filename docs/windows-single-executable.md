@@ -9,25 +9,25 @@ Override configuration through command line parameters
 > jsreport.exe --httpPort 2000 --httpsPort 0
 
 Install windows service
-> jsreport.exe --httpsPort 5000 --install
+> jsreport.exe install --httpsPort 5000
 
 Uninstall windows service
-> jsreport.exe --httpsPort 5000 --uninstall
+> jsreport.exe uninstall --httpsPort 5000
 
 Get help
 > jsreport.exe  --help
 
 ##Just rendering
-`jsreport.exe` can be also used for command line report rendering without starting a server or REST API. 
+`jsreport.exe` can be also used for command line report rendering without starting a server or REST API.
 
->jsreport.exe --render request.json --output file.pdf
+>jsreport.exe render --request request.json --output file.pdf
 
 Where `request.json` is json formatted file with report specification. The file has the same structure as API call so you can use the same instructions as in the [API documentation](/learn/api).
 
 Example `request.json`:
 ```js
 {
-  "template": { 
+  "template": {
     "content": "Hello World {{:foo}}",
     "recipe": "phantom-pdf",
     "engine": "jsrender"
@@ -38,9 +38,9 @@ Example `request.json`:
 }
 ```
 
-Additionally you can use `--template` option to specify report template separately. The request is then merged from both `--render` and `--template` values.
+Additionally you can use `--template` option to specify report template separately. The request is then merged from both `--request` and `--template` values.
 
->jsreport.exe --render request.json --template tmpl.json --output file.pdf
+>jsreport.exe render --request request.json --template tmpl.json --output file.pdf
 
 Example `tmpl.json`:
 ```js
@@ -50,4 +50,3 @@ Example `tmpl.json`:
   "engine": "jsrender"
 }
 ```
-
