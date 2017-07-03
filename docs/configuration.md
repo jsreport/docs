@@ -55,7 +55,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 ## Script tasks
 
-**tasks** (`object`) - this attribute is `optional` and is used to configure component executing custom scripts. This component is use to excute javascript templating engines during rendering or in scripts extension.
+**tasks** (`object`) - this attribute is `optional` and is used to configure the component that executes rendering tasks. This component is used to execute javascript templating engines during rendering or in scripts extension.
 
 **tasks.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy whit users' templates which can have potentially endless loops or other critical errors which could terminate the application.
 
@@ -68,6 +68,8 @@ all extensions located under root directory if it's undefined or null. If the at
 **tasks.portLeftBoundary** (`number`) - set a specific port range for script execution server
 
 **tasks.portRightBoundary** (`number`) - set a specific port range for script execution server
+
+**tasks.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
 
 ## Logging
 
