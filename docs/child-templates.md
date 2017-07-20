@@ -10,7 +10,7 @@ It may also be used to centralize your CSS styles into one 'child template,' and
 ## How it works
 When rendering reports, jsreport searches for the special tag `{#child [name]}` and replaces its content with the output of the referenced report. It calls the whole rendering process for child template, and includes that output where the `{#child [name]}` special tag used to be.
 
-Choosing the `none` engine for a child template means that no rendering of the child template will be performed before it is inserted into the parent. This is often what you want if you simply wish to include another snippet that will be compiled as part of the parent template.
+Choosing the `none` engine for a child template means that no rendering of the child template will be performed before it is inserted into the parent. In most cases, you should use an [asset](https://jsreport.net/learn/assets) for this static content instead.
 
 ### Warning about PDF
 Since child templates perform the entire rendering operation, trying to render a child template that generates PDF inside a parent template that generates PDF will fill the parent PDF with garbage (the rendered PDF of the child template).
@@ -29,33 +29,7 @@ Or you can override existing child template attributes, such as the recipe used 
 ```
 
 ## Accessing parent items
-Inside a child template, the scope may change. If you want to still access the content of the parent items, you can use the `../` path control to get at those items. For instance:
-
-Data:
-```json
-{
-  "Title": "Cheese Sales 2017",
-  "SurveyYear": "2017",
-  "Cheeses": [
-    { "Name": "Roquefort", "Sales": "10000" },
-    { "Name": "Camembert", "Sales": "2000" }
-  ]
-}
-```
-
-Parent template, with `engine` = `handlebars` and `recipe` = `phantom-pdf`:
-```html
-<h1>{{Title}}</h1>
-{{#each Cheeses}}
-  {#child cheese-detail}
-{{/each}}
-```
-
-`cheese-detail` child template, with `engine` = `none` and `recipe` = `html`:
-```html
-<h2>Sales for {{Name}} in {{../SurveyYear}}</h2>
-<p>{{Sales}}</p>
-```
+Inside a child template, the scope may change. If you want to still access the content of the parent items, you can use `../` in the path to access those items.
 
 ## Using static content
 Child templates are particularly useful when you wish to break a big template into smaller child templates for better organization. This is an ideal use for child templates because they support dynamic content like a normal template.
