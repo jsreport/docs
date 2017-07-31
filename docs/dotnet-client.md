@@ -83,6 +83,8 @@ reportingService.HttpClientTimeout = TimeSpan.FromMinutes(10);
            
 ## Odata
 
+> Waiting for .net core support in `Simple.OData.Client`  - follow this [issue](https://github.com/object/Simple.OData.Client/issues/425).
+
 jsreport API for doing CRUD on entities is based on [odata](http://www.odata.org/) and you can use  great [Simple.OData.Client](https://github.com/object/Simple.OData.Client) library to consume it. 
 
 ```csharp
@@ -96,7 +98,7 @@ To understand jsreport entities checkout jsreport API metadata at `https://[jsre
 ### Filtering
 
 ```csharp
-var template = await client .For<Template>()
+var template = await client.For<Template>()
         .Filter(x => x.shortid == "Report1")
         .FindEntryAsync();
 ```                             
