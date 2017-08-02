@@ -1,7 +1,5 @@
-> **Install-Package jsreport.Client**
-
 ##Basics
-`jsreport.Client` is c# client for the jsreport REST API. It represents convenient way to remotely access jsreport server instance and invoke report rendering using simple c# code. It is compatible with the [on premise](/on-prem)  as well as [jsreportonline](/online) instances and the lib runs on full .NET as well as .NET Core.
+`jsreport.Client` is c# client for the [jsreport REST API](/learn/api). It represents convenient way to remotely access jsreport server instance and invoke report rendering using simple c# code. It is compatible with the [on premise](/on-prem), [jsreportonline](/online) as well as [.net local](/learn/dotnet-local) instances. The `jsreport.Client` is implemented as [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) library so it should run pretty much everywhere the .Net Standard `1.6` or higher is implemented.
 
 ## Get started
 
@@ -20,8 +18,7 @@ var report = await rs.RenderByNameAsync("Invoice", new
 The usage with [jsreportonline](/online)  is pretty much the same, just with different url and with provided credentials.
 
 ```csharp
-var rs = new ReportingService("https://[subdomain].jsreportonline.net",
-                                              "email", "password");
+var rs = new ReportingService("https://[subdomain].jsreportonline.net", "email", "password");
 ```
 
 The rendering output includes the report stream `report.Content` and additional `report.Meta` object that contains many helpful information like content type, number of produced pdf pages or logs.
@@ -32,7 +29,8 @@ If you want to have the full control on the template rendering you can use `Rend
 
 You should use this overload if you for example don't store templates in jsreport server but rather in your own storage.  In this case you can send the whole template specification without referencing the existing one by its name.
 
-Here you can see how you can convert html to xlsx and use a templating engine to dynamically inject values into the output.
+Here you can see how you can convert html to xlsx and use a templating engine to dynamically inject values into the output without storing template in jsreport store.
+
 ```csharp
 var report = await rs.RenderAsync(new RenderRequest()
 {
@@ -55,9 +53,9 @@ The output `report.Meta.Logs` includes valuable information from the rendering p
 
 ## Types
 
-The types like `RenderRequest` and templates are installed using the package [jsreport.Types](https://github.com/jsreport/jsreport-dotnet-types). The releases of this package match the jsreport releases therefore you should be able to install correct types if you for some reason need to connect to an older version of jsreport.
+The types like `RenderRequest` or `Template` are installed using the package [jsreport.Types](https://github.com/jsreport/jsreport-dotnet-types). The [releases of this package](https://github.com/jsreport/jsreport-dotnet-types/releases) match the [jsreport releases](https://github.com/jsreport/jsreport/releases) therefore you should be able to install correct types if you for some reason need to connect to an older version of jsreport.
 
-The provided types only includes the attributes used by the official extensions. However you can simply use `RenderRequest.Overwrites` property to pass your own data to the request.
+The provided types only includes the attributes used by the official extensions. However you can also simply use `RenderRequest.Overwrites` property to pass your own data to the request.
 
 ```csharp
 var report = await rs.RenderAsync(new RenderRequest()
