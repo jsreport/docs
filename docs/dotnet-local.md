@@ -41,7 +41,7 @@ var rs = new LocalReporting()
 
 ## Razor templates
 
-The `jsreport.Local` can be also used together with asp.net razor templates to render pdf or excel. This can be easily achieved using the [jsreport.MVC](/learn/dotnet-mvc) package which includes proper helpers and filters. The examples and description for asp.net helpers can be found in the separate [jsreport.MVC section](/learn/dotnet-mvc) .
+The `jsreport.Local` can be also used together with asp.net razor templates to render pdf or excel. This can be easily achieved using the [jsreport.AspNetCore](/learn/dotnet-aspnetcore) package which includes proper helpers and filters. The examples and description for asp.net helpers can be found in the separate [jsreport.MVC section](/learn/dotnet-aspnetcore).
 
 ## Locally stored templates
 The `jsreport.Local` includes also web based studio for designing reports. There is no limitation in comparison with the [full jsreport installation](/on-prem) and you can do the whole report designing and rendering workflow also with `jsreport.Local`.
