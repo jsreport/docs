@@ -42,7 +42,9 @@ You can globally wkhtmltopdf recipe to add wkhtmltopdf supported options this wa
 ```js
 "wkhtmltopdf": {
   "proxy": "url",
-  "any other option supported by wkhtmltopdf": true || "value"
+  "any other option supported by wkhtmltopdf": true || "value",
+  //options like env variables passed to wkhtmltopdf child process
+  "execOptions": { ... }
 },
 ```
 
