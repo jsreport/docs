@@ -18,6 +18,7 @@ Simple examples of jsreport .NET sdk integration:
 
 [console application running local jsreport](https://github.com/jsreport/jsreport-dotnet-example-consoleapp)    
 [asp.net core web application using Razor views and local jsreport](https://github.com/jsreport/jsreport-dotnet-example-webapp)    
+[asp.net MVC application with full .NET framework using Razor views and local jsreport](https://github.com/jsreport/jsreport-dotnet-example-net-webapp)   
 
 Never seen jsreport in action? You can also browse jsreport demos in the [online playground](https://playground.jsreport.net) or see short [introduction video](https://www.youtube.com/watch?v=mf8-SdGjsdo).
 
