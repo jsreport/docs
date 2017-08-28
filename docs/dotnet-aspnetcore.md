@@ -1,6 +1,10 @@
 ## Basics
 
-If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from `jsreport.AspNetCore` nuget package. This package provides a filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
+If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
+
+Note this package is dedicated to `ASP.NET Core` applications. Please navigate to similar [jsreport.MVC](/learn/dotnet-mvc) documentation when working with the ASP.NET application running full .NET framework.
+
+The example sources are hosted in [jsreport/jsreport-dotnet-example-webapp](https://github.com/jsreport/jsreport-dotnet-example-webapp) repository.
 
 ## Get Started
 
