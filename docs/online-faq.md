@@ -1,4 +1,4 @@
-Here you can find some topics which applies specifically to the [jsreportonline cloud service](/learn/online). The common documentation for jsreport can be found at standard place in the [learn](https://jsreport.net/learn) section.
+Here you can find some topics which applies specifically to the [jsreportonline cloud service](/online). The common documentation for jsreport can be found at standard place in the [learn](https://jsreport.net/learn) section.
 
 
 - [Windows recipes](#windows-recipes)

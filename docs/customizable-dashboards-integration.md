@@ -16,7 +16,7 @@ The sample covers following areas:
 
 The provided source codes for this sample are using node.js for easiness, but it should be easily transformable into any server language. This article even doesn't use any server side language for examples and it is mostly about describing principles and REST calls.
 
-If you want to try the integration on your own you need to install jsreport on your machine first. You can find installation instructions [here](/download). This article assumes jsreport without authentication enabled first and covers jsreport security in the last chapter.
+If you want to try the integration on your own you need to install jsreport on your machine first. You can find installation instructions [here](/on-prem). This article assumes jsreport without authentication enabled first and covers jsreport security in the last chapter.
 
 ##Create templates using API
 
