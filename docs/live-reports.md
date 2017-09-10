@@ -9,7 +9,7 @@ This tutorial explains how to create a simple (master - detail) interactive repo
 
 ##Master report template
 
-This tutorial uses [NorthWind](https://northwinddatabase.codeplex.com) database and its live [REST endpoint](http://services.odata.org/V4/Northwind/Northwind.svc) as a data source for the reports. The first thing we do is create the master report template and [script]((https://jsreport.net/learn/scripts) which downloads the report input data from the endpoint.
+This tutorial uses [NorthWind](https://northwinddatabase.codeplex.com) database and its live [REST endpoint](http://services.odata.org/V4/Northwind/Northwind.svc) as a data source for the reports. The first thing we do is create the master report template and [script](/learn/scripts) which downloads the report input data from the endpoint.
 
 The script runs on the server side in [node.js](http://nodejs.org/) sandbox and has full capabilities to connect to any kind of data source like database or in this case REST endpoint. The easiest way to download data from the REST endpoint in the node.js is to install [request](https://github.com/request/request) module. Afterwards it is just about invoking the request and passing the response further to jsreport rendering pipeline.
 
