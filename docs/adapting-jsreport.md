@@ -36,8 +36,8 @@ jsreport.init().then(function () {
             foo: "world"
         }
     }).then(function(resp) {
-     //prints pdf with headline Hello world
-     console.log(resp.content.toString())
+     // write report buffer to a file 
+     fs.writeFileSync('report.pdf', resp.content)    
    });
 }).catch(function(e) {
   console.log(e)
