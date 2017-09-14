@@ -59,3 +59,18 @@ jsreport.updateTemplate(template).then(..)
 You can find more details about the `request` argument  [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
 
 Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
+
+## window.open in chrome
+The latest chrome currently throws error "Not allowed to navigate top frame to data URL" for call `windows.open(res.toDataURI)` with pdf. This change is documented [here](https://stackoverflow.com/a/45495974/1660996). The current workaround is to embed an iframe to the new tab:
+```js
+jsreport.renderAsync(request).then(function(res) {                        
+    var html = '<html>' +
+            '<style>html,body {padding:0;margin:0;} iframe {width:100%;height:100%;border:0}</style>' +
+            '<body>' +                                
+            '<iframe type="application/pdf" src="' +  res.toDataURI() + '"></iframe>' +
+            '</body></html>';
+    var a = window.open("about:blank", "Report")
+    a.document.write(html)
+    a.document.close()
+})
+```
