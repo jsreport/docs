@@ -1,7 +1,7 @@
 ﻿#Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files. 
 
-**PREVIEW** This recipe is in preview and you should not use it in production/
+**PREVIEW** This recipe is in the preview and you should not use it in production.
 
 ##Installation
 
