@@ -5,6 +5,7 @@
 
 ##Installation
 
+You need to have [node.js](https://nodejs.org/en/) at least in version 8.
 ```bash
 npm install jsreport-chrome-pdf
 ```
