@@ -12,7 +12,7 @@ The report preview in the studio uses Microsoft Office Online service which requ
 
 ```js
 ...
-"xlsx": {
+"html-embedded-in-docx": {
   "previewInOfficeOnline": false,
   "publicUriForPreview": "http://mypublicSever"
 }
@@ -23,7 +23,7 @@ The first options `previewInOfficeOnline` will force the recipe to always return
 ## Configuration
 
 ```js
-"xlsx": {
+"html-embedded-in-docx": {
   "previewInOfficeOnline": false,
   "publicUriForPreview": "http://mypublicSever"
 }
