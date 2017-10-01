@@ -81,7 +81,7 @@ The console application now starts jsreport server and opens the studio in the b
 The templates created in the jsreport studio are now part of the VS 2017 project, however not automatically included in the bin folder. The Visual Studio currently doesn't include context menu to automatically copy the whole folder to the output, but fortunately you can edit the `csproj` manually and add this by hand.
 ```xml
 <ItemGroup>
-    <None Include=""jsreport\**\*.*"">
+    <None Include="jsreport\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 </ItemGroup>
