@@ -17,16 +17,16 @@ jsreport --help
 
 Please follow to [node.js project integration section](#node-js-project-integration) if you are installing `cli` into an existing node.js application, because this requires some additional steps.
 
-##Usage
+## Usage
 
-###Starting jsreport
+### Starting jsreport
 As mentioned in the [download](/on-prem) page, the first use-case you touch `cli` is usually the jsreport installation and server startup.
 ```sh
 jsreport init
 jsreport start --httpPort=6000
 ```
 
-###Rendering
+### Rendering
 The main functionality provided by `cli` is the report rendering invocation which is implemented in the [render](#-render-) command. This command has many variations and switches however the main usage can look like this:
 ```sh
 jsreport render
@@ -80,6 +80,8 @@ To see available options and usage example type `jsreport configure -h`.
 `Command only available when local version is installed in your project`
 
 Install your project as a windows service (WINDOWS ONLY)
+
+> To install the service in production mode make sure to have the `NODE_ENV` env var set to `production` before running the command
 
 To see available options and usage example type `jsreport win-install -h`.
 
