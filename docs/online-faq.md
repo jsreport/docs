@@ -1,10 +1,21 @@
 Here you can find some topics which applies specifically to the [jsreportonline cloud service](/online). The common documentation for jsreport can be found at standard place in the [learn](https://jsreport.net/learn) section.
 
-
+- [Dedicated on-prem vs jsreportonline](#dedicated-on-prem-vs-jsreportonline)
 - [Windows recipes](#windows-recipes)
-- [Limits](#limits)    
 - [Status page](#status-page)
 - [Support](#support)
+
+
+### <a name="dedicated-on-prem-vs-jsreportonline"></a>Dedicated on-prem versus jsreportonline
+jsreportonline service provides very convenient way to use jsreport without any installation. It is also high available cloud hosted service which takes care of the software updates for you. The service uses isolated containers for user requests evaluation to prevent the "neighbor noise". However there are also some limitations when using jsreportonline instead of the dedicated jsreport on your own servers.
+
+#### Custom extensions or npm modules
+You can't install additional npm packages and use them in your helpers or scripts. You need to rely on the set of libraries provided by the service. The only workaround is use an asset to reference a custom script or use cdn to link it.
+
+#### Throttling and timeout limits
+The service has strict throttling and timeout limits which you can't change. This implies that the service may not be the best choice if you plan to render very long reports with thousands of pages. It is better to use for such case your own dedicated instance which should have no issues with it.
+
+You can find the detail numbers for timeouts and throttling in the dedicated article [Online limits](/learn/online-limits).
 
 ### <a name="windows-recipes"></a>Windows recipes
 
@@ -12,8 +23,6 @@ jsreport uses technologies for pdf rendering which behaves a little bit differen
 
 Please note that the Windows based rendering doesn't currently provide such isolation as when running on the default Linux. There can be some noise from the other tenants which can temporary slow down your pdf rendering. For this reason we strongly recommend to **use the default Linux for the mission critical scenarios**. 
 
-### <a name="limits"></a>Limits
-The limits and throttling for the specific pricing plans is described in the dedicated article [Online limits](/learn/online-limits).
 
 ### <a name="status-page"></a>Status page
 
