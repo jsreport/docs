@@ -115,7 +115,7 @@ var report = await rs.RenderByNameAsync("Invoice", new
 All the previous examples were using the command line based communication with `jsreport.exe`. The next example shows how to use web server based communication instead.
 
 ```csharp
-var rs = new LocalReporting().UseBinary(JsReportBinary.GetStream()).AsWebServer().Create();
+var rs = new LocalReporting().UseBinary(JsReportBinary.GetBinary()).AsWebServer().Create();
 await rs.StartAsync();
 
 var report = await rs.RenderAsync(...);
