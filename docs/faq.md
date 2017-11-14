@@ -44,13 +44,13 @@ jsreport stores by default templates in the `application\data` folder. To migrat
 
 ### <a name="port-config"></a>Run jsreport on different port
 
-You need to open `prod.config.json` file and edit `httpPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
+You need to open `jsreport.config.json` file and edit `httpPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
 
 ### <a name="performance"></a>Increase performance
 
 jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests.
 
-Open `prod.config.json` and update following:
+Open `jsreport.config.json` and update following:
 
 ```js
 "phantom": {     

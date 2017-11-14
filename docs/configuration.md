@@ -1,11 +1,78 @@
-The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting connection string to mongo and many others.
+﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting connection string to mongo and many others.
 
-jsreport merges configuration from file, environment variables, command line arguments and also directly from the application code. The configuration file needs to be stored at the root of the application with the name `prod.config.json`. There should be already pre created for you the default one.
+## Configuration sources
 
-> **Performance note**
-> Since version 0.8 jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests. Please see `phantom.strategy` and `tasks.strategy` for details.
+jsreport merges configuration from config file, environment variables, command line arguments and also directly from the application code in this exact order.
 
-## Web
+### Configuration file
+The configuration file is the most common way to adapt jsreport. The default `jsreport.config.json` is usually pre-created for you if you follow [installation instructions](/on-prem). 
+
+jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_ENV=development or production` environment variable if such file exists.
+
+### Environment variables
+The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it to change the port for example:
+
+```sh
+set httpPort=3000
+jsreport start
+```
+This will start jsreport on port 3000 even if you have the `httpPort` entry in the config file because the environment variables have the higher priority. 
+
+If you want to use environment variable for configuring a complex object you should separate the nested path in the key using `_` :
+
+```sh
+set authentication_admin_username=john
+```
+### Arguments
+The command line arguments are parsed as well. This is very convenient for changing the port for example:
+```sh
+jsreport start --httpPort=3000
+```
+The configuration for complex objects should use the same `_` separator as described for environment variables.
+
+### Application code
+
+The last option is to edit the `server.js` file which is part of the default installation. This is usually common when integrating jsreport into existing node.js application. Note this approach cannot be used if you use precompiled jsreport binary.
+```js
+const jsreport = require('jsreport')({
+  httpPort: 3000
+})
+```
+
+## Configuring extensions
+
+Each extension (recipe, store...) usually provides some options you can apply and adapt its behavior. These options can be typically set through standard configuration under the property with extension's name. For example the [authentication](/learn/authentication) can be configured under the same named node in the config.
+```js
+"authentication" : {     
+	"admin": {
+		"username" : "admin",
+		"password": "password"
+	}
+}   
+```
+
+Please refer to particular extension's documentation to find what configuration options you have. There is usually `Configuration` section where you can find it.
+
+### Disabling extensions
+
+You can disable an extension by setting `enabled: false` in the configuration of particular extension.
+
+```js
+{
+    // ..other options here..
+    "authentication": {
+      // disabling authentication extension
+      "enabled": false
+    },
+    "handlebars": {
+      // disabling handlebars extension
+      "enabled": false
+    },
+    // ..other options here..
+}
+```
+
+## Web server configuration
 
 **httpPort** `(number)` - http port on which is jsreport running, if both `httpPort` and `httpsPort` are specified, jsreport will automaticaly create http redirects
 from http to https, if any of `httpPort` and `httpsPort` is specified default process.env.PORT will be used
@@ -14,12 +81,19 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **certificate** `object` - path to key and cert file used by https
 
-## Basics
+**hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
-**connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can for example install [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store), change `connectionString.name` to `mongoDB` and start storing templates in mongodb.
+**express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
- **extensions** `string array` - this attribute is `optional`. jsreport will load all
-all extensions located under root directory if it's undefined or null. If the attribute is defined, jsreport will only load specified extensions. All specified extensions must be present somewhere in the jsreport directory. Order is not relevant because extensions are reordered by it's dependencies.
+**appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
+
+## Store configuration
+
+**connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can find the list of available store drivers and further details how to configure them [here](/learn/extensions).
+
+**blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application.
+
+## Directories configurations
 
 **rootDirectory** (`string`)  - optionally specifies where's the application root and where jsreport searches for extensions
 
@@ -27,33 +101,20 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tempDirectory** (`string`) - optionally specifies absolute path to directory where the application stores temporary files
 
-**blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application.
+## Rendering configuration
 
-## Studio
+jsreport uses by default dedicated processes for rendering pdf or scripts. This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests. This can be achieved using this config options. 
 
-**entityTreeOrder** `string array` - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
+```js
+"phantom": {     
+    "strategy": "phantom-server"
+},
+"tasks": {       
+    "strategy": "http-server"
+}
+```
 
-## Phantom
-
-**phantom** (`object`) - this attribute is `optional` and is used to configure phantomjs which is used in various recipes
-
-**phantom.strategy** (`dedicated-process | phantom-server`) - The first strategy uses a new phantomjs instance for every task.  The second strategy reuses every instance over multiple requests. Where `phantom-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies
-
-**phantom.numberOfWorkers** (`int`) - specify how many phantomjs instances will phantom-pdf recipe use. If the value is not filled, jsreport will use number of cpus by default
-
-**phantom.timeout** (`int`) - specify default timeout for pdf rendering using phantomjs
-
-**phantom.allowLocalFilesAccess** (`bool`) - default is `false`. When set to true you can use local paths to get resources.
-
-**phantom.host** (`string`) - Set a custom hostname on which phantomjs server is started, useful is cloud environments where you need to set specific IP.
-
-**phantom.portLeftBoundary** (`number`) - set a specific port range for phantomjs server
-
-**phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
-
-**phantom.defaultPhantomjsVersion** (`string`) - set the default phantomjs version to use, note that if you are going to set this value other than the default you must install manually the desired phantomjs version (either using packages like `phantomjs-prebuilt` or `phantomjs-exact-2-1-1`). default: 1.9.8
-
-## Script tasks
+## Templating engines configuration
 
 **tasks** (`object`) - this attribute is `optional` and is used to configure the component that executes rendering tasks. This component is used to execute javascript templating engines during rendering or in scripts extension.
 
@@ -71,7 +132,7 @@ all extensions located under root directory if it's undefined or null. If the at
 
 **tasks.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
 
-## Logging
+## Logging configuration
 
 > Note: Logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package and many of its concepts apply the same for jsreport logging configuration
 
@@ -183,37 +244,10 @@ Note that you can override all or just some part of the predefined configuration
 
 - **logger.logDirectory** (`string`): specifies the base directory where logs will be stored, only used when there is no output configured explicitly (like `"console": { "transport": "console", "level": "debug" }`). default: `your project directory (rootDirectory)/logs`
 
-## Advanced
+## Studio configuration
 
-**hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
+**entityTreeOrder** `string array` - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
 
-**ga** `object`: google analytics settings, example
-`"ga": { "name" : "jsreport.net", "id" : "UA-xxxxx-2" }`
-
-**daemon** (`true/false`) - default `false`, non windows only, jsreport will run as [daemon](https://www.npmjs.org/package/daemon) and will not block command line
-
-**express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
-
-**appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
-
-## Disabling an extension
-
-You can disable any installed extension using `enabled: false` option in the options of the corresponding extension. When an extension is disabled jsreport will not load the extension when initializing
-
-```js
-{
-    // ..other options here..
-    "authentication": {
-      // disabling authentication extension
-      "enabled": false
-    },
-    "handlebars": {
-      // disabling handlebars extension
-      "enabled": false
-    },
-    // ..other options here..
-}
-```
 
 ## Example of the config file
 

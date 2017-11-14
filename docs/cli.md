@@ -55,7 +55,7 @@ The following are the supported commands.
 
 `Command available globally`
 
-Initializes the current working directory to start a jsreport application (creates server.js, *.config.json, package.json and install jsreport if necessary).
+Initializes the current working directory to start a jsreport application (creates server.js, jsreport.config.json, package.json and install jsreport if necessary).
 
 To see available options and usage example type `jsreport init -h`.
 
@@ -63,7 +63,7 @@ To see available options and usage example type `jsreport init -h`.
 
 `Command available globally`
 
-Repairs current working directory to start a jsreport application (overrides server.js, *.config.json and package.json if any of them exists and install jsreport if necessary).
+Repairs current working directory to start a jsreport application (overrides server.js, jsreport.config.json and package.json if any of them exists and install jsreport if necessary).
 
 To see available options and usage example type `jsreport repair -h`.
 
@@ -71,7 +71,7 @@ To see available options and usage example type `jsreport repair -h`.
 
 `Command available globally`
 
-Generates a jsreport configuration file (*.config.json) based on some questions.
+Generates a jsreport configuration file (jsreport.config.json) based on some questions.
 
 To see available options and usage example type `jsreport configure -h`.
 

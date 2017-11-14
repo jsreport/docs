@@ -19,19 +19,6 @@ The `Phantom-pdf` recipe is capable of rendering any HTML and JavaScript you pro
 
 These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.phantom` property.
 
-
-## Configuration
-
-Use the `phantom` configuration node in the standard [config](/learn/configuration) file.
-```js
-phantom: {
-  numberOfWorkers: 1
-  timeout: 180000,
-  allowLocalFilesAccess: false,
-  defaultPhantomjsVersion: '1.9.8'
-}
-```
-
 ## Page breaks
 
 CSS contains styles like `page-break-before` that you can use to specify html page breaks. This can be used as well with phantom-pdf in order to specify page breaks inside pdf files.
@@ -157,3 +144,32 @@ body {
   -webkit-transform: scale(0.654545);
 }
 ```
+## Configuration
+
+Use the `phantom` configuration node in the standard [config](/learn/configuration) file.
+```js
+phantom: {
+  numberOfWorkers: 1
+  timeout: 180000,
+  allowLocalFilesAccess: false,
+  defaultPhantomjsVersion: '1.9.8'
+}
+```
+
+**phantom** (`object`) - this attribute is `optional` and is used to configure phantomjs which is used in various recipes
+
+**phantom.strategy** (`dedicated-process | phantom-server`) - The first strategy uses a new phantomjs instance for every task.  The second strategy reuses every instance over multiple requests. Where `phantom-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies
+
+**phantom.numberOfWorkers** (`int`) - specify how many phantomjs instances will phantom-pdf recipe use. If the value is not filled, jsreport will use number of cpus by default
+
+**phantom.timeout** (`int`) - specify default timeout for pdf rendering using phantomjs
+
+**phantom.allowLocalFilesAccess** (`bool`) - default is `false`. When set to true you can use local paths to get resources.
+
+**phantom.host** (`string`) - Set a custom hostname on which phantomjs server is started, useful is cloud environments where you need to set specific IP.
+
+**phantom.portLeftBoundary** (`number`) - set a specific port range for phantomjs server
+
+**phantom.portRightBoundary** (`number`) - set a specific port range for phantomjs server
+
+**phantom.defaultPhantomjsVersion** (`string`) - set the default phantomjs version to use, note that if you are going to set this value other than the default you must install manually the desired phantomjs version (either using packages like `phantomjs-prebuilt` or `phantomjs-exact-2-1-1`). default: 1.9.8

@@ -1,5 +1,5 @@
 ## Configuration file
-The most common way to adapt jsreport settings is using configuration file. Configuration file is stored at the root directory with name `[dev | prod].config.json`. Editing this file you can change for example port service is running on or scale up number of worker processes jsreport uses. You can find full documentation of various options [here](/learn/configuration).
+The most common way to adapt jsreport settings is using configuration file. Configuration file is stored at the root directory with name `jsreport.config.json`. Editing this file you can change for example port service is running on or scale up number of worker processes jsreport uses. You can find full documentation of various options [here](/learn/configuration).
 
 ## Configuring using nodejs
 In addition to configuration file based settings you can also use [node.js](http://nodejs.org) and dynamically adapt jsreport to your needs. Following chapters applies to those using jsreport on premise and want to apply some advanced configurations.
@@ -9,7 +9,7 @@ Installing and initializing jsreport on premise will create `server.js` file con
 require('jsreport')().init();
 ```
 
-This is the most basic jsreport server startup. It searches for `[dev | prod].config.json` file depending on the nodejs environment and initialize server based on settings it finds in the configuration file or applies defaults. Same code can be also used when integrating jsreport directly to the existing nodejs application.
+This is the most basic jsreport server startup. It searches for `jsreport.config.json` file and initialize server based on the settings it finds in it or applies defaults. Same code can be also used when integrating jsreport directly to the existing nodejs application.
 
 In addition to configuration file, jsreport also parses values from environment variables, command line arguments or you can pass them directly to the jsreport instantiation. Options passed as a parameter take precedence over environment variables which then take precedence over configuration file.
 
