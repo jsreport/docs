@@ -9,6 +9,8 @@ The configuration file is the most common way to adapt jsreport. The default `js
 
 jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_ENV=development or production` environment variable if such file exists.
 
+The config file can be also explicitly specified using `configFile=path` option which can be passed using one of the following methods. The config file path can be both relative or absolute.
+
 ### Environment variables
 The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it to change the port for example:
 
