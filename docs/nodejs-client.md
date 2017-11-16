@@ -5,10 +5,10 @@ jsreport node.js client is a wrapper around [jsreport api](https://jsreport.net/
 
 ##Initialization
 
-`jsreport-client` package returns function with parameters `url`, `username` and `password` where only `url` is mandatory. Function returns `Client` object representing facade to remote jsreport server running on specified `url`.
+`jsreport-client` package returns function with parameters `url`, `username` and `password` where only server `url` is mandatory. Function returns `Client` object representing facade to remote jsreport server running on specified `url`. 
 
 ```js
-var client = require("jsreport-client")(url, username, password)
+var client = require("jsreport-client")("http://myserver:5488", "admin", "mypassword")
 ```
 
 ##Rendering reports
