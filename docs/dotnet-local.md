@@ -108,6 +108,40 @@ var report = await rs.RenderByNameAsync("Invoice", new
 });
 ```
 
+## Custom extensions
+
+The [jsreport binary](https://jsreport.net/learn/single-file-executable) used in `jsreport.Local` includes only default [extensions](/learn/extensions), [engines](/learn/templating-engines) and [recipes](/learn/recipes). However there  are many additional extensions used with jsreport which you can also install to the c# project and use with `jsreport.Local`.
+
+The first you need to make sure you have `jsreport` folder created in the project and everything in it is being marked to be replicated into the bin folder as mentioned in the previous chapter. Then create inside file `jsreport.config.json` with the following content:
+
+```js
+{ 
+  "discover": true
+}
+```
+
+This instructs jsreport to crawl this directory and search for the additional custom extension. The last step is to install a custom extension using [npm](https://www.npmjs.com/) into the `jsreport` directory.
+
+To demonstrate this open cmd with the `jsreport` working directory and type:
+
+```sh
+npm install jsreport-wkhtmltopdf
+```
+
+Now you can use [wkhtmltopdf](/learn/wkhtmltopdf) recipe:
+
+```csharp
+rs.RenderAsync(new RenderRequest()
+{
+    Template = new Template()
+    {
+        Content = "Hello",
+        Engine = Engine.None,
+        Recipe = Recipe.Wkhtmltopdf
+    }
+}
+```
+
 ## Utility or Web Server
 
 `jsreport.Local` implements two strategies for communicating with the `jsreport.exe` binary. One is to use the command line arguments and the second to start the binary as web server and communicate with it using http protocol. The second strategy is currently significantly faster however this should change in the future releases and the performance should be close to each other. It is generally recommended to use the utility based strategy in production.
