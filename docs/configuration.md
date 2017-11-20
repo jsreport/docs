@@ -11,6 +11,11 @@ jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_E
 
 The config file can be also explicitly specified using `configFile=path` option which can be passed using one of the following methods. The config file path can be both relative or absolute.
 
+`Hint:` You should see the currently applied configuration file name in the first lines of log when starting the instance. 
+```
+info: Initializing jsreport@1.9.2 in development mode using configuration file: dev.config.json
+```
+
 ### Environment variables
 The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it to change the port for example:
 
