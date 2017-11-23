@@ -2,7 +2,7 @@ The default [template store](/learn/template-stores) implementation persist enti
 
 
 ## Configuration
-The default configuration is present in the `jsreport.config.json` file pre-created during the installation.
+The default [configuration](/learn/configuration) is present in the `jsreport.config.json` file pre-created during the installation.
 
 ```js
 "connectionString": { "name": "fs" }
@@ -109,7 +109,8 @@ The second step is to configure the fs store synchronization using the following
 
 This assures all servers gets a message and reflect it to the memory representation every time there is a change written to the S3. These messages are delivered to the jsreport instances using the native AWS SNS service.
 
-You can find further information in the following repositories. 
+You can find further information in the following repositories.     
+
 [jsreport-fs-store-aws-s3-persistence](https://github.com/jsreport/jsreport-fs-store-aws-s3-persistence)    
 [jsreport-fs-store-aws-sns-sync](https://github.com/jsreport/jsreport-fs-store-aws-sns-sync)
 
@@ -156,6 +157,7 @@ Then create an azure service bus and copy the connection string from the shared 
 
 This assures all servers gets a message and reflect it to the memory representation every time there is a change written by one of the instance to the Azure Blob Storage. These messages are delivered to the jsreport instances using the native Azure Service Bus.
 
-You can find further information in the following repositories. 
+You can find further information in the following repositories.     
+
 [jsreport-fs-store-azure-storage-persistence](https://github.com/jsreport/jsreport-fs-store-azure-storage-persistence)    
 [jsreport-fs-store-azure-sb-sync](https://github.com/jsreport/jsreport-fs-store-azure-sb-sync)
