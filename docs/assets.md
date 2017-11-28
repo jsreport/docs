@@ -35,7 +35,7 @@ Supported encoding values:
 - `utf8` - default encoding used when not specified, embeds the asset as a raw string in utf8 character set
 
 - `string` - embeds the asset as a raw string in utf8 character set but escaping some characters (`"`, `'`, `\n`, etc) for usage inside a javascript context. Use this encoding when you want put asset content as part of a javascript variable
-ex: `var data = "{#asset vardata.txt @encoding=string}}"`
+ex: `var data = "{#asset vardata.txt @encoding=string}"`
 
 - `link` - embeds the asset as a reference to a link (`http://<host>:<port>/assets/content/<asset name>`). for in deep usage and caveats see [Embedding assets as links](#embedding-assets-as-links)
 
