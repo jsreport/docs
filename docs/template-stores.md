@@ -35,3 +35,21 @@ Note the extensions implementing templates store are being used only for persist
 ## Migrating between different stores
 
 jsreport [import-export](/learn/import-export) extension is able to export data from every supported store implementation into single zip package. This package can be then imported back into any other jsreport instance which can be using even different store implementation. This allows you to use locally a file system based store and easily import the same data to production server running mongo for example.
+
+## REST API
+The template store is typically internally used by extensions or studio to query and update entities like report templates. However template store API is exposed also through the unified [odata](http://www.odata.org/) based REST API. This can be used by any client to remotely query or update the underlying jsreport data. The API is always the same no matter if the underlying store implementation is based on SQL or file system. See more details in [API documentation](/learn/api#querying-and-crud).
+
+## javascript API
+The jsreport custom extension authors can also interact with the store directly through javascript API. This can be also used in a node.js application to write a custom data import/export.
+
+The API is compatible with mongo
+
+```js
+const templates = await reporter.documentStore.collection("templates")    
+    .find({ "shortid": "foo"})    
+	.sort({ "name": 1 })    
+	.limit(10)    
+	.toArray()
+```    
+
+See the [custom extension documentation](https://jsreport.net/learn/custom-extension) for more details.
