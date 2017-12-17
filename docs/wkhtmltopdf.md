@@ -61,7 +61,7 @@ The `header` and `footer` parameter requires full html. For example
 </body>
 </html>
 ```
-See the [header demo in the playground](https://playground.jsreport.net/studio/workspace/Hk5o-aXzf/2).
+See the [header with page number demo in the playground](https://playground.jsreport.net/studio/workspace/bkBXJqNOae/119).
 
 ## Local file access
 Accessing local files through wkhtmltopdf is disabled by default.  You can enable it using this config:
