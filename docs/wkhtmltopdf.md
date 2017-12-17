@@ -50,6 +50,19 @@ You can globally wkhtmltopdf recipe to add wkhtmltopdf supported options this wa
 
 See the list of supported options [here](http://wkhtmltopdf.org/usage/wkhtmltopdf.txt).
 
+## Headers footers
+The `header` and `footer` parameter requires full html. For example
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    Header...
+</body>
+</html>
+```
+See the [header demo in the playground](https://playground.jsreport.net/studio/workspace/Hk5o-aXzf/2).
+
 ## Local file access
 Accessing local files through wkhtmltopdf is disabled by default.  You can enable it using this config:
 ```js
