@@ -33,7 +33,7 @@ These basic settings are typically stored with the template, but you can also se
 
 ##Configuration
 
-Use `chrome` node in the standard [config](/learn/configuration) file.
+Use `chrome-pdf` node in the standard [config](/learn/configuration) file.
 ```js
 chrome-pdf: {  
   timeout: 30000
