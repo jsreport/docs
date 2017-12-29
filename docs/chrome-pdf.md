@@ -35,7 +35,7 @@ These basic settings are typically stored with the template, but you can also se
 
 Use `chrome` node in the standard [config](/learn/configuration) file.
 ```js
-phantom: {  
+chrome-pdf: {  
   timeout: 30000
 }
 ```
