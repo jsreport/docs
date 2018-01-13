@@ -5,7 +5,7 @@
 
 - [Mixed pages orientation](https://playground.jsreport.net/studio/workspace/BkujXYfVG/10)
 - [Header with page number](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/5)
-- [Watermak](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
+- [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
 ## Installation
 
