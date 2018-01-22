@@ -1,3 +1,4 @@
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -155,4 +156,18 @@ await rs.StartAsync();
 var report = await rs.RenderAsync(...);
 
 await rs.KillAsync();
-```            
+```          
+
+## Windows Linux  Mac
+ The `jsreport.Binary` works only on the Windows platform. However you can install extra binary package [jsreport.Binary.Linux](https://github.com/jsreport/jsreport-dotnet-binary-linux) or [jsreport.Binary.OSX](https://github.com/jsreport/jsreport-dotnet-binary-osx) if you want to support other platforms.
+ 
+ ```csharp
+ var rs = new LocalReporting()                
+    .UseBinary(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)  ? 
+        jsreport.Binary.JsReportBinary.GetBinary() : 
+        jsreport.Binary.Linux.JsReportBinary.GetBinary())                
+    .AsUtility()
+    .Create(); 
+```
+ 
+ There are also available precompiled jsreport binaries with phantomjs 2. The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).
