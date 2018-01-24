@@ -1,6 +1,6 @@
 **Standalone distributable jsreport browser sdk**
 
-##Download
+## Download
 
 You can use npm
 > npm install jsreport-browser-client-dist
@@ -9,7 +9,7 @@ Or download `jsreport.js` from the [release page](https://github.com/jsreport/js
 
 The script itself should be compatible with [webpack](https://webpack.github.io/), [requirejs](http://requirejs.org/) and other script bundlers.
 
-##Usage
+## Usage
 
 **rendering based on submitting hidden form, this works on legacy browsers **
 
@@ -17,7 +17,7 @@ The script itself should be compatible with [webpack](https://webpack.github.io/
 jsreport.serverUrl = 'http://localhost:3000';
 
 var request = {
-  template: { 
+  template: {
     content: 'foo', engine: 'none', recipe: 'phantom-pdf'
    }
 };
@@ -44,10 +44,13 @@ jsreport.headers['Authorization'] = "Basic " + btoa("admin:password")
 //render through AJAX request and return promise with array buffer response
 jsreport.renderAsync(request).then(function(res) {
   console.log(res);
-  
+
   //open in new window
   window.open(res.toDataURI())
-  
+
+  //get the content as string
+  res.toString()
+
   //open download dialog
   res.download('test.pdf')
 });
@@ -59,6 +62,14 @@ jsreport.updateTemplate(template).then(..)
 You can find more details about the `request` argument  [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
 
 Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
+
+## large report file
+
+when using `renderAsync`, if the generated report is big (>=3MB) and when `res.toDataURI()` is used, it will generate a big data uri which browsers can't use normally to open and preview the report file (in `window.open` or when loading an iframe). the solution for this is to use `res.toObjectURL()` to create an [object url](https://developer.mozilla.org/es/docs/Web/API/URL/createObjectURL) which does not have the limitations of a data uri, then you can use the generated url in `window.open(res.toObjectURL())` or to load an iframe `iframe.src = res.toObjectURL()` and preview the report file normally. another method available is `res.toBlob()` which returns a [blob object](https://developer.mozilla.org/es/docs/Web/API/Blob) which you can use if you need to process the file somehow or in a custom way.
+
+As the [object url docs](https://developer.mozilla.org/es/docs/Web/API/URL/createObjectURL) explains, remember that when using object urls you must release these objects when you don't need it anymore, which can be done using [`URL.revokeObjectURL`](https://developer.mozilla.org/es/docs/Web/API/URL/revokeObjectURL) method. an example of releasing an object url can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Using_object_URLs_to_display_images).
+
+
 
 ## window.open in chrome
 The latest chrome currently throws error "Not allowed to navigate top frame to data URL" for call `windows.open(res.toDataURI)` with pdf. This change is documented [here](https://stackoverflow.com/a/45495974/1660996). The current workaround is to embed an iframe to the new tab:
