@@ -32,7 +32,7 @@ Assuming folowing input object:
 Then you can use `shouldPrint` bool value in the `if` condition. For more sophisticated condition see `Helpers` section.
 
 ```html
-{{#if shouldPring}}
+{{#if shouldPrint}}
     <h1>{{name}}</h1>
 {{/if}}
 ```
