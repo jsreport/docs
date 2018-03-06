@@ -99,12 +99,14 @@ You can choose one from the options below:
 3. Passed in the command line parameter as `--license-key=xxx`
 4. Set in the environment variable as `license-key`
 
-Make sure to remove all the white spaces around the key. 
+when using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md) you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
+
+Make sure to remove all the white spaces around the key.
 
 ### <a name="update-payment-details"></a>Update payment details
 
 jsreport enterprise or jsreportonline subscribers can update the payment details in the following way.
- 
+
 1. Open your [gumroad account](https://gumroad.com/library)
 2. Login through the email you filled during the initial subscription. It is the same email your receipts are being sent to.
 3. Choose `My account/Settings` in the menu
