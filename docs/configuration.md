@@ -104,9 +104,9 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **rootDirectory** (`string`)  - optionally specifies where's the application root and where jsreport searches for extensions
 
-**dataDirectory** (`string`) - optionally specifies absolute path to directory where the application stores images, reports and database files
+**dataDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores images, reports and database files
 
-**tempDirectory** (`string`) - optionally specifies absolute path to directory where the application stores temporary files
+**tempDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores temporary files
 
 ## Rendering configuration
 
