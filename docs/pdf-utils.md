@@ -102,13 +102,13 @@ The passed item can be also an object with properties.
 Note passing objects like this works only for [handlebars](/learn/handlebars) and [jsrender](/learn/jsrender). 
 
 ## Grouping pages
-Another use case is when the report is represented by multiple groups of pages and it is required to make the header dynamic based on the particular group. This can be reached using helper `pdfCreateGroup`.
+Another use case is when the report is represented by multiple groups of pages and it is required to make the header dynamic based on the particular group. This can be reached using helper `pdfCreatePagesGroup`.
 
 The main pdf report producing the list of students can look like this
 ```html
 {{#each students}}
     <h1 style='page-break-before: always'>{{name}}</h1>    
-    {{{pdfCreateGroup name}}}
+    {{{pdfCreatePagesGroup name}}}
     <div>lots of other content expanding to multiple pages</div>
     ....	
 {{/each}}
@@ -124,7 +124,7 @@ The group information can be then retrieved from `$pdf.pages[x].group` property.
 
 The passed group can also be an object with properties
 ```html
-{{{pdfCreateGroup name="Jan" age=33}}}
+{{{pdfCreatePagesGroup name="Jan" age=33}}}
 ```
 
 ## Recipes
