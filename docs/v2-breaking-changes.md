@@ -1,3 +1,4 @@
+
 jsreport v2 is major release which on top of great new features also includes several breaking changes. It is not in-place replacement for jsreport v1 and you should carefully review how the changes affect your application. To make this task easier we have prepared migration utility that analyses your jsreport application, process some automatic migration tasks and print warning with help for the rest.
 
 You can install and run the migration utility in the following way.
@@ -29,7 +30,7 @@ The extensions config is now nested in extra property called `extensions`.  So f
 ### connectionString
 The `connectionString` property was renamed to the `store` and looks the following now.
 ```js
-{ store: { provider: 'fd' } }
+{ store: { provider: 'fs' } }
 ```
 ### tasks
 The `tasks` property was renamed to `templatingEngines`.
@@ -46,9 +47,9 @@ The `blobStorage` property should be now object with structure as `store`.
 ### renderingSource
 jsreport v2 introduce new config property `renderingSource`.
 ```js
-{ renderingSource: 'trusted | untrusted'` }
+{ renderingSource: 'trusted | untrusted' }
 ```
-This property specifies if jsreport should use strict trust the rendering request and allow access to the local file system and custom nodejs modules in the sandbox.
+This property specifies if jsreport is running in a trusted environment. When the environment is trusted it will allow access to the local file system and use of custom nodejs modules during rendering execution.
 
 ## phantomjs
 The [phantomjs](http://phantomjs.org/) project is no longer active and we decided to switch to headless chrome in the default installation. This doesn't mean you can't continue using phantomjs. You just need to additionally install it if you don't want to migrate your templates.
