@@ -84,6 +84,9 @@ var fs = require('fs')
 function beforeRender(req, res, done) {
   var configPath = path.join(__appDirectory, 'myconfig.json')
 
+  // any message called with console.log, console.warn, console.error will be saved into logs
+  console.log('reading custom file..')
+
   fs.readFile(configPath, function (err, content) {
     if (err) {
       return done(err)
@@ -191,6 +194,19 @@ function afterRender(req, res, done) {
         res.content = response.content;
         done();
     });    
+}
+```
+
+## Logging
+
+If you want to save some logs information that are relevant when executing your scripts, then you can use normal `console.log`, `console.warn`, `console.error` calls in your scripts code to achieve this, these methods match with the `info`, `warn`, `error` levels of your [logging configuration](https://jsreport.net/learn/configuration#logging-configuration) so how these information is going to be stored will depend on the logging configuration that you have in your [jsreport configuration source](https://jsreport.net/learn/configuration).
+
+```js
+function beforeRender(req, res, done) {
+  console.log('i\'m generating logs with info level')
+  console.warn('i\'m generating logs with warn level')
+  console.error('i\'m generating logs with error level')
+  done()
 }
 ```
 
