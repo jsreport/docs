@@ -10,7 +10,7 @@ jsreport-migration
 The rest of the document provides the list of the breaking changes in jsreport v2. I case we were able to automate the change for you using the migration utility the chapter includes note about it.
 
 ## Node 8
-The jsreport v2 requires at least node.js >= 8.6
+The jsreport v2 requires at least node.js >= 8.9
 
 ## Configuration changes
 
@@ -20,8 +20,8 @@ The jsreport v2 requires at least node.js >= 8.6
 The extensions config is now nested in extra property called `extensions`.  So for example `scripts` can be configured like this.
 
 ```js
-{ 
-  extensions: { 
+{
+  extensions: {
     scripts: { timeout: 50000, strategy: 'dedicated-process'}
   }
 }
@@ -164,4 +164,3 @@ The logging no longer supports deprecated structure with `providerName`. The onl
 `render` method now returns a promise instead of accepting a callback.
 
 `render` no longer resolves to an instance of [node.js http response stream](https://nodejs.org/dist/latest-v8.x/docs/api/http.html#http_class_http_incomingmessage), instead it resolves to a stream with the same properties of a [node.js http response stream](https://nodejs.org/dist/latest-v8.x/docs/api/http.html#http_class_http_incomingmessage), it is identical with the same properties, just that it is no longer a real instance of [node.js http response stream](https://nodejs.org/dist/latest-v8.x/docs/api/http.html#http_class_http_incomingmessage).
-
