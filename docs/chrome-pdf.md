@@ -1,4 +1,5 @@
 ﻿
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -25,6 +26,17 @@ The settings reflects the [headless chrome API](https://github.com/GoogleChrome/
 
 These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.chrome` property.
 
+The options can be also dynamically set from within the page javascript using:
+
+```js
+<script>
+	...
+	window.JSREPORT_CHROME_PDF_SETTINGS = {
+		landscape:  true
+	}
+</script>
+```
+
 
 ## Configuration
 
@@ -50,6 +62,7 @@ you can also use top level `chrome` property in configuration, the difference is
 ```
 
 ## Fonts
+
 The fonts can be easily embedded into PDF reports using the [assets](https://jsreport.net/learn/assets) extension. You can find the tutorial on how to do it [here](https://jsreport.net/blog/fonts-in-pdf).
 
 ## Page breaks
