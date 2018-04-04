@@ -271,12 +271,6 @@ Note that you can override all or just some part of the predefined configuration
 
 - **logger.silent** (`boolean`): handy option to silence (logs will not be stored) all outputs configured. default: false
 
-**Deprecated logger options (still present just for back compatibility with older versions, but that will be removed in next major versions):**
-
-- **logger.providerName** (`string`): valid values are `console` (to only send logs to console), `winston` (to sends logs to console and files), `dummy` (logs are not available unless `DEBUG=jsreport` env var is set). default: `winston`
-
-- **logger.logDirectory** (`string`): specifies the base directory where logs will be stored, only used when there is no output configured explicitly (like `"console": { "transport": "console", "level": "debug" }`). default: `your project directory (rootDirectory)/logs`
-
 ## Studio configuration
 
 **studio** (`object`) - object used to configure studio
