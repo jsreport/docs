@@ -41,7 +41,7 @@ Keep in mind you can redock report preview tab and keep report definition togeth
 
 > Note that all `*.jsrep` files are marked with `Copy Always`  option so they all are distributed with the application bin folder.
 
-##Creating sample data for preview
+## Creating sample data for preview
 
 Typical report needs a layout definition and some input data. While in real application you should provide data dynamically and you need to provide some preview testing data during design time. You can create static testing data using `jsreport sample data` project item template from create new item dialog. This will create a `SampleData.jsrep.json` file where you can fill any json data.
 
@@ -56,7 +56,7 @@ Adding image into report is done using special tag jsreport [images extension](h
 <img src="{#image ImageName}" height... />
 ```
 
-##Configuring jsreport
+## Configuring jsreport
 
 You can hook into jsreport configuration by adding `ReporingStartup` class somewhere into your c# project. This class should contain public `Configure` method  accepting `IVSReportingConfiguration` as parameter.
 
@@ -75,11 +75,11 @@ You can use `IVSReportingConfiguration` to specify if visual studio should use [
 public class ReportingStartup {
     public void Configure(IVSReportingConfiguration configuration) {
         configuration.UseEmbedded();
-        
+
         configuration.RegisterSampleData("SomeSampleData", () => {
-        
+
                  using (NorthwindEntities context = new NorthwindEntities())  {
-                 
+
                      var categories = from category in context.Categories
                                  select new
                                  {
@@ -91,24 +91,14 @@ public class ReportingStartup {
                     }
                  }
         });
-        
+
     }
 }
 ```
 
 Previous example configures visual studio to use embedded version of jsreport and registers action loading sample data from db. Now you should be able to find `SomeSampleData` in the `jsrep` editor combobox. Note that you should fill your connection string manually here instead of taking it from web.config. This is because report rendering in visual studio doesn't run in scope of an web application but as a dynamically invoked method using reflection.
 
-##Recommendations
-It's recommended to have all reports in one visual studio project because switching between projects causes jsreport embedded server to restart. 
+## Recommendations
+It's recommended to have all reports in one visual studio project because switching between projects causes jsreport embedded server to restart.
 
 For more complex reports it's recommended to use [child templates](https://jsreport.net/learn/child-templates) and split big reports into several small ones. It's also a good practice to separate css styles into separate report templates and reuse them.
-
-
-
-
-
-
-
-
-
-

@@ -1,10 +1,10 @@
 
 
-##Basics
+## Basics
 
 jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
 
-##Data binding
+## Data binding
 
 You can use values from report input data using `{{...}}` tags.
 
@@ -19,7 +19,7 @@ you can use `{{title}}` to pring `Helo world`
 ```html
 <h1>{{title}}</h1>
 ```
-##Conditions
+## Conditions
 
 Assuming folowing input object:
 ```js
@@ -37,7 +37,7 @@ Then you can use `shouldPrint` bool value in the `if` condition. For more sophis
 {{/if}}
 ```
 
-##Loops
+## Loops
 
 Assuming following input data object
 ```js
@@ -54,7 +54,7 @@ You can simply iterate over `comments` using `each`
 {{/each}}
 ```
 
-##Helpers
+## Helpers
 
 jsreport report template contains `content` filed with javascript templating engines tags and `helpers` field where you can place some javascript functions and then use them.
 
@@ -71,23 +71,22 @@ And then you can call function in handlebars using:
 say hello world loudly: {{{toUpperCase "hello world"}}}
 ```
 
-##Thirdparty helper libraries
+## Thirdparty helper libraries
 There are plenty of thirdparty libraries providing additional handlebars helpers like [handlebars-helpers](https://github.com/assemble/handlebars-helpers) or [handlebars-intl](http://formatjs.io/handlebars/). To use such a library in jsreport, you need to install it from npm and then `require` it at the top of the template's helpers.
 
 `npm install handlebars-intl`
 ```js
-var handlebars = require('handlebars');
+const handlebars = require('handlebars');
 
-var HandlebarsIntl = require('handlebars-intl');
+const HandlebarsIntl = require('handlebars-intl');
 HandlebarsIntl.registerWith(handlebars);
 ```
 
 `npm install handlebars-helpers`
 ```js
-var handlebars = require('handlebars');
+const handlebars = require('handlebars');
 
-var helpers = require('handlebars-helpers')({
+const helpers = require('handlebars-helpers')({
   handlebars: handlebars
 });
 ```
-

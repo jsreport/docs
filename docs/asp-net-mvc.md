@@ -1,15 +1,16 @@
 >  **[Download example from GitHub](https://github.com/jsreport/net/tree/master/examples/Mvc)**
 
-##Basics
+## Basics
 
-If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from `jsreport.MVC` nuget package. This package provides a filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
+If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from `jsreport.MVC` nuget package. This package provides a filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
 
-##Get Started
+## Get Started
 To get started you need to install `jsreport.MVC` package into your `asp.net mvc` project first.
 
 > Install-Package jsreport.MVC
 
 Then you need to add `JsReportFilterAttribute` to filters collection. This require access to jsreport server. You can use [.net embedded](https://jsreport.net/learn/net-embedded) or [on prem](https://jsreport.net/on-prem) or [jsreport online](https://jsreport.net/online) service.
+
 ```csharp
 public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 {
@@ -24,11 +25,12 @@ public static void RegisterGlobalFilters(GlobalFilterCollection filters)
   //filters.Add(new JsReportFilterAttribute(new ReportingService("http://localhost:2000")));
 }
 ```
+
 The last step is to enable particular controller or action to use jsreport for rendering. You will do this using `EnableJsReport` attribute.
 
 ```csharp
 //render view as pdf converted from html
-[EnableJsReport(Recipe = "phantom-pdf")]
+[EnableJsReport(Recipe = "chrome-pdf")]
 public ActionResult Pdf()
 {
   return View();
@@ -46,8 +48,9 @@ And now you can try to visit the page and it should open a pdf respectively xlsx
 
 jsreport will evaluate all your css files and even javascript. You only need to keep in mind that every resource like script or style has to be linked with absolute url.
 
-####Dynamic recipe resolution
+#### Dynamic recipe resolution
 The `EnableJsReport` doesn't let you pass anything dynamic, however you can fully specify the required rendering request and pass it to `ViewBag.jsreportRenderRequest` inside the action code.
+
 ```csharp
 [EnableJsReport()]
 public ActionResult Contact()
@@ -55,7 +58,7 @@ public ActionResult Contact()
 	ViewBag.jsreportRenderRequest = new RenderRequest() {
 	    template = new Template() {
                             engine = "none",
-                            recipe = "phantom-pdf"
+                            recipe = "chrome-pdf"
                         }
     };
     return View();

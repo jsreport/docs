@@ -17,11 +17,12 @@ sudo yum install bzip2
 sudo yum install libXext  libXrender  fontconfig  libfontconfig.so.1
 sudo yum install urw-fonts
 ```
+
 ## Install jsreport and start
 
 ```bash
-sudo npm install jsreport --production
-sudo node node_modules/jsreport --init
+sudo npm install -g jsreport-cli
+sudo jsreport init
 sudo node server.js
 
 ```
@@ -51,4 +52,3 @@ sudo wget http://apache.miloslavbrada.cz/xmlgraphics/fop/binaries/fop-1.1-bin.ta
 sudo tar -xvzf fop-1.1-bin.tar.gz
 sudo ln -s -t /usr/bin /opt/fop-1.1/fop
 ```
-

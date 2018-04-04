@@ -18,6 +18,7 @@ The asset can be embedded into template's content, helpers or [custom script](ht
 The asset extraction is recursive which means you can create a hierarchies of assets. This lets you to group styles' links into a one asset.
 
 The asset extraction runs twice during the rendering. At the beginning after jsreport knows the template and also after the templating engines are executed. This means you can dynamically construct asset names. The following will for example work with jsreport [handlebars](https://jsreport.net/learn/handlebars) engine.
+
 ```
 {#asset {{giveMeAssetName}}}
 ```
@@ -59,7 +60,7 @@ Assets can be also referenced as links. This is usually better performing in htm
 
 However this approach has several gotchas and you should use it only when it makes really sense.
 
-The first problem is that the asset links needs to be publicly accessible for phantomjs or external users' browsers. This can be opted in through config:
+The first problem is that the asset links needs to be publicly accessible for chrome (or external recipes based on browsers, like phantomjs). This can be opted in through config:
 
 ```js
 {
@@ -82,20 +83,22 @@ The second problem is that the assets links are based on the jsreport server url
 Add `assets` node to the standard config file:
 
 ```js
-assets: {
-  // wildcard pattern for accessible linked or external files
-  allowedFiles: "static/**.css",
-  // enables access to files not stored as linked assets in jsreport store    
-  searchOnDiskIfNotFoundInStore: false,
-  // root url used when embedding assets as links {#asset foo.js @encoding=link}
-  rootUrlForLinks: "http://mydomain.com",
-  // make all assets accessible to anonymous requests
-  publicAccessEnabled: true
+extensions: {
+  assets: {
+    // wildcard pattern for accessible linked or external files
+    allowedFiles: "static/**.css",
+    // enables access to files not stored as linked assets in jsreport store    
+    searchOnDiskIfNotFoundInStore: false,
+    // root url used when embedding assets as links {#asset foo.js @encoding=link}
+    rootUrlForLinks: "http://mydomain.com",
+    // make all assets accessible to anonymous requests
+    publicAccessEnabled: true
+  }
 }
 ```
 
 ## API
-You can use standard OData API to manage and query assets entities. For example you can query all assetsusing
+You can use standard OData API to manage and query assets entities. For example you can query all assets using
 > `GET` http://jsreport-host/odata/assets
 
 ## Examples

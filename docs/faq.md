@@ -16,7 +16,6 @@ How to...
 - [How to apply license key](#how-to-apply-license-key)    
 - [Update payment details](#update-payment-details)    
 
-
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
 
 ```bash
@@ -48,7 +47,7 @@ You need to open `jsreport.config.json` file and edit `httpPort` property to des
 
 ### <a name="performance"></a>Increase performance
 
-jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests.
+jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse phantomjs and nodejs workers over multiple requests.
 
 Open `jsreport.config.json` and update following:
 
@@ -56,7 +55,7 @@ Open `jsreport.config.json` and update following:
 "phantom": {     
 	"strategy": "phantom-server"
 },
-"tasks": {       
+"templatingEngines": {       
 	"strategy": "http-server"
 }
 ```

@@ -5,11 +5,13 @@
 ### Set base address in config
 
 ```js
-"base": {
-  "url": "${cwd}/myAssets"
-},
-"phantom-pdf": {
-  "allowLocalFilesAccess": true
+"extensions": {
+  "base": {
+    "url": "${cwd}/myAssets"
+  },
+  "phantom-pdf": {
+    "allowLocalFilesAccess": true
+  }
 }
 ```
 
@@ -26,7 +28,7 @@ The extension then injects [html base tag](https://www.tutorialspoint.com/html/h
 </html>
 ```
 
-The base tag assures that relatively linked scripts, images or styles gets loaded from the specified folder without additional extra work. Only note that you may need to enable local file access in the pdf rendering recipe like [phantom-pdf](/learn/phantom-pdf) using `phanton.allowLocalFilesAccess: true` option.
+The base tag assures that relatively linked scripts, images or styles gets loaded from the specified folder without additional extra work. Only note that you may need to enable local file access in some of the pdf rendering recipe like [phantom-pdf](/learn/phantom-pdf) using `phanton.allowLocalFilesAccess: true` option.
 
 ### Send base address when running through cli
 
@@ -36,7 +38,7 @@ jsreport render
   --template.recipe=phantom-pdf
   --template.content=test.html
   --options.base=%cd%
-  --out=out.pdf 
+  --out=out.pdf
 ```
 
 

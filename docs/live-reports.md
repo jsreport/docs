@@ -7,7 +7,7 @@ jsreport isn't limited for rendering static documents like pdf or excel. You can
 
 This tutorial explains how to create a simple (master - detail) interactive report. However if you are rather curious how can look like a complex dashboard, don't hesitate to open the links below the image and come back to tutorial afterwards.
 
-##Master report template
+## Master report template
 
 This tutorial uses [NorthWind](https://northwinddatabase.codeplex.com) database and its live [REST endpoint](http://services.odata.org/V4/Northwind/Northwind.svc) as a data source for the reports. The first thing we do is create the master report template and [script](/learn/scripts) which downloads the report input data from the endpoint.
 
@@ -17,7 +17,7 @@ At this point we just simply use [handlebars](https://jsreport.net/learn/handleb
 
 <iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/7?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-##Drilling down
+## Drilling down
 Time to make the report interactive. We need another script downloading particular customer's data, another template displaying customer detail and extend the master customers template with the drill down function.
 
 The script downloading data additionally accepts `CustomerID` on the input, fetches orders and reduces them by quarter.
@@ -28,9 +28,9 @@ Afterwards we need to change the master template's recipe to the [html-with-brow
 
 <iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/9?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-##Exporting static report
+## Exporting static report
 
-Quite common functionality of dashboards or interactive reports is exporting into a static document like pdf or excel. This can be done again using [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client) recipe. 
+Quite common functionality of dashboards or interactive reports is exporting into a static document like pdf or excel. This can be done again using [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client) recipe.
 
 To demonstrate this,  the master template needs to be extended with an export button and proper click event handler. In this tutorial the event handler simply renders and downloads the output of the same detail template. It only overrides its recipe to [phantom-pdf](https://jsreport.net/learn/phantom-pdf).
 
@@ -38,7 +38,7 @@ To produce the proper pdf after the chart animation is finished, the detail temp
 
 <iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/11?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
-##Sharing link to report
+## Sharing link to report
 Now if you have the working live report, you can share it with others using simple link. You can find the button showing the link in the jsreport toolbar.
 
 If you have [authentication](https://jsreport.net/learn/authentication) enabled, you can also generate anonymous link with access token using `Share` toolbar button.

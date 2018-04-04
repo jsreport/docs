@@ -121,7 +121,7 @@ Use this command to kill any jsreport process running in background (for example
 
 To see available options and usage example type `jsreport kill -h`.
 
-##node.js project integration
+## node.js project integration
 The jsreport `cli` is by default available in full form if you follow the official jsreport [download](/on-prem) instructions. However if you are integrating jsreport into a node.js application, you need to set up the following:
 
 1. **Declare a jsreport entry point in the `package.json` of your project**
@@ -134,7 +134,7 @@ The jsreport `cli` is by default available in full form if you follow the offici
   {
     "name": "jsreport-server",
     "dependencies": {
-      "jsreport": "1.7.0"
+      "jsreport": "2.0.0"
     },
     "main": "server.js",
     "jsreport": {
@@ -151,7 +151,7 @@ The jsreport `cli` is by default available in full form if you follow the offici
 
   ```js
   // creating a jsreport instance
-  var jsreport = require('jsreport')()
+  const jsreport = require('jsreport')()
 
   if (process.env.JSREPORT_CLI) {
     // when the file is required by jsreport-cli, export
@@ -159,9 +159,9 @@ The jsreport `cli` is by default available in full form if you follow the offici
     module.exports = jsreport
   } else {
     // when the file is started with node.js, start the jsreport server normally
-    jsreport.init().then(function () {
+    jsreport.init().then(() => {
       console.log('server started..')
-    }).catch(function (e) {
+    }).catch((e) => {
       // error during startup
       console.error(e.stack)
       process.exit(1)

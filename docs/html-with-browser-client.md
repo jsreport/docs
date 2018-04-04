@@ -4,9 +4,9 @@ The html output is then extended with [jsreport](https://jsreport.net/learn/brow
 
 See the [browser client docs](https://jsreport.net/learn/browser-client) for API details.
 
-
-##Export part of the report to PDF
+## Export part of the report to PDF
 The most simple scenario. You have html report but you want to additionally add controls for printing particular parts into PDF.
+
 ```html
 <div id='printedArea'>
     <h1>Hello world</h1>
@@ -24,11 +24,11 @@ The most simple scenario. You have html report but you want to additionally add 
 </script>
 ```
 
-
-##Drill down to sub report
-Also very common scenario. The report is too complex to display at once and you want let the users to drill down to particular sections. 
+## Drill down to sub report
+Also very common scenario. The report is too complex to display at once and you want let the users to drill down to particular sections.
 
 The master template can contain several links to the detail drill down. Every link can then render different template and also push additional information through data property.
+
 ```html
 Hello from master....
 <input type='button' onclick='detail()' value='Drill down'></input>
@@ -41,6 +41,7 @@ Hello from master....
 ```
 
 The detail template can use data provided from the master template or use [custom script](https://jsreport.net/learn/scripts) to actively fetch required data. There can be also `back` button for navigating back to the master template.
+
 ```html
 Hello from detail {{detailId}} ....
 <input type='button' onclick='window.history.back()' value='back'/>
@@ -63,7 +64,7 @@ jsreport.renderAsync({ template: { name: 'master'} }).then(function(r) {
 ```
 
 
-##Editable templates
+## Editable templates
 The last example shows how to use the [jsreport borwser client](https://github.com/jsreport/jsreport-browser-client-dist) to edit and preview the template in third party WYSIWYG editor.
 
 ```html
@@ -84,41 +85,41 @@ The last example shows how to use the [jsreport borwser client](https://github.c
     var template;
     var templateName = 'My editable report template';
     var data = { foo: '...' };
-        
+
     jsreportInit = function() {
       //load template definition so we can edit it's content
       jsreport.getTemplateByName(templateName).then(function(r) {
          template = r;
       });
- 
+
       //also render into the preview pane
-      jsreport.render('reportBox', { 
-        template: { name: templateName }, 
-        data: data 
+      jsreport.render('reportBox', {
+        template: { name: templateName },
+        data: data
       });
     }
-    
+
     //open editor with the edited template content
     function edit() {
         tinymce.init({ selector:'#editorBox' });
         tinyMCE.activeEditor.setContent(template.content);
     }
-    
+
     //save the template with updated content and preview
     function refresh() {
         template.content = tinyMCE.activeEditor.getContent()
         tinyMCE.activeEditor.destroy();
         document.getElementById('editorBox').innerHTML = '';
         jsreport.updateTemplate(template).then(function() {
-            jsreport.render('reportBox', { 
-	            template: { name: templateName }, 
+            jsreport.render('reportBox', {
+	            template: { name: templateName },
 	            data: data
 	        });    
         });
     }    
-    
+
 </script>
 ```
 
-##Performance and omitting data
+## Performance and omitting data
 The recipe by default serializes the input data into the global `jsreport.data` javascript object. This can hurt performance if the data set is huge. In this case you can omit serializing data using property `template.omitDataFromOutput`. This can be set in API call or also in jsreport studio.

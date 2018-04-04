@@ -8,22 +8,22 @@ jsreport stores templates by default to the file system. This default implementa
 You can find more information about this default store in the dedicated article - [file system based store](/learn/fs-store)
 
 ## Template store extensions
-The extensions implementing template store can be installed as any other jsreport extension. Typically it only requires to run `npm install jsreport-xxx` and restart the jsreport server. The automatic jsreport extensions discovery should find and load it afterwards. 
+The extensions implementing template store can be installed as any other jsreport extension. Typically it only requires to run `npm install jsreport-xxx` and restart the jsreport server. The automatic jsreport extensions discovery should find and load it afterwards.
 
 Applying particular store extension to the jsreport requires changing the `connectionString.name` in the [configuration](/learn/configuration).
 
 ```js
-"connectionString": {
-  "name": "mongodb",
+"store": {
+  "provider": "mongodb",
   "address": "127.0.0.1",
   "databaseName" : "std"
 }
 ```
-Each store extension requires specific options to be set in `connectionString`. You can always find details the documentation.
+Each store extension requires specific options to be set in `store` config. You can always find details the documentation.
 
 The currently supported templates store implementation includes:
 
-| Documentation | Technology | 
+| Documentation | Technology |
 | ------------- | ---------- |
 | [jsreport-fs-store](/learn/fs-store) | file system + Azure Storage + AWS S3 |
 |[jsreport-mssql-store](https://github.com/jsreport/jsreport-mssql-store)| Microsoft SQL Server |

@@ -4,10 +4,9 @@
 
 The assembly is compiled for [.NET standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) and you can use it in full .net as well as in [.NET core 2.0](https://www.microsoft.com/net/core/platform) applications.
 
-
 ## Get started
 
-The `jsreport.Local` and also `jsreport.Binary` nuget packages needs to be installed the first. The second mentioned includes the default compiled [jsreport.exe](/learn/single-file-executable) binary for windows and the first provides API on the top of it. 
+The `jsreport.Local` and also `jsreport.Binary` nuget packages needs to be installed the first. The second mentioned includes the default compiled [jsreport.exe](/learn/single-file-executable) binary for windows and the first provides API on the top of it.
 
 The next example shows how you can convert html to pdf using jsreport local instance.
 
@@ -18,7 +17,7 @@ var report = await rs.RenderAsync(new RenderRequest()
 {
 	Template = new Template()
 	{
-		Recipe = Recipe.PhantomPdf,
+		Recipe = Recipe.ChromePdf,
 		Engine = Engine.None,
 		Content = "Hello from pdf"
 	}
@@ -73,7 +72,7 @@ Console.ReadKey();
 rs.KillAsync().Wait();
 ```
 
-The console application now starts jsreport server and opens the studio in the browser on `http://localhost:5488`. This gives the same experience as using the full jsreport installation. 
+The console application now starts jsreport server and opens the studio in the browser on `http://localhost:5488`. This gives the same experience as using the full jsreport installation.
 
 > HINT - you can also edit report templates directly in the Visual Studio, because the jsreport studio automatically monitor source changes and instantly triggers the preview with the changes.
 
@@ -100,7 +99,7 @@ var rs = new LocalReporting()
 	.Configure(cfg => cfg.FileSystemStore().BaseUrlAsWorkingDirectory())
     .AsUtility()
     .Create();              
-    
+
 var report = await rs.RenderByNameAsync("Invoice", new
 {
 	Id = 123,
@@ -116,7 +115,7 @@ The [jsreport binary](https://jsreport.net/learn/single-file-executable) used in
 The first you need to make sure you have `jsreport` folder created in the project and everything in it is being marked to be replicated into the bin folder as mentioned in the previous chapter. Then create inside file `jsreport.config.json` with the following content:
 
 ```js
-{ 
+{
   "discover": true
 }
 ```
@@ -160,14 +159,14 @@ await rs.KillAsync();
 
 ## Windows Linux  Mac
  The `jsreport.Binary` works only on the Windows platform. However you can install extra binary package [jsreport.Binary.Linux](https://github.com/jsreport/jsreport-dotnet-binary-linux) or [jsreport.Binary.OSX](https://github.com/jsreport/jsreport-dotnet-binary-osx) if you want to support other platforms.
- 
+
  ```csharp
  var rs = new LocalReporting()                
-    .UseBinary(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)  ? 
-        jsreport.Binary.JsReportBinary.GetBinary() : 
+    .UseBinary(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)  ?
+        jsreport.Binary.JsReportBinary.GetBinary() :
         jsreport.Binary.Linux.JsReportBinary.GetBinary())                
     .AsUtility()
-    .Create(); 
+    .Create();
 ```
- 
+
  There are also available precompiled jsreport binaries with phantomjs 2. The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).

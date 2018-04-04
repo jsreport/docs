@@ -1,35 +1,54 @@
-﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting connection string to mongo and many others.
+﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
 
 ## Configuration sources
 
 jsreport merges configuration from config file, environment variables, command line arguments and also directly from the application code in this exact order.
 
 ### Configuration file
-The configuration file is the most common way to adapt jsreport. The default `jsreport.config.json` is usually pre-created for you if you follow [installation instructions](/on-prem). 
+The configuration file is the most common way to adapt jsreport. The default `jsreport.config.json` is usually pre-created for you if you follow [installation instructions](/on-prem).
 
-jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_ENV=development or production` environment variable if such file exists.
+jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_ENV=development` or `NODE_ENV=production` environment variable if such file exists.
 
-The config file can be also explicitly specified using `configFile=path` option which can be passed using one of the following methods. The config file path can be both relative or absolute.
+The config file can be also explicitly specified using `configFile=path` option which can be passed from one of the configuration source methods. The config file path can be both relative or absolute.
 
-`Hint:` You should see the currently applied configuration file name in the first lines of log when starting the instance. 
+`Hint:` You should see the currently applied configuration file name in the first lines of log when starting the instance.
 ```
-info: Initializing jsreport@1.9.2 in development mode using configuration file: dev.config.json
+info: Initializing jsreport@2.0.0 in development mode using configuration file: jsreport.config.json
 ```
 
 ### Environment variables
 The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it to change the port for example:
 
+unix:
+
+```sh
+httpPort=3000 jsreport start
+```
+
+windows:
+
 ```sh
 set httpPort=3000
 jsreport start
 ```
-This will start jsreport on port 3000 even if you have the `httpPort` entry in the config file because the environment variables have the higher priority. 
+
+This will start jsreport on port 3000 even if you have the `httpPort` entry in the config file because the environment variables have the higher priority.
 
 If you want to use environment variable for configuring a complex object you should separate the nested path in the key using `_` :
 
+unix:
+
+```sh
+authentication_admin_username=john jsreport start
+```
+
+windows:
+
 ```sh
 set authentication_admin_username=john
+jsreport start
 ```
+
 ### Arguments
 The command line arguments are parsed as well. This is very convenient for changing the port for example:
 ```sh
@@ -48,13 +67,16 @@ const jsreport = require('jsreport')({
 
 ## Configuring extensions
 
-Each extension (recipe, store...) usually provides some options you can apply and adapt its behavior. These options can be typically set through standard configuration under the property with extension's name. For example the [authentication](/learn/authentication) can be configured under the same named node in the config.
+Each extension (recipe, store...) usually provides some options you can apply and adapt its behavior. These options can be typically set through standard configuration under the top level `extensions` property, in which you can put the specific extensions options with extension's name inside it. For example the [authentication](/learn/authentication) can be configured under the same named node in the config.
+
 ```js
-"authentication" : {     
-	"admin": {
-		"username" : "admin",
-		"password": "password"
-	}
+"extensions": {
+  "authentication" : {     
+  	"admin": {
+  		"username" : "admin",
+  		"password": "password"
+  	}
+  }
 }   
 ```
 
@@ -66,6 +88,7 @@ You can disable an extension by setting `enabled: false` in the configuration of
 
 ```js
 {
+  "extensions": {
     // ..other options here..
     "authentication": {
       // disabling authentication extension
@@ -76,6 +99,7 @@ You can disable an extension by setting `enabled: false` in the configuration of
       "enabled": false
     },
     // ..other options here..
+  }
 }
 ```
 
@@ -90,54 +114,56 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
-**express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
+**extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
 **appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
 
 ## Store configuration
 
-**connectionString** `object` - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `connectionString.name` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `connectionString` to reflect it. You can find the list of available store drivers and further details how to configure them [here](/learn/extensions).
+**store** (`object`) - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `store.provider` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](/learn/fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `store` to reflect it. You can find the list of available store drivers and further details how to configure them [here](/learn/template-stores).
 
-**blobStorage** (`string`) - optional, specifies type of storage used for storing reports. It can be `fileSystem`, `inMemory` or `gridFS`. Defaults to `fileSystem` in full jsreport or to `inMemory` when integrating jsreport into existing node.js application.
+**blobStorage** (`object`) - optional, specifies type of storage used for storing reports. The particular implementation is distinguish based on `blobStorage.provider` attribute. It can be `fs`, `memory` or `gridFS`. Defaults to `fs` in full jsreport or to `memory` when integrating jsreport into existing node.js application.
 
 ## Directories configurations
 
-**rootDirectory** (`string`)  - optionally specifies where's the application root and where jsreport searches for extensions
-
-**dataDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores images, reports and database files
+**rootDirectory** (`string`) - optionally specifies where's the application root and where jsreport searches for extensions
 
 **tempDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores temporary files
 
+## Rendering Source
+
+**renderingSource** (`string`) - This property specifies if jsreport is running in a trusted environment. When the environment is trusted it will allow access to the local file system and allow the use of custom nodejs modules during rendering execution. available values are `trusted` (which specifies that jsreport is under safe environment) and `untrusted` (which specified that jsreport will be used under environment that requires more security considerations)
+
 ## Rendering configuration
 
-jsreport uses by default dedicated processes for rendering pdf or scripts. This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests. This can be achieved using this config options. 
+jsreport uses by default dedicated processes for rendering pdf or scripts. This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse and nodejs workers over multiple requests. This can be achieved using this config options.
 
 ```js
 "phantom": {     
-    "strategy": "phantom-server"
+  "strategy": "phantom-server"
 },
-"tasks": {       
-    "strategy": "http-server"
+"templatingEngines": {       
+  "strategy": "http-server"
 }
 ```
 
 ## Templating engines configuration
 
-**tasks** (`object`) - this attribute is `optional` and is used to configure the component that executes rendering tasks. This component is used to execute javascript templating engines during rendering or in scripts extension.
+**templatingEngines** (`object`) - this attribute is `optional` and is used to configure the component that executes rendering tasks. This component is used to execute javascript templating engines during rendering or in scripts extension.
 
-**tasks.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy whit users' templates which can have potentially endless loops or other critical errors which could terminate the application.
+**templatingEngines.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy with users' templates which can have potentially endless loops or other critical errors which could terminate the application. The `in-process` strategy is also handy when you need to debug jsreport with node.js debugging tools.
 
-**tasks.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
+**templatingEngines.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
 
-**tasks.timeout** (`number`) -  specify default timeout in ms for one task execution
+**templatingEngines.timeout** (`number`) -  specify default timeout in ms for one task execution
 
-**tasks.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
+**templatingEngines.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
 
-**tasks.portLeftBoundary** (`number`) - set a specific port range for script execution server
+**templatingEngines.portLeftBoundary** (`number`) - set a specific port range for script execution server
 
-**tasks.portRightBoundary** (`number`) - set a specific port range for script execution server
+**templatingEngines.portRightBoundary** (`number`) - set a specific port range for script execution server
 
-**tasks.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
+**templatingEngines.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
 
 ## Logging configuration
 
@@ -253,8 +279,19 @@ Note that you can override all or just some part of the predefined configuration
 
 ## Studio configuration
 
-**entityTreeOrder** `string array` - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
+**studio** (`object`) - object used to configure studio
 
+**studio.entityTreeOrder** (`string array`) - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
+
+```js
+{
+  "extensions": {
+    "studio": {
+        "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
+    }
+  }
+}
+```
 
 ## Example of the config file
 
@@ -264,20 +301,38 @@ Note that you can override all or just some part of the predefined configuration
         "key": "certificates/jsreport.net.key",
         "cert": "certificates/jsreport.net.cert"
     },
-    "connectionString": { "name": "fs" },   
+    "store": { "provider": "fs" },   
     "httpPort": 3000,
-    "blobStorage": "fileSystem",
-    "phantom": {
-        "numberOfWorkers" : 2,
-        "timeout": 180000
+    "renderingSource": "trusted",
+    "blobStorage": { "provider": "fs" },
+    "logger": {
+      "console": {
+        "transport": "console",
+        "level": "debug"
+      },
+      "file": {
+        "transport": "file",
+        "level": "info",
+        "filename": "logs/reporter.log"
+      },
+      "error": {
+        "transport": "file",
+        "level": "error",
+        "filename": "logs/error.log"
+      }
     },
-    "tasks": {
+    "chrome": {
+      "timeout": 180000
+    },
+    "templatingEngines": {
         "numberOfWorkers" : 2,
         "timeout": 10000,
         "strategy": "http-server"
     },
-    "studio": {
-        "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
+    "extensions": {
+      "studio": {
+          "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
+      }
     }
 }
 ```
