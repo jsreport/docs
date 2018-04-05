@@ -31,7 +31,7 @@ The options can be also dynamically set from within the page javascript using:
 ```js
 <script>
 	...
-	window.JSREPORT_CHROME_PDF_SETTINGS = {
+	window.JSREPORT_CHROME_PDF_OPTIONS = {
 		landscape:  true
 	}
 </script>
