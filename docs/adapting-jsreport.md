@@ -46,6 +46,9 @@ jsreport.init().then(() => {
 
 See the [jsreport-core](https://github.com/jsreport/jsreport-core) for complete documentation for rendering.
 
+## Debugging
+In order to debug your jsreport app with [nodejs debugging tools](https://nodejs.org/en/docs/guides/debugging-getting-started/) you will need to change your [configuration](/learn/configuration) for `templatingEngines.strategy` to `in-process`, this ensures that all operations in the rendering pipeline of jsreport are executed in the same process, which is something handy when debugging because there will be just single process needed to inspect.
+
 ## Attach to existing express app
 jsreport by default starts [express.js](http://expressjs.com/) based server running on ports specified in config. This behavior can be overridden with passing `express` application instance to the options. In this case jsreport `express` extension will just add required routes and middle-wares to the passed instance.
 
