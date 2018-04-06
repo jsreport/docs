@@ -177,12 +177,12 @@ function beforeRender(req, res, done) {
 
 
 ## phantom-pdf note
-Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.options.isChildRequest` property.
+Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
 
 ```js
 function afterRender(req, res, done) {
     //filter out script execution for phantom header
-    if (req.options.isChildRequest)
+    if (req.context.isChildRequest)
       return done();
 
     //your script
