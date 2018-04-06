@@ -80,6 +80,20 @@ npm install jsreport-fop-pdf --save
 
 ## Scripts
 
+### isChildRequest moved from options to context
+`isChildRequest` is now exposed under the `context` object property of request
+
+```js
+function afterRender(req, res, done) {
+    //filter out script execution for child request
+    if (req.context.isChildRequest)
+      return done();
+
+    //your script
+    done();
+}
+```
+
 ### Entity
 Rendering request with script strictly accepts format
 ```js
