@@ -1,3 +1,4 @@
+
 The default [template store](/learn/template-stores) implementation persist entities into file system. It is designed to conveniently generate human readable directory structure with templates and other entities definitions. Such structure is very easy to edit with your favorite text editor, deploy to the production and also version with git or other source control. The file system implementation finally supports also cloud based "storage" like AWS S3 or Azure Storage.
 
 
@@ -11,9 +12,13 @@ The default [configuration](/learn/configuration) is present in the `jsreport.co
 Additionally you can also specify which directory should be used for persisting entities and if the changes should be automatically synchronized with the UI.
 ```js
 "store": {
-  "provider": "fs",
-  "dataDirectory": "data",
-  "syncModifications": true
+  "provider": "fs"  
+},
+"extensions": {
+  "fs-store": {
+    "dataDirectory": "data",
+    "syncModifications": true
+  }
 }
 ```
 
@@ -35,7 +40,7 @@ The fs store monitors changes in the underlying files and notifies the studio UI
 ![editing](https://jsreport.net/screenshots/fs-store-edit.gif)
 
 
-Note this behavior is enabled only in the development environment by default, although you can override this using `store.syncModifications = true` config.
+Note this behavior is enabled only in the development environment by default, although you can override this using `extensions.fs-store.syncModifications = true` config.
 
 ## Source control
 The folder structure created by the fs store is designed to be human readable and easily versioned using source controls like git. The integration is just about including the `app/data` folder to the source control repository.
@@ -63,11 +68,17 @@ The next step is to configure the fs store persistence using the following optio
 
 ```js
 "store": {
-  "provider": "fs",
-  "persistence": {
-    "name": "aws-s3",
+  "provider": "fs"
+},
+"extensions": {
+  "fs-store": {
+    "persistence": {
+      "provider": "aws-s3"
+    }
+  },
+  "fs-store-aws-s3-persistence": {
     "accessKeyId": "...",
-    "secretAccessKey": "..."
+    "secretAccessKey": "...",
     "bucket": "....",
     "lock": {
       "queueName": "jsreport-lock.fifo"     
@@ -86,10 +97,16 @@ The second step is to configure the fs store synchronization using the following
 
 ```js
 "store": {
-  "provider": "fs",
-  "persistence": {... }
-  "sync": {
-    "name": "aws-sns",
+  "provider": "fs"
+},
+"extensions": {
+  "fs-store": {
+    "persistence": { },
+    "sync": {
+      "provider": "aws-sns"
+    }
+  },
+  "fs-store-aws-sns-sync": {
     "accessKeyId": "...",
     "secretAccessKey": "..."   
   }
@@ -116,9 +133,15 @@ The second step is to configure the fs store persistence using the following opt
 
 ```js
 "store": {
-  "provider": "fs",
-  "persistence": {
-    "name": "azure-storage",
+  "provider": "fs"
+},
+"extensions": {
+  "fs-store": {
+    "persistence": {
+      "provider": "azure-storage"
+    }
+  },
+  "fs-store-azure-storage-persistence": {
     "accountName": "...",
     "accountKey": "..."  
   }
@@ -136,12 +159,18 @@ Then create an azure service bus and copy the connection string from the shared 
 
 ```js
 "store": {
-  "provider": "fs",
-  "sync": {
-    "name": "azure-sb",
+  "provider": "fs"
+},
+"extensions": {
+  "fs-store": {
+    "sync": {
+      "provider": "azure-sb"
+    }
+  },
+  "fs-store-azure-sb-sync": {
     "connectionString": "..."    
   }
-},
+}
 ```
 
 This assures all servers gets a message and reflect it to the memory representation every time there is a change written by one of the instance to the Azure Blob Storage. These messages are delivered to the jsreport instances using the native Azure Service Bus.
