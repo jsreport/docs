@@ -8,4 +8,4 @@ jsreport `authorization` extension implements permission rules evaluation and de
 `Authorization` extensions adds to every jsreport object `readPermissions` and `editPermissions` properties. These properties contains list of user ids you can easily alter from the odata API.
 
 ## Limitations
-[Scheduling](/learn/scheduling) extension is currently enabled just for admin user.
+[Scheduling](/learn/scheduling) and [Version Control](https://jsreport.net/learn/version-control) extension is currently enabled just for admin user.
