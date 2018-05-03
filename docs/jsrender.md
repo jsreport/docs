@@ -61,7 +61,7 @@ You can simply iterate over `comments` using `for`
 
 ## Helpers
 
-jsreport report template contains `content` filed with javascript tempalting engines tags and `helpers` field where you can place some javascript functions and then use them.
+jsreport report template contains `content` filed with javascript templating engines tags and `helpers` field where you can place some javascript functions and then use them.
 
 For example you want to have an upper case helper function. You can register a global function inside a `helpers` field with the following code:
 
