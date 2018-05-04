@@ -42,6 +42,7 @@ To get help about a particular command, you can type `jsreport <command> -h` to 
 
 The following are the supported commands.
 
+* [`help`](#help)
 * [`init`](#-init-)
 * [`repair`](#-repair-)
 * [`configure`](#-configure-)
@@ -50,6 +51,12 @@ The following are the supported commands.
 * [`start`](#-start-)
 * [`render`](#-render-)
 * [`kill`](#-kill-)
+
+### `help`
+
+`Command available globally`
+
+Prints information about a command or a specific topic, you can run "jsreport help -h" to get the list of available topics
 
 ### `init`
 
