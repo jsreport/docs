@@ -64,8 +64,10 @@ The first problem is that the asset links needs to be publicly accessible for ch
 
 ```js
 {
-   "assets": {
-     "publicAccessEnabled": true
+   "extensions": {
+     "assets": {
+       "publicAccessEnabled": true
+     }
    }
 }
 ```
