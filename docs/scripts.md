@@ -237,7 +237,7 @@ You can use standard OData API to manage and query script entities. For example 
 A custom script is physically linked to the stored report template using its shortid or name. In this cases there is nothing to do in the API call, because the script is automatically applied.
 
 ```js
-POST: { template: { name: 'My Template with script' }, data: { }
+POST: { template: { name: 'My Template with script' }, data: { } }
 ```
 
 If you are rendering anonymous template you can identify the script by its name or shortid
@@ -266,7 +266,6 @@ POST: {
   }
 }  
 ```
-
 
 ## Using script to load data
 Some people prefer to push data into jsreport from the client and some people prefer to use `scripts` extension to actively fetch them. Where pushing data to the jsreport is more straight forward, using `scripts` can provide better architecture with fully separated reporting server where report itself is responsible for defining input as well as fetching them. The choice is up to you.
