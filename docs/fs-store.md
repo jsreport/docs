@@ -101,7 +101,7 @@ The second step is to configure the fs store synchronization using the following
 },
 "extensions": {
   "fs-store": {
-    "persistence": { },
+    "persistence": {...},
     "sync": {
       "provider": "aws-sns"
     }
