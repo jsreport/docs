@@ -44,12 +44,12 @@ The `blobStorage` property should be now object with structure as `store`.
 { blobStorage: { provider: 'fs } }
 ```
 
-### renderingSource
-jsreport v2 introduce new config property `renderingSource`.
+### allowLocalFilesAccess
+jsreport v2 introduce new config property `allowLocalFilesAccess`.
 ```js
-{ renderingSource: 'trusted | untrusted' }
+{ allowLocalFilesAccess: true | false }
 ```
-This property specifies if jsreport is running in a trusted environment. When the environment is trusted it will allow access to the local file system and use of custom nodejs modules during rendering execution.
+When true this property specifies that jsreport should allow access to the local file system and use of custom nodejs modules during rendering execution.
 
 ## phantomjs
 The [phantomjs](http://phantomjs.org/) project is no longer active and we decided to switch to headless chrome in the default installation. This doesn't mean you can't continue using phantomjs. You just need to additionally install it if you don't want to migrate your templates.

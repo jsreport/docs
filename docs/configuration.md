@@ -130,9 +130,9 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **tempDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores temporary files
 
-## Rendering Source
+## Allow local files and local modules
 
-**renderingSource** (`string`) - This property specifies if jsreport is running in a trusted environment. When the environment is trusted it will allow access to the local file system and allow the use of custom nodejs modules during rendering execution. available values are `trusted` (which specifies that jsreport is under safe environment) and `untrusted` (which specified that jsreport will be used under environment that requires more security considerations)
+**allowLocalFilesAccess** (`boolean`) - When true this property specifies that jsreport should allow access to the local file system and use of custom nodejs modules during rendering execution
 
 ## Rendering configuration
 
@@ -297,7 +297,7 @@ Note that you can override all or just some part of the predefined configuration
     },
     "store": { "provider": "fs" },   
     "httpPort": 3000,
-    "renderingSource": "trusted",
+    "allowLocalFilesAccess": true,
     "blobStorage": { "provider": "fs" },
     "logger": {
       "console": {
