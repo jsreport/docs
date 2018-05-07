@@ -8,14 +8,16 @@ The most common way to print pdf report from jsreport is to use [chrome-pdf](htt
 Use `fop-pdf` node in the standard [config](/learn/configuration) file.
 
 ```js
-"fop-pdf": {
-  // max output size allowed in bytes, if the pdf output is greater than
-  // this value the rendering will be terminated with an error.
-  // Defaults to 500kb (500 * 1024)
-  "maxOutputSize": 500 * 1024,
-  // the max size of the collected logs from FOP process, if log is greater than this value
-  // the log will be trimmed. Defaults to 1000 characters
-  "maxLogEntrySize": 1000
+"extensions": {
+  "fop-pdf": {
+    // max output size allowed in bytes, if the pdf output is greater than
+    // this value the rendering will be terminated with an error.
+    // Defaults to 500kb (500 * 1024)
+    "maxOutputSize": 500 * 1024,
+    // the max size of the collected logs from FOP process, if log is greater than this value
+    // the log will be trimmed. Defaults to 1000 characters
+    "maxLogEntrySize": 1000
+  }
 }
 ```
 
