@@ -17,7 +17,7 @@ You can specify the options in the studio or pass them in the API call as
 {
 	template: {
 		htmlToText: {
-			wordwrap: 130
+			wordWrap: 130
 			...
 		}
 	}
@@ -29,7 +29,7 @@ You can also set the default option values globally in the configuration file as
 ```js
 "extensions": {
 	"html-to-text": {
-    "wordwrap": 12
+    "wordWrap": 12
 	}
 }
 ```
