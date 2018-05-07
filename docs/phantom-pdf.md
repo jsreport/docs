@@ -171,11 +171,13 @@ Use the `phantom` configuration node in the standard [config](/learn/configurati
 you can also use top level `phantom` property in configuration, the difference is that this configuration will be shared with any other extension that uses phantomjs and the configuration snippet above is specifically for options in `phantom-pdf` extension.
 
 ```js
-"phantom": {
-  "numberOfWorkers": 1
-  "timeout": 180000,
-  "allowLocalFilesAccess": false,
-  "defaultPhantomjsVersion": "1.9.8"
+"extensions": {
+  "phantom": {
+    "numberOfWorkers": 1
+    "timeout": 180000,
+    "allowLocalFilesAccess": false,
+    "defaultPhantomjsVersion": "1.9.8"
+  }
 }
 ```
 
