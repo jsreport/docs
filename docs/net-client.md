@@ -1,6 +1,6 @@
 > **[Download examples from GitHub](https://github.com/jsreport/net/tree/master/examples)**
 
-##Basics
+## Basics
 jsreport comes with .NET c# client which wraps REST API and is very convenient to use if you are in .NET environment. You can use .NET c# client to connect to a remote jsreport server and also to [jsreport .NET embedded server](https://jsreport.net/learn/net-embedded).
 
 ## Get Started
@@ -10,7 +10,7 @@ I assume that you already understand basic jsreport concepts. If you don't, plea
 Installing jsreport c# client is easy using nuget package:
 > PM> Install-Package [jsreport.Client](https://www.nuget.org/packages/jsreport.Client/)
 
-Main facade you will use to access jsreport from c# is called `ReportingService`. 
+Main facade you will use to access jsreport from c# is called `ReportingService`.
 
 >on-prem without authentication
 >```csharp
@@ -45,7 +45,7 @@ var report = await _reportingService.RenderAsync("g1xcKBanJc", new {
 new StreamReader(report.Content).ReadToEnd();
 ```
 
-##Advanced rendering
+## Advanced rendering
 
 If you want to have full control on template rendering you can use `RenderAsync` overload which accepts `RenderRequest` instance allowing you to fill bunch of other options. For example if you have some kind of a dynamic template, you don't need to specify template shortid and you can construct template content in c#.
 
@@ -54,7 +54,7 @@ var report = await _reportingService.RenderAsync(new RenderRequest() {
                 template = new Template()
                 {
                     recipe = "html",
-                    engine = "jsrender",
+                    engine = "handlebars",
                     content = "some dynamic template content"
                 },
                 data = new { firstName = "Jan", surname = "Blaha" }
@@ -94,18 +94,18 @@ If you want complete freedom, you can simply pass anonymous object into the `Ren
 ```csharp
 var report = await _reportingService.RenderAsync(new {
                 template = new Template() {  
-	                content = "foo", 
-	                engine = "handlebars", 
+	                content = "foo",
+	                engine = "handlebars",
 				},
                 options = new {                     
 	                reports = new { save = true }
                 }
             });
 ```
-           
-##Odata
 
-jsreport API for doing CRUD on entities is based on [odata](http://www.odata.org/) and you can use  great [Simple.OData.Client](https://github.com/object/Simple.OData.Client) library to consume it. 
+## Odata
+
+jsreport API for doing CRUD on entities is based on [odata](http://www.odata.org/) and you can use  great [Simple.OData.Client](https://github.com/object/Simple.OData.Client) library to consume it.
 
 ```csharp
 var client = new ODataClient("http://localhost:5488/odata");
@@ -114,7 +114,6 @@ var metadata = client.GetMetadataAsync().Result;
 
 To understand jsreport entities checkout jsreport API metadata at `https://[jsreport address]/odata/$metadata`. You can find many examples how to work with odata cliet [here](https://github.com/object/Simple.OData.Client).
 
-
 ### Filtering
 
 ```csharp
@@ -122,7 +121,6 @@ var template = await client .For<Template>()
         .Filter(x => x.shortid == "Report1")
         .FindEntryAsync();
 ```                             
-
 
 ### Modifying entries
 
@@ -141,15 +139,15 @@ await client.For<Template>()
         .UpdateEntryAsync();
 ```
 
-##Timeouts
+## Timeouts
 `ReportingService` uses .NET `HttpClient` to make http calls. This library has default timeout of 100seconds for a request. This doesn't have to be enough for bigger reports therefore you may need to change this default timeout.
 
 ```csharp
 reportingService.HttpClientTimeout = TimeSpan.FromMinutes(10);
 ```
 
-##Run jsreport studio in asp.net web handler
-`jsreport.Client` provide `JsReportWebHandler` class which can be used to expose jsreport http endpoint directly in your app. This asp.net http handler can be used as a tunnel forwarding requests from jsreport web into jsreport server through your web application. 
+## Run jsreport studio in asp.net web handler
+`jsreport.Client` provide `JsReportWebHandler` class which can be used to expose jsreport http endpoint directly in your app. This asp.net http handler can be used as a tunnel forwarding requests from jsreport web into jsreport server through your web application.
 
 First add `JsReportWebHandler` to your web config.
 ```xml
@@ -169,4 +167,3 @@ JsReportWebHandler.ReportingService = new ReportingService("http://jsreport-host
 ```
 
 Now you can open your asp.net application and navigate to `/jsreport.axd`.
-

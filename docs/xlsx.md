@@ -92,10 +92,11 @@ You can always write your custom helpers. The best is to get started by checking
 The excel preview in the studio uses Microsoft Excel Online service which requires a public access to the displayed file. This is why the recipe by default uploads the excel file to our publicly running server. This is happening only during the preview and you should not be leaking any production data through here. However you can disable or change this behavior in the configuration.
 
 ```js
-...
-"xlsx": {
-  "previewInExcelOnline": false,
-  "publicUriForPreview": "http://mypublicSever"
+"extensions": {
+  "xlsx": {
+    "previewInExcelOnline": false,
+    "publicUriForPreview": "http://mypublicSever"
+  }
 }
 ```
 
@@ -104,14 +105,16 @@ The first options `previewInExcelOnline` will force the recipe to always return 
 ## Configuration
 
 ```js
-"xlsx": {
-  "previewInExcelOnline": false,
-  "publicUriForPreview": "http://mypublicSever",
-  // default is to escape & into &amp;amp;
-  "escapeAmp": true,
-  // recipe stops parsing xlsxAdd output into json after the following is reached
-  "numberOfParsedAddIterations": 50,
-  // huge reports are flushed into buffered files with the following size
-  "addBufferSize": 50000000,
+"extensions": {
+  "xlsx": {
+    "previewInExcelOnline": false,
+    "publicUriForPreview": "http://mypublicSever",
+    // default is to escape & into &amp;amp;
+    "escapeAmp": true,
+    // recipe stops parsing xlsxAdd output into json after the following is reached
+    "numberOfParsedAddIterations": 50,
+    // huge reports are flushed into buffered files with the following size
+    "addBufferSize": 50000000,
+  }
 }
 ```

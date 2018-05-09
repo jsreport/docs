@@ -2,7 +2,18 @@
 
 ## Basics
 
-Define global functions `beforeRender`  or (and) `afterRender` in script and use parameters  `req` and `res` to reach your needs. You need to call `done()` at the end because script can be async.
+Define global functions `beforeRender`  or (and) `afterRender` in script and use parameters  `req` and `res` to reach your needs. script functions expect parameters to be `req, res, done` or `req, res`.
+
+```js
+async function beforeRender(req, res) {
+  // merge in some values for later use in engine
+  // and preserve other values which are already in
+  req.data = Object.assign({}, req.data, {foo: "foo"})
+  req.data.computedValue = await computedValueOperationThatReturnsPromise()
+}
+```
+
+or
 
 ```js
 function beforeRender(req, res, done) {
@@ -16,16 +27,18 @@ function beforeRender(req, res, done) {
 ## Use external modules
 
 You can `require` external modules in the node.js way, however you need to first enable them in the config.
+
 ```js
 {
-  "scripts": {
-    "allowedModules": ["request"]
+  "extensions": {
+    "scripts": {
+      "allowedModules": ["request"]
+    }
   }
 }
 ```
 
-Alternatively you can enable all modules using `scripts.allowedModules="*"`.
-
+Alternatively you can enable all modules using `extensions.scripts.allowedModules="*"`.
 
 The following example uses popular [request](https://github.com/request/request) module to make a rest call and [sendgrid](https://github.com/sendgrid/sendgrid-nodejs) service to email the output service.
 
@@ -55,15 +68,12 @@ function afterRender(req, res, done) {
 }
 ```
 
-## request, response, reporter
-
+## request, response
 * `req.template` - modify report template, mostly `content` and `helpers` attributes
 * `req.data` - json object used to modify report input data
-* `req.headers` - json object used to read input headers
-* `res.content` - byte array with output report
-* `res.headers` - output headers
-* `req.reporter.render(request, cb)` - invoke rendering process of another template
-
+* `req.context.http` - object which contain information about input http headers, query params, etc.
+* `res.content` - buffer with output report
+* `res.meta.headers` - output headers
 
 ## Multiple scripts
 You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
@@ -78,22 +88,22 @@ If you have some custom configuration values stored in a file (like a json file)
 > You will need to allow the usage of `path`, `fs` and `process` modules in `allowedModules` option to try the following examples, see ["Use external modules"](#use-external-modules) for more info
 
 ```js
-var path = require('path')
-var fs = require('fs')
+const path = require('path')
+const fs = require('fs')
 
 function beforeRender(req, res, done) {
-  var configPath = path.join(__appDirectory, 'myconfig.json')
+  const configPath = path.join(__appDirectory, 'myconfig.json')
 
   // any message called with console.log, console.warn, console.error will be saved into logs
   console.log('reading custom file..')
 
-  fs.readFile(configPath, function (err, content) {
+  fs.readFile(configPath, (err, content) => {
     if (err) {
       return done(err)
     }
 
     try {
-      var myconfig = JSON.parse(content.toString())
+      const myconfig = JSON.parse(content.toString())
 
       // use config values to apply some conditional logic in the script
       if (myconfig.validateData) {
@@ -113,7 +123,7 @@ function beforeRender(req, res, done) {
 Note that you can also require the [`process`](https://nodejs.org/api/process.html) module inside your scripts to get some useful information (env vars, processor architecture, OS, etc) about the environment where jsreport is running, you can also use that information to conditionally load some custom configuration depending of the OS for example.
 
 ```js
-var process = require('process')
+const process = require('process')
 
 function beforeRender(req, res, done) {
   // pass platform information to your template to active some conditional
@@ -124,13 +134,13 @@ function beforeRender(req, res, done) {
 ```
 
 ```js
-var process = require('process')
+const process = require('process')
 
 function loadConfig(configFile, cb) {
-  var configPath = path.join(__appDirectory, configFile)
+  const configPath = path.join(__appDirectory, configFile)
 
-  fs.readFile(configPath, function (err, content) {
-    var myconfig
+  fs.readFile(configPath, (err, content) => {
+    const myconfig
 
     if (err) {
       return cb(err)
@@ -146,15 +156,15 @@ function loadConfig(configFile, cb) {
 }
 
 function beforeRender(req, res, done) {
-  var env = process.env.NODE_ENV
-  var configFile = 'myconfig.development.json'
+  const env = process.env.NODE_ENV
+  const configFile = 'myconfig.development.json'
 
   // load some configuration based on `NODE_ENV` env var
   if (env === 'production') {
     configFile = 'myconfig.production.json'
   }
 
-  loadConfig(configFile, function (err, myconfig) {
+  loadConfig(configFile, (err, myconfig) => {
     if (err) {
       return done(err)
     }
@@ -167,12 +177,12 @@ function beforeRender(req, res, done) {
 
 
 ## phantom-pdf note
-Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.options.isChildRequest` property.
+Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
 
 ```js
 function afterRender(req, res, done) {
     //filter out script execution for phantom header
-    if (req.options.isChildRequest)
+    if (req.context.isChildRequest)
       return done();
 
     //your script
@@ -182,18 +192,15 @@ function afterRender(req, res, done) {
 
 ## Rendering another template from script
 
-Script can be used also to invoke rendering of another template.
+Script can be used also to invoke rendering of another template, to do that you can require special `jsreport-proxy` module and use the `render` method in there.
 
 ```js
-function afterRender(req, res, done) {
-    req.reporter.render({ template: { shortid: "EyeVA2_k-" }}, function(err, response) {
-        if (err)
-            return done(err);
+const proxy = require('jsreport-proxy')
 
-        res.headers = response.headers;
-        res.content = response.content;
-        done();
-    });    
+async function beforeRender(req, res) {
+  console.log('starting rendering from script')
+  await proxy.render({ template: { shortid: 'xxxxxx' } })
+  console.log('finished rendering')
 }
 ```
 
@@ -215,9 +222,11 @@ function beforeRender(req, res, done) {
 Add `scripts` node to the standard config file:
 
 ```js
-scripts: {
-  timeout: 30000,
-  allowedModules: "*"  
+"extensions": {
+  "scripts": {
+    "timeout": 30000,
+    "allowedModules": "*"  
+  }
 }
 ```
 
@@ -228,7 +237,7 @@ You can use standard OData API to manage and query script entities. For example 
 A custom script is physically linked to the stored report template using its shortid or name. In this cases there is nothing to do in the API call, because the script is automatically applied.
 
 ```js
-POST: { template: { name: 'My Template with script' }, data: { }
+POST: { template: { name: 'My Template with script' }, data: { } }
 ```
 
 If you are rendering anonymous template you can identify the script by its name or shortid
@@ -258,10 +267,8 @@ POST: {
 }  
 ```
 
-
 ## Using script to load data
 Some people prefer to push data into jsreport from the client and some people prefer to use `scripts` extension to actively fetch them. Where pushing data to the jsreport is more straight forward, using `scripts` can provide better architecture with fully separated reporting server where report itself is responsible for defining input as well as fetching them. The choice is up to you.
-
 
 ## Examples
 - [Sending reports periodically in email article](https://jsreport.net/blog/sending-reports-periodically-in-email)

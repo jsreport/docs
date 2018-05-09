@@ -1,6 +1,6 @@
 jsreport is mainly distributed through [node package manager](https://www.npmjs.com/package/jsreport), but for windows users we ship also convenient distribution in the single executable file. You simple [download](/on-prem) the file `jsreport.exe` and run it. The executable automatically unpacks required files and runs the node process hosting jsreport server. Except .net runtime there is no need for any other dependency.
 
-##Usage
+## Usage
 
 Start server with default config file on the https 443
 > jsreport.exe    
@@ -17,8 +17,8 @@ Uninstall windows service
 Get help
 > jsreport.exe  --help
 
-##Just rendering
-`jsreport.exe` can be also used for command line report rendering without starting a server or REST API. 
+## Just rendering
+`jsreport.exe` can be also used for command line report rendering without starting a server or REST API.
 
 >jsreport.exe --render request.json --output file.pdf
 
@@ -27,7 +27,7 @@ Where `request.json` is json formatted file with report specification. The file 
 Example `request.json`:
 ```js
 {
-  "template": { 
+  "template": {
     "content": "Hello World {{:foo}}",
     "recipe": "phantom-pdf",
     "engine": "jsrender"
@@ -50,4 +50,3 @@ Example `tmpl.json`:
   "engine": "jsrender"
 }
 ```
-

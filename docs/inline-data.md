@@ -22,17 +22,15 @@ A sample data item is usually linked to the report template by its shortid. In t
   }
 ```  
 
-Data extension also supports inline data directly in the `Template` entity. This is used mainly in [the browser client](/learn/browser-client).
-
-Data inline into template then looks following in json:
+You can also put inline data into template, which then looks like the following in json:
 
 ```js
   template : {
-	  content: "foo",
-	  data: {
-			price: 10,
-			amount: 5,
-			total: 50
-	  }
+	  content: "foo"
+  },
+  data: {
+    price: 10,
+    amount: 5,
+    total: 50
   }
 ```

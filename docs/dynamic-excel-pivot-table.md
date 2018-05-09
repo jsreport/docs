@@ -1,10 +1,10 @@
 > **[See the live example here](https://playground.jsreport.net/studio/workspace/HyQH-eKv/6)**
 
-This tutorial shows how to dynamically create an excel with pivot table using [jsreport](https://jsreport.net) and its [xlsx](https://jsreport.net/learn/xlsx) recipe. 
+This tutorial shows how to dynamically create an excel with pivot table using [jsreport](https://jsreport.net) and its [xlsx](https://jsreport.net/learn/xlsx) recipe.
 
 We won't create the whole excel from scratch, much easier is to prepare a template directly in excel and then fill it with data using jsreport. Let's start with the excel part first.
 
-##Excel template
+## Excel template
 
 We're going to need two sheets for the tutorial, one with the actual pivot and the second containing the raw data.
 
@@ -49,7 +49,7 @@ Additionally it's nice to have the pivot automatically refreshed after the excel
 
 At the end remove the rows from the `Data` sheet and keep only the header.
 
-##Render excel in jsreport
+## Render excel in jsreport
 
 Now you can switch to the jsreport studio and upload the previously created excel template.
 
@@ -74,7 +74,8 @@ Afterwards create a report template with [xlsx](https://jsreport.net/learn/xlsx)
 ![pivot properties](https://jsreport.net/screenshots/pivot-properties.png?v=2)
 
 Now it's time to define the excel report content. This gonna be quite easy because we've already prepared the excel template and the only thing to do is to iterate over the input data and add rows to the second sheet. This can be done using  [handlebars](https://jsreport.net/learn/handlebars) templating engine and helper function `xlsxAdd` provided by [xlsx](https://jsreport.net/learn/xlsx)  recipe.
-```
+
+```xml
 {{#each food}}
 {{#xlsxAdd "xl/worksheets/sheet2.xml" "worksheet.sheetData[0].row"}}
 <row>
@@ -87,6 +88,6 @@ Now it's time to define the excel report content. This gonna be quite easy becau
 {{{xlsxPrint}}}
 ```
 
-##Live example to play with
+## Live example to play with
 
 <iframe src='https://playground.jsreport.net/studio/workspace/HyQH-eKv/6?embed=1' width="100%" height="400" frameborder="0"></iframe>

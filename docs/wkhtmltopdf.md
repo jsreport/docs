@@ -40,12 +40,14 @@ Options reflects the wkhtmltopdf options. See its [docs](http://wkhtmltopdf.org/
 
 You can globally wkhtmltopdf recipe to add wkhtmltopdf supported options this way:
 ```js
-"wkhtmltopdf": {
-  "proxy": "url",
-  "any other option supported by wkhtmltopdf": true || "value",
-  //options like env variables passed to wkhtmltopdf child process
-  "execOptions": { ... }
-},
+"extensions": {
+  "wkhtmltopdf": {
+    "proxy": "url",
+    "any other option supported by wkhtmltopdf": true || "value",
+    //options like env variables passed to wkhtmltopdf child process
+    "execOptions": { ... }
+  }
+}
 ```
 
 See the list of supported options [here](http://wkhtmltopdf.org/usage/wkhtmltopdf.txt).
@@ -66,8 +68,10 @@ See the [header with page number demo in the playground](https://playground.jsre
 ## Local file access
 Accessing local files through wkhtmltopdf is disabled by default.  You can enable it using this config:
 ```js
-"wkhtmltopdf": {
-	"allowLocalFilesAccess": true
+"extensions": {
+  "wkhtmltopdf": {
+  	"allowLocalFilesAccess": true
+  }
 }
 ```
 

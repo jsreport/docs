@@ -7,18 +7,18 @@ You can use npm
 
 Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport-browser-client-dist/releases)
 
-The script itself should be compatible with [webpack](https://webpack.github.io/), [requirejs](http://requirejs.org/) and other script bundlers.
+The script itself should be compatible with [webpack](https://webpack.js.org/), [requirejs](http://requirejs.org/) and other script bundlers.
 
 ## Usage
 
-**rendering based on submitting hidden form, this works on legacy browsers **
+**rendering based on submitting hidden form, this works on legacy browsers**
 
 ```js
 jsreport.serverUrl = 'http://localhost:3000';
 
 var request = {
   template: {
-    content: 'foo', engine: 'none', recipe: 'phantom-pdf'
+    content: 'foo', engine: 'none', recipe: 'chrome-pdf'
    }
 };
 
@@ -35,8 +35,8 @@ jsreport.render(document.getElementById('reportPlaceholder'), request);
 jsreport.download('myReport.pdf', request);
 ```
 
-
 **rendering using ajax calls**
+
 ```js
 //add custom headers to ajax calls
 jsreport.headers['Authorization'] = "Basic " + btoa("admin:password")
@@ -59,7 +59,7 @@ jsreport.getTemplateByName(name).then(..)
 jsreport.updateTemplate(template).then(..)
 ```
 
-You can find more details about the `request` argument  [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
+You can find more details about the `request` argument in the [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
 
 Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
 
@@ -69,9 +69,8 @@ when using `renderAsync`, if the generated report is big (>=3MB) and when `res.t
 
 As the [object url docs](https://developer.mozilla.org/es/docs/Web/API/URL/createObjectURL) explains, remember that when using object urls you must release these objects when you don't need it anymore, which can be done using [`URL.revokeObjectURL`](https://developer.mozilla.org/es/docs/Web/API/URL/revokeObjectURL) method. an example of releasing an object url can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Using_object_URLs_to_display_images).
 
-
-
 ## window.open in chrome
+
 The latest chrome currently throws error "Not allowed to navigate top frame to data URL" for call `windows.open(res.toDataURI)` with pdf. This change is documented [here](https://stackoverflow.com/a/45495974/1660996). The current workaround is to embed an iframe to the new tab:
 ```js
 jsreport.renderAsync(request).then(function(res) {                        

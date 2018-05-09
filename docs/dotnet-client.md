@@ -1,4 +1,5 @@
-##Basics
+## Basics
+
 `jsreport.Client` is c# client for the [jsreport REST API](/learn/api). It represents convenient way to remotely access jsreport server instance and invoke report rendering using simple c# code. It is compatible with the [on premise](/on-prem), [jsreportonline](/online) as well as [.net local](/learn/dotnet-local) instances. The `jsreport.Client` is implemented as [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) library so it should run pretty much everywhere the .Net Standard `1.6` or higher is implemented.
 
 ## Get started
@@ -25,7 +26,7 @@ The rendering output includes the report stream `report.Content` and additional 
 
 ## Advanced rendering
 
-If you want to have the full control on the template rendering you can use `RenderAsync` overload which accepts `RenderRequest` instance allowing you to fill bunch of other options. 
+If you want to have the full control on the template rendering you can use `RenderAsync` overload which accepts `RenderRequest` instance allowing you to fill bunch of other options.
 
 You should use this overload if you for example don't store templates in jsreport server but rather in your own storage.  In this case you can send the whole template specification without referencing the existing one by its name.
 
@@ -78,12 +79,12 @@ var report = await rs.RenderAsync(new RenderRequest()
 ```csharp
 reportingService.HttpClientTimeout = TimeSpan.FromMinutes(10);
 ```
-           
+
 ## Odata
 
 > Waiting for .net core support in `Simple.OData.Client`  - follow this [issue](https://github.com/object/Simple.OData.Client/issues/425).
 
-jsreport API for doing CRUD on entities is based on [odata](http://www.odata.org/) and you can use  great [Simple.OData.Client](https://github.com/object/Simple.OData.Client) library to consume it. 
+jsreport API for doing CRUD on entities is based on [odata](http://www.odata.org/) and you can use  great [Simple.OData.Client](https://github.com/object/Simple.OData.Client) library to consume it.
 
 ```csharp
 var client = new ODataClient("http://localhost:5488/odata");
@@ -118,6 +119,3 @@ await client.For<Template>()
             })
         .UpdateEntryAsync();
 ```
-
-
-

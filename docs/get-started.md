@@ -1,6 +1,6 @@
 <a class="button large bg-emerald bg-hover-gray fg-white" id="createFlatWindow">Quick Start Video<i class="icon-arrow-right-3 on-right fg-white"></i></a>
 
-jsreport is an open source reporting server running cross-platform on [node.js](http://nodejs.org/). It allows you to create various reports in various formats like [pdf](/learn/phantom-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have. 
+jsreport is an open source reporting server running cross-platform on [node.js](http://nodejs.org/). It allows you to create various reports in various formats like [pdf](/learn/phantom-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have.
 
 jsreport is a fully capable reporting server including advanced features like scheduling, sending reports in emails, authentication, authorization, sub reports, report designer, API, embedded widgets, and many other features. It is also greatly extensible with a growing list of extensions.
 
@@ -19,7 +19,7 @@ First, you need to [download and install](/on-prem) jsreport into your environme
 
 No matter which option you choose, you get access to the jsreport html-based studio you're going to need for designing and testing reports in this tutorial.
 
-![studio](https://jsreport.net/screenshots/studio.png?v=2)
+![studio](https://jsreport.net/screenshots/studio.png?v=3)
 
 ## Defining sample data
 
@@ -40,15 +40,15 @@ The report template is, together with the rendering process, the heart of jsrepo
 
 For the invoice tutorial, the first thing you need to do is associate the sample data you previously defined with the newly created template.
 
-![invoice-data](https://jsreport.net/screenshots/invoice-data.png?v=3)
+![invoice-data](https://jsreport.net/screenshots/invoice-data.png?v=4)
 
 ### Recipes
 
 As it was mentioned in the introduction, jsreport supports various reports and various output formats. To specify output format you choose a jsreport [recipe](/learn/recipes). Recipe doesn't only define the output format, but also how it is produced. You can for example define an html template and then, just by changing the recipe, decide if the output should be a pdf, html or excel. Or you don't have to stick with html and use some advanced recipes to create pdf using Apache FOP or excel file from Open XML.
 
-The easiest way to create a pdf invoice is to use html to pdf conversion provided by [phantom-pdf](/learn/phantom-pdf) recipe, so let's stay with it.
+The easiest way to create a pdf invoice is to use html to pdf conversion provided by [chrome-pdf](/learn/chrome-pdf) recipe, so let's stay with it.
 
-![recipe](https://jsreport.net/screenshots/recipe.png)
+![recipe](https://jsreport.net/screenshots/recipe.png?v=2)
 
 ### Templating engines
 
@@ -92,25 +92,24 @@ Finally it should be like this:
 <iframe src='https://playground.jsreport.net/studio/workspace/HJVhE0QP/3?embed=1' width="100%" height="400" frameborder="0"></iframe>
 
 ## Test and preview report
-Now it's time to finish the invoice and preview it from the sample data until you are satisfied. You can find a styled and more complex invoice [here in the playground](https://playground.jsreport.net/#/playground/l1DbOPsN5) if you are lazy.
+Now it's time to finish the invoice and preview it from the sample data until you are satisfied. You can find a styled and more complex invoice [here in the playground](https://playground.jsreport.net/studio/workspace/SyUrRILTg/9172) if you are lazy.
 
 You might find useful several features jsreport ships out of the box in the form of extensions during this time. You can for example [upload images](/learn/images) to report or split bigger template into small [child templates](/learn/child-templates). Check out all the jsreport extensions [here](/learn/extensions).
 
 ## Use API to render report
 
-Now you are ready to integrate your application with jsreport API. It's very simple and in the most cases you just need to do one REST call. You can even try it from your browser's REST plugin. 
+Now you are ready to integrate your application with jsreport API. It's very simple and in the most cases you just need to do one REST call. You can even try it from your browser's REST plugin.
 
 The following request will invoke rendering a previously defined template and response pdf stream back
 > `POST:` https://localhost/api/report<br/>
 > `Headers`: Content-Type: application/json<br/>
 > `BODY:`
->```js 
-   { 
+>```js
+   {
       "template": { "name" : "invoice-template" },
       "data" : { "to": "Pavel Sladek", 	"from": "Jan Blaha",  "price": 800 }
-   } 
+   }
 >```
-
 
 More information about the jsreport API can be found [here](/learn/api).
 

@@ -3,7 +3,7 @@
 <h3>
   <img src="/img/warning.png" style="width: 30px; height: 30px;" />
   <span style="vertical-align: middle;">
-    This extension is in pending deprecation, we recommend to use [assets](https://jsreport.net/learn/assets) extension instead
+    This extension is deprecated, we recommend to use [assets](https://jsreport.net/learn/assets) extension instead
   </span>
 </h3>
 

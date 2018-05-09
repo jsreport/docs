@@ -5,21 +5,23 @@ Enabling `authentication` extension will add a login screen into jsreport studio
 
 `Authentication` configuration adds a `user administrator` into the system  responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permissions to alter any other user.
 
-##Basic authentication
+## Basic authentication
 
-###Configuration
+### Configuration
 
 To enable authentication add following json into [configuration](/learn/configuration).
 
 ```js
-"authentication" : {
-    "cookieSession": {
-        "secret": "dasd321as56d1sd5s61vdv32"        
-    },
-    "admin": {
-        "username" : "admin",
-        "password": "password"
-    }
+"extensions": {
+	"authentication" : {
+	    "cookieSession": {
+	        "secret": "dasd321as56d1sd5s61vdv32"        
+	    },
+	    "admin": {
+	        "username" : "admin",
+	        "password": "password"
+	    }
+	}
 }
 ```
 
@@ -60,72 +62,74 @@ For a real implementation of jsreport + authorization server check our [official
 To enable authentication add following json into [configuration file](/learn/configuration).
 
 ```js
-"authentication" : {
-	"cookieSession": {
-        "secret": "dasd321as56d1sd5s61vdv32"        
-	},
-	"admin": {
-		"username" : "admin",
-		"password": "password"
-	},
-	// use the "authorizationServer" options when you plan to protect API calls
-	// with token based authentication against an authorization server,
-	// this means that all protected jsreport API calls will be validated with
-	// the configured authorization server, giving you the chance to expose
-	// jsreport as a product with Single Sign On support.
-	// see "Token based authentication using an authorization server" section of this document
-	// for more details and a link to a sample with real implementation.
-	"authorizationServer": {
-		"tokenValidation": {
-			// URL to the authorization server endpoint (required)
-			"endpoint": "http://localhost:9800/token/introspection",
-			// time in milliseconds that jsreport will wait before closing the request
-			// sent to the authorization server. (optional, defaults to 6000)
-			"timeout": 6000,
-			// by default jsreport will send data to the authorization server
-			// using "application/x-www-form-urlencoded" content type,
-			// setting this option to true will make jsreport to send the data using
-			// "application/json" content type. (optional, defaults to false)
-			"sendAsJSON": false,
-			// use this option if you would like to pass custom data to
-			// the authorization server. you can configure one or multiple values
-			// for example using "hint": "custom value" will send a "hint" field
-			// with value "custom value" to the authorization server,
-			// to use another field name you can use "hint": { "name": "reportService", value: true } to send a "reportService" field
-			// and use "hint": [{ "name": "reportService", value: true }, { "name": "anotherField", value: true }] to send multiple fields
-			// (optional, defaults to null)
-			"hint": null,
-			// name of the field that jsreport will look at in the response from authorization server to
-			// use as the jsreport username associated with the token. (optional, defaults to "username")
-			"usernameField": "username",
-			// name of the field that jsreport will look at in the response from authorization server to
-			// determine if the token is valid or not. (optional, defaults to "active")
-			"activeField": "active",
-			// options to use if you want that jsreport checks for valid scopes in the token
-			// optional, defaults to null
-			"scope": {
+"extensions": {
+	"authentication" : {
+		"cookieSession": {
+	        "secret": "dasd321as56d1sd5s61vdv32"        
+		},
+		"admin": {
+			"username" : "admin",
+			"password": "password"
+		},
+		// use the "authorizationServer" options when you plan to protect API calls
+		// with token based authentication against an authorization server,
+		// this means that all protected jsreport API calls will be validated with
+		// the configured authorization server, giving you the chance to expose
+		// jsreport as a product with Single Sign On support.
+		// see "Token based authentication using an authorization server" section of this document
+		// for more details and a link to a sample with real implementation.
+		"authorizationServer": {
+			"tokenValidation": {
+				// URL to the authorization server endpoint (required)
+				"endpoint": "http://localhost:9800/token/introspection",
+				// time in milliseconds that jsreport will wait before closing the request
+				// sent to the authorization server. (optional, defaults to 6000)
+				"timeout": 6000,
+				// by default jsreport will send data to the authorization server
+				// using "application/x-www-form-urlencoded" content type,
+				// setting this option to true will make jsreport to send the data using
+				// "application/json" content type. (optional, defaults to false)
+				"sendAsJSON": false,
+				// use this option if you would like to pass custom data to
+				// the authorization server. you can configure one or multiple values
+				// for example using "hint": "custom value" will send a "hint" field
+				// with value "custom value" to the authorization server,
+				// to use another field name you can use "hint": { "name": "reportService", value: true } to send a "reportService" field
+				// and use "hint": [{ "name": "reportService", value: true }, { "name": "anotherField", value: true }] to send multiple fields
+				// (optional, defaults to null)
+				"hint": null,
 				// name of the field that jsreport will look at in the response from authorization server to
-				// determine the scope/scopes of the token. (optional, defaults to "scope")
-				"field": "scope",
-				// list of valid scopes that the token needs to have in order to be considered valid, the token must have at least one scope that match with some item in the list in order to be considered valid
-				"valid": ["myscope"]
-			},
-			// options to use if the authorization server is not public and requires authentication,
-			// if your authorization server is public just pass "auth": false
-			// (required)
-			"auth": {
-				// defines which auth schema to use while sending credentials to the authorization server
-				// supported values are "basic" and "bearer"
-				"type": "basic",
-				// credentials to use when using the "basic" type
-				"basic": {
-					"clientId": "test",
-					"clientSecret": "xxxx"
+				// use as the jsreport username associated with the token. (optional, defaults to "username")
+				"usernameField": "username",
+				// name of the field that jsreport will look at in the response from authorization server to
+				// determine if the token is valid or not. (optional, defaults to "active")
+				"activeField": "active",
+				// options to use if you want that jsreport checks for valid scopes in the token
+				// optional, defaults to null
+				"scope": {
+					// name of the field that jsreport will look at in the response from authorization server to
+					// determine the scope/scopes of the token. (optional, defaults to "scope")
+					"field": "scope",
+					// list of valid scopes that the token needs to have in order to be considered valid, the token must have at least one scope that match with some item in the list in order to be considered valid
+					"valid": ["myscope"]
 				},
-				// credentials to use when using the "bearer" type
-				"bearer": "dasdasddw23fsdfsdfr56hvFVdf3"
+				// options to use if the authorization server is not public and requires authentication,
+				// if your authorization server is public just pass "auth": false
+				// (required)
+				"auth": {
+					// defines which auth schema to use while sending credentials to the authorization server
+					// supported values are "basic" and "bearer"
+					"type": "basic",
+					// credentials to use when using the "basic" type
+					"basic": {
+						"clientId": "test",
+						"clientSecret": "xxxx"
+					},
+					// credentials to use when using the "bearer" type
+					"bearer": "dasdasddw23fsdfsdfr56hvFVdf3"
+				}
 			}
 		}
 	}
-},
+}
 ```

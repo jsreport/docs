@@ -14,8 +14,8 @@ How to...
 
 **Licensing and payments**
 - [How to apply license key](#how-to-apply-license-key)    
-- [Update payment details](#update-payment-details)    
-
+- [Update payment details](#update-payment-details) 
+- [Cancel subscription](#cancel-subscription)     
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
 
@@ -48,7 +48,7 @@ You need to open `jsreport.config.json` file and edit `httpPort` property to des
 
 ### <a name="performance"></a>Increase performance
 
-jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases it is better to reuse phantomjs and nodejs workers over multiple requests.
+jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse phantomjs and nodejs workers over multiple requests.
 
 Open `jsreport.config.json` and update following:
 
@@ -56,7 +56,7 @@ Open `jsreport.config.json` and update following:
 "phantom": {     
 	"strategy": "phantom-server"
 },
-"tasks": {       
+"templatingEngines": {       
 	"strategy": "http-server"
 }
 ```
@@ -111,3 +111,10 @@ jsreport enterprise or jsreportonline subscribers can update the payment details
 2. Login through the email you filled during the initial subscription. It is the same email your receipts are being sent to.
 3. Choose `My account/Settings` in the menu
 4. Select `Use different card` and update the account details
+
+### <a name="cancel-subscription"></a>Cancel subscription
+1. Open your [gumroad account](https://gumroad.com/library)
+2. Select the subscription you want to cancel
+3. Click red "Cancel subscription" button
+
+You can find more detail description in [gumroad help](https://help.gumroad.com/11167-buyer-faq/how-do-i-cancel-a-subscription).

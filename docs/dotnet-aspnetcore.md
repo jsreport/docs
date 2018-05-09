@@ -1,6 +1,6 @@
 ## Basics
 
-If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
+If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
 
 Note this package is dedicated to `ASP.NET Core` applications. Please navigate to similar [jsreport.MVC](/learn/dotnet-mvc) documentation when working with the ASP.NET application running full .NET framework.
 
@@ -23,26 +23,24 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-The next step is to decorate the particular controller's action with `MiddlewareFilter` and specify the jsreport recipe for transforming the view output. 
+The next step is to decorate the particular controller's action with `MiddlewareFilter` and specify the jsreport recipe for transforming the view output.
 
 ```csharp
 [MiddlewareFilter(typeof(JsReportPipeline))]
 public IActionResult Invoice()
 {
-	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
+	HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
 	return View();
 }
 ```
 
-This enables asp.net filter which captures the view rendering result and uses the specified [phantom-pdf recipe](/learn/phantom-pdf) to convert the output html into pdf. 
+This enables asp.net filter which captures the view rendering result and uses the specified [chrome-pdf recipe](/learn/chrome-pdf) to convert the output html into pdf.
 
 This is just very basic scenario particularly useful in asp.net mvc based applications. However jsreport includes tons of nice features worth it to explore. It allows to [convert html to excel](/learn/html-to-xlsx), evaluate javascript [templating engines](/learn/templating-engines) on top of the razor, run [custom javascript functions](/learn/scripts) and much more.
-
 
 ## Advanced configuration
 
 The most of the request as well as response configuration can be set through `HttpContext.JsReportFeature()`. Some particularly useful configurations are mentioned below.
-
 
 ### Modify response
 
@@ -50,7 +48,8 @@ The response headers or other advanced response's attributes can be filled insid
 
 ```csharp
 var contentDisposition = "attachment; filename=\"myReport.pdf\"";
-HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
+
+HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf)
                 .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = contentDisposition);
 ```
 
@@ -68,6 +67,7 @@ public HomeController(IJsReportMVCService jsReportMVCService)
 ```      
 
 Afterwards you can use it to render a partial view based on its name, get the header content and provide it to the jsreport request.
+
 ```csharp
 [MiddlewareFilter(typeof(JsReportPipeline))]
 public IActionResult InvoiceWithHeader()
@@ -77,7 +77,7 @@ public IActionResult InvoiceWithHeader()
 
 	HttpContext.JsReportFeature()
 	    .Recipe(Recipe.PhantomPdf)
-	    .Configure((r) => r.Template.Phantom = new Phantom{ Header = header});
+	    .Configure((r) => r.Template.Phantom = new Phantom{ Header = header });
 
 	return View("Invoice", InvoiceModel.Example());
 }

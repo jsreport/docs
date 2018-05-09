@@ -88,7 +88,7 @@ Array of async functions invoked in sequence when preview process starts.
 
 ### studio.templateEditorModeResolvers ⇒ <code>Array.&lt;function()&gt;</code>
 Array of functions used to resolve ace editor mode for template content. This is used by custom templating engines
-to add highlighting support for jade,ejs...
+to add highlighting support for pug, ejs...
 
 **Kind**: instance property of <code>[Studio](#Studio)</code>
 

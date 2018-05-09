@@ -2,6 +2,12 @@
 
 The `Phantom-pdf` recipe is capable of rendering any HTML and JavaScript you provide. This means you can also use external JavaScript libraries or canvas to print visual charts.
 
+## Installation
+
+```bash
+npm install jsreport-phantom-pdf
+```
+
 ## Basic settings
 
 - `margin` - px or cm specification of margin used from page borders, you can also pass an `Object` or `JSON object string` for better control of each margin side. ex: `{ "top": "5px", "left": "10px", "right": "10px", "bottom": "5px" }`
@@ -70,7 +76,6 @@ Note that `Phantom-pdf` also evaluates javascript in the header and footer which
      ščřžý
   </body>
 </html>
-
 ```
 
 ## Images in header and footer
@@ -114,8 +119,8 @@ You can also set the default phantomjs version globally in the config:
 
 ```js
 "phantom": {   
-    "defaultPhantomjsVersion": "2.1.1"
-  }
+  "defaultPhantomjsVersion": "2.1.1"
+}
 ```
 
 Note that phantomjs2 produces different sizes of fonts versus 1.9. Also, it doesn't support repeating `thead` when the table spawns multiple pages.
@@ -129,9 +134,12 @@ The fonts can be easily embedded into PDF reports using the [assets](https://jsr
 ## Printing content in each page for advanced cases
 Normally, if you need that some content to be shown on each page, you would use [headers or footers](#headers-and-footers).
 
-However, since headers and footers are rendered like new templates and don't have any context about what is being evaluated in your main template, sometimes you will find that headers and footer are very limited for your actual requirements. In that case, you can use an approach similar to the one described in this [post](https://jsreport.net/blog/phantomjs-pdf-watermark). 
+However, since headers and footers are rendered like new templates and don't have any context about what is being evaluated in your main template, sometimes you will find that headers and footer are very limited for your actual requirements. In that case, you can use an approach similar to the one described in this [post](https://jsreport.net/blog/phantomjs-pdf-watermark).
 
 The approach uses some magic numbers (values that will need to be tweaked depending on your machine and content and by your best judgment) to get the total number of pages rendered and do some calculations to be able to emulate headers and footers for each page, or just to render some content in a specific position for each page (like a watermark).
+
+## Printing content in each page for advanced cases (pdf-utils)
+Another option for printing content in each page is to use the [pdf-utils](/learn/pdf-utils) extension, it provides features to merge dynamic content into the pdf output.
 
 ## Different sizes on Windows vs Unix
 Both phantomjs 1.9.8 as well as 2.1.1 are producing different sizes of PDF elements when rendered on Windows versus a Unix platform. This issue can be tracked [here](https://github.com/ariya/phantomjs/issues/12685). We recommend to design your reports on the same OS where you plan to run your production jsreport instance because of this. If this is not an option for you, you may try to apply the following css to adapt the sizes on your local or production templates.
@@ -144,19 +152,36 @@ body {
   -webkit-transform: scale(0.654545);
 }
 ```
+
 ## Configuration
 
 Use the `phantom` configuration node in the standard [config](/learn/configuration) file.
+
 ```js
-phantom: {
-  numberOfWorkers: 1
-  timeout: 180000,
-  allowLocalFilesAccess: false,
-  defaultPhantomjsVersion: '1.9.8'
+"extensions": {
+  "phantom-pdf": {
+    "numberOfWorkers": 1
+    "timeout": 180000,
+    "allowLocalFilesAccess": false,
+    "defaultPhantomjsVersion": "1.9.8"
+  }
 }
 ```
 
-**phantom** (`object`) - this attribute is `optional` and is used to configure phantomjs which is used in various recipes
+you can also use top level `phantom` property in configuration, the difference is that this configuration will be shared with any other extension that uses phantomjs and the configuration snippet above is specifically for options in `phantom-pdf` extension.
+
+```js
+"extensions": {
+  "phantom": {
+    "numberOfWorkers": 1
+    "timeout": 180000,
+    "allowLocalFilesAccess": false,
+    "defaultPhantomjsVersion": "1.9.8"
+  }
+}
+```
+
+available options for configuration:
 
 **phantom.strategy** (`dedicated-process | phantom-server`) - The first strategy uses a new phantomjs instance for every task.  The second strategy reuses every instance over multiple requests. Where `phantom-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies
 

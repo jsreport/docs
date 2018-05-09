@@ -14,10 +14,12 @@ You can create a tag using jsreport studio. In which you can specifiy informatio
 Add `tags` node to the [standard config file](/learn/configuration).
 
 ```js
-"tags" : {
-  // boolean to determine if jsreport studio by default should show objects organized by tags
-	"organizeByDefault": true
-},
+"extensions": {
+	"tags" : {
+	  // boolean to determine if jsreport studio by default should show objects organized by tags
+		"organizeByDefault": true
+	}
+}
 ```
 
 ## API

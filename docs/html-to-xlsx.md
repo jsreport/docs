@@ -1,6 +1,6 @@
-`html-to-xlsx` recipe generates excel xslx files from html tables. This is not a full html -> excel conversion but rather pragmatic and fast way to create excel files from jsreport. Recipe will read input table and extract couple of computed style properties which will be then applied to the excel cells.
+`html-to-xlsx` recipe generates excel xslx files from html tables. This is not a full html -> excel conversion but rather pragmatic and fast way to create excel files from jsreport. Recipe will read input table and extract couple of computed style properties using a specific html engine (which defaults to chrome), and finally use the computed styles to create the excel cells.
 
-Following properties are supported:
+Following css properties are supported:
 
 - `background-color` - cell background color
 - `color` - cell foreground color
@@ -14,9 +14,13 @@ Following properties are supported:
 - `rowspan` - numeric value that merges current row with rows below.
 - `overflow` - the excel cell will have text wrap enabled if this is set to scoll.
 
+## Options
+
+- htmlEngine (supported values here will depend on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install [phantom extension](/learn/phantom-pdf) and get `phantom` as a html engine too)
+
 ## Issues with row height being more larger than actual content
 
-There are cases when a row height ends with a bigger height than the actual content, this is caused by a phantomjs bug that retrieves bigger height when the content of cells have white space characters.
+When using phantomjs as engine there are cases when a row height ends with a bigger height than the actual content, this is caused by a phantomjs bug that retrieves bigger height when the content of cells have white space characters.
 
 There are two possible workarounds if this bigger height of row is problematic for your excel file:
 

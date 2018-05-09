@@ -20,7 +20,7 @@ The most basic example of jsreport exacutable usage can be simple html to pdf co
 ```sh
 jsreport render
   --template.engine=none
-  --template.recipe=phantom-pdf
+  --template.recipe=chrome-pdf
   --template.content=test.html
   --out=out.pdf
 ```
@@ -28,24 +28,24 @@ jsreport render
 You can see that this command includes some not very obvious arguments at the first glance, but these arguments basicaly represents jsreport [API request](/learn/api) and makes perfectly sense if you know a bit about jsreport.
 
 - `--template.engine=none` - specifies we don't want to use any preprocessor for transforming html. These transformers are called [engines](/learn/get-started#templating-engines) in jsreport.
-- `--template.recipe=phantom-pdf` - specifies how the input should be converted to the output format. This is called [recipe](https://jsreport.net/learn/get-started#recipes) in jsreport and in this case we use [phantom-pdf](/learn/phantom-pdf) recipe which can convert html into pdf.
+- `--template.recipe=chrome-pdf` - specifies how the input should be converted to the output format. This is called [recipe](https://jsreport.net/learn/get-started#recipes) in jsreport and in this case we use [chrome-pdf](/learn/chrome-pdf) recipe which can convert html into pdf.
 - `--template.content=test.html` - is our html we want to convert
 - `--out=out.pdf` - specifies the file where the output is stored
 
-We could extend this basic example with some additional options [phantom-pdf](/learn/phantom-pdf) recipe supports. Like changing the output page orientation:
+We could extend this basic example with some additional options [chrome-pdf](/learn/chrome-pdf) recipe supports. Like changing the chrome paper format:
 ```sh
 jsreport render  
   --template.engine=none
   --template.recipe=phantom-pdf
   --template.content=test.html
-  --template.phantom.orientation=landscape
+  --template.chrome.format=Tabloid
   --out=out.pdf
 ```
-
 
 ### Html to excel conversion
 
 jsreport supports many [recipes](/learn/recipes) and you can for example use one which is cappable of transforming html into excel
+
 ```sh
 jsreport render
   --template.engine=none
@@ -77,7 +77,7 @@ We can now send both to jsreport and get back pdf with `Hello world` heading.
 ```sh
 jsreport render
   --template.engine=handlebars
-  --template.recipe=phantom-pdf
+  --template.recipe=chrome-pdf
   --template.content=template.html
   --data=data.json
   --out=out.pdf
@@ -131,4 +131,4 @@ this option will tell the jsreport executable to try to search for jsreport exte
 
 - only `in-process` [scripts](/learn/scripts) and [engines](/learn/templating-engines) evaluation is supported where full jsreport can be configured to run these in separated process for better isolation
 - [phantom-pdf](/learn/phantom-pdf) recipe doesn't support reusing phantomjs instance over multiple processes
-- you may need to install some libraries required in phantomjs when running on linux, see info [here](https://github.com/jsreport/docs/blob/master/installation/ubuntu.md#fixing-phantomjs)
+- you may need to install some libraries required when using phantomjs and running on linux, see info [here](https://github.com/jsreport/docs/blob/master/installation/ubuntu.md#fixing-phantomjs)

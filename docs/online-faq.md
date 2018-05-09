@@ -21,8 +21,7 @@ You can find the detail numbers for timeouts and throttling in the dedicated art
 
 jsreport uses technologies for pdf rendering which behaves a little bit differently when running on Windows and Linux platform. It mainly produces different sizes of the elements inside the pdf which can be painful when doing transition from the local to the cloud environment. Fortunately jsreportonline support both - Windows as well as the Linux based rendering. To choose the rendering platform, you only need to navigate to the template menu and set the right item in the `properties/phantom-pdf/phantomjs version`. The default platform is Linux and the version with `windows` postfix instructs the service to run particular template on the Windows.
 
-Please note that the Windows based rendering doesn't currently provide such isolation as when running on the default Linux. There can be some noise from the other tenants which can temporary slow down your pdf rendering. For this reason we strongly recommend to **use the default Linux for the mission critical scenarios**. 
-
+Please note that the Windows based rendering doesn't currently provide such isolation as when running on the default Linux. There can be some noise from the other tenants which can temporary slow down your pdf rendering. For this reason we strongly recommend to **use the default Linux for the mission critical scenarios**.
 
 ### <a name="status-page"></a>Status page
 

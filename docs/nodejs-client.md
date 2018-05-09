@@ -1,56 +1,57 @@
 jsreport node.js client is a wrapper around [jsreport api](https://jsreport.net/learn/api) allowing to connect to a remote jsreport server, render pdf reports and operate on the entities. It supports both local [on-premise](https://jsreport.net/on-prem) jsreport server as well as jsreport [online SaaS](https://jsreport.net/online).
 
-##Installation
+## Installation
 > npm install jsreport-client
 
-##Initialization
+## Initialization
 
-`jsreport-client` package returns function with parameters `url`, `username` and `password` where only server `url` is mandatory. Function returns `Client` object representing facade to remote jsreport server running on specified `url`. 
+`jsreport-client` package returns function with parameters `url`, `username` and `password` where only server `url` is mandatory. Function returns `Client` object representing facade to remote jsreport server running on specified `url`.
 
 ```js
-var client = require("jsreport-client")("http://myserver:5488", "admin", "mypassword")
+const client = require("jsreport-client")("http://myserver:5488", "admin", "mypassword")
 ```
 
-##Rendering reports
-`Client` instance contains `render` method that triggers remote report rendering process and callbacks response. `Render` parameter is a request object that is posted to the jsreport server. It needs to contain a `template` property representing a reference to the existing jsreport template using `shortid` or raw definition of the template. Row definition typically defines `content`, `helpers`, `recipe` and `engine` property. Second but optional property of request is `data` representing report input data. See [API](https://jsreport.net/learn/api) documentation for details.
+## Rendering reports
+`Client` instance contains `render` method that triggers remote report rendering process and returns a promise. `Render` parameter is a request object that is posted to the jsreport server. It needs to contain a `template` property representing a reference to the existing jsreport template using `shortid` or raw definition of the template. Row definition typically defines `content`, `helpers`, `recipe` and `engine` property. Second but optional property of request is `data` representing report input data. See [API](https://jsreport.net/learn/api) documentation for details.
 
 ```js
 client.render({
-	template: { content: "hello {{:someText}}", recipe: "html",
-				engine: "jsrender" },
+	template: {
+        content: "hello {{someText}}",
+        recipe: "html",
+		engine: "handlebars"
+    },
 	data: { someText: "world!!" }
-}, function(err, response) {
-	response.body(function(body) {
+}).then((res) => {
+    response.body((buffer) => {
 		//prints hello world!!
-		console.log(body.toString());
+		console.log(buffer.toString());
 	});
 });
 ```
 
-##Chaining response stream
+## Chaining response stream
 Object returned in callback of `render` method is a report stream and can be piped to the file or also directly to the [express](http://expressjs.com) response. Response already contains all the proper headers and can by directly opened in the browser.
 ```js
-app.get("/report", function(req, res, next) {
+app.get("/report", (req, res, next) => {
     client.render({
-        template: { content: "Hello World", recipe: "phantom-pdf"}
-    }, function(err, response) {
-        if (err) {
-            return next(err);
-        }
+        template: { content: "Hello World", recipe: "chrome-pdf"}
+    }).then((response) => {
         response.pipe(res);
+    }).catch((err) => {
+        next(err);
     });
 });
 ```
 
-##Handling request timeout
+## Handling request timeout
 
 Optionally you can pass second parameter to the `render` function containing additional options of the made http request. These options are passed to the [request](https://github.com/request/request) module making actual rest call.  Most likely you should be interested in the timeout property:
 
 ```js
 client.render({
-	template: { }	
-}, { timeout: 5000 },function(err, response) {
-
+    template: {...}
+}, { timeout: 5000 }).then((response) => {
+    // process response here
 });
 ```
-
