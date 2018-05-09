@@ -3,7 +3,7 @@ jsreport v2 is major release which on top of great new features also includes se
 
 You can install and run the migration utility in the following way.
 ```
-npm install jsreport/jsreport-migration
+npm install -g jsreport-migration
 jsreport-migration
 ```
 
