@@ -10,7 +10,7 @@ You can find more information about this default store in the dedicated article 
 ## Template store extensions
 The extensions implementing template store can be installed as any other jsreport extension. Typically it only requires to run `npm install jsreport-xxx` and restart the jsreport server. The automatic jsreport extensions discovery should find and load it afterwards.
 
-Applying particular store extension to the jsreport requires changing the `connectionString.name` in the [configuration](/learn/configuration).
+Applying particular store extension to the jsreport requires changing the `store.provider` in the [configuration](/learn/configuration).
 
 ```js
 "store": {
