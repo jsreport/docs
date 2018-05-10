@@ -39,22 +39,43 @@ If you want to use environment variable for configuring a complex object you sho
 unix:
 
 ```sh
-authentication_admin_username=john jsreport start
+extensions_authentication_admin_username=john jsreport start
 ```
 
 windows:
 
 ```sh
-set authentication_admin_username=john
+set extensions_authentication_admin_username=john
+jsreport start
+```
+
+another alternative to the `_` separator is to use the `:` as separator
+
+unix:
+
+```sh
+env extensions:authentication:admin:username=john jsreport start
+```
+
+windows:
+
+```sh
+set extensions:authentication:admin:username=john
 jsreport start
 ```
 
 ### Arguments
 The command line arguments are parsed as well. This is very convenient for changing the port for example:
+
 ```sh
 jsreport start --httpPort=3000
 ```
-The configuration for complex objects should use the same `_` separator as described for environment variables.
+
+The configuration for complex objects should use the `.`  as separator
+
+```sh
+jsreport start --extensions.authentication.admin.username=john
+```
 
 ### Application code
 
@@ -71,13 +92,41 @@ Each extension (recipe, store...) usually provides some options you can apply an
 
 ```js
 "extensions": {
-  "authentication" : {     
+  "authentication": {     
   	"admin": {
   		"username" : "admin",
   		"password": "password"
   	}
   }
 }   
+```
+
+extensions that has a name with a hyphen in it (like `html-to-xlsx` for example) also supports receiving configuration with the name in camel case, so both of the following examples are valid for extensions with hyphen in its name
+
+```js
+"extensions": {
+  "html-to-xlsx": {
+    ...
+  }
+}
+```
+
+```js
+"extensions": {
+  "htmlToXlsx": {
+    ...
+  }
+}
+```
+
+this support of camel case form of extensions also works when specifying configuration as cli arguments or env vars, which is handy when working in environments where is difficult to pass arguments or env vars with hyphens
+
+```sh
+jsreport start --extensions.htmlToXlsx.someConfig value
+```
+
+```sh
+extensions_htmlToXlsx_someConfig=value jsreport start
 ```
 
 Please refer to particular extension's documentation to find what configuration options you have. There is usually `Configuration` section where you can find it.
