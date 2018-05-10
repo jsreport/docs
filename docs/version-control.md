@@ -15,7 +15,7 @@ And configure the `version-control` to use it for tracking changes.
 ```js
 {
   "extensions": {
-    "versionControl": { "name": "git" }
+    "versionControl": { "provider": "git" }
   }
 }
 ```
