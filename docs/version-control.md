@@ -1,9 +1,3 @@
-## Installation
-
-```bash
-npm install jsreport-version-control
-```
-
 ## Basics
 jsreport extension adding support for versioning entities and providing API as well as the studio UI for common commands like commit, diff, revert or history. Just install the extension and you should see the new UI in studio.
 

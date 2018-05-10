@@ -38,7 +38,7 @@ You can `require` external modules in the node.js way, however you need to first
 }
 ```
 
-Alternatively you can enable all modules using `extensions.scripts.allowedModules="*"`.
+Alternatively you can enable all modules using `extensions.scripts.allowedModules="*"` or using config `allowLocalFilesAccess=true`
 
 The following example uses popular [request](https://github.com/request/request) module to make a rest call and [sendgrid](https://github.com/sendgrid/sendgrid-nodejs) service to email the output service.
 
@@ -176,8 +176,8 @@ function beforeRender(req, res, done) {
 ```
 
 
-## phantom-pdf note
-Please note that some recipes like [phantom-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
+## child templates and headers
+Some recipes like [phantom-pdf](/learn/phantom-pdf) or [chrome-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
 
 ```js
 function afterRender(req, res, done) {
@@ -199,8 +199,21 @@ const proxy = require('jsreport-proxy')
 
 async function beforeRender(req, res) {
   console.log('starting rendering from script')
-  await proxy.render({ template: { shortid: 'xxxxxx' } })
-  console.log('finished rendering')
+  const result = await proxy.render({ template: { shortid: 'xxxxxx' } })  
+  console.log('finished rendering with ' + result.content.toString())
+}
+```
+
+## Query an entity from script
+
+Script can also query the jsreport store and load an asset with config for example.
+
+```js
+const jsreport = require('jsreport-proxy')
+async function beforeRender(req, res) {
+  const assets = await jsreport.documentStore.collection('assets').find({name: 'myConfig'})
+  const config = JSON.parse(assets[0].content.toString())
+  req.data.config = config
 }
 ```
 

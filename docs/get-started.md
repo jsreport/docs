@@ -1,6 +1,6 @@
 <a class="button large bg-emerald bg-hover-gray fg-white" id="createFlatWindow">Quick Start Video<i class="icon-arrow-right-3 on-right fg-white"></i></a>
 
-jsreport is an open source reporting server running cross-platform on [node.js](http://nodejs.org/). It allows you to create various reports in various formats like [pdf](/learn/phantom-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have.
+jsreport is an open source reporting server running cross-platform on [node.js](http://nodejs.org/). It allows you to create various reports in various formats like [pdf](/learn/chrome-pdf), [excel](/learn/html-to-xlsx), [xml](/learn/text) or [html](/learn/html). The main idea of jsreport is to let users define reports without lame designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have.
 
 jsreport is a fully capable reporting server including advanced features like scheduling, sending reports in emails, authentication, authorization, sub reports, report designer, API, embedded widgets, and many other features. It is also greatly extensible with a growing list of extensions.
 
@@ -71,7 +71,7 @@ Now you can fill the invoice template with html and [handlebars](/learn/handleba
 </div>
 ```
 
-You can see it is just html with handlebars binding to the sample data you previously created. Now you can click the `Run` button in the jsreport designer and it should preview a pdf in the right pane. This is because you previously selected `phantom-pdf`, which automatically converts html into pdf.
+You can see it is just html with handlebars binding to the sample data you previously created. Now you can click the `Run` button in the jsreport designer and it should preview a pdf in the right pane. This is because you previously selected `chrome-pdf`, which automatically converts html into pdf.
 
 To make it a little bit more complex, let's add a tax calculation to the template. To do so, you will need to define a custom javascript function calculating tax from the original price. Such a function can be added to the bottom panel in jsreport studio:
 

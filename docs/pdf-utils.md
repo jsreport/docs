@@ -7,11 +7,6 @@
 - [Header with page number](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/5)
 - [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
-## Installation
-
-```bash
-npm install jsreport-pdf-utils
-```
 
 ## Basics
 jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page. The join can be used to prepend a cover to the pdf or to change page orientation  dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.

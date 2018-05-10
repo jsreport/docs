@@ -130,5 +130,3 @@ this option will tell the jsreport executable to try to search for jsreport exte
 ## Known limitations
 
 - only `in-process` [scripts](/learn/scripts) and [engines](/learn/templating-engines) evaluation is supported where full jsreport can be configured to run these in separated process for better isolation
-- [phantom-pdf](/learn/phantom-pdf) recipe doesn't support reusing phantomjs instance over multiple processes
-- you may need to install some libraries required when using phantomjs and running on linux, see info [here](https://github.com/jsreport/docs/blob/master/installation/ubuntu.md#fixing-phantomjs)
