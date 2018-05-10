@@ -14,7 +14,7 @@ How to...
 
 **Licensing and payments**
 - [How to apply license key](#how-to-apply-license-key)    
-- [Update payment details](#update-payment-details) 
+- [Update payment details](#update-payment-details)
 - [Cancel subscription](#cancel-subscription)     
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
@@ -95,9 +95,9 @@ For details check *National characters* section in the [documentation](/learn/ph
 You can choose one from the options below:
 
 1. The license key can be saved into the application working directory or data folder as `license-key.txt`
-2. Filled in the configuration file in the property `license-key`
-3. Passed in the command line parameter as `--license-key=xxx`
-4. Set in the environment variable as `license-key`
+2. Filled in the configuration file in the property `license-key`, or `licenseKey`
+3. Passed in the command line parameter as `--license-key=xxx` or `--licenseKey=xxx`
+4. Set in the environment variable as `license-key` or `licenseKey`
 
 when using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md) you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
 
