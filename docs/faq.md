@@ -8,10 +8,6 @@ How to...
 - [Increase performance](#performance)    
 - [Windows path too long 256 characters limitation](#windows-path-too-long)    
 
-**Phantom pdf recipe**
-- [National characters are not displayed properly](#national-characters)    
-- [Highcharts are not printed into pdf properly](#highcharts)    
-
 **Licensing and payments**
 - [How to apply license key](#how-to-apply-license-key)    
 - [Update payment details](#update-payment-details)
@@ -22,7 +18,9 @@ How to...
 ```bash
 # install helpful tool to check the latest versions
 npm install -g npm-check-updates
-# check the latest versions of jsreport and additional extensions
+# check the latest versions of jsreport and additional extensions.
+# remember to check release notes when you are planning to update,
+# specially if you are going to do a major version update
 ncu
 # update package.json
 ncu -u
@@ -32,7 +30,7 @@ npm install
 
 ### <a name="deploy-to-production"></a>Deploy to production
 
-The simplest way to deploy local instance to the production is to compress the whole application folder, upload it to the server and decompress. You can even simply attach the `node` executable to the compressed package if you don't have `node.js` installed on the production server.  Such package should be able to run without other dependencies installed. This approach should work as long as you have the same OS architecture on the local and the production.
+The simplest way to deploy local instance to the production is to compress the whole application folder, upload it to the server and decompress. You can even simply attach the `node` executable to the compressed package if you don't have [node.js](https://nodejs.org/en/) installed on the production server.  Such package should be able to run without other dependencies installed. This approach should work as long as you have the same OS architecture on the local and the production.
 
 The other options are to run install through `npm` on the production server and then just copy the templates.
 
@@ -40,11 +38,11 @@ The most complex and powerful approach is to set up an image through `docker` fo
 
 ### <a name="migrate-templates"></a>Migrate templates from the test to the production server
 
-jsreport stores by default templates in the `application\data` folder. To migrate templates you can just grab content of this folder and copy it to the production server.
+migrating/moving templates should be easy using the [import-export](https://jsreport.net/learn/import-export) feature, you can export from test server and then import the generated backup (zip file) into the production server. other option can be to copy files, since jsreport stores by default templates in the `[application path]/data` folder. To migrate templates you can just grab content of this folder and copy it to the production server.
 
 ### <a name="port-config"></a>Run jsreport on different port
 
-You need to open `jsreport.config.json` file and edit `httpPort` property to desired value. For details please explore [configuration documentation](/learn/configuration).
+You need to open `jsreport.config.json` file and edit `httpPort` property to desired value. another option is to use cli args or env vars to set the port while starting jsreport. ex: `jsreport start --httpPort 5489` or `httpPort=5489 jsreport start`. For details please explore [configuration documentation](/learn/configuration), which contains different ways to do it.
 
 ### <a name="performance"></a>Increase performance
 
@@ -65,31 +63,11 @@ See [configuration documentation](/learn/configuration) for details.
 
 ### <a name="windows-path-too-long"></a>Windows path too long 256 characters limitation
 
-Windows has limitation for maximum file path set to 256 characters and this doesn't play well with nested paths used by older NPM versions. To make sure the windows deployment plays well please do update NPM to the latest release 3.
+Windows has limitation for maximum file path set to 256 characters and this doesn't play well with nested paths used by older npm versions. To make sure the windows deployment plays well please update npm to the latest release, which should be greater than >=3.x.x.
 
 ```sh
-npm update npm
+npm install npm
 ```
-
-### <a name="national-characters"></a>National characters are not displayed properly
-
-You need to add proper charset to the html head meta:
-```html
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body>
-     ....
-  </body>
-</html>
-```
-
-For details check *National characters* section in the [documentation](/learn/phantom-pdf).
-
-### <a name="highcharts"></a>Highcharts are not printed into pdf properly
-
-[Highcharts](http://www.highcharts.com/) are using complex animations by default preventing proper pdf printing. To go through it you need to disable highcharts animation like shown on [playground example](https://playground.jsreport.net/#playground/e77zeliQO/2).
 
 ### <a name="how-to-apply-license-key"></a>How to apply license key
 You can choose one from the options below:
