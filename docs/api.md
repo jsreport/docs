@@ -70,13 +70,68 @@ additionally you can have more control in the response by using the `options['Co
 
 ## Querying and CRUD
 
-Querying and CRUD API in jsreport is based on [OData](http://www.odata.org) protocol. You can use it to query or CRUD any entity jsreport server contains. For example, to get list of all jsreport entities, you can call standard odata notation endpoint.
+Querying and CRUD API in jsreport is based on [OData](http://www.odata.org) protocol. You can use it to query for CRUD programmatically any entity that jsreport server contains. For example, to get list of all jsreport entities, you can call standard odata notation endpoint.
 
 > `GET:` https://jsreport-host/odata/$metadata
 
 Or to get list of all template names:
 
 > `GET:` http://jsreport-host/odata/templates?$select=name
+
+#### Create
+
+> `POST`: http://jsreport-host/odata/[entity name]
+
+Examples:
+
+> `POST`: http://jsreport-host/odata/templates`
+<br/>
+> `Headers`: Content-Type: application/json
+<br/>
+> `BODY:`
+>```js
+  {
+    "name":"demo",
+    "recipe":"chrome-pdf",
+    "engine":"handlebars",
+    "content":"<h1>sample content</h1>"
+  }
+>```
+
+#### Read
+
+> `GET`: http://jsreport-host/odata/[entity name]
+
+Examples:
+
+> `GET`: http://jsreport-host/odata/templates
+> `GET`: http://jsreport-host/odata/scripts
+
+#### Update
+
+> `PATCH`: http://jsreport-host/odata/[entity name](entity id)
+
+Examples:
+
+> `PATCH`: http://jsreport-host/odata/templates(WOIzhZdfjj7rRRO2)
+<br/>
+> `Headers`: Content-Type: application/json
+<br/>
+> `BODY:`
+> send the properties that you want to change
+>```js
+  {
+    "content": "updated content"
+  }
+>```
+
+#### Delete
+
+> `DELETE`: http://jsreport-host/odata/[entity name](entity id)
+
+Examples:
+
+> `DELETE`: http://jsreport-host/odata/templates(UCV8p6iVIzR6pEz8)
 
 OData protocol has client libraries for various languages and you should be able to find a wrapper for yours [here](http://www.odata.org/libraries).
 
