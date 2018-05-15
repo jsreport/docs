@@ -84,7 +84,7 @@ Or to get list of all template names:
 
 Examples:
 
-> `POST`: http://jsreport-host/odata/templates`
+> `POST`: http://jsreport-host/odata/templates
 <br/>
 > `Headers`: Content-Type: application/json
 <br/>
@@ -105,6 +105,7 @@ Examples:
 Examples:
 
 > `GET`: http://jsreport-host/odata/templates
+<br/>
 > `GET`: http://jsreport-host/odata/scripts
 
 #### Update
