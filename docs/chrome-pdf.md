@@ -92,10 +92,43 @@ You may need to postpone pdf printing until some javascript async tasks are proc
 ```
 
 ## Native headers and footers
-The header and footer are evaluated as if they were a full jsreport template. This means you can add, for example, a [child template](/learn/child-templates) reference into a header and it will be extracted. You can also use main template helpers or data in the header/footer. Remember that in order to show the header/footer you need to also activate the `displayHeaderFooter` option first. As a final note about native header/footer with chrome, currently it has some scaling issues, so you need to modify some font sizes to make the content in there big enough to be visible, in most cases it is better to use [pdf-utils](/learn/pdf-utils) instead to have more powerful header/footer and without the scaling issues.
+The header and footer are evaluated as if they were a full jsreport template. This means you can add, for example, a [child template](/learn/child-templates) reference into a header and it will be extracted. You can also use main template helpers or data in the header/footer. Remember that in order to show the header/footer you need to activate the `displayHeaderFooter` option first and add some top, bottom margin to the template in order to give the page some space to show the header/footer.
+
+Inside the header/footer template you can use some special css classes to make chrome inject some content for you. the special css classes supported by chrome are the following:
+
+- `date` -> injects formatted print date
+- `title` -> injects the content of the document title
+- `url` -> injects the document location
+- `pageNumber` -> injects current page number
+- `totalPages` -> insject the total pages
+
+As a final note about native header/footer with chrome, currently it has some scaling issues, so you need to modify some font sizes to make the content in there big enough to be visible, in most cases it is better to use [pdf-utils](/learn/pdf-utils) instead to have more powerful header/footer and without the scaling issues.
+
+Example showing how to use the special css classes and the workaround for the scaling issues.
+
+```html
+<!--header template content-->
+<html>
+  <head>
+    <style>
+      /* defining explicit font-size solves the scaling issue */
+      html, body {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      defining some elements with the special css classes makes chrome
+      inject content in runtime
+    -->
+    Page&nbsp;<span class="pageNumber"></span>&nbsp;of&nbsp;<span class="totalPages"></span>
+  </body>
+</html>
+```
 
 ## Complex headers and footers
-The [pdf-utils](/learn/pdf-utils) extension provides features to merge dynamic header, footer, or print page numbers into the chrome pdf output.
+The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich features to merge dynamic content into the chrome pdf output, like rich header/footer, print page numbers, watermarks, merge pages with different orientation, etc. make sure to check the [docs](/learn/pdf-utils) for some examples
 
 ## Troubleshooting
 
