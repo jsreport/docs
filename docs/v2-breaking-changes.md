@@ -2,10 +2,13 @@
 jsreport v2 is major release which on top of great new features also includes several breaking changes. It is not in-place replacement for jsreport v1 and you should carefully review how the changes affect your application. To make this task easier we have prepared migration utility that analyses your jsreport application, process some automatic migration tasks and print warning with help for the rest.
 
 You can install and run the migration utility in the following way.
+
 ```
 npm install -g jsreport-migration
 jsreport-migration
 ```
+
+> **IMPORTANT NOTE**: The migration utility works for the mainstream jsreport applications. This means applications that was installed by the basic steps described in page download. The custom node application (apps using custom jsreport extensions, or apps that start jsreport in some custom way) as well as single exe users needs to read the upgrade guide. There is no migration automation for those cases.
 
 The rest of the document provides the list of the breaking changes in jsreport v2. I case we were able to automate the change for you using the migration utility the chapter includes note about it.
 
@@ -41,7 +44,7 @@ The `tasks` property was renamed to `templatingEngines`.
 ### blobStorage
 The `blobStorage` property should be now object with structure as `store`.
 ```js
-{ blobStorage: { provider: 'fs } }
+{ blobStorage: { provider: 'fs' } }
 ```
 
 ### allowLocalFilesAccess
@@ -97,7 +100,7 @@ function afterRender(req, res, done) {
 ### Entity
 Rendering request with script strictly accepts format
 ```js
-{ template: { scripts: [{shortid: 'xxx', content: 'xxx'}]}
+{ template: { scripts: [{shortid: 'xxx', content: 'xxx'}]} }
 ```
 Where each script needs to be identified by `shortid` or contain direct `content`.
 
@@ -149,7 +152,7 @@ Cron expressions are now validated to contain at least 5 or 6 parts, so expressi
 
 Internal cron parser changed from [node-cron](https://github.com/kelektiv/node-cron) to [cron-parser](https://github.com/harrisiirak/cron-parser) package.
 
-> The migration utility automatically convert cron expressions from old month format `0-11` to new format `1-12` (`PLANNED`)
+> The migration utility automatically convert cron expressions from old month format `0-11` to new format `1-12`
 
 ## Logging
 The logging no longer supports deprecated structure with `providerName`. The only currently supported structure is
