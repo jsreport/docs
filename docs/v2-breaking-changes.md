@@ -1,4 +1,5 @@
 
+
 jsreport v2 is major release which on top of great new features also includes several breaking changes. It is not in-place replacement for jsreport v1 and you should carefully review how the changes affect your application. To make this task easier we have prepared migration utility that analyses your jsreport application, process some automatic migration tasks and print warning with help for the rest.
 
 You can install and run the migration utility in the following way.
@@ -81,6 +82,12 @@ Images extension is no longer part of the standard jsreport installation and it 
 npm install jsreport-fop-pdf --save
 ```
 
+## Data
+The data passed to the API needs to be object. Using array [] as data is no longer supported.
+ 
+The data extension doesn't parse long time deprecated value from `req.template.data.dataJson` .
+
+
 ## Scripts
 
 ### isChildRequest moved from options to context
@@ -139,9 +146,6 @@ The public templates supports only read public links. Let us know if you use the
 
 ## jsreport commands
 `--install`,`--uninstall`, `--init`, `--repair` commands are no longer available to be called using `node node_modules/jsreport --init`, use [jsreport-cli](https://github.com/jsreport/jsreport-cli) instead.
-
-## Data
-The data extension doesn't parse long time deprecated value from `req.template.data.dataJson` .
 
 ## Scheduling
 Month format of cron expressions is changed from `0-11` to `1-12` to match standard cron expressions.
