@@ -1,3 +1,4 @@
+
 ## Configuration file
 The most common way to adapt jsreport settings is using configuration file. Configuration file is stored at the root directory with name `jsreport.config.json`. Editing this file you can change for example port service is running on or scale up number of worker processes jsreport uses. You can find full documentation of various options [here](/learn/configuration).
 
@@ -66,7 +67,9 @@ app.use('/reporting', reportingApp);
 const server = app.listen(3000);
 
 const jsreport = require('jsreport')({
-  express: { app :reportingApp, server: server },
+  extensions: {
+	  express: { app: reportingApp, server: server },
+  },
   appPath: "/reporting"
 });
 
