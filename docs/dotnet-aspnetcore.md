@@ -1,3 +1,4 @@
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
@@ -29,20 +30,16 @@ The next step is to decorate the particular controller's action with `Middleware
 [MiddlewareFilter(typeof(JsReportPipeline))]
 public IActionResult Invoice()
 {
-	HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
+	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
 	return View();
 }
 ```
 
-This enables asp.net filter which captures the view rendering result and uses the specified [chrome-pdf recipe](/learn/chrome-pdf) to convert the output html into pdf.
+This enables asp.net filter which captures the view rendering result and uses the specified [phantom-pdf recipe](/learn/phantom-pdf) to convert the output html into pdf.
 
-This is just very basic scenario particularly useful in asp.net mvc based applications. However jsreport includes tons of nice features worth it to explore. It allows to [convert html to excel](/learn/html-to-xlsx), evaluate javascript [templating engines](/learn/templating-engines) on top of the razor, run [custom javascript functions](/learn/scripts) and much more.
+This is just very basic scenario particularly useful in asp.net based applications. However jsreport includes tons of nice features worth it to explore. It allows to [convert html to excel](/learn/html-to-xlsx), evaluate javascript [templating engines](/learn/templating-engines) on top of the razor, run [custom javascript functions](/learn/scripts) and much more.
 
-## Advanced configuration
-
-The most of the request as well as response configuration can be set through `HttpContext.JsReportFeature()`. Some particularly useful configurations are mentioned below.
-
-### Modify response
+## Modify response
 
 The response headers or other advanced response's attributes can be filled inside the `OnAfterRender` hook.
 
@@ -53,7 +50,25 @@ HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf)
                 .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = contentDisposition);
 ```
 
-### Pdf headers
+## Save to file
+`OnAfterRender`  hook can be used also to store output to file and at the same time return stream as the response.
+```csharp
+[MiddlewareFilter(typeof(JsReportPipeline))]
+public async Task<IActionResult> InvoiceWithHeader()
+{
+	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
+	HttpContext.JsReportFeature().OnAfterRender((r) => {
+		using (var file = System.IO.File.Open("report.pdf", FileMode.Create))
+		{
+			r.Content.CopyTo(file);
+		}
+		r.Content.Seek(0, SeekOrigin.Begin);
+	});
+	return View(InvoiceModel.Example());
+}	
+```
+
+## Pdf headers
 
 The pdf headers can be specified in extra partial view and rendered in runtime along with the main pdf content.  The first you need to get the `IJsReportMVCService` helper class from the asp.net container.
 
@@ -83,7 +98,7 @@ public IActionResult InvoiceWithHeader()
 }
 ```  
 
-### Debug logs
+## Debug logs
 
 Calling `DebugLogsToResponse` instructs the filter to write jsreport logs into the response instead of the report content. This is useful when dealing with errors  which may occur during phantomjs conversion.
 
@@ -97,4 +112,18 @@ public IActionResult InvoiceDebugLogs()
 
     return View("Invoice", InvoiceModel.Example());
 }
+```
+
+## Render from html without Razor
+You don't have to use Razor and MVC views to render the report html content. The rendering can be invoked just from raw html as well.
+```csharp
+var report = await JsReportMVCService.RenderAsync(new RenderRequest()
+{
+	Template = new Template
+	{
+		Content = "<h1>Hello world</h1>",
+		Engine = Engine.None,
+		Recipe = Recipe.PhantomPdf
+	}
+});
 ```
