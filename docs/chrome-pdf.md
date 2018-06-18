@@ -1,6 +1,7 @@
 ﻿
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -102,7 +103,9 @@ Inside the header/footer template you can use some special css classes to make c
 - `pageNumber` -> injects current page number
 - `totalPages` -> insject the total pages
 
-As a final note about native header/footer with chrome, currently it has some scaling issues, so you need to modify some font sizes to make the content in there big enough to be visible, in most cases it is better to use [pdf-utils](/learn/pdf-utils) instead to have more powerful header/footer and without the scaling issues.
+Chrome native/header footer doesn't render images referenced through http/https. You need to use base64 (assets helps) encoding.
+
+As a final note. Native header/footer currently has some chrome originating scaling issues. So you need to modify the font sizes to make the content big enough to be visible. In the most of the cases it is better to use [pdf-utils](/learn/pdf-utils) instead which is less limiting and without these issues.
 
 Example showing how to use the special css classes and the workaround for the scaling issues.
 
