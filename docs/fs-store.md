@@ -42,6 +42,23 @@ The fs store monitors changes in the underlying files and notifies the studio UI
 
 Note this behavior is enabled only in the development environment by default, although you can override this using `extensions.fs-store.syncModifications = true` config.
 
+You can configure how file monitoring should be done by editing `sync.usePolling` config. when `true` it uses polling strategy (checks file stats every x time), when `false` it uses native os watching mechanism. defaults to `true`. if you detect some problem with file watching in your installation you can try to set `sync.usePolling` to `false` and check if it makes the problem disappear.
+
+```js
+"store": {
+  "provider": "fs"  
+},
+"extensions": {
+  "fs-store": {
+    "dataDirectory": "data",
+    "syncModifications": true,
+    "sync": {
+      "usePolling": true
+    }
+  }
+}
+```
+
 ## Source control
 The folder structure created by the fs store is designed to be human readable and easily versioned using source controls like git. The integration is just about including the `app/data` folder to the source control repository.
 
