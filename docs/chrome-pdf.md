@@ -103,9 +103,14 @@ Inside the header/footer template you can use some special css classes to make c
 - `pageNumber` -> injects current page number
 - `totalPages` -> insject the total pages
 
-Chrome native/header footer doesn't render images referenced through http/https. You need to use base64 (assets helps) encoding.
+There are some issues with native header/footer you should be aware of:
 
-As a final note. Native header/footer currently has some chrome originating scaling issues. So you need to modify the font sizes to make the content big enough to be visible. In the most of the cases it is better to use [pdf-utils](/learn/pdf-utils) instead which is less limiting and without these issues.
+-  images cannot be referenced link, you need to use base64 data URI
+- javascript is not evaluated
+- content has scaling issue and need to set font size css to make it big enough to be visible
+- background color is not printed, use `-webkit-print-color-adjust: exact` as workaround
+
+In the most of the cases it is better to use [pdf-utils](/learn/pdf-utils) instead which is less limiting and without these issues.
 
 Example showing how to use the special css classes and the workaround for the scaling issues.
 
