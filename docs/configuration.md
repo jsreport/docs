@@ -165,7 +165,9 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
-**appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set `/reporting` to `appPath`
+**appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set "/reporting" to appPath. The default behavior is that it is assumed that jsreport is running behind a proxy, so you need to do url url rewrite /reporting -> / to make it work correctly, See mountOnAppPath when there is no proxy + url rewrite involved in your setup.
+
+**mountOnAppPath** (`boolean`) - use this option along with `appPath`. it specifies if all jsreport routes should be available with `appPath` as prefix, therefore making `appPath` the new root url of application
 
 ## Store configuration
 
