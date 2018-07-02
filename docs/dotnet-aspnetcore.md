@@ -1,4 +1,5 @@
 
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
@@ -46,7 +47,7 @@ The response headers or other advanced response's attributes can be filled insid
 ```csharp
 var contentDisposition = "attachment; filename=\"myReport.pdf\"";
 
-HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf)
+HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
                 .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = contentDisposition);
 ```
 
