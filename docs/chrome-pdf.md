@@ -2,6 +2,7 @@
 
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -142,3 +143,10 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
 
 - self closing divs (`<div />`) are heavily slowing down chrome pdf rendering, don't use them
 - some users experienced freezing chrome because of wrong indentation of source html, this may sounds strange but it can help to click code reformat
+- chrome may do page breaks badly if you use images, it helps if you explicitly set image height in the wrapped div 
+ ```html
+ <div style='height:500'>
+   <img src='foo' />
+ </div>
+ ```
+ 
