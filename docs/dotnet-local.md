@@ -17,7 +17,7 @@ var report = await rs.RenderAsync(new RenderRequest()
 {
 	Template = new Template()
 	{
-		Recipe = Recipe.ChromePdf,
+		Recipe = Recipe.PhantomPdf,
 		Engine = Engine.None,
 		Content = "Hello from pdf"
 	}
