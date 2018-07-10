@@ -3,6 +3,7 @@
 
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -149,4 +150,13 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
    <img src='foo' />
  </div>
  ```
- 
+ - chrome/puppeteer doesn't run by default in limited environment like docker and it usually asks to pass `--no-sandbox` argument. This can be achieved using the following config. See also [puppeteer troubleshooting](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md).
+ ```js   
+ "extensions": {  
+  "chrome-pdf": {  
+    "launchOptions": {  
+      "args": ["--no-sandbox"]  
+    } 
+  }
+}  
+```
