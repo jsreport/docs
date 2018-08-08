@@ -1,4 +1,5 @@
 
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -169,4 +170,21 @@ await rs.KillAsync();
     .Create();
 ```
 
- There are also available precompiled jsreport binaries with phantomjs 2. The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).
+ There are also available precompiled jsreport binaries with phantomjs 2. The phantomjs 2 is newer with support for more modern javascript and css. However it is less stable and includes some regression bugs.
+
+The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).
+
+## License key
+
+In case you purchased enterprise jsreport license you can apply it using configuration file `jsreport.config.json` and property "licenseKey". Or you can also pass the license key directly from c# using the following code.
+
+```csharp
+var rs = new LocalReporting()
+	.UseBinary(JsReportBinary.GetBinary())
+	.Configure(cfg => {
+	  cfg.LicenseKey = "xxx-xxx-xxx-xxx";
+	  return cfg;
+	}))
+	.AsUtility()
+	.Create();
+```
