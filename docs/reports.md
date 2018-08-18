@@ -1,3 +1,4 @@
+
 > Persist report rendering outputs for later access
 
 ## Basics
@@ -39,6 +40,22 @@ Sending rendering request with `options.reports.save = true` will instruct the e
 >```
 
 In this case you receive response with `Location` header containing url to the rendering status page. It will be something like `http://jsreport-host/reports/id/status`. You can then ping the status page to check if the rendering is done. In that case the response status will be `201` and the location header will contain address to the stored report.
+
+## Cleanup
+The reports stored from async calls are forever persisted by default. You can change this and enable automatic old reports clean up. This can be done through config.
+```json
+{ 
+  "extensions": { 
+    "reports": {
+      // how often the cleanup runs
+      "cleanInterval": "5m",
+      // how much old reports should be deleted
+      "cleanTreshold": "1d"
+    }
+  }
+}
+```
+Be aware the auto cleanup logic removes also the reports produced through scheduling extension.
 
 ## OData
 
