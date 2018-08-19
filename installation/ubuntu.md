@@ -25,10 +25,11 @@ sudo apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-ze
 # start jsreport to see it running on port 5488
 jsreport start
 
-# the next steps are optional to add jsreport start to boot
+# the next steps are optional to start jsreport on boot
 npm install pm2 -g
 pm2 start server.js
 pm2 startup
+# run the output of previous command
 
 # optionally if you want to use older phantomjs for pdf rendering
 sudo apt-get install -y --no-install-recommends gnupg git curl wget ca-certificates
