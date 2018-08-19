@@ -16,7 +16,6 @@ jsreport configure
 wget -qO- https://intoli.com/install-google-chrome.sh | bash
 
 # start jsreport to see it running on port 5488
-
 jsreport start
 
 # the next steps are optional to start jsreport on boot
