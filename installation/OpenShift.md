@@ -1,4 +1,8 @@
+﻿
 # Starting with jsreport on OpenShift (step by step instruction)
+
+**IMPORTANT: This article is outdated and applies just for jsreport v1**
+
 
 This description helps you get up and running quickly with a jsreport installation on OpenShift.
 
