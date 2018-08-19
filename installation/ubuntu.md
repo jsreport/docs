@@ -1,73 +1,40 @@
+
 # Ubuntu
 
-This page contain some jsreport related troubleshooting on ubuntu.
+This script is tested on Ubuntu 16.04
 
-#### Installing nodejs
-
-```
-curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-
-#### Fixing phantomjs
-Official ubuntu distribution is missing some fonts jsreport needs to be able to render pdf reports. Use following to include them.
-```
-sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
-```
-
-[more info](http://phantomjs.org/download.html)
-
-#### npm start
-Use npm to start the server on `https://localhost`
 ```sh
-sudo npm start --production
-```
+# install node.js
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+# you may need to reopen terminal
+nvm install 8.11.3
 
-Change the port in config file or directly through command line and run also without sudo
-```sh
-npm start --production -- --httpsPort=0 --httpPort=3000
-```
+mkdir jsreportapp
+cd jsreportapp
+npm i -g jsreport-cli
+jsreport init
+jsreport configure
 
-
-#### Start jsreport as daemon
-
-Create conf file `/etc/init/jsreport.conf`
-
-```
-start on startup
-chdir [working directory]
-exec sudo npm start --production
-```
-
-And add execution rights to it
-```
-chmod -x jsreport.conf
-```
-
-#### Installing mongodb
-jsreport uses embeded file system based storage and you don't need mongodb to run it. This is only optional.
-```
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+# chrome dependencies
+sudo apt-get install -y libgconf-2-4
+sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update
-sudo apt-get install mongodb-org
-sudo apt-get install mongodb-org=2.6.1 mongodb-org-server=2.6.1 mongodb-org-shell=2.6.1 mongodb-org-mongos=2.6.1 mongodb-org-tools=2.6.1
-sudo /etc/init.d/mongod start
-```
-[more info](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
+sudo apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst --no-install-recommends
 
-#### Installing git
-```
-sudo apt-get install git
-```
+# start jsreport to see it running on port 5488
+jsreport start
 
-#### Clone github repository
-```
-git clone https://github.com/jsreport/jsreport.git
-```
+# the next steps are optional to add jsreport start to boot
+npm install pm2 -g
+pm2 start server.js
+pm2 startup
 
-
+# optionally if you want to use older phantomjs for pdf rendering
+sudo apt-get install -y --no-install-recommends gnupg git curl wget ca-certificates
+sudo apt-get install -y --no-install-recommends xfonts-base xfonts-75dpi
+npm i jsreport-phantom-pdf --save --save-exact
+```
 
 
 
