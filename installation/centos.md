@@ -1,54 +1,41 @@
+
 # CentOS
 
-This page contain some jsreport related troubleshooting on CentOS.
+Tested on CentOS 7
 
-## Installing nodejs
+```sh
+# install node.js
+sudo yum install wget
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+# reopen terminal
+nvm install 8.11.3
 
-``` bash
-sudo yum install epel-release
-sudo yum install nodejs
-sudo yum install npm
+mkdir jsreportapp
+cd jsreportapp
+npm i -g jsreport-cli
+jsreport init
+jsreport configure
+
+# install chrome dependencies
+wget -qO- https://intoli.com/install-google-chrome.sh | bash
+
+sudo yum install nano
+nano jsreport.config.json
+
+# change in the jsreport.config.json the following
+# it makes chrome less secure but currently the only way on CentOS
+"chrome": {
+  "launchOptions": {
+  "args": ["--no-sandbox"]
+}
+
+# save and start jsreport to see it running on port 5488
+jsreport start
+
+# the next steps are optional to start jsreport on boot
+npm install pm2 -g
+pm2 start server.js
+pm2 startup
+# run the output of previous command
 ```
 
-## Fixing pdf fonts
-
-```bash
-sudo yum install bzip2
-sudo yum install libXext  libXrender  fontconfig  libfontconfig.so.1
-sudo yum install urw-fonts
-```
-
-## Install jsreport and start
-
-```bash
-sudo npm install -g jsreport-cli
-sudo jsreport init
-sudo node server.js
-
-```
-
-## wkhtmltopdf
-
-Assuming npm 3 is intalled.
-```bash
-sudo npm install jsreport-wkhtmltopdf --production
-sudo yum install xorg-x11-fonts-75dpi
-sudo yum install libjpeg
-sudo yum install xorg-x11-fonts-Type1
-sudo yum install libpng libpng12 wget
-sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
-sudo rpm -Uvh wkhtmltox-0.12.2.1_linux-centos7-amd64.rpm
-sudo echo "module.exports = '/usr/local/bin/wkhtmltopdf';" > node_modules/wkhtmltopdf-installer/lib/location.js
-sudo node server.js
-```
-
-
-## fop
-
-```bash
-sudo yum install java
-sudo cd /opt
-sudo wget http://apache.miloslavbrada.cz/xmlgraphics/fop/binaries/fop-1.1-bin.tar.gz
-sudo tar -xvzf fop-1.1-bin.tar.gz
-sudo ln -s -t /usr/bin /opt/fop-1.1/fop
-```
