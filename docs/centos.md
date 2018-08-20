@@ -24,7 +24,8 @@ nano jsreport.config.json
 # it makes chrome less secure but currently the only way on CentOS
 "chrome": {
   "launchOptions": {
-  "args": ["--no-sandbox"]
+    "args": ["--no-sandbox"]
+  }
 }
 
 # save and start jsreport to see it running on port 5488
