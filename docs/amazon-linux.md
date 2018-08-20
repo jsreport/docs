@@ -1,6 +1,6 @@
-# Amazon Linux
+The installation script for Amazon Linux
 
-```sh
+```bash
 # install node.js
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 # reopen terminal

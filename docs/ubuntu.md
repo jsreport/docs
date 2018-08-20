@@ -1,9 +1,6 @@
+The installation script for Ununtu 16.04
 
-# Ubuntu
-
-This script is tested on Ubuntu 16.04
-
-```sh
+```bash
 # install node.js
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 # you may need to reopen terminal

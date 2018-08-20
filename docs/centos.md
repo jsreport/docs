@@ -1,9 +1,7 @@
 
-# CentOS
+The installation script for CentOS 7
 
-Tested on CentOS 7
-
-```sh
+```bash
 # install node.js
 sudo yum install wget
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
