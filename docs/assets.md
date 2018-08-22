@@ -23,6 +23,9 @@ The asset extraction runs twice during the rendering. At the beginning after jsr
 {#asset {{giveMeAssetName}}}
 ```
 
+## Globally shared helpers
+The templating engine helpers needs to be shared between multiple templates very often. This can be achieved using assets because every asset can be marked as globally shared helpers using studio. Such asset is then automatically embedded into all template helpers.
+
 ## Encoding options
 
 The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way using a `@encoding`
