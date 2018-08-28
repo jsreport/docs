@@ -1,3 +1,4 @@
+
 > Command line interface for jsreport
 
 ## Basics
@@ -92,6 +93,8 @@ Install your project as a windows service (WINDOWS ONLY)
 
 To see available options and usage example type `jsreport win-install -h`.
 
+The installed service wraps jsreport using [nssm](https://nssm.cc/) which adds auto-restarting logic. The [nssm](https://nssm.cc/) additionally writes unexpected errors to the windows event logs where you can try to search if you wan't find relevant info in the standard jsreport logs.
+
 ### `win-uninstall`
 
 `Command only available when local version is installed in your project`
@@ -174,4 +177,4 @@ The jsreport `cli` is by default available in full form if you follow the offici
       process.exit(1)
     })
   }
-```
+``` 
