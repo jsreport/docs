@@ -1,8 +1,9 @@
-The timeouts for specific jsreport tasks are not depending on the pricing plan. The following table lists the timeouts for the most important recipes and tasks. The `phantom-pdf` recipe timeout is for example `20s` but the `templating engine` rendering is limited with `10s`, afterwards it gets killed. The last `hard container timeout` is the fixed timeout for any task, after the whole docker container used to execute the task or recipe is restarted.
+The timeouts for specific jsreport tasks are not depending on the pricing plan. The following table lists the timeouts for the most important recipes and tasks. The `chrome-pdf` recipe timeout is for example `20s` but the `templating engine` rendering is limited with `10s`, afterwards it gets killed. The last `hard container timeout` is the fixed timeout for any task, after the whole docker container used to execute the task or recipe is restarted.
 
 | task        | timeout |
 | ----------  |:--------:|
 | phantomjs         | 20s     | 
+| chrome         | 20s     | 
 | electron           | 20s     | 
 | templating engine | 10s     | 
 | scripts           | 20s     | 
@@ -13,9 +14,19 @@ Each jsreportonline has its own throttling limits for rendering or amount of sto
 | plan | render throttling | entity amount limit |
 | -----|:------------------:|:-------------------:|  
 | free   | 50s | 20 |
-| bronze | 200s | 100 | 
+| platinum | 200s | 100 | 
 | silver | 600s | 300 |
 | gold   | 1000s | 500 |
+
+The stored [reports](/learn/reports) are persisted only for limited time which varies based on the subscribed plan.
+
+| plan | reports persistence limnit |
+| -----|:------------------:|
+| free   | day |
+| platinum | week |
+| silver | month |
+| gold   | month |
+
 
 Additionally there are the following miscellaneous limits you should be aware of.
 
