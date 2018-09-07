@@ -14,7 +14,7 @@ Each jsreportonline has its own throttling limits for rendering or amount of sto
 | plan | render throttling | entity amount limit |
 | -----|:------------------:|:-------------------:|  
 | free   | 50s | 20 |
-| platinum | 200s | 100 | 
+| bronze | 200s | 100 | 
 | silver | 600s | 300 |
 | gold   | 1000s | 500 |
 
@@ -23,7 +23,7 @@ The stored [reports](/learn/reports) are persisted only for limited time which v
 | plan | reports persistence limnit |
 | -----|:------------------:|
 | free   | day |
-| platinum | week |
+| bronze | week |
 | silver | month |
 | gold   | month |
 
