@@ -10,6 +10,7 @@
 - [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
 - [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
 - [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
+- [Add multiple sheets](https://playground.jsreport.net/w/jan_blaha/wFq~T2U1)
 - [Clone sheet](https://playground.jsreport.net/studio/workspace/rJWIm-2Rg/3)
 - [Pivot table tutorial](https://jsreport.net/learn/dynamic-excel-pivot-table)
 - [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
