@@ -1,5 +1,6 @@
 
 
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -18,7 +19,7 @@ var report = await rs.RenderAsync(new RenderRequest()
 {
 	Template = new Template()
 	{
-		Recipe = Recipe.PhantomPdf,
+		Recipe = Recipe.ChromePdf,
 		Engine = Engine.None,
 		Content = "Hello from pdf"
 	}
@@ -169,8 +170,6 @@ await rs.KillAsync();
     .AsUtility()
     .Create();
 ```
-
- There are also available precompiled jsreport binaries with phantomjs 2. The phantomjs 2 is newer with support for more modern javascript and css. However it is less stable and includes some regression bugs.
 
 The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).
 

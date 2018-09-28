@@ -1,3 +1,4 @@
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.MVC](https://www.nuget.org/packages/jsreport.MVC) nuget package. This package provides `JsReportFilterAttribute` capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output. 
@@ -29,12 +30,12 @@ This configures jsreport ASP.NET filter to render output using the local binary.
 [EnableJsReport()]
 public IActionResult Invoice()
 {
-	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
+	HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
 	return View();
 }
 ```
 
-This enables ASP.NET filter which captures the view rendering result and uses the specified [phantom-pdf recipe](/learn/phantom-pdf) to convert the output html into pdf. 
+This enables ASP.NET filter which captures the view rendering result and uses the specified [chrome-pdf recipe](/learn/chrome-pdf) to convert the output html into pdf. 
 
 ## Advanced configuration
 
@@ -49,8 +50,8 @@ The only case when the API for the full framework ASP.NET and ASP.NET Core is di
 public ActionResult InvoiceWithHeader()
 {
 	HttpContext.JsReportFeature()
-		.Recipe(Recipe.PhantomPdf)
-		.Configure((r) => r.Template.Phantom.Header = this.RenderViewToString("Header", new { }));
+		.Recipe(Recipe.ChromePdf)
+		.Configure((r) => r.Template.Chrome.HeaderTemplate = this.RenderViewToString("Header", new { }));
 
 	return View("Invoice", InvoiceModel.Example());
 }

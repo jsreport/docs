@@ -1,5 +1,6 @@
 
 
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
@@ -31,12 +32,12 @@ The next step is to decorate the particular controller's action with `Middleware
 [MiddlewareFilter(typeof(JsReportPipeline))]
 public IActionResult Invoice()
 {
-	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
+	HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
 	return View();
 }
 ```
 
-This enables asp.net filter which captures the view rendering result and uses the specified [phantom-pdf recipe](/learn/phantom-pdf) to convert the output html into pdf.
+This enables asp.net filter which captures the view rendering result and uses the specified [chrome-pdf recipe](/learn/chrome-pdf) to convert the output html into pdf.
 
 This is just very basic scenario particularly useful in asp.net based applications. However jsreport includes tons of nice features worth it to explore. It allows to [convert html to excel](/learn/html-to-xlsx), evaluate javascript [templating engines](/learn/templating-engines) on top of the razor, run [custom javascript functions](/learn/scripts) and much more.
 
@@ -47,7 +48,7 @@ The response headers or other advanced response's attributes can be filled insid
 ```csharp
 var contentDisposition = "attachment; filename=\"myReport.pdf\"";
 
-HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
+HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf)
                 .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = contentDisposition);
 ```
 
@@ -57,7 +58,7 @@ HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
 [MiddlewareFilter(typeof(JsReportPipeline))]
 public async Task<IActionResult> InvoiceWithHeader()
 {
-	HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf);
+	HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
 	HttpContext.JsReportFeature().OnAfterRender((r) => {
 		using (var file = System.IO.File.Open("report.pdf", FileMode.Create))
 		{
@@ -92,8 +93,8 @@ public IActionResult InvoiceWithHeader()
 		HttpContext, RouteData, "Header", new { });
 
 	HttpContext.JsReportFeature()
-	    .Recipe(Recipe.PhantomPdf)
-	    .Configure((r) => r.Template.Phantom = new Phantom{ Header = header });
+	    .Recipe(Recipe.ChromePdf)
+	    .Configure((r) => r.Template.Chrome = new Chrome{ HeaderTemplate = header });
 
 	return View("Invoice", InvoiceModel.Example());
 }
@@ -101,7 +102,7 @@ public IActionResult InvoiceWithHeader()
 
 ## Debug logs
 
-Calling `DebugLogsToResponse` instructs the filter to write jsreport logs into the response instead of the report content. This is useful when dealing with errors  which may occur during phantomjs conversion.
+Calling `DebugLogsToResponse` instructs the filter to write jsreport logs into the response instead of the report content. This is useful when dealing with errors  which may occur during chrome conversion.
 
 ```csharp
 [MiddlewareFilter(typeof(JsReportPipeline))]
@@ -109,7 +110,7 @@ public IActionResult InvoiceDebugLogs()
 {
     HttpContext.JsReportFeature()
         .DebugLogsToResponse()
-        .Recipe(Recipe.PhantomPdf);
+        .Recipe(Recipe.ChromePdf);
 
     return View("Invoice", InvoiceModel.Example());
 }
@@ -124,7 +125,7 @@ var report = await JsReportMVCService.RenderAsync(new RenderRequest()
 	{
 		Content = "<h1>Hello world</h1>",
 		Engine = Engine.None,
-		Recipe = Recipe.PhantomPdf
+		Recipe = Recipe.ChromePdf
 	}
 });
 ```
