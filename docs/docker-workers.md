@@ -1,5 +1,6 @@
 
 
+
 > Sandbox user code evaluation in the dedicated [docker](https://www.docker.com/) container
 
 ## Basics
@@ -20,8 +21,6 @@ jsreport start
 The first start can take some minutes because the extension needs to download and install the docker image used for sandboxing. You can monitor the jsreport output until you see the message "reporter initialized".
 
 Now you can open studio and start rendering templates. The user code evaluation will always  run in the dedicated container with limited resources. By default, the container is limited to the 0.5 CPU and 420 MB of memory and jsreport creates the pool of 4 containers.
-
-The containers don't restart after every request but are reused for the performance reason because restarting container isn't cheap operation. By default, containers are associated based on the client ip address. The pool of containers is not infinite so the containers are rotated using LRU (Last recently used) principle. The extension guarantees that the particular client request always runs on the dedicated container and the containers are always fresh and recycled before re-associated from one client to another.
 
 ## Basic configuration
 
@@ -45,7 +44,11 @@ See the [configuration schema](#configuration-schema) in the last chapter for al
 
 ## Reusing containers
 
-The default containers reusing which is based on the client ip address can be changed to your needs using `discriminatorPath` config property. This property expects the path on the input request structure which value, in the end, distinguish to which container the request should be delegated. Examples:
+The containers are recycled after every render request by default. This means every request runs in the completely isolated environment. This is the best for the isolation but it can also produce performance problems. It is usually better to reuse containers to reach the good balance between performance and isolation. 
+
+The extension supports containers reusing based on the specific condition. You can, for example, reuse containers based on the authenticated user. The extension then keeps the pool of containers and rotate them using LRU (Last recently used) principle. The extension guarantees that the particular user in this case always runs on the dedicated container and the containers are always fresh and recycled before re-associated from one user to another.
+
+The containers reusing can be configured using the property  `discriminatorPath`. This property expects the path on the input request structure which value, in the end, distinguish to which container the request should be delegated. Examples:
 
 ```js
 // each user will run in the dedicated container
@@ -55,7 +58,6 @@ The default containers reusing which is based on the client ip address can be ch
 // the client can specify the discriminator in the options
 "discriminatorPath": "options.myvalue"
 ```
-
 
 ## Custom worker image
 
@@ -96,11 +98,11 @@ This extension requires that jsreport instance has valid enterprise license in p
 
 ```json
 {
+  "ip": { "type":  "string" },
+  "stack": { "type":  "string", "default":  "default" },
   "extension": {
-    "docker-workers": {
-		  "ipEnvVarName": { "type": "string", "default": "ip" },
-          "stackEnvVarName": { "type": "string", "default": "stack" },
-          "discriminatorPath": { "type": "string" },
+    "docker-workers": {		  
+          "discriminatorPath": { "type": "string", "default":    "context.reportCounter" },
           "pingServersInterval": { "type": "number", "default": 5000 },
           "pingHealthyInterval": { "type": "number", "default": 20000 },
           "container": {
