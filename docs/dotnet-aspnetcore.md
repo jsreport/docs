@@ -1,6 +1,7 @@
 
 
 
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
@@ -40,6 +41,19 @@ public IActionResult Invoice()
 This enables asp.net filter which captures the view rendering result and uses the specified [chrome-pdf recipe](/learn/chrome-pdf) to convert the output html into pdf.
 
 This is just very basic scenario particularly useful in asp.net based applications. However jsreport includes tons of nice features worth it to explore. It allows to [convert html to excel](/learn/html-to-xlsx), evaluate javascript [templating engines](/learn/templating-engines) on top of the razor, run [custom javascript functions](/learn/scripts) and much more.
+
+## Using remote jsreport instance
+The asp.net core integration doesn't require using [jsreport.Local](/learn/dotnet-local) and it works the same with the remote jsreport instance and [jsreport.Client](/learn/dotnet-client).
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+	services.AddMvc(); 	             
+	services.AddJsReport(new ReportingService("http://jsreport:5488"));
+}
+```
+
+This maybe be even better than using `jsreport.Local` when running an orchestrated docker environment where jsreport is running in an extra container.
 
 ## Modify response
 
