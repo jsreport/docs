@@ -173,6 +173,20 @@ await rs.KillAsync();
 
 The list of nugets including jsreport binary can be found [here](https://github.com/jsreport/jsreport-dotnet).
 
+## Docker
+Running the `jsreport.Local` in [Docker](https://www.docker.com/) linux container requires this adaptation of `Dockerfile`. And of course using the correct binary as mentioned in the previous chapter.
+
+```
+RUN apt-get update && \   
+    apt-get install -y gnupg  libgconf-2-4 wget && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-unstable --no-install-recommends
+
+ENV chrome:launchOptions:args --no-sandbox
+```
+
 ## License key
 
 In case you purchased enterprise jsreport license you can apply it using configuration file `jsreport.config.json` and property "licenseKey". Or you can also pass the license key directly from c# using the following code.
