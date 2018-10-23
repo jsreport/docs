@@ -1,4 +1,5 @@
 
+
 How to...
 
 **General questions**
@@ -14,6 +15,7 @@ How to...
 - [Update payment details](#update-payment-details)
 - [Cancel subscription](#cancel-subscription)     
 - [5 templates limitation in free plan](#5-templates-limitation-in-free-plan)
+- [Subscription renew](#subscription-renew)
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
 
@@ -103,3 +105,7 @@ You can find more detail description in [gumroad help](https://help.gumroad.com/
 The free plan can be used in commercial projects with only one limitation. You can store maximum 5 templates in the jsreport store. The template entities are typically created and persisted to store using jsreport studio UI. The templates sent to the jsreport render API with full specification doesn't count to this. In other words the requests which includes in the body `template.content` are not using stored template. To be sure you can always open jsreport studio and verify how many templates are visible there.
 
 The studio also warns in the modal dialog that the maximum number of templates was reached and one month trial in which you can use infinite templates started.
+
+### <a name="subscription-renew"></a>Subscription renew
+
+The subscriptions gets automatically renewed every year. You should receive an email from gumroad informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
