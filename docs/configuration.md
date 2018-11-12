@@ -1,4 +1,5 @@
-﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
+﻿
+The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
 
 ## Configuration sources
 
@@ -133,21 +134,20 @@ Please refer to particular extension's documentation to find what configuration 
 
 ### Disabling extensions
 
-You can disable an extension by setting `enabled: false` in the configuration of particular extension.
+You can disable an extension by setting `enabled: false` in the configuration of particular extension. You can for example disable jsreport studio, API and authentication using this config.
 
 ```js
 {
-  "extensions": {
-    // ..other options here..
-    "authentication": {
-      // disabling authentication extension
+  "extensions": {    
+    "authentication": {      
       "enabled": false
     },
-    "handlebars": {
-      // disabling handlebars extension
+    "studio": {    
       "enabled": false
     },
-    // ..other options here..
+    "express": {
+      "enabled": false
+    }
   }
 }
 ```
@@ -322,30 +322,10 @@ Note that you can override all or just some part of the predefined configuration
 
 - **logger.silent** (`boolean`): handy option to silence (logs will not be stored) all outputs configured. default: false
 
-## Studio configuration
-
-**studio** (`object`) - object used to configure studio
-
-**studio.entityTreeOrder** (`string array`) - this `optional` attribute will let you customize the order in which entity sets are shown in studio's entity tree, items in the array should be valid entity sets names, and its ordering will reflect the order of sets in studio's entity tree.
-
-```js
-{
-  "extensions": {
-    "studio": {
-        "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
-    }
-  }
-}
-```
-
 ## Example of the config file
 
 ```javascript
-{
-    "certificate": {
-        "key": "certificates/jsreport.net.key",
-        "cert": "certificates/jsreport.net.cert"
-    },
+{   
     "store": { "provider": "fs" },   
     "httpPort": 3000,
     "allowLocalFilesAccess": true,
@@ -370,14 +350,20 @@ Note that you can override all or just some part of the predefined configuration
       "timeout": 180000
     },
     "templatingEngines": {
-        "numberOfWorkers" : 2,
-        "timeout": 10000,
-        "strategy": "http-server"
+      "numberOfWorkers" : 2,
+      "timeout": 10000,
+      "strategy": "http-server"
     },
-    "extensions": {
-      "studio": {
-          "entityTreeOrder": ["templates", "data", "scripts", "assets", "images"]
-      }
-    }
+    "extensions":  {  
+      "authentication"  :  {  
+        "cookieSession":  {  
+          "secret":  "dasd321as56d1sd5s61vdv32"  
+        },  
+        "admin":  {  
+          "username": "admin",
+          "password": "password"  
+        }  
+      }  
+   }
 }
 ```
