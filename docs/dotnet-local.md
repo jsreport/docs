@@ -1,6 +1,7 @@
 
 
 
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -186,6 +187,26 @@ RUN apt-get update && \
 
 ENV chrome:launchOptions:args --no-sandbox
 ```
+
+Make sure you add this to the right position of `Dockerfile`. Visual Studio usually generates docker file with multiple sections and this should be part of the `Base` image at the top.
+
+## Azure Web Apps
+jsreport uses [headless chrome](https://github.com/GoogleChrome/puppeteer) to print pdf. Unfortunately Azure Web Apps running on windows are very restrictive and doesn't allow running  [headless chrome](https://github.com/GoogleChrome/puppeteer) process. In the other words `jsreport.Local` won't be able to print pdf in Azure Web Apps running on windows.
+
+Fortunately, Azure Web Apps running in docker with Linux host are using different sandboxing strategy and [headless chrome](https://github.com/GoogleChrome/puppeteer) works there. If this is an option for you can enable Linux docker support in your Azure Web App and add to your `Dockerfile` lines from the previous chapter. Additionally you need to explicitly specify jsreport internal port, because of collision in the environment variables.
+
+```csharp
+new LocalReporting()
+  .UseBinary(JsReportBinary.GetBinary())           
+  .Configure((cfg) => {
+    cfg.HttpPort = 1000;
+    return cfg;
+  })
+  .AsUtility()
+  .Create());
+```
+
+Note that problematic run of `jsreport.Local` in a restricted environment like windows based Azure Web Apps has nothing to do with jsreport remote client. You can always run full jsreport externally in another VM, docker container or even external service like [jsreportonline](/learn/online) and connect to it from Azure Web App using `jsreport.Client`. This is anyway usually better design in the era of micro-services.
 
 ## License key
 
