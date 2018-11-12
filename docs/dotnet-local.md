@@ -193,7 +193,7 @@ Make sure you add this to the right position of `Dockerfile`. Visual Studio usua
 ## Azure Web Apps
 jsreport uses [headless chrome](https://github.com/GoogleChrome/puppeteer) to print pdf. Unfortunately Azure Web Apps running on windows are very restrictive and doesn't allow running  [headless chrome](https://github.com/GoogleChrome/puppeteer) process. In the other words `jsreport.Local` won't be able to print pdf in Azure Web Apps running on windows.
 
-Fortunately, Azure Web Apps running in docker with Linux host are using different sandboxing strategy and [headless chrome](https://github.com/GoogleChrome/puppeteer) works there. If this is an option for you can enable Linux docker support in your Azure Web App and add to your `Dockerfile` lines from the previous chapter. Additionally you need to explicitly specify jsreport internal port, because of collision in the environment variables.
+Fortunately, Azure Web Apps running in docker with Linux host are using different sandboxing strategy and [headless chrome](https://github.com/GoogleChrome/puppeteer) works there. If this is an option for you, enable Linux docker support in your Azure Web App and add to your `Dockerfile` lines from the [docker chapter](/learn/dotnet-local#docker). Additionally you need to explicitly specify jsreport internal port, because of collision in the environment variables.
 
 ```csharp
 new LocalReporting()
