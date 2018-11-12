@@ -206,7 +206,7 @@ new LocalReporting()
   .Create());
 ```
 
-Note that problematic run of `jsreport.Local` in a restricted environment like windows based Azure Web Apps has nothing to do with jsreport remote client. You can always run full jsreport externally in another VM, docker container or even external service like [jsreportonline](/learn/online) and connect to it from Azure Web App using `jsreport.Client`. This is anyway usually better design in the era of micro-services.
+Note that problematic run of `jsreport.Local` in a restricted environment like windows based Azure Web Apps has nothing to do with jsreport remote client. You can always run full jsreport externally in another VM, docker container or even external service like [jsreportonline](/online) and connect to it from Azure Web App using `jsreport.Client`. This is anyway usually better design in the era of micro-services.
 
 ## License key
 
