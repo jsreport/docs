@@ -1,5 +1,6 @@
 
 
+
 How to...
 
 **General questions**
@@ -7,8 +8,8 @@ How to...
 - [Deploy to production](#deploy-to-production)
 - [Migrate templates from the test to the production server](#migrate-templates)    
 - [Run jsreport on different port](#port-config)
+- [Roadmap](#roadmap)
 - [Increase performance](#performance)    
-- [Windows path too long 256 characters limitation](#windows-path-too-long)    
 
 **Licensing and payments**
 - [How to apply license key](#how-to-apply-license-key)    
@@ -48,6 +49,10 @@ migrating/moving templates should be easy using the [import-export](https://jsre
 
 You need to open `jsreport.config.json` file and edit `httpPort` property to desired value. another option is to use cli args or env vars to set the port while starting jsreport. ex: `jsreport start --httpPort 5489` or `httpPort=5489 jsreport start`. For details please explore [configuration documentation](/learn/configuration), which contains different ways to do it.
 
+### <a name="roadmap"></a>Roadmap
+
+You can always found the roadmap in the jsreport github repository [here](https://github.com/jsreport/jsreport#roadmap).
+
 ### <a name="performance"></a>Increase performance
 
 jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse phantomjs and nodejs workers over multiple requests.
@@ -64,14 +69,6 @@ Open `jsreport.config.json` and update following:
 ```
 
 See [configuration documentation](/learn/configuration) for details.
-
-### <a name="windows-path-too-long"></a>Windows path too long 256 characters limitation
-
-Windows has limitation for maximum file path set to 256 characters and this doesn't play well with nested paths used by older npm versions. To make sure the windows deployment plays well please update npm to the latest release, which should be greater than >=3.x.x.
-
-```sh
-npm install npm
-```
 
 ### <a name="how-to-apply-license-key"></a>How to apply license key
 You can choose one from the options below:
