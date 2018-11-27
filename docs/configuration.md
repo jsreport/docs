@@ -159,7 +159,23 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 **httpsPort** (number) - https port on which jsreport is running
 
-**certificate** `object` - path to key and cert file used by https
+**certificate** `object` - path to `key` and `cert` file used by https
+
+```js
+"certificate": {
+	"key": "certificates/jsreport.net.key",
+	"cert": "certificates/jsreport.net.cert"
+}
+```
+
+or if your certificate is a `.pfx` file then you can use the `pfx` and `passphrase` options
+
+```js
+"certificate": {
+	"pfx": "certificates/jsreport.net.pfx",
+	"passphrase": "<if pfx file is protected specify the password here>"
+}
+```
 
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
