@@ -1,3 +1,4 @@
+
 ## Basics
 You can communicate with jsreport using it's HTTP based API. jsreport will provide some wrappers for the most popular languages but using it directly is very easy when jsreport client wrapper does not exist for your language. This article is about using jsreport API in it's raw natural form.
 
@@ -24,7 +25,15 @@ Invoking rendering process is the most common API method you will call. The next
    }
 >```
 
-In the most typical case, you will just put your template's **shortid** or template's **name** and input data. The best way to find out the template's shortid and to get other information is to use API button in the template designer, also known as **jsreport studio**. This button will popup dialog with very useful information for a particular template you should have in order to render it using HTTP API.
+In the most typical case, you will just put your template's **shortid** or template's **name** and input data. The template **name** property needs to be unique template name. In the case you use multiple folders it is recommended to pass instead of the name full path to the template. For example   
+```js
+{
+  "template": { "name": "/myfolder/mytemplate" }"
+  "data": {}
+}
+```
+
+The best way to find out the template's shortid and to get other information is to use API button in the template designer, also known as **jsreport studio**. This button will popup dialog with very useful information for a particular template you should have in order to render it using HTTP API.
 
 ![API dialog](https://jsreport.net/screenshots/API.png?v=2)
 
