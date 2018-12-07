@@ -1,3 +1,4 @@
+
 > Embed static assets like styles, fonts or html
 
 ## Creating assets
@@ -8,10 +9,18 @@ You can create an asset using jsreport studio. The most common approach is to ju
 
 The syntax for embedding asset is the following:
 ```
-{#asset name.js}
+{#asset [nameOrPath]}
 ```
 
-Such a string will be then replaced in the output as the content of previously uploaded or linked `name.js` asset. There is no additional transformation running so it is way faster than extracting [child templates](https://jsreport.net/learn/child-templates).
+The `nameOrPath` can be unique asset name or absolute or relative path.    
+Examples:
+```
+{#asset mainTheme.css}
+{#asset /shared/chart.js}
+{#asset ../js/chart.js}
+```
+
+Such a string will be then replaced in the output as the content of previously uploaded or linked asset. There is no additional transformation running so it is faster than extracting [child templates](https://jsreport.net/learn/child-templates).
 
 The asset can be embedded into template's content, helpers or [custom script](https://jsreport.net/learn/scripts). This enables scenarios like adding common helper functions or adding configuration files to scripts.
 
