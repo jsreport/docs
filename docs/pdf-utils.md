@@ -76,14 +76,14 @@ The extension provides templating engine helper `pdfAddPageItem` which adds valu
 ```html
 {{#each prices}}
   <span>{{value}}</span>
-  {{pdfAddPageItem value}}
+  {{{pdfAddPageItem value}}}
 {{/each}}
 ```
 
 The value can be then reached inside the pdf operation on `$pdf.pages[x].items[y]`. The merge operation with "render for each page" enabled can use it with
 
 ```js
-{{mySum}}
+{{{mySum}}}
 --
 function mySum() {
   return this.$pdf.pages[this.$pdf.pageIndex].items.reduce((a,c) => a + c)
@@ -113,7 +113,7 @@ The difference to page items is that the group doesn't need to be specific to si
 The group information can be then retrieved from `$pdf.pages[x].group` property. The merge operation with "render for each page" enabled can use with 
 ```html
 {{#with (lookup $pdf.pages $pdf.pageIndex)}}
-  This page is in the group with value {{group}}
+  This page is in the group with value {{{group}}}
 {{/with}}
 ```
 
