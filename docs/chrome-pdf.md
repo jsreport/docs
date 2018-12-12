@@ -1,4 +1,5 @@
 ﻿
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -137,6 +138,19 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
 
 ## CSS Media type and Bootstrap
 Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
+
+## Reuse chrome instances
+The recipe by default starts extra new chrome process every time you render a template. This behavior can be changed and recipe configured to reuse several chrome instances to improve rendering performance.
+
+```
+{
+  "extensions": {
+    "chrome-pdf": {
+      "strategy": "chrome-pool",
+      "numberOfWorkers": 3
+    }
+  }
+```
 
 ## Troubleshooting
 
