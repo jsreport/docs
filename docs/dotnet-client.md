@@ -1,3 +1,4 @@
+
 ## Basics
 
 `jsreport.Client` is c# client for the [jsreport REST API](/learn/api). It represents convenient way to remotely access jsreport server instance and invoke report rendering using simple c# code. It is compatible with the [on premise](/on-prem), [jsreportonline](/online) as well as [.net local](/learn/dotnet-local) instances. The `jsreport.Client` is implemented as [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) library so it should run pretty much everywhere the .Net Standard `1.6` or higher is implemented.
@@ -56,6 +57,37 @@ The output `report.Meta.Logs` includes valuable information from the rendering p
 
 The types like `RenderRequest` or `Template` are installed using the package [jsreport.Types](https://github.com/jsreport/jsreport-dotnet-types). The [releases of this package](https://github.com/jsreport/jsreport-dotnet-types/releases) match the [jsreport releases](https://github.com/jsreport/jsreport/releases) therefore you should be able to install correct types if you for some reason need to connect to an older version of jsreport.
 
+### Pdf utils
+The types contains complete set of entities and properties used to define the request. This means you can for example configure [pdf-utils](/learn/pdf-utils) extension to merge multiple pdfs during rendering.
+```csharp
+rs.RenderAsync(new RenderRequest {
+    Template = new Template()
+    {
+        Content = "Helo world",
+        Engine = Engine.Handlebars,
+        Recipe = Recipe.ChromePdf,
+        Chrome = new Chrome
+        {
+            MarginTop = "2cm"
+        },
+        PdfOperations = new List<PdfOperation>()
+        {
+            new PdfOperation()
+            {
+                Type = PdfOperationType.Merge,
+                Template = new Template
+                {
+                    Content = "header",
+                    Engine = Engine.None,
+                    Recipe = Recipe.ChromePdf
+                }
+            }
+        }
+    }
+});
+```
+
+### Overwrites
 The provided types only includes the attributes used by the official extensions. However you can also simply use `RenderRequest.Overwrites` property to pass your own data to the request.
 
 ```csharp
