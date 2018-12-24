@@ -1,7 +1,3 @@
-
-
-
-
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -45,6 +41,38 @@ var rs = new LocalReporting()
 ## Razor templates
 
 The `jsreport.Local` can be also used together with asp.net razor templates to render pdf or excel. This can be easily achieved using the [jsreport.AspNetCore](/learn/dotnet-aspnetcore) package which includes proper helpers and filters. The examples and description for asp.net helpers can be found in the separate [jsreport.MVC section](/learn/dotnet-aspnetcore).
+
+## Custom npm helpers
+
+To be able to use custom npm helpers make sure the configuration allows using custom modules through `AllowLocalFilesAccess`.
+
+```csharp
+var rs = new LocalReporting()
+	.UseBinary(JsReportBinary.GetBinary())	
+	.Configure(cfg => cfg.AllowLocalFilesAccess())
+	.AsUtility()
+	.Create();
+```
+
+Then install npm modules to the application folder and include the folder to the build in the `.csproj` file. The jsreport will search in both `node_modules` and `jsreport` folder so choose which fits you more.
+
+```xml
+<ItemGroup>
+    <None Include="node_modules\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
+```
+
+Now you can use custom modules in your helpers:
+
+```js
+function now () {
+  return require('moment')().format('MMMM Do YYYY, h:mm:ss a')
+}
+```
+
+Note [handlebars-intl](https://github.com/yahoo/handlebars-intl) package currently doesn't work because it requires some native Intl features to be compiled with the node.
 
 ## Locally stored templates
 The `jsreport.Local` includes also web based studio for designing reports. There is no limitation in comparison with the [full jsreport installation](/on-prem) and you can do the whole report designing and rendering workflow also with `jsreport.Local`.
