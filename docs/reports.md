@@ -1,8 +1,11 @@
 
+
 > Persist report rendering outputs for later access
 
 ## Basics
 Everytime you call jsreport API to render report, you will get back stream with report content. This is usefull when you want to display report directly to the user or you want to store the result in your data storage for later use. But sometimes you just don't want the report in the time of generation and you don't want to store it on your own. In this case you can use `Reports` extension and let the jsreport store the report for you.
+
+The reports extension uses [blob storage](/learn/blob-storages) abstraction for reports blobs persistence. This by default stores reports to the file system. Check the documentation if you want to store reports to a different destination.
 
 ## API
 
