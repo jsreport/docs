@@ -1,3 +1,4 @@
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -218,6 +219,8 @@ ENV chrome:launchOptions:args --no-sandbox
 
 Make sure you add this to the right position of `Dockerfile`. Visual Studio usually generates docker file with multiple sections and this should be part of the `Base` image at the top.
 
+See the working example with jsreport, docker, asp.net core and azure web app [here](https://github.com/jsreport/jsreport-dotnet-example-docker).
+
 ## Azure Web Apps
 jsreport uses [headless chrome](https://github.com/GoogleChrome/puppeteer) to print pdf. Unfortunately Azure Web Apps running on windows are very restrictive and doesn't allow running  [headless chrome](https://github.com/GoogleChrome/puppeteer) process. In the other words `jsreport.Local` won't be able to print pdf in Azure Web Apps running on windows.
 
@@ -235,6 +238,8 @@ new LocalReporting()
 ```
 
 Note that problematic run of `jsreport.Local` in a restricted environment like windows based Azure Web Apps has nothing to do with jsreport remote client. You can always run full jsreport externally in another VM, docker container or even external service like [jsreportonline](/online) and connect to it from Azure Web App using `jsreport.Client`. This is anyway usually better design in the era of micro-services.
+
+See the working example with jsreport, docker, asp.net core and azure web app [here](https://github.com/jsreport/jsreport-dotnet-example-docker).
 
 ## License key
 
