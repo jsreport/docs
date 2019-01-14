@@ -15,7 +15,8 @@ To enable authentication add following json into [configuration](/learn/configur
 "extensions": {
 	"authentication" : {
 	    "cookieSession": {
-	        "secret": "dasd321as56d1sd5s61vdv32"        
+	        "secret": "dasd321as56d1sd5s61vdv32",
+					"cookie": { <custom cookie options here> }       
 	    },
 	    "admin": {
 	        "username" : "admin",
@@ -26,6 +27,23 @@ To enable authentication add following json into [configuration](/learn/configur
 ```
 
 You can change admin username or password as you want.
+
+The list of custom cookie options to set is available [here](https://github.com/pillarjs/cookies#cookiesset-name--value---options--), for example you can set `{ "cookie": { "secure": true } }` to indicate that the auth cookie will only be send over HTTPS, which is a good security practice but it requires that your server works under https first.
+
+```js
+"extensions": {
+	"authentication" : {
+	    "cookieSession": {
+	        "secret": "dasd321as56d1sd5s61vdv32",
+					"cookie": { "secure": true }       
+	    },
+	    "admin": {
+	        "username" : "admin",
+	        "password": "password"
+	    }
+	}
+}
+```
 
 ### API
 You need to add header to every request when is this extension enabled.
