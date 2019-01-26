@@ -1,9 +1,11 @@
+
 Here you can find some topics which applies specifically to the [jsreportonline cloud service](/online). The common documentation for jsreport can be found at standard place in the [learn](https://jsreport.net/learn) section.
 
 - [Dedicated on-prem vs jsreportonline](#dedicated-on-prem-vs-jsreportonline)
 - [Windows recipes](#windows-recipes)
 - [Status page](#status-page)
 - [Support](#support)
+- [Container crashed](#container-crashed)
 
 
 ### <a name="dedicated-on-prem-vs-jsreportonline"></a>Dedicated on-prem versus jsreportonline
@@ -30,3 +32,10 @@ Please follow our [jsreportonline status page](https://jsreportonline.a.offsites
 ### <a name="support"></a>Support
 
 The best way to reach us is to use our [forum](https://forum.jsreport.net/). You can also use our support email if you have a sensitive question or urgent problem. `support@jsreport.net`
+
+### <a name="container-crashed"></a>Container crashed
+You may get this error when running template in jsreportonline.
+  
+> Error when processing render request The communication with your dedicated recipe container crashed. This is usually caused by reaching provided resources limits. The container is now about to be restarted.
+
+jsreportonline isolates every rendering request in the dedicated docker container sandbox. Each user/tenant has its own. The  container  has strict limits for memory and cpu usage. When the container reaches the memory limit it gets killed by OS. When we lose the communication with the container, we throw this particular error. In our experience, the memory problem usually originates in rendering big images in pdf. The developer usually places an html `img` tag with a huge image and restrict its size with width and height. However, the pdf has this image in a smaller size but with the full original resolution. The big images then cause memory issues even when the image width/height is small in the pdf. The solution, in this case, is to resize the image before it is used.
