@@ -1,5 +1,6 @@
 
 
+
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
@@ -9,9 +10,10 @@
 - [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
 - [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
+- [TOC - table of contents](https://playground.jsreport.net/w/admin/Wy6stA8t)
 
 ## Basics
-jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page. The join can be used to prepend a cover to the pdf or to change page orientation  dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
+jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
 
 The pdf manipulations are configured using studio, respectively individual template menu.
 
@@ -125,6 +127,54 @@ The passed group can also be an object with properties
 ```html
 {{{pdfCreatePagesGroup name="Jan" age=33}}}
 ```
+
+## TOC - table of contents
+The pdf utils can be used also to dynamically create pdf table of contents including the outlines. This is done mainly using pdf-utils fundamentals like merge operation and page items. The flow is the following.
+
+The main template renders TOC at the top just like any other content using templating engines. To make the links clickable the html should use anchors (a tags) with # in href pointing to particular headings. Like
+
+```html
+<a href='#hello-world'>Hello world</a>
+...
+<h1 id='hello-world'>Hello world</a>
+```
+
+The problem is the main template doesn't know the page numbers for the links. This can be solved with pdf-utils fundamentals.
+
+Every heading should be followed by page item which is later used to identify it in the merge operation.
+
+```html
+<h1 id='hello-world'>Hello world</a>
+{{{pdfAddPageItem id='hello-world'}}}
+```
+
+Then there needs to be a new template which renders the same content as the TOC at the top of the main and it gets merged using pdf utils operation to the main template. This extra template can then use the pdf utils properties to calculate the page numbers of the headings.
+
+```js
+function getPage(root, id) {
+    for (let i = 0; i < root.$pdf.pages.length; i++) {
+        const item = root.$pdf.pages[i].items.find(item => item.id === id)
+
+        if (item) {
+            return i + 1
+        }
+    }
+}
+```
+
+The last step is to add the pdf outlines for easier navigation. This is done using anchor's special attribute `data-pdf-outline`.
+
+```html
+<a href='#hello-world' data-pdf-otline'>
+  Hello world         
+</a>
+```
+
+This by default use the anchors inner content for the outline title which can be overwriten using `data-pdf-outline-title` attribute. To create hierarchic outlines structure the `data-pdf-outline-parent` with id of the parent outline can be used.
+
+This documentation mainly highlights the idea how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
+
+You can find complex example which all of this together here:
 
 ## Recipes
 The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
