@@ -4,6 +4,7 @@
 
 - [Basic table](https://playground.jsreport.net/w/admin/h45L49Dp)
 - [Cells with data types](https://playground.jsreport.net/w/admin/BPOGdSI3)
+- [Cell with line break](https://playground.jsreport.net/w/admin/JzHWDVNP)
 - [Cell with format](https://playground.jsreport.net/w/admin/G~OEgI3B)
 - [Cell with formula](https://playground.jsreport.net/w/admin/dsHkhCbv)
 - [Merged cells](https://playground.jsreport.net/w/admin/8TGX6GW~)
