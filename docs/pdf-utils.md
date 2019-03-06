@@ -10,7 +10,7 @@
 - [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
 - [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
-- [TOC - table of contents](https://playground.jsreport.net/w/admin/Wy6stA8t)
+- [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
 
 ## Basics
 jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
@@ -165,7 +165,7 @@ function getPage(root, id) {
 The last step is to add the pdf outlines for easier navigation. This is done using anchor's special attribute `data-pdf-outline`.
 
 ```html
-<a href='#hello-world' data-pdf-otline'>
+<a href='#hello-world' data-pdf-outline'>
   Hello world         
 </a>
 ```
@@ -175,6 +175,7 @@ This by default use the anchors inner content for the outline title which can be
 This documentation mainly highlights the idea how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
 
 You can find complex example which all of this together here:
+https://playground.jsreport.net/w/admin/akYBA4rS
 
 ## Recipes
 The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
