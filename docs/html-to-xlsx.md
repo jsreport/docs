@@ -1,4 +1,5 @@
-`html-to-xlsx` recipe generates excel xslx files from html tables. This is not a full html -> excel conversion but rather pragmatic and fast way to create excel files from jsreport. Recipe will read input table and extract couple of computed style properties using a specific html engine (which defaults to chrome), and finally use the computed styles to create the excel cells.
+
+`html-to-xlsx` recipe generates excel xslx files from html tables. This isn't a full html -> excel conversion but a rather pragmatic and fast way to create excel files from jsreport. The recipe reads input table and extract a couple of css style properties using a specific html engine (which defaults to chrome), and finally uses the styles to create the excel cells.
 
 ## Examples
 
@@ -12,7 +13,7 @@
 - [Conversion JS trigger](https://playground.jsreport.net/w/admin/c5~LtyXi)
 - [Insert output into xlsx template](https://playground.jsreport.net/w/admin/QiHIBqsq)
 
-Following css properties are supported:
+The following css properties are supported:
 
 - `background-color` - cell background color
 - `color` - cell foreground color
@@ -32,44 +33,30 @@ Following css properties are supported:
 
 ## Options
 
-- `htmlEngine` - `String` (supported values here will depend on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install [phantom extension](/learn/phantom-pdf) and get `phantom` as a html engine too)
-- `waitForJS` - `Boolean` whether to wait for the js trigger to be enabled before trying to read the html tables on page or not. defaults to `false`.
+- `htmlEngine` - `String` (supported values here depends on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install [phantom extension](/learn/phantom-pdf) and get `phantom` as a html engine too)
+- `waitForJS` - `Boolean` whether to wait for the js trigger to be enabled before trying to read the html tables on the page or not. defaults to `false`.
 - `insertToXlsxTemplate` - `Boolean` controls if the result of the html to excel tables conversion should be added as new sheets of existing xlsx template, it needs that you set an xlsx template in order to work. defaults to `false`.
 
 ## Sheets
 
-Each table detected on the html source will be converted to a new sheet in the final xlsx file. by default the sheet name is `Sheet1`, `Sheet2` and so on, however you can specify custom sheet name for each table using the `name` or `data-sheet-name` attribute on the `table` element. if both are specified the `data-sheet-name` attribute will take precedence.
+Each table detected on the html source is converted to a new sheet in the final xlsx file. The sheets names are by default  `Sheet1`, `Sheet2` etc. However, you can specify a custom sheet name using the `name` or `data-sheet-name` attribute on the `table` element where the `data-sheet-name` has precedence.
 
 ```html
 <table name="Data1">
     <tr>
         <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
     </tr>
 </table>
-<table name="Data2">
+<table data-sheet-name="Data2">
     <tr>
-        <td>5</td>
-        <td>6</td>
-        <td>7</td>
-        <td>8</td>
-    </tr>
-</table>
-<table data-sheet-name="Data3">
-    <tr>
-        <td>9</td>
-        <td>10</td>
-        <td>11</td>
-        <td>12</td>
+        <td>2</td>      
     </tr>
 </table>
 ```
 
 ## Cells with data types
 
-To produce cell with specific data type you need to use the `data-cell-type` on the `td` element. the supported data types are `number`, `boolean`, `date`, `datetime` and `formula` (which will be explained in next sections)
+To produce a cell with specific data type you need to use the `data-cell-type` on the `td` element. The supported data types are `number`, `boolean`, `date`, `datetime` and `formula` (which will be explained in next sections)
 
 ```html
 <table>
@@ -84,7 +71,7 @@ To produce cell with specific data type you need to use the `data-cell-type` on 
 
 ## Format
 
-Excel supports to set a string format to a cell, to specify that in the html you need to use the `data-cell-format-str` (to specify the raw string format) or the `data-cell-format-enum` (to select an existing format) on the `td` element.
+Excel supports setting cell string format. This can be done using `data-cell-format-str` (to specify the raw string format) or `data-cell-format-enum` (to select an existing format) on the `td` element.
 
 Possible values of the `data-cell-format-enum` are:
 
@@ -132,13 +119,18 @@ Possible values of the `data-cell-format-enum` are:
     <tr>
         <td data-cell-type="number" data-cell-format-str="0.00">10</td>
         <td data-cell-type="number" data-cell-format-enum="3">100000</td>
+        <td data-cell-type="date" data-cell-format-str="m/d/yyy">2019-01-22</td>
     </tr>
 </table>
 ```
 
+Setting the format is also required when the cell needs to have a specific format category which depends on the particular computer locale. The cell is otherwise categorized by excel as "General". 
+
+For example using `data-cell-type="date"` makes the cell a date and you can use it in the date based calculations. However, the cell format category in excel is displayed as "General" and not the "Date". To reach this you need to edit `data-cell-format-str` to match your locale.
+
 ## Formula
 
-A formula cell can be specified by using the `data-cell-type` equal to `formula` on the `td` element.
+A formula cell can be specified using `data-cell-type="formula"`on the `td` element.
 
 ```html
 <table>
@@ -149,6 +141,25 @@ A formula cell can be specified by using the `data-cell-type` equal to `formula`
     </tr>
 </table>
 ```
+
+## Font family
+
+You can use the following css styles to change the default font-family for all cells in table.
+
+```css
+td  { 
+  font-family: 'Verdana'; 
+  font-size: 18px; 
+}
+```
+
+## Insert output into xlsx template
+
+The table to xlsx conversion can be enough for some cases. However for more complex cases (like producing pivot tables or complex charts using excel) there is an option to insert the produced tables into an existing xlsx template (as new sheets) instead of producing a new xlsx file.
+
+The flow is the following. Open your desktop excel application and prepare file with pivot tables and charts on the one sheet and with static data on the second. Upload the xlsx to jsreport studio and link it with your `html-to-xlsx` template generating dynamic table. Just make sure the table name matches with the data sheet name in your excel. Running the template now produces dynamic excel with charts or pivots based on the data assembled by jsreport.
+
+[See this example to get an idea of what can be possible with this feature.](https://playground.jsreport.net/w/admin/QiHIBqsq)
 
 ## Conversion triggers
 
@@ -165,17 +176,9 @@ You may need to postpone conversion of tables until some javascript async tasks 
 </script>
 ```
 
-## Insert output into xlsx template
+## Issues with row height being more larger than actual the content
 
-The table to xlsx conversion can be enough for some cases, however for more complex cases (like producing pivot tables or complex charts using excel) there is an option to insert the produced tables into an existing xlsx template (as new sheets) instead of producing a new xlsx file.
-
-The main motivation for this feature is to be able to use the full power of excel to generate rich files, in one sheet of your xlsx template you can use formulas, charts, etc that are generated based on the data present on other sheets, then with the `html-to-xlsx` conversion you can generate and insert those "data" sheets to the base xlsx file, allowing you to get a file with dynamic results.
-
-[See this example to get an idea of what can be possible with this feature.](https://playground.jsreport.net/w/admin/QiHIBqsq)
-
-## Issues with row height being more larger than actual content
-
-When using `phantomjs` as engine there are cases when a row height ends with a bigger height than the actual content, this is caused by a phantomjs bug that retrieves bigger height when the content of cells have white space characters.
+When using `phantomjs` as engine there are cases when a row height ends with a bigger height than the actual content. This is caused by a phantomjs bug that retrieves bigger height when the content of cells have white space characters.
 
 There are two possible workarounds if this bigger height of row is problematic for your excel file:
 
@@ -210,5 +213,3 @@ There are two possible workarounds if this bigger height of row is problematic f
     </tr>
 </table>
 ```
-
-<iframe src='https://playground.jsreport.net/studio/workspace/Y3BG0fnPa/1201?embed=1' width="100%" height="400" frameborder="0"></iframe>
