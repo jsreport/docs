@@ -1,4 +1,4 @@
-> Run custom javascript to modify report inputs/outputs or to send a report
+﻿> Run custom javascript to modify report inputs/outputs or to send a report
 
 ## Basics
 
@@ -9,7 +9,7 @@ async function beforeRender(req, res) {
   // merge in some values for later use in engine
   // and preserve other values which are already in
   req.data = Object.assign({}, req.data, {foo: "foo"})
-  req.data.computedValue = await computedValueOperationThatReturnsPromise()
+  req.data.computedValue = await someAsyncComputation()
 }
 ```
 
@@ -81,107 +81,36 @@ You can associate multiple scripts to the report template. The scripts are then 
 ## Global scripts
 You can set up a script to run for every single template by adding flag `isGlobal`. This can be done for example in jsreport studio script's properties. Global script can be useful for common tasks like adding common helpers or settings to templates.
 
-## Use custom configuration
-
-If you have some custom configuration values stored in a file (like a json file) and want to use those value inside your scripts you can just read the file and use it in normal variables.
-
-> You will need to allow the usage of `path`, `fs` and `process` modules in `allowedModules` option to try the following examples, see ["Use external modules"](#use-external-modules) for more info
-
-```js
-const path = require('path')
-const fs = require('fs')
-
-function beforeRender(req, res, done) {
-  const configPath = path.join(__appDirectory, 'myconfig.json')
-
-  // any message called with console.log, console.warn, console.error will be saved into logs
-  console.log('reading custom file..')
-
-  fs.readFile(configPath, (err, content) => {
-    if (err) {
-      return done(err)
-    }
-
-    try {
-      const myconfig = JSON.parse(content.toString())
-
-      // use config values to apply some conditional logic in the script
-      if (myconfig.validateData) {
-        // .. your custom logic here ..
-      }
-
-      // or pass custom config as data to your templates
-      req.data.myconfig = myconfig
-      done()
-    } catch (e) {
-      done(new Error('error while trying to parse custom config at ' + configPath + ': ' + e.message))
-    }
-  })
-}
-```
-
-Note that you can also require the [`process`](https://nodejs.org/api/process.html) module inside your scripts to get some useful information (env vars, processor architecture, OS, etc) about the environment where jsreport is running, you can also use that information to conditionally load some custom configuration depending of the OS for example.
+## Environment variables and configuration
+You can reach environment variables using node.js [process module](https://nodejs.org/api/process.html).
 
 ```js
 const process = require('process')
-
-function beforeRender(req, res, done) {
-  // pass platform information to your template to active some conditional
-  // content or styles
-  req.data.platform = process.platform
-  done()
+function beforeRender(req, res) {
+   const myEnv = process.env.MY_ENV
 }
 ```
+
+You can also read your config file if you prefer it.
 
 ```js
-const process = require('process')
+const path = require('path')  
+const promisify= require('util').promisify
+const readFileAsync = promisify(require('fs').readFile)
 
-function loadConfig(configFile, cb) {
-  const configPath = path.join(__appDirectory, configFile)
-
-  fs.readFile(configPath, (err, content) => {
-    const myconfig
-
-    if (err) {
-      return cb(err)
-    }
-
-    try {
-      myconfig = JSON.parse(content.toString())
-      cb(null, myconfig)
-    } catch (e) {
-      cb(new Error('error while trying to parse custom config at ' + configPath + ': ' + e.message))
-    }
-  })
-}
-
-function beforeRender(req, res, done) {
-  const env = process.env.NODE_ENV
-  const configFile = 'myconfig.development.json'
-
-  // load some configuration based on `NODE_ENV` env var
-  if (env === 'production') {
-    configFile = 'myconfig.production.json'
-  }
-
-  loadConfig(configFile, (err, myconfig) => {
-    if (err) {
-      return done(err)
-    }
-
-    req.data.myconfig = myconfig
-    done()
-  })
+async function beforeRender(req, res)  {  
+	const configPath = path.join(__appDirectory,  'myConfig.json')
+    const config = (await readFileAsync(configPath)).toString()
+    console.log(config)
 }
 ```
-
 
 ## child templates and headers
 Some recipes like [phantom-pdf](/learn/phantom-pdf) or [chrome-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
 
 ```js
-function afterRender(req, res, done) {
-    //filter out script execution for phantom header
+function afterRender(req, res) {
+    //filter out script execution for chrome header
     if (req.context.isChildRequest)
       return done();
 
@@ -192,21 +121,21 @@ function afterRender(req, res, done) {
 
 ## Rendering another template from script
 
-Script can be used also to invoke rendering of another template, to do that you can require special `jsreport-proxy` module and use the `render` method in there.
+Script can invoke rendering of another template. To do this you need to `require` special module `jsreport-proxy` and call `render` function on it.
 
 ```js
-const proxy = require('jsreport-proxy')
+const jsreport = require('jsreport-proxy')
 
 async function beforeRender(req, res) {
   console.log('starting rendering from script')
-  const result = await proxy.render({ template: { shortid: 'xxxxxx' } })  
+  const result = await jsreport.render({ template: { shortid: 'xxxxxx' } })  
   console.log('finished rendering with ' + result.content.toString())
 }
 ```
 
 ## Query an entity from script
 
-Script can also query the jsreport store and load an asset with config for example.
+Script can query the jsreport store and load an asset with config for example.
 
 ```js
 const jsreport = require('jsreport-proxy')
@@ -217,16 +146,15 @@ async function beforeRender(req, res) {
 }
 ```
 
-## Logging
+## Logging
 
-If you want to save some logs information that are relevant when executing your scripts, then you can use normal `console.log`, `console.warn`, `console.error` calls in your scripts code to achieve this, these methods match with the `info`, `warn`, `error` levels of your [logging configuration](https://jsreport.net/learn/configuration#logging-configuration) so how these information is going to be stored will depend on the logging configuration that you have in your [jsreport configuration source](https://jsreport.net/learn/configuration).
+The `console` calls are propagated to the debug calls from the studio as well to the standard jsreport log. The `log` has `debug` level, `warn` has `warn` and `error` has `error` level.
 
 ```js
-function beforeRender(req, res, done) {
+function beforeRender(req, res) {
   console.log('i\'m generating logs with info level')
   console.warn('i\'m generating logs with warn level')
-  console.error('i\'m generating logs with error level')
-  done()
+  console.error('i\'m generating logs with error level')  
 }
 ```
 
