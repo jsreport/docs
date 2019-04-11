@@ -99,7 +99,7 @@ const promisify= require('util').promisify
 const readFileAsync = promisify(require('fs').readFile)
 
 async function beforeRender(req, res)  {  
-	const configPath = path.join(__appDirectory,  'myConfig.json')
+    const configPath = path.join(__appDirectory,  'myConfig.json')
     const config = (await readFileAsync(configPath)).toString()
     console.log(config)
 }
@@ -148,11 +148,11 @@ async function beforeRender(req, res) {
 
 ## Logging
 
-The `console` calls are propagated to the debug calls from the studio as well to the standard jsreport log. The `log` has `debug` level, `warn` has `warn` and `error` has `error` level.
+The `console` calls are propagated to the debug calls from the studio as well to the standard jsreport log. 
 
 ```js
 function beforeRender(req, res) {
-  console.log('i\'m generating logs with info level')
+  console.log('i\'m generating logs with debug level')
   console.warn('i\'m generating logs with warn level')
   console.error('i\'m generating logs with error level')  
 }
