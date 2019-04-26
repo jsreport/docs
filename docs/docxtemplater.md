@@ -3,7 +3,6 @@
 ## Installation
 
 ```
-npm i jsreport-assets@1.0.2
 npm install jsreport-docxtemplater
 ```
 
