@@ -38,7 +38,7 @@ jsreport.download('myReport.pdf', request);
 **rendering using ajax calls**
 
 ```js
-//add custom headers to ajax calls
+//add custom headers to ajax calls (renderAsync)
 jsreport.headers['Authorization'] = "Basic " + btoa("admin:password")
 
 //render through AJAX request and return promise with array buffer response
@@ -62,6 +62,8 @@ jsreport.updateTemplate(template).then(..)
 You can find more details about the `request` argument in the [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
 
 Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
+
+Another limitation of `render` is that it doesn't support sending headers. In case you have jsreport server with enabled authentication. You need to use `renderAsync` as well to be able to authenticate your request.
 
 ## large report file
 
