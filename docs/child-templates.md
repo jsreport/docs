@@ -43,4 +43,15 @@ Complex objects can be passed as param using special syntax `$=` and helper `chi
 {#child myChild @data.foo$={{{childTemplateSerializeData foo}}} }
 ```
 
+##  Configuration
 
+Add `child-templates` node to the standard config file:
+
+```js
+extensions: {
+  "child-templates": {
+    // controls how many child templates rendering can happen in parallel, defaults to 2
+    "parallelLimit": 5
+  }
+}
+```
