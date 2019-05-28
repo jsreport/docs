@@ -1,3 +1,4 @@
+
 **Standalone distributable jsreport browser sdk**
 
 ## Download
@@ -11,31 +12,7 @@ The script itself should be compatible with [webpack](https://webpack.js.org/), 
 
 ## Usage
 
-**rendering based on submitting hidden form, this works on legacy browsers**
-
-```js
-jsreport.serverUrl = 'http://localhost:3000';
-
-var request = {
-  template: {
-    content: 'foo', engine: 'none', recipe: 'chrome-pdf'
-   }
-};
-
-//display report in the new tab
-jsreport.render('_blank', request);
-
-//display report in placeholder with id reportPlaceholder
-jsreport.render('reportPlaceholder', request);
-
-//display report in placeholder element
-jsreport.render(document.getElementById('reportPlaceholder'), request);
-
-//open download dialog for report
-jsreport.download('myReport.pdf', request);
-```
-
-**rendering using ajax calls**
+### Rendering using ajax calls
 
 ```js
 //add custom headers to ajax calls (renderAsync)
@@ -61,11 +38,36 @@ jsreport.updateTemplate(template).then(..)
 
 You can find more details about the `request` argument in the [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
 
-Note that the `render` function serializes the input data into form and urlencoded request. This can easily hit the size limits if the input data set is large. In this case consider rather using `renderAsync` version.
+## Rendering based on submitting hidden form
+This method has several limitations and it is recommended to use previous`renderAsync` if it is possible.
 
-Another limitation of `render` is that it doesn't support sending headers. In case you have jsreport server with enabled authentication. You need to use `renderAsync` as well to be able to authenticate your request.
+- it can send only small amount of the input data
+- doesn't support sending headers and it won't work with jsreport server with enabled authentication
+- the boolen values in the input data are serialized as strings
 
-## large report file
+```js
+jsreport.serverUrl = 'http://localhost:3000';
+
+var request = {
+  template: {
+    content: 'foo', engine: 'none', recipe: 'chrome-pdf'
+   }
+};
+
+//display report in the new tab
+jsreport.render('_blank', request);
+
+//display report in placeholder with id reportPlaceholder
+jsreport.render('reportPlaceholder', request);
+
+//display report in placeholder element
+jsreport.render(document.getElementById('reportPlaceholder'), request);
+
+//open download dialog for report
+jsreport.download('myReport.pdf', request);
+```
+
+## Large report file
 
 when using `renderAsync`, if the generated report is big (>=3MB) and when `res.toDataURI()` is used, it will generate a big data uri which browsers can't use normally to open and preview the report file (in `window.open` or when loading an iframe). the solution for this is to use `res.toObjectURL()` to create an [object url](https://developer.mozilla.org/es/docs/Web/API/URL/createObjectURL) which does not have the limitations of a data uri, then you can use the generated url in `window.open(res.toObjectURL())` or to load an iframe `iframe.src = res.toObjectURL()` and preview the report file normally. another method available is `res.toBlob()` which returns a [blob object](https://developer.mozilla.org/es/docs/Web/API/Blob) which you can use if you need to process the file somehow or in a custom way.
 
@@ -85,4 +87,4 @@ jsreport.renderAsync(request).then(function(res) {
     a.document.write(html)
     a.document.close()
 })
-```
+``` 
