@@ -11,6 +11,7 @@
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
 - [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
+- [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
 
 ## Basics
 jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
@@ -32,14 +33,14 @@ The operations are executed sequentially in the specified order. This is importa
 *It is required that the output pdf has at the beginning a single cover page and every other page includes dynamic header. This can be solved with one prepend and one merge operations. However if you move the merge operation after the prepend, it results into the undesired output with header also merged into the first cover page.  This is because the prepend operation in such order runs the first and expands the final output with another page. This expanded pdf is then used as input of the second operation which invokes merge into every page which means also to the cover. The correct order in this case should be the merge operation the first and the prepend as the second.*
 
 ## Input data
-The input data from the original template are forwarded to the rendering of the pdf operation. The operation input includes additional information about the current pdf. 
+The input data from the original template are forwarded to the rendering of the pdf operation. The operation input includes additional information about the current pdf.
 
 ```js
 {
    ...user data
    $pdf: {
     // array representing pdf before the current operation started
-	pages: [{ 
+	pages: [{
 	   // explained bellow
 	   items: [{}],
 	   group: {}
@@ -55,7 +56,7 @@ The merge operation can be expressed as putting two transparent documents/papers
 
 The header scenario works the similar way. It is only required the header has already enough space in the parent template. This is typically done using margin settings provided by the recipe. This way the header can be positioned to the top, bottom or even rotated to the side.
 
-The merge operation includes three additional parameters. 
+The merge operation includes three additional parameters.
 - **merge whole documents**: if true, the operation will invoke rendering of the specified template and merge the whole pdf output into the current pdf, otherwise it also renders specified template but it takes just the first pdf page and merge it to every page of the current pdf
 - **render for every page**: if true, the operation invokes rendering of the specified template for every pdf page, otherwise it is invoked just once and the single output is merged
 - **merge to front**: if true, the pdf produced by the operation is merged to the front layer, otherwise it is merged to the background
@@ -63,14 +64,14 @@ The merge operation includes three additional parameters.
 With `merge whole documents` enabled, the header template development  requires more code but the resulting template has better performance. Such header template typically needs to iterate over all pages and add header with a page break. The output pdf then includes just headers which can be in one chunk merged into the current pdf. See this demonstrated on the [following example](https://playground.jsreport.net/w/admin/Wy6stA8t).
 
 ### Input data
-In case the merge operation includes `render for every page` attribute the input data includes additionally `$pdf.pageNumber` and `$pdf.pageIndex`. 
+In case the merge operation includes `render for every page` attribute the input data includes additionally `$pdf.pageNumber` and `$pdf.pageIndex`.
 ```js
 {
    ...user data
    $pdf: {
-	pages: [...],	
+	pages: [...],
 	pageNumber: 5,
-	pageIndex: 4	
+	pageIndex: 4
   }
 ```
 ## Adding items to page
@@ -100,7 +101,7 @@ The passed item can be also an object with properties.
 ```html
 {{{pdfAddPageItem name="Jan" age=33}}}
 ```
-Note passing objects like this works only for [handlebars](/learn/handlebars) and [jsrender](/learn/jsrender). 
+Note passing objects like this works only for [handlebars](/learn/handlebars) and [jsrender](/learn/jsrender).
 
 ## Grouping pages
 Another use case is when the report is represented by multiple groups of pages and it is required to make the header dynamic based on the particular group. This can be reached using helper `pdfCreatePagesGroup`.
@@ -111,12 +112,12 @@ The main pdf report producing the list of students can look like this
     <h1 style='page-break-before: always'>{{name}}</h1>    
     {{{pdfCreatePagesGroup name}}}
     <div>lots of other content expanding to multiple pages</div>
-    ....	
+    ....
 {{/each}}
 ```
 The difference to page items is that the group doesn't need to be specific to single page. It should be created just once at the top of the group and all pages share it until there isn't another the one created.
 
-The group information can be then retrieved from `$pdf.pages[x].group` property. The merge operation with "render for each page" enabled can use with 
+The group information can be then retrieved from `$pdf.pages[x].group` property. The merge operation with "render for each page" enabled can use with
 ```html
 {{#with (lookup $pdf.pages $pdf.pageIndex)}}
   This page is in the group with value {{{group}}}
@@ -174,8 +175,79 @@ This by default use the anchors inner content for the outline title which can be
 
 This documentation mainly highlights the idea how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
 
-You can find complex example which all of this together here:
+You can find complex example which does all of this together here:
 https://playground.jsreport.net/w/admin/akYBA4rS
+
+## Usage in script
+
+For more advanced scenarios which require dynamic manipulation of the operations to be done on the PDF, there are methods (`pdfUtils.parse`, `pdfUtils.prepend`, `pdfUtils.append`, `pdfUtils.merge`, `pdfUtils.outlines`) exposed in the special module `jsreport-proxy`, which is available in scripts.
+
+```js
+const jsreport = require('jsreport-proxy')
+
+async function afterRender(req, res) {
+    // after rendering with some pdf recipe we can use .parse to read the text in the pdf
+    const $pdf = await jsreport.pdfUtils.parse(res.content, true)
+
+    // we can check some condition and apply some operation, in this case we append the result of
+    // another render into the current PDF
+    if ($pdf.pages[0] && $pdf.pages[0].text != null && $pdf.pages[0].text.includes('First')) {
+        const appendRes = await jsreport.render({
+            template: {
+                content: 'Second page',
+                engine: 'none',
+                recipe: 'chrome-pdf'
+            },
+            data: {
+                ...req.data,
+                $pdf
+            }
+        })
+
+        res.content = await jsreport.pdfUtils.append(res.content, appendRes.content)
+    }
+}
+```
+
+Methods available:
+
+#### `parse(sourcePdfBuf, includeText)`
+
+parameters:
+
+- `sourcePdfBuf` -> A buffer which contains the pdf to parse
+- `includeText` -> boolean that indicates if text should be parsed or not, defaults to false
+
+#### `prepend(sourcePdfBuf, extraPdfBuf)`
+
+parameters:
+
+- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will prepend pages
+- `extraPdfBuf` -> A buffer which contains the pdf which pages will be extracted to be prepended into the `sourcePdfBuf`
+
+#### `append(sourcePdfBuf, extraPdfBuf)`
+
+parameters:
+
+- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will append pages
+- `extraPdfBuf` -> A buffer which contains the pdf which pages will be extracted to be appended into the `sourcePdfBuf`
+
+#### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront)`
+
+parameters:
+
+- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will merge pages
+- `extraPdfBuf` -> A buffer or array of buffer which contains the pdf which pages will be extracted to be merged into the `sourcePdfBuf`
+- `mergeToFront` -> boolean that indicates if the pages should be merged in front of the current pages, default to false
+
+#### `outlines(sourcePdfBuf, outlines)`
+
+parameters:
+
+- `sourcePdfBuf` -> A buffer which contains the source pdf
+- `outlines` -> Array of objects (`{ id: <string>, title: <string>, parent: <string> }`) which are used to define outlines in the PDF
+
+You can find a complete example using pdf-utils in script [here](https://playground.jsreport.net/w/admin/UpVVJcAk)
 
 ## Recipes
 The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
