@@ -37,7 +37,10 @@ POST http://jsreportserver:5488/api/report
   "template": {
     "name": "my template",
     "staticPdf": {
-      "rawContent": "<base64 PDF>"
+      "pdfAsset": {
+        "content": "<base64 PDF>",
+        "encoding" "base64"
+      }
     }
   }
 }
