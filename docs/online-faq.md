@@ -1,5 +1,6 @@
 
 
+
 Here you can find some topics which applies specifically to the [jsreportonline cloud service](/online). The common documentation for jsreport can be found at standard place in the [learn](https://jsreport.net/learn) section.
 
 - [Dedicated on-prem vs jsreportonline](#dedicated-on-prem-vs-jsreportonline)
@@ -8,7 +9,7 @@ Here you can find some topics which applies specifically to the [jsreportonline 
 - [Support](#support)
 - [Container crashed](#container-crashed)
 - [jsreport version](#jsreport-version)
-
+- [What is stored and logged](#what-is-stored-and-logged)
 
 ### <a name="dedicated-on-prem-vs-jsreportonline"></a>Dedicated on-prem versus jsreportonline
 jsreportonline service provides very convenient way to use jsreport without any installation. It is also high available cloud hosted service which takes care of the software updates for you. The service uses isolated containers for user requests evaluation to prevent the "neighbor noise". However there are also some limitations when using jsreportonline instead of the dedicated jsreport on your own servers.
@@ -22,6 +23,8 @@ The service has strict throttling and timeout limits which you can't change. Thi
 You can find the detail numbers for timeouts and throttling in the dedicated article [Online limits](/learn/online-limits).
 
 ### <a name="windows-recipes"></a>Windows recipes
+
+**Windows recipes are deprecated and will be soon removed. Don't use them!**
 
 jsreport uses technologies for pdf rendering which behaves a little bit differently when running on Windows and Linux platform. It mainly produces different sizes of the elements inside the pdf which can be painful when doing transition from the local to the cloud environment. Fortunately jsreportonline support both - Windows as well as the Linux based rendering. To choose the rendering platform, you only need to navigate to the template menu and set the right item in the `properties/phantom-pdf/phantomjs version`. The default platform is Linux and the version with `windows` postfix instructs the service to run particular template on the Windows.
 
@@ -44,3 +47,6 @@ jsreportonline isolates every rendering request in the dedicated docker containe
 
 ### <a name="jsreport-version"></a>jsreport version
 jsreportonline uses typically a bit older version of jsreport. You can find out the used version in the settings/About dialog or get more information [here](/learn/online-versions).
+
+### <a name="what-is-stored-and-logged"></a>What is stored and logged
+jsreportonline doesn't store or log sensitive instance data you send in your API requests. It persists only metadata like templates, assets. The log includes only templates' shortids. The temporary files are isolated between tenants and cleared every 3 minutes.
