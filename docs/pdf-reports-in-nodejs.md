@@ -10,7 +10,13 @@ const http = require('http');
 const jsreport = require('jsreport');
 
 http.createServer((req, res) => {
-  jsreport.render("<h1>Hello world</h1>").then((out)  => {
+  jsreport.render({
+    template: {
+      content: '<h1>Hello world</h1>',
+      engine: 'handlebars',
+      recipe: 'chrone-pdf'
+    }
+  }).then((out)  => {
     out.stream.pipe(res);
   }).catch((e) => {
     res.end(e.message);
@@ -26,13 +32,13 @@ Note html can contain any complex javascript including jquery or charting librar
 You can also submit various other options to rendering like paper size, paper margin, header and others. You can find more information about jsreport and chrome integration [here](/learn/chrome-pdf). Following example will print pdf with a width of 300px and a header.
 
 ```js
-require("jsreport").render({
+require('jsreport').render({
 	template: {
-		content: "<h1>Hello world</h1>",
-		recipe: "chrome-pdf",
+		content: '<h1>Hello world</h1>',
+		recipe: 'chrome-pdf',
 		chrome: {
-			headerTemplate: "<p>some header</p>",
-			width: "300px"
+			headerTemplate: '<p>some header</p>',
+			width: '300px'
 		}
 	},
 })
@@ -44,13 +50,13 @@ for more complex use cases in header/footer use [pdf-utils](/learn/pdf-utils) in
 jsreport evaluates javascript templating engines in submitted html. This means you don't have to render html dynamically on your own and let the hard work to be done by jsreport. JavaScript templaing engine can be specified in the overloaded `render` function. Currently it supports [jsrender](https://jsreport.net/learn/jsrender) and [handlebars](https://jsreport.net/learn/handlebars) by default. You can also submit javascript templating engine input object together with helper functions. See example:
 
 ```js
-require("jsreport").render({
+require('jsreport').render({
 	template: {
-		content: "Hello world from {{#sayLoudly this.name}}",
-		helpers: "function sayLoudly(str) { return str.toUpperCase(); }",
-		engine: "handlebars"
+		content: 'Hello world from {{#sayLoudly this.name}}',
+		helpers: 'function sayLoudly(str) { return str.toUpperCase(); }',
+		engine: 'handlebars"
 	},
-	data: { name: "jsreport" }
+	data: { name: 'jsreport' }
 }).then((out) => {
 	//pipes pdf with Hello world from JSREPORT
 	out.stream.pipe(res);
@@ -61,12 +67,12 @@ require("jsreport").render({
 jsreport is not strictly tight to chrome. It is just one of the supported technologies to print output in jsreport. You can for example just [print html](https://jsreport.net/learn/html) or print pdf using [apache fop](https://jsreport.net/learn/fop-pdf). Technology used for printing can be specified using `recipe` property. You can find more about supported recipes [here](https://jsreport.net/learn/recipes). Following example will evaluate javascript templating engines and return html.
 
 ```js
-require("jsreport").render({
+require('jsreport').render({
 	template: {
-		content: "<h1>Hello world from {{this.name}}</h1>",
-		recipe: "html"
+		content: '<h1>Hello world from {{this.name}}</h1>',
+		recipe: 'html"
 	},
-	data: { name: "jsreport" }
+	data: { name: 'jsreport' }
 }).then((out) => {
 	//pipes plain text with Hello world from jsreport
 	out.stream.pipe(resp);
@@ -88,10 +94,10 @@ jsreport has tons of options and is very extensible.  You may want to enable par
 ```js
 var jsreport = require('jsreport');
 
-jsreport.renderDefaults.logger.console = { "transport": "console", "level": "debug" };
+jsreport.renderDefaults.logger.console = { transport: 'console', level: 'debug' };
 jsreport.renderDefaults.chrome.timeout = 180000;
 
-jsreport.render("<h1>Hello world</h1>").then((out) => {
+jsreport.render('<h1>Hello world</h1>').then((out) => {
     out.stream.pipe(resp);
 };
 ```
@@ -120,10 +126,10 @@ To render pdf remotely you only need to install [jsreport-client](https://www.np
 > npm install jsreport-client
 
 ```js
-const client = require("jsreport-client")(url, username, password);
+const client = require('jsreport-client')(url, username, password);
 
 client.render({
-  template: { content: "Hello World", recipe: "chrome-pdf"}
+  template: { content: 'Hello World', recipe: 'chrome-pdf'}
 }).then((out) => {
 	out.pipe(res)
 });
