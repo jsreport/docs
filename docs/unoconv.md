@@ -1,3 +1,4 @@
+
 > Extension using [unoconv](https://github.com/dagwieers/unoconv) to convert reports to the OpenoOffice/LibreOffice supported formats
 
 ## Installation
@@ -13,7 +14,8 @@ apt-get install unoconv
 1. Install Python
 2. Download [unoconv](https://github.com/dagwieers/unoconv) script.
 3. Install [LibreOffice](https://www.libreoffice.org/)
-4. Configure jsreport
+4. `npm i jsreport-unoconv`
+5. Configure jsreport
 
 ```js
 { 
