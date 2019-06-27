@@ -111,11 +111,11 @@ Some recipes like [phantom-pdf](/learn/phantom-pdf) or [chrome-pdf](/learn/phant
 ```js
 function afterRender(req, res) {
     //filter out script execution for chrome header
-    if (req.context.isChildRequest)
-      return done();
+    if (req.context.isChildRequest) {
+      return
+    }
 
-    //your script
-    done();
+    //your script code
 }
 ```
 
@@ -148,7 +148,7 @@ async function beforeRender(req, res) {
 
 ## Logging
 
-The `console` calls are propagated to the debug calls from the studio as well to the standard jsreport log. 
+The `console` calls are propagated to the debug calls from the studio as well to the standard jsreport log.
 
 ```js
 function beforeRender(req, res) {
