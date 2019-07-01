@@ -73,7 +73,7 @@ See [configuration documentation](/learn/configuration) for details.
 ### <a name="how-to-apply-license-key"></a>How to apply license key
 You can choose one from the options below:
 
-1. The license key can be saved into the application working directory or data folder as `license-key.txt`
+1. The license key can be saved into the application working directory as `license-key.txt`
 2. Filled in the configuration file in the property `license-key`, or `licenseKey`
 3. Passed in the command line parameter as `--license-key=xxx` or `--licenseKey=xxx`
 4. Set in the environment variable as `license-key` or `licenseKey`
