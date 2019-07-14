@@ -1,0 +1,58 @@
+**This recipe is eperimental and its API can be changed in the future** 
+
+`docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
+
+1. Open Word and create docx file using handlebars templating engine. 
+2. Upload created docx file as an asset to the jsreport studio
+3. Create template, select docx recipe and link the previously uploaded asset
+4. Attach sample input data or scripts if needed
+5. Run the template, you get back dynamically assembled docx report
+
+![docx](/img/docx.png)
+
+## Examples
+
+- [Curriculum vitae (CV)](https://playground.jsreport.net/w/admin/dhuCc7eL)
+- [Invoice](https://playground.jsreport.net/w/admin/yo9J3hvu)
+
+## Built-in helpers
+
+### docxList
+Create a list with single item using Word and call the `docxList` helper. It will iterate over provided data and create another list item for every entry.
+```
+ - {{#docxList people}}{{name}}{{/docxList}}
+ ```
+ 
+[Example - List](https://playground.jsreport.net/w/admin/r~IBX3Bm)
+
+### docxTable
+Create a table with columns header and single row using Word. Call `{{#docxTable}}` in the first cell of the data row and end the call `{{/docxTable}}` at the last cell.
+
+|columnA|columnB|
+|---|---|---|---|---|
+|{{#docxTable people}}{{name}}|{{email}}{{/docxTable}}|
+
+ 
+[Example - Table](https://playground.jsreport.net/w/admin/q94T4AJa)
+
+### docxStyle
+Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamicaly specify text color.
+
+```
+{{#docxStyle textColor='0000FF'}}Simple text{{/docxStyle}}
+```
+
+[Example - Style](https://playground.jsreport.net/w/admin/Mc2Pdcyo)
+
+### docxImage 
+
+1. Prepare image placeholder using word - place any image to the desired position and format it to your needs.
+2. Select image, select Word tab "Insert", click on "Bookmark and create one
+3. Right click image and click "Hyperlink"
+4. Click bookmark and select previously created bookmark
+5. Click ScreenTip still on the "Insert Hyperlink" modal.
+6. Fill the docxImage helper call `{{docxImage src=myDataURIForImage}}`
+7. Hit ok and close the hyperlink dialog. Now if you hower the image you should see the `docxImage` helper call
+8. Run the template with `myDataURIForImage` prop in the input data and you should see the image replaced in the output. 
+
+[Example - Image](https://playground.jsreport.net/w/admin/UwTKeBUW)
