@@ -1,5 +1,6 @@
 
 
+
 > Persist report rendering outputs for later access
 
 ## Basics
@@ -26,6 +27,8 @@ To use `reports` extension you need extend rendering request in a following way:
 >```
 
 This will create a `Report` entity you can use in jsreport studio as well as in OData API. Additionally it will add custom header `Permanent-Link` to the response which you can later use to actually download the report content.
+
+The stored report name is by default inherited from the template name. However you can customize it by passing`{ "options": { "reportName": "yourCustomName" }` in the request body.
 
 ## Async
 Sending rendering request with `options.reports.save = true` will instruct the extension to save the report and add `Permanent-Link` header to the response, but the rendering is still synchronous and you receive response back after the process is finished. If you want to start the rendering process  asynchronously and receive the responds immediately you should set `options.reports.async = true`.
