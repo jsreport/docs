@@ -1,4 +1,5 @@
 
+
 > Decompose a report template into multiple reusable child templates
 
 ## Basics
@@ -8,7 +9,7 @@ A complex report can grow in its size and contain many separate sections. Each s
 However, if you only have static content (such as a group of styles, [html layout](https://jsreport.net/blog/template-layouts), etc) the best option (simple and with more performance) is to use the [assets](https://jsreport.net/learn/assets) extension to handle that kind of content.
 
 ## How it works
-When rendering reports, jsreport searches for the special tag `{#child [nameOrPath]}` and replaces its content with the output of the referenced template. It calls the whole rendering process for child template, and includes that output where the `{#child [nameOrPath]}` special tag used to be.
+When rendering reports, jsreport searches for the special tag `{#child [nameOrPath]}` and replaces its content with the output of the referenced template. It calls the whole rendering process for child template, and includes that output where the `{#child [nameOrPath]}` special tag used to be. You can think about it as an string replace.
 
 The `nameOrPath` can be a unique template name or absolute or relative path. Examples:
 
