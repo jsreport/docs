@@ -1,6 +1,3 @@
-
-
-
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
@@ -251,3 +248,39 @@ You can find a complete example using pdf-utils in script [here](https://playgro
 
 ## Recipes
 The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
+
+## API
+The extension features can be used also directly through API without a need to use studio or persist templates.
+
+```js
+{
+  "template": {
+    "content": "Main Template",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+      "marginTop": "50px"
+    },
+    "pdfOperations": [{
+      "template": {
+        "content": "Header",
+        "recipe": "chrome-pdf",
+        "engine": "handlebars"
+      },
+      "type": "merge"
+    }]
+  }
+}
+```
+
+The operation specification looks like this:
+
+```js
+{
+   "type": "merge" | "append" | "prepend",
+   "mergeWholeDocument": true | false,
+   "template": { "cotnent": "Hello"... },
+   "templateShortid": "xxx"
+}
+```
+
