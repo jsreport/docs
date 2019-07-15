@@ -1,4 +1,5 @@
-﻿> Run custom javascript to modify report inputs/outputs or to send a report
+﻿
+> Run custom javascript to modify report inputs/outputs or to send a report
 
 ## Basics
 
@@ -76,7 +77,7 @@ function afterRender(req, res, done) {
 * `res.meta.headers` - output headers
 
 ## Multiple scripts
-You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio.
+You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio. The `req` and `res` parameters are properly passed through the scripts chain. This means you can use for example `req.data` to pass information between scripts.
 
 ## Global scripts
 You can set up a script to run for every single template by adding flag `isGlobal`. This can be done for example in jsreport studio script's properties. Global script can be useful for common tasks like adding common helpers or settings to templates.
