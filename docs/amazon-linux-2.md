@@ -9,6 +9,7 @@ nvm install 8.11.3
 mkdir jsreportapp
 cd jsreportapp
 npm i -g jsreport-cli
+curl https://intoli.com/install-google-chrome.sh | bash
 # this is less secure, but it's the only way found to get puppeteer installed on amazon linux 2.
 sudo npm i -S jsreport --unsafe-perm=true
 jsreport init
