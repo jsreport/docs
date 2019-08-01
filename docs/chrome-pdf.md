@@ -1,5 +1,6 @@
 ﻿
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -151,6 +152,33 @@ The recipe by default starts extra new chrome process every time you render a te
     }
   }
 ```
+
+## Printing existing web pages
+You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
+
+```js
+{ 
+  "template": { 
+    "recipe": "chrome-pdf",
+    "engine": "none",
+    "chrome": {
+      "url": "https://jsreport.net"
+    }
+  }
+}
+```
+
+Or you can create an empty template and define the url using [jsreport script](/learn/scripts).
+
+```js
+function beforeRender(req, res) {
+  req.template.chrome = {
+     "url": "https://jsreport.net"
+  }
+}
+```
+
+
 
 ## Troubleshooting
 
