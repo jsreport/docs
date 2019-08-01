@@ -1,5 +1,9 @@
-﻿
-The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
+﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
+
+> `Hint:` You can get the list of supported configuration options using command<br> 
+```
+jsreport help config
+```
 
 ## Configuration sources
 
