@@ -30,6 +30,9 @@ jsreport.renderAsync(request).then(function(res) {
 
   //open download dialog
   res.download('test.pdf')
+
+  // get headers
+  res.xhr.getResponseHeader('Content-Type')
 });
 
 jsreport.getTemplateByName(name).then(..)
