@@ -1,4 +1,5 @@
 
+
 The installation script for CentOS 7
 
 ```bash
@@ -37,4 +38,4 @@ pm2 start server.js
 pm2 startup
 # run the output of previous command
 ```
-
+Note that on headless centos you may need to install additional libs mentinoned [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix).
