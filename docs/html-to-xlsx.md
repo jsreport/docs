@@ -213,3 +213,6 @@ There are two possible workarounds if this bigger height of row is problematic f
     </tr>
 </table>
 ```
+
+## Preview in studio
+See general documentation for office preview in studio [here](/learn/office-preview).

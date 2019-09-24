@@ -118,3 +118,6 @@ You can use standard OData API to manage and query assets entities. For example 
 ## Examples
 - [Using assets to embed fonts into reports](https://jsreport.net/blog/fonts-in-pdf)
 - [Using assets to create template layouts](https://jsreport.net/blog/template-layouts)
+
+## Preview in studio
+See general documentation for office preview in studio [here](/learn/office-preview).

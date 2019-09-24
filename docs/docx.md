@@ -56,3 +56,6 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 8. Run the template with `myDataURIForImage` prop in the input data and you should see the image replaced in the output. 
 
 [Example - Image](https://playground.jsreport.net/w/admin/UwTKeBUW)
+
+## Preview in studio
+See general documentation for office preview in studio [here](/learn/office-preview).

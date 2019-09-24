@@ -41,3 +41,6 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 5. Run the template with `myDataURIForImage` prop in the input data and you should see the image replaced in the output. 
 
 [Example - Image](https://playground.jsreport.net/w/admin/MBHWcK~B)
+
+## Preview in studio
+See general documentation for office preview in studio [here](/learn/office-preview).

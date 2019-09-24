@@ -17,3 +17,6 @@ npm install jsreport-docxtemplater
 7. Run template
 
 ![docxtemplater](https://jsreport.net/img/docxtemplater.gif)
+
+## Preview in studio
+See general documentation for office preview in studio [here](/learn/office-preview).
