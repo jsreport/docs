@@ -1,5 +1,3 @@
-
-
 ## Basics
 
 jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
@@ -69,6 +67,22 @@ function toUpperCase(str) {
 And then you can call function in handlebars using:
 ```html
 say hello world loudly: {{{toUpperCase "hello world"}}}
+```
+
+### Calling helper from helper
+Handlebars allow calling a helper from another helper through `Handlebars.helpers.helperName`.
+The following snipped shows how to do this in jsreport helpers section.
+
+```js
+const  Handlebars = require('handlebars')
+
+function helperA () {
+  return  'helperA'
+}
+
+function helperB () {
+  return  Handlebars.helpers.helperA()
+}
 ```
 
 ## Thirdparty helper libraries
