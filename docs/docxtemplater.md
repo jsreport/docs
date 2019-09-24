@@ -1,3 +1,4 @@
+
 > Recipe using [docxtemplater](https://github.com/open-xml-templating/docxtemplater) to generate docx reports
 
 ## Installation
@@ -20,3 +21,35 @@ npm install jsreport-docxtemplater
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## API
+
+```js
+{
+  "template": {
+    "recipe": "docxtemplater",
+    "engine": "handlebars",
+    "docxtemplater": {
+       "templateAssetShortid": "xxxx"
+    }
+  },
+  "data": {}
+```
+
+
+In case you don't have the office template stored as an asset you can send it directly in the API call.
+
+```js
+{
+  "template": {
+    "recipe": "docxtemplater",
+    "engine": "handlebars",
+    "docxtemplater": {
+       "templateAsset": {
+          "content": "base64 encoded word file",
+          "encoding": "base64"
+       }
+    }
+  },
+  "data": {}
+```

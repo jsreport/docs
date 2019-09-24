@@ -1,3 +1,4 @@
+
 **This recipe is eperimental and its API can be changed in the future** 
 
 `pptx` recipe generates office powerpoint presentations based on the uploaded pptx template  with [handlebars](/learn/handlebars) tags filled inside using Powerpoint application.
@@ -44,3 +45,34 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## API
+
+```js
+{
+  "template": {
+    "recipe": "pptx",
+    "engine": "handlebars",
+    "pptx": {
+       "templateAssetShortid": "xxxx"
+    }
+  },
+  "data": {}
+```
+
+
+In case you don't have the office template stored as an asset you can send it directly in the API call.
+```js
+{
+  "template": {
+    "recipe": "pptx",
+    "engine": "handlebars",
+    "pptx": {
+       "templateAsset": {
+          "content": "base64 encoded word file",
+          "encoding": "base64"
+       }
+    }
+  },
+  "data": {}
+```

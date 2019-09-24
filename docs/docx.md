@@ -1,3 +1,4 @@
+
 **This recipe is eperimental and its API can be changed in the future** 
 
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
@@ -59,3 +60,34 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## API
+
+```js
+{
+  "template": {
+    "recipe": "docx",
+    "engine": "handlebars",
+    "docx": {
+       "templateAssetShortid": "xxxx"
+    }
+  },
+  "data": {}
+```
+
+
+In case you don't have the office template stored as an asset you can send it directly in the API call.
+```js
+{
+  "template": {
+    "recipe": "docx",
+    "engine": "handlebars",
+    "docx": {
+       "templateAsset": {
+          "content": "base64 encoded word file",
+          "encoding": "base64"
+       }
+    }
+  },
+  "data": {}
+```
