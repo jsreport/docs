@@ -2,8 +2,7 @@ jsreport isn't limited for rendering static documents like pdf or excel. You can
 
 ![northwind dashboard](https://jsreport.net/img/northwind-dashboard.gif)
 
-> **[See the full demo live here](https://playground.jsreport.net/workspace/HkqlE-Ww/205)**    
-> **[See the demo sources here](https://playground.jsreport.net/studio/workspace/HkqlE-Ww/205)**
+> **[See the full demo live here](https://playground.jsreport.net/w/admin/tW8CsfTt)**    
 
 This tutorial explains how to create a simple (master - detail) interactive report. However if you are rather curious how can look like a complex dashboard, don't hesitate to open the links below the image and come back to tutorial afterwards.
 
