@@ -280,7 +280,7 @@ The operation specification looks like this:
    "type": "merge" | "append" | "prepend",
    "mergeWholeDocument": true | false,
    "renderForEveryPage": true | false,
-   "template": { "cotnent": "Hello"... },
+   "template": { "content": "Hello"... },
    "templateShortid": "xxx"
 }
 ```
