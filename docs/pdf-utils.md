@@ -7,6 +7,7 @@
 - [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
 - [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
 - [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
+- [Merge whole documents (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
 - [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
 
@@ -284,4 +285,3 @@ The operation specification looks like this:
    "templateShortid": "xxx"
 }
 ```
-
