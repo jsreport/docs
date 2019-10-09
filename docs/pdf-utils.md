@@ -1,3 +1,4 @@
+
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
@@ -126,6 +127,8 @@ The passed group can also be an object with properties
 ```html
 {{{pdfCreatePagesGroup name="Jan" age=33}}}
 ```
+
+> Both page groups and page items adds "hidden" text elements to the output pdf. These elements are almost invisible but still takes a tine place. Therefore it's recommended to use just small values for groups and items. The best is to use just array indexes or ids.
 
 ## TOC - table of contents
 The pdf utils can be used also to dynamically create pdf table of contents including the outlines. This is done mainly using pdf-utils fundamentals like merge operation and page items. The flow is the following.
