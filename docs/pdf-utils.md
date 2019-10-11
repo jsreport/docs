@@ -6,7 +6,8 @@
 - [Mixed pages orientation](https://playground.jsreport.net/studio/workspace/BkujXYfVG/10)
 - [Header with page number](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/5)
 - [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
-- [Dynamic header](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/11)
+- [Dynamic header](https://playground.jsreport.net/w/admin/ihh7laK2)
+- [Dynamic header (jsrender)](https://playground.jsreport.net/w/admin/LHIiC3D8)
 - [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
 - [Merge whole documents (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
@@ -97,9 +98,19 @@ function mySum() {
 ```
 
 The passed item can be also an object with properties.
+
+handlebars:
+
 ```html
 {{{pdfAddPageItem name="Jan" age=33}}}
 ```
+
+jsrender:
+
+```html
+{{pdfAddPageItem name="Jan" age=33 /}}
+```
+
 Note passing objects like this works only for [handlebars](/learn/handlebars) and [jsrender](/learn/jsrender).
 
 ## Grouping pages
@@ -124,8 +135,17 @@ The group information can be then retrieved from `$pdf.pages[x].group` property.
 ```
 
 The passed group can also be an object with properties
+
+handlebars:
+
 ```html
 {{{pdfCreatePagesGroup name="Jan" age=33}}}
+```
+
+jsrender:
+
+```html
+{{pdfAddPageItem name="Jan" age=33 /}}
 ```
 
 > Both page groups and page items adds "hidden" text elements to the output pdf. These elements are almost invisible but still takes a tine place. Therefore it's recommended to use just small values for groups and items. The best is to use just array indexes or ids.
