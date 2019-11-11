@@ -1,3 +1,4 @@
+
 jsreport supports persisting big blobs like output pdf reports through an abstraction called `Blob storage`. The abstraction is implemented in several extensions which provide particular persistence drivers.
 
 - file system (default)
@@ -13,6 +14,15 @@ The default blob persisting to the file system uses just this configuration.
 "blobStorage": {
 	"provider": "fs"
 },
+```
+
+The default blobs location on the file system is `data/storage` directory. This can be changed using `blobStorage.dataDirectory` configuration.
+
+```js
+"blobStorage": {
+	"provider": "fs",
+	"dataDirectory": "myblobslocation"
+}
 ```
 
 The custom blob storage implementation typically needs more options passed through standard extensions configuration. Like in case of [aws s3 storage](https://github.com/jsreport/jsreport-aws-s3-storage),
