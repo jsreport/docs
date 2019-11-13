@@ -12,7 +12,7 @@ apt-get install unoconv
 ### Windows
 
 1. Install Python
-2. Download [unoconv](https://github.com/dagwieers/unoconv) script.
+2. Download [unoconv](https://raw.githubusercontent.com/unoconv/unoconv/master/unoconv) script.
 3. Install [LibreOffice](https://www.libreoffice.org/)
 4. `npm i jsreport-unoconv`
 5. Configure jsreport
