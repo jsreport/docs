@@ -1,4 +1,5 @@
 
+
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
@@ -12,6 +13,7 @@
 - [Merge whole documents (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
 - [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
+- [Page numbers relative to the groups](https://playground.jsreport.net/w/admin/k1fGHFZp)
 
 ## Basics
 jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
@@ -46,6 +48,7 @@ The input data from the original template are forwarded to the rendering of the 
 	   group: {}
 	}]
    }
+}
 ```
 
 ## Append and prepend
@@ -230,45 +233,66 @@ async function afterRender(req, res) {
 }
 ```
 
+You can find a complete example using pdf-utils in script [here](https://playground.jsreport.net/w/admin/UpVVJcAk)
+
 Methods available:
 
-#### `parse(sourcePdfBuf, includeText)`
+#### `parse(sourcePdfBuf, includeText = false)`
 
 parameters:
+- `sourcePdfBuf` -> a buffer which contains the pdf to parse
+- `includeText` -> indicates if text should be parsed or not
 
-- `sourcePdfBuf` -> A buffer which contains the pdf to parse
-- `includeText` -> boolean that indicates if text should be parsed or not, defaults to false
+returns:
+ - promise of object with the same structure as object passed as input data to the merge operations described previously
 
-#### `prepend(sourcePdfBuf, extraPdfBuf)`
+```js
+{
+  pages: [{
+     items: 'in case there are items described previously ',
+     group: 'in case there is group mark described previously',
+     text: 'in case includeText=true'
+  }]
+}
+```
 
-parameters:
-
-- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will prepend pages
-- `extraPdfBuf` -> A buffer which contains the pdf which pages will be extracted to be prepended into the `sourcePdfBuf`
-
-#### `append(sourcePdfBuf, extraPdfBuf)`
-
-parameters:
-
-- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will append pages
-- `extraPdfBuf` -> A buffer which contains the pdf which pages will be extracted to be appended into the `sourcePdfBuf`
-
-#### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront)`
+#### `prepend(sourcePdfBuf, prependedPdfBuf)`
 
 parameters:
+- `sourcePdfBuf` -> pdf buffer to which to prepend the second param
+- `prependedPdfBuf` -> pdf buffer prepended before source
 
-- `sourcePdfBuf` -> A buffer which contains the source pdf in which we will merge pages
-- `extraPdfBuf` -> A buffer or array of buffer which contains the pdf which pages will be extracted to be merged into the `sourcePdfBuf`
-- `mergeToFront` -> boolean that indicates if the pages should be merged in front of the current pages, default to false
+returns:
+- promise of buffer with concatenated pdfs
+
+#### `append(sourcePdfBuf, appendedPdfBuf)`
+
+parameters:
+- `sourcePdfBuf` -> pdf buffer to which to append the second param
+- `appendedPdfBuf` -> pdf buffer appended after source
+
+returns:
+- promise of buffer with concatenated pdfs
+
+#### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront = false)`
+
+parameters:
+- `sourcePdfBuf` -> pdf buffer to which to merge
+- `extraPdfBuf` -> it can be one buffer representing pdf document which gets merged into source or an array of pdf buffers representing individual pages which gets merged into source page by page
+- `mergeToFront` -> boolean that indicates if the pages should be merged in front of the current pages
+
+returns:
+- promise of final pdf buffer with merged content
+
 
 #### `outlines(sourcePdfBuf, outlines)`
 
 parameters:
-
-- `sourcePdfBuf` -> A buffer which contains the source pdf
+- `sourcePdfBuf` -> source pdf buffer which contains the source pdf
 - `outlines` -> Array of objects (`{ id: <string>, title: <string>, parent: <string> }`) which are used to define outlines in the PDF
 
-You can find a complete example using pdf-utils in script [here](https://playground.jsreport.net/w/admin/UpVVJcAk)
+returns:
+- promise with pdf buffer extended with outlines
 
 ## Recipes
 The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
