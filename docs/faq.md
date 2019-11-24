@@ -103,6 +103,8 @@ The free plan can be used in commercial projects with only one limitation. You c
 
 The studio also warns in the modal dialog that the maximum number of templates was reached and one month trial in which you can use infinite templates started.
 
+There is no other limitation in the free plan compared to the payed licenses.
+
 ### <a name="subscription-renew"></a>Subscription renew
 
 The subscriptions gets automatically renewed every year. You should receive an email from gumroad informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
