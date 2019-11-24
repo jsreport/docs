@@ -1,19 +1,21 @@
 
 
+
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
 
-- [Mixed pages orientation](https://playground.jsreport.net/studio/workspace/BkujXYfVG/10)
-- [Header with page number](https://playground.jsreport.net/studio/workspace/BkEHf9MNG/5)
-- [Watermark](https://playground.jsreport.net/studio/workspace/By2Z79z4f/7)
-- [Dynamic header](https://playground.jsreport.net/w/admin/ihh7laK2)
-- [Dynamic header (jsrender)](https://playground.jsreport.net/w/admin/LHIiC3D8)
-- [Merge whole documents](https://playground.jsreport.net/w/admin/Wy6stA8t)
-- [Merge whole documents (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
+- [Merge header and footer with page numbers](https://playground.jsreport.net/w/admin/kMI4FBmw)
+- [Merge watermark](https://playground.jsreport.net/w/admin/cl3qMX2m)
+- [Mixed pages orientation](https://playground.jsreport.net/w/admin/6wQ6JyNp)
+- [Merge with groups](https://playground.jsreport.net/w/admin/Wy6stA8t)
+- [Merge with groups (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
+- [Merge dynamic header with items](https://playground.jsreport.net/w/admin/ihh7laK2)
+- [Merge dynamic header with items (jsrender)](https://playground.jsreport.net/w/admin/LHIiC3D8)
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
 - [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
 - [Page numbers relative to the groups](https://playground.jsreport.net/w/admin/k1fGHFZp)
+- [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG)
 
 ## Basics
 jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
@@ -61,7 +63,7 @@ The header scenario works the similar way. It is only required the header has al
 
 The merge operation includes three additional parameters.
 - **merge whole documents**: if true, the operation will invoke rendering of the specified template and merge the whole pdf output into the current pdf, otherwise it also renders specified template but it takes just the first pdf page and merge it to every page of the current pdf
-- **render for every page**: if true, the operation invokes rendering of the specified template for every pdf page, otherwise it is invoked just once and the single output is merged
+- **render for every page**: if true, the operation invokes rendering of the specified template for every pdf page (**slow**), otherwise it is invoked just once and the single output is merged
 - **merge to front**: if true, the pdf produced by the operation is merged to the front layer, otherwise it is merged to the background
 
 With `merge whole documents` enabled, the header template development  requires more code but the resulting template has better performance. Such header template typically needs to iterate over all pages and add header with a page break. The output pdf then includes just headers which can be in one chunk merged into the current pdf. See this demonstrated on the [following example](https://playground.jsreport.net/w/admin/Wy6stA8t).
