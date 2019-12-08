@@ -9,7 +9,6 @@ How to...
 - [Migrate templates from the test to the production server](#migrate-templates)    
 - [Run jsreport on different port](#port-config)
 - [Roadmap](#roadmap)
-- [Increase performance](#performance)    
 - [Running in browser](#running-in-browser)
 
 **Licensing and payments**
@@ -53,21 +52,6 @@ You need to open `jsreport.config.json` file and edit `httpPort` property to des
 ### <a name="roadmap"></a>Roadmap
 
 You can always found the roadmap in the jsreport github repository [here](https://github.com/jsreport/jsreport#roadmap).
-
-### <a name="performance"></a>Increase performance
-
-jsreport uses by default dedicated processes for rendering pdf or scripts.  This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse phantomjs and nodejs workers over multiple requests.
-
-Open `jsreport.config.json` and update following:
-
-```js
-"phantom": {     
-	"strategy": "phantom-server"
-},
-"templatingEngines": {       
-	"strategy": "http-server"
-}
-```
 
 ### <a name="running-in-browser"></a>Running in browser
 
