@@ -10,6 +10,7 @@ How to...
 - [Run jsreport on different port](#port-config)
 - [Roadmap](#roadmap)
 - [Increase performance](#performance)    
+- [Running in browser](#running-in-browser)
 
 **Licensing and payments**
 - [How to apply license key](#how-to-apply-license-key)    
@@ -68,7 +69,9 @@ Open `jsreport.config.json` and update following:
 }
 ```
 
-See [configuration documentation](/learn/configuration) for details.
+### <a name="running-in-browser"></a>Running in browser
+
+You can use [jsreport browser client](/learn/browser-client) to invoke rendering from the browser. However jsreport itself is server side tool and cannot run fully in the browser.
 
 ### <a name="how-to-apply-license-key"></a>How to apply license key
 You can choose one from the options below:
