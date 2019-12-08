@@ -81,9 +81,9 @@ You can choose one from the options below:
 3. Passed in the command line parameter as `--license-key=xxx` or `--licenseKey=xxx`
 4. Set in the environment variable as `license-key` or `licenseKey`
 
-when using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md) you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
+When using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md), you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
 
-Make sure to remove all the white spaces around the key.
+The license key validation is invoked remotely and requires internet connection. In case your production server doesn't have internet connection you can either ignore the warning in the logs, or let the validation happen on computer with internet connection. The validation during the first run creates file `jsreport.license.json` which you can just copy paste to the production server without internet. Note in case of yearly subscription the license validation runs every year.
 
 ### <a name="update-payment-details"></a>Update payment details
 
