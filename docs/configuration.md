@@ -1,4 +1,5 @@
-﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
+﻿
+The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
 ```
@@ -207,11 +208,11 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 ## Rendering configuration
 
-jsreport uses by default dedicated processes for rendering pdf or scripts. This solution works better in some cloud and corporate environments with proxies. However for other cases, for example when using phantomjs it is better to reuse and nodejs workers over multiple requests. This can be achieved using this config options.
+jsreport uses by default dedicated processes for rendering pdf or scripts. This solution has higher level of isolation. However you can get better performance when configuring jsreport to reuse processes.
 
 ```js
-"phantom": {     
-  "strategy": "phantom-server"
+"chrome": {     
+  "strategy": "chrome-pool"
 },
 "templatingEngines": {       
   "strategy": "http-server"
