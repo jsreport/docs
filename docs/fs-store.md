@@ -1,5 +1,6 @@
 
 
+
 The default [template store](/learn/template-stores) implementation persist entities into file system. It is designed to conveniently generate human readable directory structure with templates and other entities definitions. Such structure is very easy to edit with your favorite text editor, deploy to the production and also version with git or other source control. The file system implementation finally supports also cloud based "storage" like AWS S3 or Azure Storage.
 
 
@@ -69,7 +70,17 @@ The folder structure created by the fs store is designed to be human readable an
 The fs store uses transnational approach for writing entities to assure that the underlying data keeps consistent even if the process crashes in the middle. Technically it always create the new folder with changed entity and rename it to the final name after everything succeeds.
 
 ## Running in cluster
-The fs store is designed to support running multiple jsreport instances over the same directory. It is assured that parallel request doesn't break the data consistency using lock files. The changes made from another process are automatically monitored and the memory representation reloaded. This also allows to map a network drive and single data folder to multiple jsreport instances.
+The fs store is designed to support running multiple jsreport instances over the same directory. It is assured that parallel request doesn't break the data consistency using lock files. The changes made from another process are automatically monitored and the memory representation reloaded. This also allows to map a single network drive to the multiple jsreport instances.
+
+It is important to understand that if one jsreport instance changes data, every other instance triggers data reload. This operation is expensive and it's recommended to limit the data changes, especially the automated changes jsreport does. This can be achieved by extending intervals jsreport uses for data compaction and studio logs flushing.
+```js
+{  
+  "extensions":     
+    "fs-store": { "compactionInterval": 60000 }     
+    "studio": { "flushLogsInterval": 60000 }  
+  }
+}
+```
 
 ## Cloud storage
 The fs store by default writes entities to the file system but it also includes persistence abstraction which can be implemented by another extension. Such extension can then provide persistence implementation for another media like AWS S3 or Azure Blob Storage.
