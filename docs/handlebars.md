@@ -1,3 +1,4 @@
+
 ## Basics
 
 jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
@@ -17,6 +18,9 @@ you can use `{{title}}` to pring `Helo world`
 ```html
 <h1>{{title}}</h1>
 ```
+
+Note handlebars `{{a}}` syntax escapes html. In case you have an html in the input and want to print it, use triple brackets syntax `{{{someHtml}}}`.
+
 ## Conditions
 
 Assuming folowing input object:
