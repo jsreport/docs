@@ -1,4 +1,5 @@
 
+
 > Schedule a reoccurring background job rendering specific report template
 
 ## Basics
@@ -28,6 +29,9 @@ Some examples:
 
 You can find full document with specification [here](http://crontab.org/).
 
+## Misfired schedules
+The default implementation guarantees to run the schedule even if the server is down or overloaded  for a limited time. This could be undesired and you may want to configure schedules processing to skip schedules run when they are misfired for specific time. This can be done with the config `misfireThreshold`. Its value represents for how many ms can be schedule overdue and still run when server gets healthy.
+
 ## Configuration
 Add `scheduling` node to the standard [config](/learn/configuration) file. The defaults are following.
 
@@ -37,7 +41,8 @@ Add `scheduling` node to the standard [config](/learn/configuration) file. The d
     //how often in ms jsreport checks scheduled jobs
     "interval": 5000,
     //how many jobs can run in parallel
-    "maxParallelJobs": 5    
+    "maxParallelJobs": 5,
+    "misfireThreshold": "300000"   
   }
 }
 ```
