@@ -1,3 +1,4 @@
+
 jsreport supports durable persistence of templates, assets, scripts and all other entities. This helps to cover full reporting scenario from designing reports in the studio, saving templates to the template store and referencing them to render the final reports based on the input data in the production.
 
 The default jsreport template store is based on file system, however this is not the only option. jsreport provides unified API around the persistent storage which is implemented by the custom extensions providing access layer to the other media like sql database and many more. Switching from the file system persistence to let say mongodb requires in the end only installing a custom extension and changing the connection string.
@@ -31,6 +32,8 @@ The currently supported templates store implementation includes:
 | [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store) | MongoDB
 
 Note the extensions implementing templates store are being used only for persisting the jsreport entities. Its purpose isn't to load the report input data from a source database. This feature is provided through [custom scripts](/learn/scripts) extension.
+
+The SQL based stores are creating database schema the first time you start jsreport. In case you change the jsreport version in the future, you may see errors about missing columns. This is because the SQL stores aren't maintaining change scripts. You can either create the missing columns manually on your own. Or [export](/learn/import-export) the entities with the current jsreport version, drop the database, upgrade jsreport and import the entities back from the zip. Make sure to back up the first.
 
 ## Migrating between different stores
 
