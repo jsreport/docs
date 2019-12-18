@@ -1,6 +1,7 @@
 ﻿
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -110,6 +111,8 @@ There are some issues with native header/footer you should be aware of:
 - background color is not printed, use `-webkit-print-color-adjust: exact` as workaround
 
 In the most of the cases it is better to use [pdf-utils](/learn/pdf-utils) instead which is less limiting and without these issues.
+
+The chrome by default displays the current date in the header and file name in the footer when `displayHeaderFooterSelected`. You can place an empty tag `<span/>` to the header or footer to avoid this behavior.
 
 Example showing how to use the special css classes and the workaround for the scaling issues.
 
