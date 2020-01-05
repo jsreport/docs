@@ -1,6 +1,6 @@
 
-
-The installation script for CentOS 7
+These steps were tested on CentOS 7 and Red Hat 8.
+They may also work for other versions.
 
 ```bash
 # install node.js
@@ -23,6 +23,7 @@ nano jsreport.config.json
 
 # change in the jsreport.config.json the following
 # it makes chrome less secure but currently the only way on CentOS
+# make sure there is only single chrome node in the config
 "chrome": {
   "launchOptions": {
     "args": ["--no-sandbox"]
