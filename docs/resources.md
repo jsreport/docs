@@ -1,3 +1,4 @@
+
 > Localize your templates or attach any static JSON to the rendering process
 
 ## Basics
@@ -16,13 +17,24 @@ To localize  a template you need to:
 
 - Use templating engines to fill the localized strings from `$localizedResource` property
 ```html
-{{:$localizedResource.title}}
+{{$localizedResource.title}}
+```
+
+- The `$localizedResource` is normal property on the root data context. When you are inside a loop you need to reach it on the root.
+```
+handlebars
+{{@root.$localizedResource.title}} 
+```
+
+```
+jsrender  
+{{:~root.$localizedResource.title}}
 ```
 
 - When having multiple resources for each language use the resource names to reach the particular one
 ```html
-{{:$localizedResource.invoice.title}}
-{{:$localizedResource.globals.title}}
+{{$localizedResource.invoice.title}}
+{{$localizedResource.globals.title}}
 ```
 
 - Specify `options.language` in the API call to specify desired language
