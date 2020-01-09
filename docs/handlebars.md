@@ -89,6 +89,15 @@ function helperB () {
 }
 ```
 
+## Root context
+jsreport quite often provides some heplful information on the root data context. This is for example case of the [resources](/learn/resources) or [pdf utils](/learn/pdf-utils) extensions.  You will need to reach the root context if you want to get resources object when you are for example inside a loop. This can be done in the following way.
+
+```
+{{#each items}}
+  {{@root.$localizedResource.message}}
+{{/each}}
+```
+
 ## Thirdparty helper libraries
 There are plenty of thirdparty libraries providing additional handlebars helpers like [handlebars-helpers](https://github.com/assemble/handlebars-helpers) or [handlebars-intl](http://formatjs.io/handlebars/). To use such a library in jsreport, you need to install it from npm and then `require` it at the top of the template's helpers.
 
