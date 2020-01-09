@@ -1,6 +1,7 @@
 
 
 
+
 > Merge or concatenate multiple pdf templates into one output pdf
 
 ## Examples
@@ -53,6 +54,16 @@ The input data from the original template are forwarded to the rendering of the 
 }
 ```
 
+Note the `$pdf` is just another prop on the templating engine data context. When you are inside a loop, the context is different and you need to reach it in the templating engine specific way.
+```
+handlebars
+{{@root.pdf}} 
+```
+
+```
+jsrender  
+{{:~root.$pdf}}
+```
 ## Append and prepend
 These two operations are straight forward. It is typically used to concatenate multiple heterogeneous reports into one. This fills the limitation of the pdf recipes which typically doesn't allow to have for example one page in portrait orientation and the second in landscape. The solution is to create one append operation producing portrait pdf and one producing landscape.
 
