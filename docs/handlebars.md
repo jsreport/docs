@@ -1,119 +1,131 @@
 
+> Localize your templates or attach any static JSON to the rendering process
+
 ## Basics
 
-jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
+`Resources` extension lets you attach multiple [JSON data objects](/learn/inline-data) to the report template and later conveniently accessed them using [templating engines](/learn/templating-engines) or in [custom scripts](/learn/scripts). This can be useful to add a general configuration to the template or mainly localize the template.
 
-## Data binding
+## Localization
 
-You can use values from report input data using `{{...}}` tags.
+The main idea behind this extension is to move all localizable strings from report templates to the JSON resources and then bind them using javascript templating engines rather then hardcode them. This extension then pushes the right localizable resource to the rendering process based on the requested language.
 
-Assuming following input data object
+To localize  a template you need to:
+
+- Attach resources containing localizable strings to the template. Each resource containing localizable string needs to be prefixed with language name. So for example attached reosurces should be data items with name `en-invoice` and `de-invoice`.
+
+- Fill the template default language in the jsreport studio in the resources menu
+
+- Use templating engines to fill the localized strings from `$localizedResource` property
+```html
+{{$localizedResource.title}}
+```
+
+- The `$localizedResource` is normal property on the root data context. When you are inside a loop you need to reach it on the root.
+```
+handlebars
+{{@root.$localizedResource.title}} 
+```
+
+```
+jsrender  
+{{:~root.$localizedResource.title}}
+```
+
+- When having multiple resources for each language use the resource names to reach the particular one
+```html
+{{$localizedResource.invoice.title}}
+{{$localizedResource.globals.title}}
+```
+
+- Specify `options.language` in the API call to specify desired language
+
+## Accessing custom resources
+
+### Templating engines
+Every template resource is parsed and provided to the templating engine rendering input. For convenience the resources are provided in two forms.
+
+The first form can be reached in the main object's `$resource` property. There is stored an object which contains all the attached resources' data distinguished by the resources names.
+
+So for example template with attached resources:
+
+- data with name `config1`
 ```js
 {
-    "title": "Hello world"
+  "foo": "this is config1"
 }
 ```
 
-you can use `{{title}}` to pring `Helo world`
-```html
-<h1>{{title}}</h1>
-```
-
-Note handlebars `{{a}}` syntax escapes html. In case you have an html in the input and want to print it, use triple brackets syntax `{{{someHtml}}}`.
-
-## Conditions
-
-Assuming folowing input object:
+- data with name `config2`
 ```js
 {
-    "shouldPrint" : true,
-    "name" : "Jan Blaha"
+  "foo2": "this is config2"
 }
 ```
 
-Then you can use `shouldPrint` bool value in the `if` condition. For more sophisticated condition see `Helpers` section.
-
 ```html
-{{#if shouldPrint}}
-    <h1>{{name}}</h1>
-{{/if}}
+outputs "this is config1" when using jsrender
+{{:$resource.config1.foo}}
+
+output "this is config2" when using jsrender
+{{:$resource.config2.foo2}}
 ```
 
-## Loops
+The second form is represented as an array in `$resources` property. This array contains every attached resource in it's complete form including `name`, `shortid` and `data` property. This can be used in some advanced scenarios. To be sure what is actually stored in the `$resources` property you can dump the object in a common way you do in jsreport.
 
-Assuming following input data object
 ```js
+//helper function
+function dumpResources(data) {
+  return JSON.stringify(data.$resources);
+}
+```
+
+```html
+print helper function output using jsrender
+{{:~dumpResources(#data}}
+```
+
+### Scripts
+
+[Custom jsreport script](/learn/scripts) can use the following properties:
+
+```js
+//equivalent to request.data.$resources
+request.options.resources
+//equivalent to request.data.$resource
+request.options.resource
+```
+
+## API
+
+To specify language in the API call you need to add `language` property in the `options` object.
+
+> `POST:` https://jsreport-host/api/report    
+> `Headers`: Content-Type: application/json    
+> `BODY:`    
+>```js
+   {
+      "template": { "shortid" : "g1PyBkARK" },
+      "data" : { ... },
+      "options": { "language": "en" }
+   }
+>```
+
+Resources are stored directly in the template document. Additionally to the `resources` this extension also adds property `defaultLanguage` to the template document.
+
+> `GET` http://jsreport-host/odata/templates('aaaa')
+>```js
 {
-    "comments": [ {"title": "New job", "body": "js developers wanted at... " }]
+	"name": "template name",
+	"content": "<h1>Hello world</h1>",
+	"defaultLanguage": "en",
+	...
+	"resources":{
+		"items":[
+			{ "entitySet":"data", "shortid":"NJ5H9pkb"	}
+		]
+	}
 }
-```
+>```
 
-You can simply iterate over `comments` using `each`
-```html
-{{#each comments}}
-  <h2>{{title}}</h2>
-  <div>{{body}}</div>
-{{/each}}
-```
-
-## Helpers
-
-jsreport report template contains `content` filed with javascript templating engines tags and `helpers` field where you can place some javascript functions and then use them.
-
-For example you want to have an upper case helper function. You can register a global function inside a `helpers` field with the following code:
-
-```javascript
-function toUpperCase(str) {
-    return str.toUpperCase();
-}
-```
-
-And then you can call function in handlebars using:
-```html
-say hello world loudly: {{{toUpperCase "hello world"}}}
-```
-
-### Calling helper from helper
-Handlebars allow calling a helper from another helper through `Handlebars.helpers.helperName`.
-The following snipped shows how to do this in jsreport helpers section.
-
-```js
-const  Handlebars = require('handlebars')
-
-function helperA () {
-  return  'helperA'
-}
-
-function helperB () {
-  return  Handlebars.helpers.helperA()
-}
-```
-
-## Root context
-jsreport quite often provides some heplful information on the root data context. This is for example case of the [resources](/learn/resources) or [pdf utils](/learn/pdf-utils) extensions.  You will need to reach the root context if you want to get resources object when you are for example inside a loop. This can be done in the following way.
-
-```
-{{#each items}}
-  {{@root.$localizedResource.message}}
-{{/each}}
-```
-
-## Thirdparty helper libraries
-There are plenty of thirdparty libraries providing additional handlebars helpers like [handlebars-helpers](https://github.com/assemble/handlebars-helpers) or [handlebars-intl](http://formatjs.io/handlebars/). To use such a library in jsreport, you need to install it from npm and then `require` it at the top of the template's helpers.
-
-`npm install handlebars-intl`
-```js
-const handlebars = require('handlebars');
-
-const HandlebarsIntl = require('handlebars-intl');
-HandlebarsIntl.registerWith(handlebars);
-```
-
-`npm install handlebars-helpers`
-```js
-const handlebars = require('handlebars');
-
-const helpers = require('handlebars-helpers')({
-  handlebars: handlebars
-});
-```
+## Example
+<iframe src='https://playground.jsreport.net/studio/workspace/VkLWfMyMb/7?embed=1' width="100%" height="400" frameborder="0"></iframe>
