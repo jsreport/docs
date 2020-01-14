@@ -2,6 +2,7 @@
 
 
 
+
 The default [template store](/learn/template-stores) implementation persist entities into file system. It is designed to conveniently generate human readable directory structure with templates and other entities definitions. Such structure is very easy to edit with your favorite text editor, deploy to the production and also version with git or other source control. The file system implementation finally supports also cloud based "storage" like AWS S3 or Azure Storage.
 
 
@@ -39,7 +40,21 @@ Every folder inside the data directory that isn't representing an entity is repr
 ## Deployment
 The deployment of the stored templates to the production server can be done just by copy pasting the data directory. This is also very convenient way to backup the production templates.
 
-Deployment to the running jsreport instance can be done using cli without down time and in consistent way. See the [import-export](/learn/import-export) extension for details.
+Deployment to the running jsreport instance can be also done using [cli](/learn/cli) and [import-export](/learn/import-export) without down time and in consistent way.  In this case you should integrate to your deployment the following steps.
+
+```
+npm i -g jsreport-cli 
+
+mkdir myjsreportdeployment
+cd myjsreportdeployment
+
+jsreport init
+git clone https://mygit.com/mytemplates data
+jsreport export jsreport-export.zip 
+
+jsreport import jsreport-export.zip --serverUrl https://prod-jsreport.com
+```
+
 
 ## Source control
 The folder structure created by the fs store is designed to be human readable and easily versioned using source controls like git. The integration is just about including the `app/data` folder to the source control repository.
