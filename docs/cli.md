@@ -1,4 +1,5 @@
 
+
 > Command line interface for jsreport
 
 ## Basics
@@ -34,6 +35,13 @@ jsreport render
     --template.name=MyTemplate
     --data=mydata.json
     --out=myreport.xlsx
+```
+
+### Remote jsreport
+The commands like `render` and others can target also remote jsreport instance. This can be done using `serverUrl` switch. You can also optionally specify authentication.
+
+```
+jsreport render --serverUrl=http://jsreport.com --user=admin --password=password
 ```
 
 
