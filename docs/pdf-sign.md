@@ -4,7 +4,6 @@
 ## Installation
 
 ```
-npm i jsreport-assets@1.1.4
 npm i jsreport-pdf-sign
 ```
 
