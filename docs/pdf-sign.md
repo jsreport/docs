@@ -25,7 +25,7 @@ If your certificate has a password, fill it in through asset pdf-settings proper
 ![pdf sign password](/img/pdf-sign-password.png)
 <br/>
 
-In this case, you need to configure or disable also [jsreport  encryption](learn/configuration#encryption-configuration) because this extension uses the encryption API to protect password before storing.
+In this case, you need to configure or disable also [jsreport  encryption](/learn/configuration#encryption-configuration) because this extension uses the encryption API to protect password before storing.
 
 Then create a new template and link the certificate asset with it.
 
