@@ -242,7 +242,8 @@ jsreport uses by default dedicated processes for rendering pdf or scripts. This 
 ## Encryption configuration
 jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The extensions like [pdf-sign](learn/pdf-sign) or [office-password](/learn/office-password) then use this API.
 
-**encryption.secretKey** (`string`) - must be exactly 16 chars long string
+**encryption.secretKey** (`string`) - must be exactly 16 chars long string    
+
 **encryption.enabled** (`boolean`) - the encryption can be disabled this way
 
 ## Logging configuration
