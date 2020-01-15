@@ -1,4 +1,5 @@
 
+
 `xlsx` recipe generates excel files from plain [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx). The source xml is assembled using templating engines and helpers provided itself. See the example in playground:
 
 <iframe src='https://playground.jsreport.net/studio/workspace/rJftqRaQ/10?embed=1' width="100%" height="400" frameborder="0"></iframe>
@@ -81,7 +82,7 @@ Remove element from collection in `filePath` at `xmlPath` at `index`.
 
 ```html
 {{#xlsxAddImage "test" "sheet1.xml" 0 0 1 1}}
-{#image myImage @encoding=base64}
+{#asset myImage.png @encoding=base64}
 {{/xlsxAddImage}}
 ```
 
