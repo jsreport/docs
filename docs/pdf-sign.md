@@ -1,3 +1,4 @@
+
 > Sign pdf using a certificate
 
 ## Installation
@@ -25,15 +26,7 @@ If your certificate has a password, fill it in through asset pdf-settings proper
 ![pdf sign password](/img/pdf-sign-password.png)
 <br/>
 
-In this case, you need to also configure jsreport and set secret which will be used to secure the password. It needs to be 16 chars string.
-
-```js
-"extensions": {
-  "pdf-sign": {
-    "secret": "1111111811111118"
-  }
-}
-```
+In this case, you need to configure or disable also [jsreport  encryption](learn/configuration#encryption-configuration) because this extension uses the encryption API to protect password before storing.
 
 Then create a new template and link the certificate asset with it.
 
