@@ -1,8 +1,11 @@
 
+jsreport previews office reports directly in the browser when running from the studio by default.  This is handy because it creates faster development cycles. This behavior can be of course generaly disabled or you can use the "Download" option from the "Run" button context menu if you want to return the office file stream. 
 
-The office preview in the studio uses Microsoft Office Online service which requires public access to the displayed file. This is why we need to upload the office file to our publicly running server. This is happening only during the preview thus your production data are safe. The file on our servers has also unique secure id and stays just for max 5 minutes before it is automatically deleted. 
+## Security
+The office preview uses Microsoft Office Online service which requires public access to the displayed file. This is why we need to upload the office file to our publicly running server. This is happening only during the preview thus your production data are safe. The file on our servers has also unique secure id and stays just for max 5 minutes before it is automatically deleted. 
 
-However you can disable this behavior in the configuration and let jsreport studio always download office file instead of previewing it.
+## Configruation
+You can fully disable the preview behavior in the configuration and let jsreport studio always download office file instead of previewing it.
 
 ```js
 "office": {
@@ -44,4 +47,17 @@ The `office` root configuration is global for all recipes and extensions using o
     }
   }
 }
+```
+
+## Fore preview
+You can also force the office preview from the API call using `options.office.preview=true` in case you want to response the office online html page instead of the xlsx stream.
+```js
+{ 
+  "template": {...},
+  "data": {...},
+  "options": { 
+    "office": {
+       "preview": true
+    }
+  }
 ```
