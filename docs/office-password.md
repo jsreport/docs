@@ -12,6 +12,8 @@ Every template with recipe producing an office document gets additional properti
 
 ![office-password](/img/office-password.png)
 
+This extension uses jsreport  encryption API to protect the stored password. You need to configure the encryption secret key or disable the encryption. See [encryption configuration](learn/configuration#encryption-configuration) for the details.
+
 ## API password protection
 
 You can send the password also directly in the API render call.
