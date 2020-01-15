@@ -1,4 +1,5 @@
 ﻿
+
 The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
@@ -34,8 +35,7 @@ httpPort=3000 jsreport start
 windows:
 
 ```sh
-set httpPort=3000
-jsreport start
+set httpPort=3000&&jsreport start
 ```
 
 This will start jsreport on port 3000 even if you have the `httpPort` entry in the config file because the environment variables have the higher priority.
@@ -125,7 +125,7 @@ extensions that has a name with a hyphen in it (like `html-to-xlsx` for example)
 }
 ```
 
-this support of camel case form of extensions also works when specifying configuration as cli arguments or env vars, which is handy when working in environments where is difficult to pass arguments or env vars with hyphens
+This support of camel case form of extensions also works when specifying configuration as cli arguments or env vars, which is handy when working in environments where is difficult to pass arguments or env vars with hyphens.
 
 ```sh
 jsreport start --extensions.htmlToXlsx.someConfig value
@@ -202,6 +202,8 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **tempDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores temporary files
 
+**configFile** (`string`) - relative or absolute path to the configuration json file to be used
+
 ## Allow local files and local modules
 
 **allowLocalFilesAccess** (`boolean`) - When true this property specifies that jsreport should allow access to the local file system and use of custom nodejs modules during rendering execution
@@ -236,6 +238,12 @@ jsreport uses by default dedicated processes for rendering pdf or scripts. This 
 **templatingEngines.portRightBoundary** (`number`) - set a specific port range for script execution server
 
 **templatingEngines.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
+
+## Encryption configuration
+jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The extensions like [pdf-sign](learn/pdf-sign) or [office-password](/learn/office-password) then use this API.
+
+**encryption.secretKey** (`string`) - must be exactly 16 chars long string
+**encryption.enabled** (`boolean`) - the encryption can be disabled this way
 
 ## Logging configuration
 
