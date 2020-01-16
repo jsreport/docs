@@ -1,4 +1,5 @@
 
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -37,6 +38,33 @@ var rs = new LocalReporting()
 	.Configure(cfg =>cfg.AllowLocalFilesAccess().BaseUrlAsWorkingDirectory())
 	.AsUtility()
 	.Create();
+```
+
+In case you want to use the jsreport config file, you need to create directory "jsreport" in the project root. Then create `jsreport.config.json` inside and change its properties to "Copy" to the output directory.
+
+## Temp files
+The sdk during the first render extracts [jsreport.exe binary](learn/single-file-executable) into the user's temp directory. The jsreport.exe afterwards extracts also some files to the same location. This can cause some problems when the user running the app has temp somewhere where doesn't have write access. This is happening when using IIS. In this case you can explicitely change the temp directory to your desired location.
+
+```csharp
+new LocalReporting().TempDirectory("my temp path")
+```
+
+Note it can sometimes help to clean up the jsreport temp files when it gets corrupted. You can find it in `[userstemp]/jsreport`.
+
+## jsreport background process
+The sdk by default uses background jsreport processes to improve the rendering performance. The background process occupies the default 5488 port. In case you have multiple apps using jsreport on the same machine, you need to make sure the jsreport ports differ.
+
+```csharp
+new LocalReporting().Configure(cfg => {
+  cfg.HttpPort = 3000;
+  return cfg;
+})
+```
+
+You may also want to disable this optimization when having issues with permissions. It can be done this way.
+
+```csharp
+new LocalReporting().UseBinary().AsUtility().KeepAlive(false)
 ```
 
 ## Razor templates
