@@ -1,4 +1,5 @@
 
+
 **This recipe is eperimental and its API can be changed in the future**
 
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
@@ -60,7 +61,7 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 
 `docxImage` supports the following configuration properties:
 
-- `src` (`string`) -> specifies the base64 dataURI string representation of the image to load
+- `src` (`string`) -> specifies the base64 dataURI string representation of the image to load or an url from which to fetch the image
 - `usePlaceholderSize` (`boolean`) -> when true the dimensions of the image will be set to the same dimensions than the placeholder image defined on the docx file. Ex: `{{docxImage src=src usePlaceholderSize=true}}`
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
