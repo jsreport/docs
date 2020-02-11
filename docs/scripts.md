@@ -1,4 +1,5 @@
 ﻿
+
 > Run custom javascript to modify report inputs/outputs or to send a report
 
 ## Basics
@@ -33,7 +34,7 @@ You can `require` external modules in the node.js way, however you need to first
 {
   "extensions": {
     "scripts": {
-      "allowedModules": ["request"]
+      "allowedModules": ["axios"]
     }
   }
 }
@@ -41,31 +42,38 @@ You can `require` external modules in the node.js way, however you need to first
 
 Alternatively you can enable all modules using `extensions.scripts.allowedModules="*"` or using config `allowLocalFilesAccess=true`
 
-The following example uses popular [request](https://github.com/request/request) module to make a rest call and [sendgrid](https://github.com/sendgrid/sendgrid-nodejs) service to email the output service.
+The following example uses popular [axios](https://github.com/axios/axios) module to make a rest call and [nodemailer](https://github.com/nodemailer/nodemailer) to email the output service.
 
 ```js
 //load some data from the remote API
-function beforeRender(req, res, done) {
-    require('request')({
-      url:"http://service.url",
-      json:true
-    }, function(err, res, body){
-        req.data = Object.assign({}, req.data, body);
-        done();
-    });
+const axios = require('axios')
+async function beforeRender(req, res) {
+    const r = await axios.get('http://localhost:5488/odata/templates')    
+    req.data = { ...req.data, ...r.data}
 }
 
 //send the pdf report by mail
-function afterRender(req, res, done) {
-  var SendGrid = require('sendgrid');
-  var sendgrid = new SendGrid('username', 'password');
+const nodemailer = require('nodemailer')
+async function afterRender(req, res) { 
+    const smtpTransport = nodemailer.createTransport({...})
 
-  sendgrid.send({ to: '',  from: '', subject: '',
-          html: 'This is your report',
-          files: [ {filename: 'Report.pdf', content: new Buffer(res.content) }]
-  }, function(success, message) {          
-          done(success);
-  });
+    const mail = {
+        from: '..>',
+        to: '...',
+        subject: '...',
+        text: '...',       
+        attachments: [
+        {  
+            filename: 'Report.pdf',
+            content: new Buffer(res.content)
+        }],
+    }
+
+    try {
+        await smtpTransport.sendMail(mail)
+    } finally {
+        smtpTransport.close()
+    }
 }
 ```
 
@@ -103,20 +111,6 @@ async function beforeRender(req, res)  {
     const configPath = path.join(__appDirectory,  'myConfig.json')
     const config = (await readFileAsync(configPath)).toString()
     console.log(config)
-}
-```
-
-## child templates and headers
-Some recipes like [phantom-pdf](/learn/phantom-pdf) or [chrome-pdf](/learn/phantom-pdf) are invoking the whole rendering process for the main page and also for headers and footers. This causes the custom script to be invoked multiple times - for main page, header and footer. To determine calls from header or footer use `req.context.isChildRequest` property.
-
-```js
-function afterRender(req, res) {
-    //filter out script execution for chrome header
-    if (req.context.isChildRequest) {
-      return
-    }
-
-    //your script code
 }
 ```
 
