@@ -1,5 +1,6 @@
 
 
+
 **This recipe is eperimental and its API can be changed in the future**
 
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
@@ -66,6 +67,36 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
 
+### Forms
+
+The form elements like checkboxes and inputs can be placed to the word file from the Developers tab. This tab is by default hidden so you need to enable it using:
+
+**File** tab, go to **Options** > **Customize Ribbon**
+Under **Customize the Ribbon** and under **Main Tabs**, select the **Developer** checkbox.
+
+#### Text input
+No need to use a special helper. Just add a text box and use handlebars syntax inside to fill a dynamic value.
+
+#### Checkbox
+Add checkbox control from the Developer tab, select Properties and use `docxCheckbox` helper call in the title. The only supported param is `value` which expects bool to toggle the checkbox.
+
+```
+{{docxCheckbox value=ready}}
+```
+
+#### Combobox
+Add combobox control from the Developer tab, select Properties and use `docxCombobox` helper call in the title.
+
+```
+{{docxCombobox value=val}}
+```
+In case your items are static, you can prepare them upfront in the "Drop-Down List Properties" and use just a single parameter `value` to preselect desired items.
+
+In case your items are dynamic, you can bind them using `items` parameter. This parameter expects the following array:
+`[ { value: "a", text: "Some text to select" } ...]`
+```
+{{docxCombobox value=val items=items}}
+```
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
