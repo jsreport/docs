@@ -1,5 +1,6 @@
 
 
+
 `xlsx` recipe generates excel files from plain [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx). The source xml is assembled using templating engines and helpers provided itself. See the example in playground:
 
 <iframe src='https://playground.jsreport.net/studio/workspace/rJftqRaQ/10?embed=1' width="100%" height="400" frameborder="0"></iframe>
@@ -93,6 +94,41 @@ You can always write your custom helpers. The best is to get started by checking
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## API
+
+You can specifty the template the standard way using name/shortid or you can also send it fully in the API call:
+```js
+{  
+  "template":  {  
+    "recipe":  "xlsx",  
+    "engine":  "handlebars",  
+    "content": "{{{xlsxPrint}}}",
+    "xlsx":  {  
+      "templateAssetShortid":  "xxxx"  
+    }  
+  },  
+  "data":  {}
+}
+```
+In case you don't have the xlsx template stored as an asset you can send it directly in the API call.
+
+```js
+{  
+  "template":  {  
+    "recipe":  "xlsx",  
+    "engine":  "handlebars",  
+    "content": "{{{xlsxPrint}}}",
+    "xlsx":  {  
+      "templateAsset":  {  
+        "content": "base64 encoded word file",
+        "encoding":"base64"
+       }
+    }  
+  },  
+  "data":  {}
+}
+```
 
 ## Configuration
 
