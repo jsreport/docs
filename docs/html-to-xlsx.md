@@ -1,4 +1,5 @@
 
+
 `html-to-xlsx` recipe generates excel xslx files from html tables. This isn't a full html -> excel conversion but a rather pragmatic and fast way to create excel files from jsreport. The recipe reads input table and extract a couple of css style properties using a specific html engine (which defaults to chrome), and finally uses the styles to create the excel cells.
 
 ## Examples
@@ -33,7 +34,7 @@ The following css properties are supported:
 
 ## Options
 
-- `htmlEngine` - `String` (supported values here depends on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install [phantom extension](/learn/phantom-pdf) and get `phantom` as a html engine too)
+- `htmlEngine` - `String` (supported values here depends on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install better performing cheerio as html engine too)
 - `waitForJS` - `Boolean` whether to wait for the js trigger to be enabled before trying to read the html tables on the page or not. defaults to `false`.
 - `insertToXlsxTemplate` - `Boolean` controls if the result of the html to excel tables conversion should be added as new sheets of existing xlsx template, it needs that you set an xlsx template in order to work. defaults to `false`.
 
@@ -214,5 +215,73 @@ There are two possible workarounds if this bigger height of row is problematic f
 </table>
 ```
 
+## Performance
+The chrome engine can have performance problems when evaluating huge tables with many cells. For this cases the recipe provides additional helper which splits long table into chunks and runs evaluation in the batches. The usage looks the same as when using the handlebars `each` or jsrender `for` helpers.
+
+```html
+<table>
+    {{#htmlToXlsxEachRows people}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{address}}</td>
+      </tr>
+    {{/htmlToXlsxEachRows}}
+</table>
+```
+
+### Cheerio html engine
+Although `htmlToXlsxEachRows` helper prevents chrome from hanging, the rendering can still be too slow. This is because chrome needs to create dom for the whole table and evaluate every single cell. Fortunately, there is a better option for long tables - using custom html engine [cheerio-page-eval](https://github.com/jsreport/cheerio-page-eval).
+
+This custom engine needs to be additionally installed because it is experimental for now.
+
+```
+npm i cheerio-page-eval
+restart jsreport
+```
+
+Afterward, you can select it in the studio html to xlsx menu and start using it. This engine doesn't create dom representation like chrome so it is much better performing. However, the lack of dom also introduces some limitations.
+
+- The cheerio engine doesn't support global css styles in the `<style>` tag. You need to use inline styles on particular cells.
+- It also doesn't evaluate javascript in the `<script>` tags. The helpers and templating engines aren't limited.
+
+`htmlToXlsxEachRows` helper works also with cheerio engine and can significantly improve rendering memory footprint on long tables.
+
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## API
+You can specifty template the standard way using name/shortid or you can also send it fully in the API call. In case you have the excel template stored as an asset you can also reference it in the request.
+
+```js
+{  
+  "template":  {  
+    "recipe":  "html-to-xlsx",  
+    "engine":  "handlebars",  
+    "content": "<table></table>",
+    "htmlToXlsx":  {  
+      "templateAssetShortid":  "xxxx"  
+    }  
+  },  
+  "data":  {}
+}
+
+```
+
+In case you don't have the xlsx template stored as an asset you can send it directly in the API call.
+
+```js
+{  
+  "template":  {  
+    "recipe":  "html-to-xlsx",  
+    "engine":  "handlebars",  
+    "content": "<table></table>",
+    "htmlToXlsx":  {  
+      "templateAsset":  {  
+        "content": "base64 encoded word file",
+        "encoding":"base64"
+       }
+    }  
+  },  
+  "data":  {}
+}
+```

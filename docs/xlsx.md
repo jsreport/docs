@@ -97,7 +97,7 @@ See general documentation for office preview in studio [here](/learn/office-prev
 
 ## API
 
-You can specifty the template the standard way using name/shortid or you can also send it fully in the API call:
+You can specifty template the standard way using name/shortid or you can also send it fully in the API call:
 ```js
 {  
   "template":  {  
