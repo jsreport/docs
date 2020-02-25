@@ -1,4 +1,5 @@
 
+
 > jsreport provides plain HTTP rest based API for rendering and CRUD
 
 ## Basics
@@ -82,6 +83,17 @@ You can change the `Content-Disposition` response header thus the file name brow
 The file extension adds jsreport depending on the content type of the report being generated. For example `chrome-pdf`produces "myreport.pdf" in this case.
 
 In case you want full control over this response header you can specify `options['Content-Disposition']`  in the request body and override the defaults.
+
+### Timeout
+
+The rendering timeout specified in the configuration `reportTimeout` can be overridden in the API call. This possibility needs to be opted in using configuration `enableRequestReportTimeout=true`. Then use `options.timeout` in the request body.
+
+```js
+{
+      "template": { ... },
+      "options": { "timeout": 30000 }
+}
+```
 
 ## Querying and CRUD
 
@@ -176,4 +188,3 @@ Where the hash is based on username and password:
 ## Ping
 
 There is public endpoint http://jsreport-host/api/ping which you can use to check if the jsreport is running. This endpoint isn't behind the authentication so you can use it from your loadbalancer or docker heathcheck.
-

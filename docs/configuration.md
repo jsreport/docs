@@ -1,5 +1,6 @@
 ﻿
 
+
 The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
@@ -208,7 +209,15 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **allowLocalFilesAccess** (`boolean`) - When true this property specifies that jsreport should allow access to the local file system and use of custom nodejs modules during rendering execution
 
-## Rendering configuration
+## Report timeouts
+
+**reportTimeout** (`number`)  - total timeout in ms for a one report rendering
+
+Until jsreport reaches version 3.0.0, there are also granular options for timeout like `templatingEngines.timeout` or `chrome.timeout` supported.  However,  these are deprecated and just `reportTimeout` should be used. Both `reportTimeout` and granular options don't work together and in case both are filled in the configuration, just `reportTimeout` is applied. There is currently no default for `reportTimeout` because of back-compatibility. If it isn't filled, the granular timeouts are used.    
+
+**enableRequestReportTimeout** (`boolean`) - opt in for leting rendering requests use `options.timeout` to override general `reportTimeout` configuration
+
+## Isolation configuration
 
 jsreport uses by default dedicated processes for rendering pdf or scripts. This solution has higher level of isolation. However you can get better performance when configuring jsreport to reuse processes.
 
@@ -228,8 +237,6 @@ jsreport uses by default dedicated processes for rendering pdf or scripts. This 
 **templatingEngines.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy with users' templates which can have potentially endless loops or other critical errors which could terminate the application. The `in-process` strategy is also handy when you need to debug jsreport with node.js debugging tools.
 
 **templatingEngines.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
-
-**templatingEngines.timeout** (`number`) -  specify default timeout in ms for one task execution
 
 **templatingEngines.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
 
@@ -360,6 +367,7 @@ Note that you can override all or just some part of the predefined configuration
     "httpPort": 3000,
     "allowLocalFilesAccess": true,
     "blobStorage": { "provider": "fs" },
+    "reportTimeout": 60000,
     "logger": {
       "console": {
         "transport": "console",
@@ -375,13 +383,9 @@ Note that you can override all or just some part of the predefined configuration
         "level": "error",
         "filename": "logs/error.log"
       }
-    },
-    "chrome": {
-      "timeout": 180000
-    },
+    },    
     "templatingEngines": {
-      "numberOfWorkers" : 2,
-      "timeout": 10000,
+      "numberOfWorkers" : 2,     
       "strategy": "http-server"
     },
     "extensions":  {  
