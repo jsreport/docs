@@ -1,6 +1,3 @@
-
-
-
 **This recipe is eperimental and its API can be changed in the future**
 
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
@@ -97,6 +94,21 @@ In case your items are dynamic, you can bind them using `items` parameter. This 
 ```
 {{docxCombobox value=val items=items}}
 ```
+
+## Development
+Repetitive uploading of the docx template can get easily tedious. Fortunately, you can use the [fs store external editor editing](/learn/fs-store#editing-templates-in-custom-editor) feature with docx as with any other file. The first you need to change the configuration to enable automatic files reload on external changes.
+
+```js
+"extensions": {
+  "fs-store": {
+    "syncModifications": {
+      "updateStudio": true
+    }
+  }
+}
+```
+
+Afterward, make sure you have ready a template with docx recipe and associated docx template in the studio. Then open a word application (the best is on the second screen) and find file `data/adocxtemplate/content.docx` representing your associated template. Now, editing and saving this file in word app cause automatic reload of the template in the studio and re-render so you see immediately the reflected changes.
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
