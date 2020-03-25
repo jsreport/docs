@@ -49,7 +49,7 @@ The `office` root configuration is global for all recipes and extensions using o
 }
 ```
 
-## Fore preview
+## Force preview
 You can also force the office preview from the API call using `options.office.preview=true` in case you want to response the office online html page instead of the xlsx stream.
 ```js
 { 
