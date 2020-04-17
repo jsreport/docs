@@ -84,7 +84,7 @@ It is important to understand that if one jsreport instance changes data, every 
   "extensions":     
     "fs-store": { "compactionInterval": 60000 }     
     "studio": { "flushLogsInterval": 60000 },
-    "scheduling": { "intreval": 60000 }  
+    "scheduling": { "interval": 60000 }  
   }
 }
 ```
