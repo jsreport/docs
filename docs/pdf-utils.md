@@ -1,8 +1,4 @@
-
-
-
-
-> Merge or concatenate multiple pdf templates into one output pdf
+> Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
 
@@ -19,9 +15,9 @@
 - [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG)
 
 ## Basics
-jsreport extension which is able to merge or concatenate multiple pdf templates into single output. The merge functionality can be used to add dynamic header based on the content of particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fills the gap to reach fully dynamic and unlimited pdf outputs.
+jsreport extension which is able to merge or concatenate multiple pdf templates into a single output. The merge functionality can be used to add a dynamic header based on the content of a particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fill the gap to reach fully dynamic and unlimited pdf outputs.
 
-The pdf manipulations are configured using studio, respectively individual template menu.
+The pdf manipulations are configured using studio, respectively individual template menu. The main part of this extension are pdf merge and append operations, but the extension can also encrypt pdf, sign it with a certificate or fill basic pdf metadata. This document covers the pdf merge/append operations at the begining and the rest at the very end.
 
 ![pdf-utils](https://jsreport.net/screenshots/pdf-utils.png)
 
@@ -307,8 +303,223 @@ parameters:
 returns:
 - promise with pdf buffer extended with outlines
 
-## Recipes
-The extension is tested on the [phantom-pdf](/learn/phantom-pdf) and [chrome-pdf](/learn/chrome-pdf). It should be able even to combine outputs from both recipes inside one template.
+## Pdf meta
+The pdf utils extension can fill the basic pdf document metadata `Title`, `Author`, `Subject`, `Keywords`, `Creator` and `Producer`. These can be filled using the pdf utils extension studio UI. Or you can do it also through the API call.
+```js
+{
+  "template": {
+    "content": "Main Template",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",  
+    "pdfMeta":  {  
+	    "title": "title",
+	    "author": "author",  
+	    "subject": "subject",  
+	    "keywords": "keywords",  
+	    "creator": "creator",
+	    "producer": "producer"  
+	}	
+  }
+}
+```
+
+## Password protection
+The pdf utils extension supports encrypting output pdf and protecting it with a password. Note this is always disabled when you run from the studio. Use the download button from the run context menu to see the protected output.
+
+The two passwords can be specified **user password** and **owner password**. One or both of them.
+Behavior differs according to passwords you provide:
+
+-   When only the user password is provided, users with user password are able to decrypt the file and have full access to the document.
+-   When only the owner password is provided, users are able to decrypt and open the document without providing any password, but the access is limited to those operations explicitly permitted. Users with the owner password have full access to the document.
+-   When both passwords are provided, users with user password are able to decrypt the file but only have limited access to the file according to permission settings. Users with owner password have full access to the document.
+
+Additionally, you can select specific permissions:
+
+**printing** - `not allowed` |  `low resolution` | `high resolution`    
+**modifying** - `true` | `false`    
+**copying** - `true` | `false`    
+**annotating** - `true` | `false`    
+**fillingForms** - `true` | `false`    
+**contentAccessibility** - `true` | `false`    
+**documentAssembly** - `true` | `false`    
+
+The complete details can be found in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=63).
+
+The pdf encryption can be set through jsreport studio and also through API call.
+```js
+{
+  "template": {
+    "content": "Main Template",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",   
+    "pdfPassword": {
+       "password": "password",
+       "ownerPassword": "password",
+       "printing": "HighResolution",
+	   "modifying": true,
+	   "copying": true,
+	   "annotating" true,
+       "fillingForms": true
+       "contentAccessibility": true
+       "documentAssembly": true 
+    }
+  }
+}
+```
+
+## Pdf sign
+You can use the extension to sign output pdf with the p12 certificates. Note this is always disabled when you run from the studio. Use the download button from the run context menu to see the signed output.
+
+### Sign using studio
+Open studio and upload p12 certificate as a new [asset](https://jsreport.net/learn/assets). For the testing purposes you can create your p12 certificate using openssl.
+
+```sh
+openssl genrsa -out myKey.pem    
+openssl req -new -key myKey.pem -out cert.csr    
+openssl x509 -req -in cert.csr -signkey myKey.pem -out cert.crt    
+openssl pkcs12 -export -in cert.crt -inkey myKey.pem -out cert.p12
+```
+
+If your certificate has a password, fill it in through asset pdf sign settings properties inside the studio.
+
+![pdf sign password](https://jsreport.net/img/pdf-sign-password.png)
+
+In this case, you need to configure or disable also  [jsreport encryption](https://jsreport.net/learn/configuration#encryption-configuration)  because this extension uses the encryption API to protect password before storing.
+
+The next step is to select the certificate in the pdf utils template menu.     
+
+The last step is to verify the pdf is properly signed. Install the certificate on your client machine and make sure it is trusted. Then open the Adobe Acrobat and you should see the message "Signed and all signatures are valid". 
+
+![signed pdf](https://jsreport.net/img/pdf-sign-acrobat.png)
+
+### Sign using API
+
+You may want to avoid storing your certificates inside jsreport store. In this case, you can send the encoded certificate inline in your rendering request.
+
+```js
+POST http://jsreportserver:5488/api/report
+
+{ 
+  "template": {
+    "name": "my template",
+    "pdfSign": {
+      "certificateAsset": {
+        "content": "base64 encoded certificate"
+        "encoding": "base64",
+        "password":  "certificate password"
+      },
+      "reason": "I am signing this pdf"
+    }
+  }
+}
+```
+
+
+## Forms
+> The pdf forms are experimental jsreport feature and the API may change in the future versions. Please help us and report problems or submit feature requests.
+
+The extension adds also helper `pdfFormField` which can be used to create pdf forms. You can place the helper call anywhere in your html/css and it gets properly positioned.
+Example:
+
+```html
+<div>
+    <span>Name:</span>
+    <span>
+    {{{pdfFormField name='firstName' type='text' width='200px' height='20px'}}}
+    </span>
+</div>
+<div>
+    {{{pdfFormField 
+        name='btnSubmit' 
+        type='button' 
+        action='submit' 
+        label='submit'
+        exportFormat=true 
+        url='http://mydomain.com'
+        backgroundColor='#AAAA00' 
+        width='245px' 
+        height='20px' 
+        }}}
+</div>
+```
+
+The helper call common arguments are the following:
+
+**name** `(required)` - the field identification    
+**type** `(required)` - currently supported text, button, combo    
+**width** `(required)` - the field width, needs to be in `px`    
+**height** `(required)` - the field height, needs to be in `px`     
+**color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color    
+**backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color    
+**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=392)    
+**fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts](https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment    
+**fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width    
+**textAlign** - one of the left, center, right    
+
+
+### Text field
+```html
+ {{{pdfFormField name='firstName' color='#FF0000' required type='text' width='200px' height='20px'}}}
+ ```
+
+**value** - the visible value    
+**defaultValue** - value used when nothing is filled    
+**readOnly** - bool if the field is read only    
+**required** - bool if the field is required    
+**multiline** - bool  for multiline text fields    
+**password** - bool for password like text fields    
+
+#### Formatting
+The text fields can be quickly formatted using the following `pdfFormField` arguments.
+
+**formatType** - one of the `date`, `time`, `percent`, `number`, `zip`, `zipPlus4`, `phone` or `ssn`    
+
+##### Date format
+
+**formatMask**  - specifies the value and display format and can include:
+  - `d` - single digit day of month
+  - `dd` - double digit day of month
+  - `m` - month digit
+  - `mm` - month double digit
+  - `mmm` - abbreviated month name
+  - `mmmm` - full month name
+  - `yy` - two digit year
+  - `yyyy` - four digit year
+  - `hh` - hour for 12 hour clock
+  - `HH` - hour for 24 hour clock
+  - `MM` - two digit minute
+  - `tt` - am or pm
+
+##### Time format
+
+**formatMask** - value is one of the following `HH:mm`, `hh:mm`, `HH:mm:ss`, `hh:mm:ss`
+
+##### Number and percent
+
+**formatFractionalDigits** - the number of places after the decimal point    
+**formatSepComma** - bool if pdf should display a comma separator, otherwise do not display a separator.    
+**formatNegStyle**  the value must be one of `MinusBlack` , `Red`,  `ParensBlack`, `ParensRed`    
+**formatCurrency**  a currency symbol to display    
+**formatCurrencyPrepend**  set to true to prepend the currency symbol    
+
+### Combo field
+```html
+{{{pdfFormField name='gender' type='combo' value='b' items='man,woman' width='100px' height='20px'}}}
+```
+The combo field additionaly requires the `items` attribute. That can be a string where items are separated using comma `,` or an actual array. The `value`, `defaultValue`, `required`, `readOnly` atributes are the same as for the text fields.
+
+### Button field
+```html
+{{{pdfFormField name='btn1' type='button' exportFormat=true url='http://myendpoint.com' action='submit' label='submit' width='200px' height='50px'}}}
+
+{{{pdfFormField name='btn2' type='button' action='reset' label='reset' width='200px' height='50px'}}}
+```
+
+**action** - submit/reset    
+**label** - text on the button    
+**url** - the url where to send the form after submit    
+
+The submit button can additionaly include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
 
 ## API
 The extension features can be used also directly through API without a need to use studio or persist templates.
@@ -329,7 +540,34 @@ The extension features can be used also directly through API without a need to u
         "engine": "handlebars"
       },
       "type": "merge"
-    }]
+    }],
+    "pdfMeta":  {  
+	    "title": "title",
+	    "author": "author",  
+	    "subject": "subject",  
+	    "keywords": "keywords",  
+	    "creator": "creator",
+	    "producer": "producer"  
+	},
+	"pdfSign": {
+      "certificateAsset": {
+        "content": "base64 encoded certificate"
+        "encoding": "base64",
+        "password":  "certificate password"
+      },
+      "reason": "I am signing this pdf"
+    },
+    "pdfPassword": {
+       "password": "password",
+       "ownerPassword": "password",
+       "printing": "HighResolution",
+	   "modifying": true,
+	   "copying": true,
+	   "annotating" true,
+       "fillingForms": true
+       "contentAccessibility": true
+       "documentAssembly": true 
+    }
   }
 }
 ```
