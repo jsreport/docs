@@ -463,7 +463,7 @@ The helper call common arguments are the following:
  ```
 
 **value** - the visible value    
-**defaultValue** - value used when nothing is filled    
+**defaultValue** - value stored in form, when nothing is filled, this value isn't visible    
 **readOnly** - bool if the field is read only    
 **required** - bool if the field is required    
 **multiline** - bool  for multiline text fields    
