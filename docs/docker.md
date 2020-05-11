@@ -150,7 +150,7 @@ A common requirement is to run containers in readonly environments like [AWS Lam
 jsreport always needs a writable temp folder, fortunately, docker provides in-memory temp using  [tmpfs](https://docs.docker.com/storage/tmpfs/)  switch. Then it is just about configuring [template store](https://jsreport.net/learn/template-stores]) to run only in memory and also [logger](https://jsreport.net/learn/configuration#logging-configuration) to write to the temp instead of the app folder.
 
 ```bash
-docker run -p 5488:5488 --read-only --tmpfs=/tmp -e store_provider=memory -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log jsreport/jsreport:2.7.2
+docker run -p 5488:5488 --read-only --tmpfs=/tmp -e store_provider=memory -e blobStorage_provider=memory -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log jsreport/jsreport:2.7.2
 ```
 
 Note in [AWS Lambda](https://jsreport.net/learn/aws-lambda-serverless) is the `/tmp` already writable and you only need to configure the logger and store.
@@ -176,5 +176,5 @@ CMD ["sh", "-c", "cp -R /mydata /tmp/data&&node server.js"]
 
 Running such command is the same as for previous cases, the only required change is configuring the file system store to get templates from the temp location.
 ```bash
-docker run -p 5488:5488 --read-only --tmpfs=/tmp -e extensions_fsStore_dataDirectory=/tmp/data -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log myimage
+docker run -p 5488:5488 --read-only --tmpfs=/tmp -e extensions_fsStore_dataDirectory=/tmp/data -e blobStorage_dataDirectory=/tmp/data/storage -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log myimage
 ```
