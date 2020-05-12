@@ -1,9 +1,7 @@
-
-
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
-The assembly is compiled for [.NET standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) and you can use it in full .net as well as in [.NET core 2.0](https://www.microsoft.com/net/core/platform) applications.
+> Note that although it can be very convenient to run jsreport right from the .NET the way described in this arcticle, you should always consider pros and cons compared to running jsreport separately. This follows the better architectural concept and in case your deployment already includes multiple services or even [AKS cluster](https://azure.microsoft.com/services/kubernetes) then it is usually better to run jsreport as standalone service. An example of running asp.net core app in one container and jsreport in another container can be found [here](https://github.com/jsreport/jsreport-dotnet-example-docker-compose).
 
 ## Get started
 
@@ -26,6 +24,8 @@ var report = await rs.RenderAsync(new RenderRequest()
 ```
 
 The same way you can [convert html to xlsx](/learn/html-to-xlsx), use [javascript templating engines](/learn/templating-engines) to dynamically assemble html, include custom [javascript function based hooks](/learn/scripts) and all the other beauty of jsreport. The c# API for such use cases is the same as for [jsreport.Client](/learn/dotnet-client), please check it out for deeper rendering API description.
+
+The assembly is compiled for [.NET standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) and you can use it in full .net as well as in [.NET core](https://www.microsoft.com/net/core/platform) applications.
 
 ## Configuration
 jsreport core and the most of the extensions provides tons of [configuration options](/learn/configuration). These options can be passed to the local jsreport using the config file, but also right from the c#.
@@ -204,7 +204,7 @@ rs.RenderAsync(new RenderRequest()
 
 ## Utility or Web Server
 
-`jsreport.Local` implements two strategies for communicating with the `jsreport.exe` binary. One is to use the command line arguments and the second to start the binary as web server and communicate with it using http protocol. The second strategy is currently significantly faster however this should change in the future releases and the performance should be close to each other. It is generally recommended to use the utility based strategy in production.
+`jsreport.Local` implements two strategies for communicating with the `jsreport.exe` binary. One is to use the command line arguments and the second to start the binary as web server and communicate with it using http protocol. 
 
 All the previous examples were using the command line based communication with `jsreport.exe`. The next example shows how to use web server based communication instead.
 
@@ -235,14 +235,17 @@ The list of nugets including jsreport binary can be found [here](https://github.
 Running the `jsreport.Local` in [Docker](https://www.docker.com/) linux container requires this adaptation of `Dockerfile`. And of course using the correct binary as mentioned in the previous chapter.
 
 ```
-RUN apt-get update && \   
-    apt-get install -y gnupg  libgconf-2-4 wget && \
+RUN apt-get install -y --no-install-recommends libgconf-2-4 gnupg git curl wget ca-certificates libgconf-2-4 && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    apt-get update && \
-    apt-get install -y google-chrome-unstable --no-install-recommends
+    apt-get update && \  
+    apt-get install -y lsb-release google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst --no-install-recommends && \
+    wget https://github.com/webnicer/chrome-downloads/raw/master/x64.deb/google-chrome-stable_79.0.3945.130-1_amd64.deb && \
+    dpkg -i ./google-chrome*.deb && \
+    rm google-chrome*.deb
 
-ENV chrome:launchOptions:args --no-sandbox
+ENV chrome_launchOptions_executablePath google-chrome-stable
+ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage
 ```
 
 Make sure you add this to the right position of `Dockerfile`. Visual Studio usually generates docker file with multiple sections and this should be part of the `Base` image at the top.

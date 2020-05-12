@@ -54,6 +54,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 This maybe be even better than using `jsreport.Local` when running an orchestrated docker environment where jsreport is running in an extra container.
+The example how you can run jsreport in one container, .net core app in another container and orchestrate them using docker-compose can be found [here](https://github.com/jsreport/jsreport-dotnet-example-docker-compose).
 
 ## Modify response
 
