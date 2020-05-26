@@ -14,6 +14,7 @@
 
 - [Curriculum vitae (CV)](https://playground.jsreport.net/w/admin/dhuCc7eL)
 - [Invoice](https://playground.jsreport.net/w/admin/yo9J3hvu)
+- [Students](https://playground.jsreport.net/w/admin/d7o0nIWc)
 
 ## Built-in helpers
 
