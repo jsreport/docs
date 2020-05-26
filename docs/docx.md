@@ -64,6 +64,37 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
 
+### docxChart
+
+Create a chart inside the desktop word application and use `docxChart` helper call inside the chart title.
+
+[Example - Chart](https://playground.jsreport.net/w/admin/OQIYR_my)
+
+The helper call in a title can look like this:
+
+```html
+A title{{docxChart data=fruits}}
+```
+
+With the following data on the input:
+```js
+{
+    "fruits": {
+        "labels": ["Q1", "Q2", "Q3", "Q4"],
+        "datasets": [{
+            "label": "Apples",
+            "data": [100,50,10,70]
+        }, {
+            "label": "Oranges",
+            "data": [20,30,20,40]
+        }]
+    }
+}
+```
+
+The `data.labels` describes labels on the X axis. The `data.datasets` includes values for the Y axis.
+
+
 ### Forms
 
 The form elements like checkboxes and inputs can be placed to the word file from the Developers tab. This tab is by default hidden so you need to enable it using:
