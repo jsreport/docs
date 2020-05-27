@@ -71,28 +71,45 @@ When using the [official jsreport docker image](https://github.com/jsreport/jsre
 The license key validation is invoked remotely and requires internet connection. In case your production server doesn't have internet connection you can either ignore the warning in the logs, or let the validation happen on computer with internet connection. The validation during the first run creates file `jsreport.license.json` which you can just copy paste to the production server without internet. Note in case of yearly subscription the license validation runs every year.
 
 ### <a name="update-payment-details"></a>Update payment details
+Historically there are two kinds of jsreport purchases. You have bought either directly from us or from [gumroad.com](https://gumroad.com/library). The payment update process differs in both cases.
 
-jsreport enterprise or jsreportonline subscribers can update the payment details in the following way.
+You can distinguish which kind of purchase you initiated simply by checking your last invoices. If there is gumroad.com mentioned, you have purchased from them. All jsreportonline purchases are based on gumroad.com so far. Also, all licenses purchased before 05/27/2020 are based on gumroad.com
 
+**Gumroad**
 1. Open your [gumroad account](https://gumroad.com/library)
 2. Login through the email you filled during the initial subscription. It is the same email your receipts are being sent to.
 3. Choose `My account/Settings` in the menu
 4. Select `Use different card` and update the account details
 
+**Direct sale from jsreport**
+6. You should find a link to your jsreport payments dashboard in your email box. It was sent from email  sales@jsreport.net. In case you can't find it, you can [request the link here](https://jsreport.net/payments/customer).
+7. Open jsreport payments dashboard
+8. Select product 
+9. Click on "Update payment" 
+
 ### <a name="cancel-subscription"></a>Cancel subscription
+Historically there are two kinds of jsreport purchases. You have bought either directly from us or from [gumroad.com](https://gumroad.com/library). The subscription cancel process differs in both cases.
+
+You can distinguish which kind of purchase you initiated simply by checking your last invoices. If there is gumroad.com mentioned, you have purchased from them. All jsreportonline purchases are based on gumroad.com so far. Also, all licenses purchased before 05/27/2020 are based on gumroad.com
+
+**Gumroad**
 1. Open your [gumroad account](https://gumroad.com/library)
 2. Select the subscription you want to cancel
 3. Click red "Cancel subscription" button
 
-You can find more detail description in [gumroad help](https://help.gumroad.com/11167-buyer-faq/how-do-i-cancel-a-subscription).
+**Direct sale from jsreport**
+6. You should find a link to your jsreport payments dashboard in your email box. It was sent from email  sales@jsreport.net. In case you can't find it, you can [request the link here](https://jsreport.net/payments/customer).
+7. Open jsreport payments dashboard
+8. Select product 
+9. Click on "Cancel" 
 
 ### <a name="5-templates-limitation-in-free-plan"></a>5 templates limitation in free plan
-The free plan can be used in commercial projects with only one limitation. You can store maximum 5 templates in the jsreport store. The template entities are typically created and persisted to store using jsreport studio UI. The templates sent to the jsreport render API with full specification doesn't count to this. In other words the requests which includes in the body `template.content` are not using stored template. To be sure you can always open jsreport studio and verify how many templates are visible there.
+The free plan can be used in commercial projects with only one limitation. You can store a maximum 5 templates in the jsreport store. The template entities are typically created and persisted to store using jsreport studio UI. The templates sent to the jsreport render API with full specification doesn't count to this. In other words the requests which includes in the body `template.content` are not using a stored template. To be sure you can always open the jsreport studio and verify how many templates are visible there.
 
 The studio also warns in the modal dialog that the maximum number of templates was reached and one month trial in which you can use infinite templates started. In case your trial expires and you want to get back to the free license, you need to delete some of the templates manually from the `data` folder. Each template is represented by a folder that has the same name as the template.
 
-**There is no other limitation in the free plan compared to the payed licenses.**
+**There is no other limitation in the free plan compared to the paid licenses.**
 
 ### <a name="subscription-renew"></a>Subscription renew
 
-The subscriptions gets automatically renewed every year. You should receive an email from gumroad informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
+The subscriptions gets automatically renewed every year. You should receive an email informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
