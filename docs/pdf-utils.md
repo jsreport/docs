@@ -16,23 +16,23 @@
 - [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG)
 
 ## Basics
-jsreport extension which is able to merge or concatenate multiple pdf templates into a single output. The merge functionality can be used to add a dynamic header based on the content of a particular page or even table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fill the gap to reach fully dynamic and unlimited pdf outputs.
+jsreport extension which can merge or concatenate multiple pdf templates into a single output. The merge functionality can be used to add a dynamic header based on the content of a particular page or even a table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fill the gap to reach fully dynamic and unlimited pdf outputs.
 
-The pdf manipulations are configured using studio, respectively individual template menu. The main part of this extension are pdf merge and append operations, but the extension can also encrypt pdf, sign it with a certificate or fill basic pdf metadata. This document covers the pdf merge/append operations at the begining and the rest at the very end.
+The pdf manipulations are configured using the studio, respectively individual template menu. The main part of this extension is the pdf merge and append operations, but the extension can also encrypt pdf, sign it with a certificate or fill basic pdf metadata. This document covers the pdf merge/append operations at the beginning and the rest at the very end.
 
 ![pdf-utils](https://jsreport.net/screenshots/pdf-utils.png)
 
 ## Operations
-Each template can contain ordered list of pdf operations which will be invoked after the main template rendering is finished. The operation required attributes are template and type. The template specifies what to render and the type what to do with the result. There are three operation types:
+Each template can contain an ordered list of pdf operations which will be invoked after the main template rendering is finished. The operation required attributes are template and type. The template specifies what to render and the type what to do with the result. There are three operation types:
 - **prepend**: render another template and put all the output pdf pages to the beginning
 - **append**: the same as prepend, but just put the output pdf to the end
 - **merge**: render another pdf template and merge the output single pdf page or whole document into the current pdf
 
 ## Operations order
-The operations are executed sequentially in the specified order. This is important attribute because the input of every operation is the output of the previous one. This behavior can be explained on the following example.
+The operations are executed sequentially in the specified order. This is an important attribute because the input of every operation is the output of the previous one. This behavior can be explained on the following example.
 
 **Example**    
-*It is required that the output pdf has at the beginning a single cover page and every other page includes dynamic header. This can be solved with one prepend and one merge operations. However if you move the merge operation after the prepend, it results into the undesired output with header also merged into the first cover page.  This is because the prepend operation in such order runs the first and expands the final output with another page. This expanded pdf is then used as input of the second operation which invokes merge into every page which means also to the cover. The correct order in this case should be the merge operation the first and the prepend as the second.*
+*It is required that the output pdf has at the beginning a single cover page and every other page includes a dynamic header. This can be solved with one prepend and one merge operation. However, if you move the merge operation after the prepend, it results in the undesired output with the header also merged into the first cover page.  This is because the prepend operation in such an order runs the first and expands the final output with another page. This expanded pdf is then used as input of the second operation which invokes merge into every page which means also to the cover. The correct order, in this case, should be the merge operation the first and the prepend as the second.*
 
 ## Input data
 The input data from the original template are forwarded to the rendering of the pdf operation. The operation input includes additional information about the current pdf.
@@ -62,19 +62,19 @@ jsrender
 {{:~root.$pdf}}
 ```
 ## Append and prepend
-These two operations are straight forward. It is typically used to concatenate multiple heterogeneous reports into one. This fills the limitation of the pdf recipes which typically doesn't allow to have for example one page in portrait orientation and the second in landscape. The solution is to create one append operation producing portrait pdf and one producing landscape.
+These two operations are straight forward. It is typically used to concatenate multiple heterogeneous reports into one. This fills the limitation of the pdf recipes which typically doesn't allow to have for example one page in portrait orientation and the second in the landscape. The solution is to create one append operation producing portrait pdf and one producing landscape.
 
 ## Merge
-The merge operation can be expressed as putting two transparent documents/papers on each other. This opens various use cases and possibilities. The merge can be used for example to add a watermark to every page. This requires an extra template with positioned and transparent image in the middle. The merge operation with such template puts the image on every page of the parent pdf.
+The merge operation can be expressed as putting two transparent documents/papers on each other. This opens various use cases and possibilities. The merge can be used for example to add a watermark to every page. This requires an extra template with a positioned and transparent image in the middle. The merge operation with such a template puts the image on every page of the parent pdf.
 
-The header scenario works the similar way. It is only required the header has already enough space in the parent template. This is typically done using margin settings provided by the recipe. This way the header can be positioned to the top, bottom or even rotated to the side.
+The header scenario works the similar way. It is only required the header has already enough space in the parent template. This is typically done using margin settings provided by the recipe. This way the header can be positioned to the top, bottom, or even rotated to the side.
 
 The merge operation includes three additional parameters.
 - **merge whole documents**: if true, the operation will invoke rendering of the specified template and merge the whole pdf output into the current pdf, otherwise it also renders specified template but it takes just the first pdf page and merge it to every page of the current pdf
 - **render for every page**: if true, the operation invokes rendering of the specified template for every pdf page (**slow**), otherwise it is invoked just once and the single output is merged
 - **merge to front**: if true, the pdf produced by the operation is merged to the front layer, otherwise it is merged to the background
 
-With `merge whole documents` enabled, the header template development  requires more code but the resulting template has better performance. Such header template typically needs to iterate over all pages and add header with a page break. The output pdf then includes just headers which can be in one chunk merged into the current pdf. See this demonstrated on the [following example](https://playground.jsreport.net/w/admin/Wy6stA8t).
+With `merge whole documents` enabled, the header template development requires more code but the resulting template has better performance. Such a header template typically needs to iterate over all pages and add a header with a page break. The output pdf then includes just headers which can be in one chunk merged into the current pdf. See this demonstrated on the [following example](https://playground.jsreport.net/w/admin/Wy6stA8t).
 
 ### Input data
 In case the merge operation includes `render for every page` attribute the input data includes additionally `$pdf.pageNumber` and `$pdf.pageIndex`.
@@ -87,9 +87,9 @@ In case the merge operation includes `render for every page` attribute the input
 	pageIndex: 4
   }
 ```
-## Adding items to page
+## Adding items to the page
 
-It is possible to add hidden information to a page of the main content which can be used in the pdf operations afterwards. The page content can for example include list of numbers which are summarized in the page header.
+It is possible to add hidden information to a page of the main content which can be used in the pdf operations afterward. The page content can for example include a list of numbers that are summarized in the page header.
 
 The extension provides templating engine helper `pdfAddPageItem` which adds value or hash to the page.
 
@@ -148,12 +148,12 @@ jsrender:
 {{pdfAddPageItem name="Jan" age=33 /}}
 ```
 
-> Both page groups and page items adds "hidden" text elements to the output pdf. These elements are almost invisible but still takes a tine place. Therefore it's recommended to use just small values for groups and items. The best is to use just array indexes or ids.
+> Both page groups and page items add "hidden" text elements to the output pdf. These elements are almost invisible but still takes a tine place. Therefore it's recommended to use just small values for groups and items. The best is to use just array indexes or ids.
 
 ## TOC - table of contents
 The pdf utils can be used also to dynamically create pdf table of contents including the outlines. This is done mainly using pdf-utils fundamentals like merge operation and page items. The flow is the following.
 
-The main template renders TOC at the top just like any other content using templating engines. To make the links clickable the html should use anchors (a tags) with # in href pointing to particular headings. Like
+The main template renders TOC at the top just like any other content using templating engines. To make the links clickable the html should use anchors (`a` tags) with `#` in `href` pointing to particular headings. Like
 
 ```html
 <a href='#hello-world'>Hello world</a>
@@ -170,7 +170,7 @@ Every heading should be followed by page item which is later used to identify it
 {{{pdfAddPageItem id='hello-world'}}}
 ```
 
-Then there needs to be a new template which renders the same content as the TOC at the top of the main and it gets merged using pdf utils operation to the main template. This extra template can then use the pdf utils properties to calculate the page numbers of the headings.
+Then there needs to be a new template that renders the same content as the TOC at the top of the main and it gets merged using pdf utils operation to the main template. This extra template can then use the pdf utils properties to calculate the page numbers of the headings.
 
 ```js
 function getPage(root, id) {
@@ -192,11 +192,11 @@ The last step is to add the pdf outlines for easier navigation. This is done usi
 </a>
 ```
 
-This by default use the anchors inner content for the outline title which can be overwriten using `data-pdf-outline-title` attribute. To create hierarchic outlines structure the `data-pdf-outline-parent` with id of the parent outline can be used.
+This by default uses the anchors inner content for the outline title which can be overwritten using `data-pdf-outline-title` attribute. To create hierarchic outlines structure the `data-pdf-outline-parent` with `id` of the parent outline can be used.
 
-This documentation mainly highlights the idea how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
+This documentation mainly highlights the idea of how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
 
-You can find complex example which does all of this together here:
+You can find a complex example which does all of this together here:
 https://playground.jsreport.net/w/admin/akYBA4rS
 
 ## Usage in script
@@ -241,7 +241,7 @@ parameters:
 - `includeText` -> indicates if text should be parsed or not
 
 returns:
- - promise of object with the same structure as object passed as input data to the merge operations described previously
+ - promise of an object with the same structure as the object passed as input data to the merge operations described previously
 
 ```js
 {
@@ -260,7 +260,7 @@ parameters:
 - `prependedPdfBuf` -> pdf buffer prepended before source
 
 returns:
-- promise of buffer with concatenated pdfs
+- promise of the buffer with concatenated pdfs
 
 #### `append(sourcePdfBuf, appendedPdfBuf)`
 
@@ -269,7 +269,7 @@ parameters:
 - `appendedPdfBuf` -> pdf buffer appended after source
 
 returns:
-- promise of buffer with concatenated pdfs
+- promise of the buffer with concatenated pdfs
 
 #### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront = false)`
 
@@ -292,7 +292,7 @@ returns:
 - promise with pdf buffer extended with outlines
 
 ## Pdf meta
-The pdf utils extension can fill the basic pdf document metadata `Title`, `Author`, `Subject`, `Keywords`, `Creator` and `Producer`. These can be filled using the pdf utils extension studio UI. Or you can do it also through the API call.
+The pdf utils extension can fill the basic pdf document metadata `Title`, `Author`, `Subject`, `Keywords`, `Creator`, and `Producer`. These can be filled using the pdf utils extension studio UI. Or you can do it also through the API call.
 ```js
 {
   "template": {
@@ -317,9 +317,9 @@ The pdf utils extension supports encrypting output pdf and protecting it with a 
 The two passwords can be specified **user password** and **owner password**. One or both of them.
 Behavior differs according to passwords you provide:
 
--   When only the user password is provided, users with user password are able to decrypt the file and have full access to the document.
--   When only the owner password is provided, users are able to decrypt and open the document without providing any password, but the access is limited to those operations explicitly permitted. Users with the owner password have full access to the document.
--   When both passwords are provided, users with user password are able to decrypt the file but only have limited access to the file according to permission settings. Users with owner password have full access to the document.
+-   When only the user password is provided, users with user password can decrypt the file and have full access to the document.
+-   When only the owner password is provided, users can decrypt and open the document without providing any password, but the access is limited to those operations explicitly permitted. Users with the owner password have full access to the document.
+-   When both passwords are provided, users with user password can decrypt the file but only have limited access to the file according to permission settings. Users with owner password have full access to the document.
 
 Additionally, you can select specific permissions:
 
@@ -356,10 +356,10 @@ The pdf encryption can be set through jsreport studio and also through API call.
 ```
 
 ## Pdf sign
-You can use the extension to sign output pdf with the p12 certificates. Note this is always disabled when you run from the studio. Use the download button from the run context menu to see the signed output.
+You can use the extension to sign the output pdf with the p12 certificates. Note this is always disabled when you run from the studio. Use the download button from the run context menu to see the signed output.
 
 ### Sign using studio
-Open studio and upload p12 certificate as a new [asset](https://jsreport.net/learn/assets). For the testing purposes you can create your p12 certificate using openssl.
+Open studio and upload p12 certificate as a new [asset](https://jsreport.net/learn/assets). For the testing purposes, you can create your p12 certificate using openssl.
 
 ```sh
 openssl genrsa -out myKey.pem    
@@ -404,7 +404,7 @@ POST http://jsreportserver:5488/api/report
 
 
 ## Forms
-> The pdf forms are experimental jsreport feature and the API may change in the future versions. Please help us and report problems or submit feature requests.
+> The pdf forms are an experimental jsreport feature and the API may change in the future versions. Please help us and report problems or submit feature requests.
 
 The extension adds also helper `pdfFormField` which can be used to create pdf forms. You can place the helper call anywhere in your html/css and it gets properly positioned.
 Example:
@@ -494,7 +494,7 @@ The text fields can be quickly formatted using the following `pdfFormField` argu
 ```html
 {{{pdfFormField name='gender' type='combo' value='b' items='man,woman' width='100px' height='20px'}}}
 ```
-The combo field additionaly requires the `items` attribute. That can be a string where items are separated using comma `,` or an actual array. The `value`, `defaultValue`, `required`, `readOnly` atributes are the same as for the text fields.
+The combo field additionally requires the `items` attribute. That can be a string where items are separated using comma `,` or an actual array. The `value`, `defaultValue`, `required`, `readOnly` attributes are the same as for the text fields.
 
 ### Button field
 ```html
@@ -505,12 +505,12 @@ The combo field additionaly requires the `items` attribute. That can be a string
 
 **action** - submit/reset    
 **label** - text on the button    
-**url** - the url where to send the form after submit    
+**url** - url where to send the form after submit    
 
-The submit button can additionaly include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
+The submit button can additionally include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
 
 ## API
-The extension features can be used also directly through API without a need to use studio or persist templates.
+The extension features can be used also directly through API without a need to use the studio or persist templates.
 
 ```js
 {
