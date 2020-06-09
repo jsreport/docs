@@ -1,3 +1,4 @@
+
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -53,7 +54,7 @@ The input data from the original template are forwarded to the rendering of the 
 Note the `$pdf` is just another prop on the templating engine data context. When you are inside a loop, the context is different and you need to reach it in the templating engine specific way.
 ```
 handlebars
-{{@root.pdf}} 
+{{@root.$pdf}} 
 ```
 
 ```
@@ -99,15 +100,7 @@ The extension provides templating engine helper `pdfAddPageItem` which adds valu
 {{/each}}
 ```
 
-The value can be then reached inside the pdf operation on `$pdf.pages[x].items[y]`. The merge operation with "render for each page" enabled can use it with
-
-```js
-{{{mySum}}}
---
-function mySum() {
-  return this.$pdf.pages[this.$pdf.pageIndex].items.reduce((a,c) => a + c)
-}
-```
+The value can be then reached inside the pdf operation on `$pdf.pages[x].items[y]`. See the [example of merge with items](https://playground.jsreport.net/w/admin/ihh7laK2).
 
 The passed item can be also an object with properties.
 
@@ -137,14 +130,9 @@ The main pdf report producing the list of students can look like this
     ....
 {{/each}}
 ```
-The difference to page items is that the group doesn't need to be specific to single page. It should be created just once at the top of the group and all pages share it until there isn't another the one created.
+The difference to page items is that the group doesn't need to be specific to a single page. It should be created just once at the top of the group and all pages share it until there isn't another the one created.
 
-The group information can be then retrieved from `$pdf.pages[x].group` property. The merge operation with "render for each page" enabled can use with
-```html
-{{#with (lookup $pdf.pages $pdf.pageIndex)}}
-  This page is in the group with value {{{group}}}
-{{/with}}
-```
+The group information can be then retrieved from `$pdf.pages[x].group` property. See the [example of merge with groups](https://playground.jsreport.net/w/admin/Wy6stA8t).
 
 The passed group can also be an object with properties
 
