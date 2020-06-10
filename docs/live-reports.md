@@ -1,3 +1,4 @@
+
 jsreport isn't limited for rendering static documents like pdf or excel. You can use it also to render live and user interactive reports. Reports where user can filter data, change the matrix or drill down. This is usually achieved with using the  [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client) recipe together with one of the external javascript data visualization components like [D3.js](https://github.com/d3/d3), [pivot table](https://github.com/nicolaskruchten/pivottable), [chartjs](http://www.chartjs.org/) or any other.
 
 ![northwind dashboard](https://jsreport.net/img/northwind-dashboard.gif)
@@ -31,7 +32,7 @@ Afterwards we need to change the master template's recipe to the [html-with-brow
 
 Quite common functionality of dashboards or interactive reports is exporting into a static document like pdf or excel. This can be done again using [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client) recipe.
 
-To demonstrate this,  the master template needs to be extended with an export button and proper click event handler. In this tutorial the event handler simply renders and downloads the output of the same detail template. It only overrides its recipe to [phantom-pdf](https://jsreport.net/learn/phantom-pdf).
+To demonstrate this,  the master template needs to be extended with an export button and proper click event handler. In this tutorial the event handler simply renders and downloads the output of the same detail template. It only overrides its recipe to [chrome-pdf](https://jsreport.net/learn/chrome-pdf).
 
 To produce the proper pdf after the chart animation is finished, the detail template was extended with printing trigger which is called in the chart.js callback.
 
