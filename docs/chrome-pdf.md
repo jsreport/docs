@@ -81,6 +81,7 @@ You can also use css property `page-break-inside` to for example avoid breaking 
 
 ## Printing triggers
 You may need to postpone pdf printing until some javascript async tasks are processed. If this is your case set the `chrome.waitForJS=true` in the API or `Wait for printing trigger` in the studio menu. Then the printing won't start until you set `window.JSREPORT_READY_TO_START=true` inside your template's javascript.
+
 ```html
 ...
 <script>
@@ -146,7 +147,7 @@ Chrome by default uses `print` CSS media query when printing pdf. This impacts C
 ## Reuse chrome instances
 The recipe by default starts extra new chrome process every time you render a template. This behavior can be changed and recipe configured to reuse several chrome instances to improve rendering performance.
 
-```
+```js
 {
   "extensions": {
     "chrome-pdf": {
@@ -154,14 +155,15 @@ The recipe by default starts extra new chrome process every time you render a te
       "numberOfWorkers": 3
     }
   }
+}
 ```
 
 ## Printing existing web pages
 You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
 
 ```js
-{ 
-  "template": { 
+{
+  "template": {
     "recipe": "chrome-pdf",
     "engine": "none",
     "chrome": {
@@ -181,8 +183,6 @@ function beforeRender(req, res) {
 }
 ```
 
-
-
 ## Troubleshooting
 
 self closing divs (`<div />`) are heavily slowing down chrome pdf rendering, don't use them
@@ -190,19 +190,23 @@ self closing divs (`<div />`) are heavily slowing down chrome pdf rendering, don
 some users experienced freezing chrome because of wrong indentation of source html, this may sounds strange but it can help to click code reformat
 <hr>
 chrome may do page breaks badly if you use images, it helps if you explicitly set image height in the wrapped div
+
 ```html
  <div style='height:500'>
    <img src='foo' />
  </div>
- ```
+```
+<hr>
+tables with long content expand across multiple pages as needed, and if you have table headers/footer those will be replicated in each page which the table's content is present. however the headers/footers replicated in each page don't leave any kind of space by default, this result in having weird layout issues in which header content overlaps rows in other pages. The solution for this is to add the needed space (represented as padding) in an empty header/footer cell to properly separate the content that is split across pages. There is also issue with the borders when content is large, the solution for this is to not use `border-spacing: collapse` which does not work properly when content is split across pages. An example of both cases and solutions is available [here](https://playground.jsreport.net/w/admin/wsa4boBl)
 <hr>
  chrome/puppeteer doesn't run by default in limited environment like docker and it usually asks to pass `--no-sandbox` argument. This can be achieved using the following config. See also [puppeteer troubleshooting](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md).
+
  ```js   
  "extensions": {  
   "chrome-pdf": {  
     "launchOptions": {  
       "args": ["--no-sandbox"]  
-    } 
+    }
   }
 }  
 ```
