@@ -13,7 +13,7 @@
 - [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
 - [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
 - [Page numbers relative to the groups](https://playground.jsreport.net/w/admin/k1fGHFZp)
-- [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG)
+- [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG_)
 
 ## Basics
 jsreport extension which can merge or concatenate multiple pdf templates into a single output. The merge functionality can be used to add a dynamic header based on the content of a particular page or even a table of contents. The join can be used to prepend a cover to the pdf or to change page orientation dynamically through the single report. These advanced functions are provided on the top of standard pdf recipes and fill the gap to reach fully dynamic and unlimited pdf outputs.
