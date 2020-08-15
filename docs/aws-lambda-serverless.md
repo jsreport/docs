@@ -22,7 +22,7 @@ npm i
 npm start
 ```
 
-On Linux, be sure to check the peer dependencies and add these manually or else warnings like this will surface, "npm WARN chrome-aws-lambda@2.0.2 requires a peer of puppeteer-core@2.0.x but none is installed."
+On Linux, make sure you have the required chrome shared libraries mentioned in the [install docs](/on-prem).
 
 Then open `http://localhost:5488` and prepare jsreport templates the same way you would do when running normal jsreport.
 
