@@ -1,4 +1,4 @@
-The installation script for Ununtu 16.04
+The installation script tested on Ununtu 16.04 and 20.04
 
 ```bash
 # install node.js
