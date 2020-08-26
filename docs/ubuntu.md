@@ -19,6 +19,9 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 sudo apt-get update
 sudo apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst --no-install-recommends
 
+# on ubuntu 20 run also
+sudo apt-get install -y libxtst6 libxss1
+
 # start jsreport to see it running on port 5488
 jsreport start
 
