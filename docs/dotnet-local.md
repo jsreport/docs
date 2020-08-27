@@ -235,14 +235,12 @@ The list of nugets including jsreport binary can be found [here](https://github.
 Running the `jsreport.Local` in [Docker](https://www.docker.com/) linux container requires this adaptation of `Dockerfile`. And of course using the correct binary as mentioned in the previous chapter.
 
 ```
+# install chrome with deps, see https://github.com/jsreport/jsreport/blob/master/docker/full/Dockerfile
 RUN apt-get install -y --no-install-recommends libgconf-2-4 gnupg git curl wget ca-certificates libgconf-2-4 && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
     apt-get update && \  
-    apt-get install -y lsb-release google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst --no-install-recommends && \
-    wget https://github.com/webnicer/chrome-downloads/raw/master/x64.deb/google-chrome-stable_79.0.3945.130-1_amd64.deb && \
-    dpkg -i ./google-chrome*.deb && \
-    rm google-chrome*.deb
+    apt-get install -y lsb-release google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst libxtst6 libxss1 --no-install-recommends
 
 ENV chrome_launchOptions_executablePath google-chrome-stable
 ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage
