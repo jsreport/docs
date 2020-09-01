@@ -243,7 +243,7 @@ RUN apt-get install -y --no-install-recommends libgconf-2-4 gnupg git curl wget 
     apt-get install -y lsb-release google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst libxtst6 libxss1 --no-install-recommends
 
 ENV chrome_launchOptions_executablePath google-chrome-stable
-ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage
+ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage,--single-process,--no-zygote
 ```
 
 Make sure you add this to the right position of `Dockerfile`. Visual Studio usually generates docker file with multiple sections and this should be part of the `Base` image at the top.
