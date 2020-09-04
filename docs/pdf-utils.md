@@ -148,8 +148,6 @@ jsrender:
 {{pdfAddPageItem name="Jan" age=33 /}}
 ```
 
-> Both page groups and page items add "hidden" text elements to the output pdf. These elements are almost invisible but still takes a tine place. Therefore it's recommended to use just small values for groups and items. The best is to use just array indexes or ids.
-
 ## TOC - table of contents
 The pdf utils can be used also to dynamically create pdf table of contents including the outlines. This is done mainly using pdf-utils fundamentals like merge operation and page items. The flow is the following.
 
@@ -285,11 +283,20 @@ returns:
 #### `outlines(sourcePdfBuf, outlines)`
 
 parameters:
-- `sourcePdfBuf` -> source pdf buffer which contains the source pdf
+- `sourcePdfBuf` -> source pdf buffer
 - `outlines` -> Array of objects (`{ id: <string>, title: <string>, parent: <string> }`) which are used to define outlines in the PDF
 
 returns:
 - promise with pdf buffer extended with outlines
+
+#### `removePages(sourcePdfBuf, pageNumbers)`
+
+parameters:
+- `sourcePdfBuf` -> source pdf buffer
+- `pageNumbers` -> Array of numbers or one number, the page numbers starts from 1
+
+returns:
+- promise with pdf buffer without removed pages
 
 ## Pdf meta
 The pdf utils extension can fill the basic pdf document metadata `Title`, `Author`, `Subject`, `Keywords`, `Creator`, and `Producer`. These can be filled using the pdf utils extension studio UI. Or you can do it also through the API call.
@@ -509,6 +516,11 @@ The combo field additionally requires the `items` attribute. That can be a strin
 
 The submit button can additionally include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
 
+### Signature field
+```html
+{{{pdfFormField name='test' type='signature' width='100px' height='50px'}}}
+```
+
 ## API
 The extension features can be used also directly through API without a need to use the studio or persist templates.
 
@@ -555,6 +567,11 @@ The extension features can be used also directly through API without a need to u
        "fillingForms": true
        "contentAccessibility": true
        "documentAssembly": true 
+    }
+  },
+  "options": {
+    "pdfUtils": {
+      "removeHiddenMarks": true
     }
   }
 }
