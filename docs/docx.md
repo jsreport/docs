@@ -52,6 +52,14 @@ The table can be fully dynamic and even nested. Use `rows=[[]]` and `columns=[]`
 | {{docxTable rows=rowsItems columns=columnsItems}} |
 ||
 
+The `docxTable` helper call provides also `@rowIndex` and `@columnIndex` variables.
+
+```
+{{#docxTable rows=rowsItems columns=columnsItems}}
+{{@rowIndex}}-{{@columnIndex}}
+{{/docxTable}}
+```
+
 
 ### docxStyle
 Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamicaly specify text color.
