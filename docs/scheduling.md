@@ -42,7 +42,12 @@ Add `scheduling` node to the standard [config](/learn/configuration) file. The d
     "interval": 5000,
     //how many jobs can run in parallel
     "maxParallelJobs": 5,
-    "misfireThreshold": "300000"   
+    "misfireThreshold": "300000",
+    // by default jsreport keeps history of every schedule run
+    // this can have performance impact when having many schedules running often
+    // the following two configs can start the automatical cleanup of the history
+    "cleanScheduleHistoryInterval": 60000,
+    "maxHistoryPerSchedule": 10
   }
 }
 ```
