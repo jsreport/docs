@@ -1,3 +1,4 @@
+
 **This recipe is eperimental and its API can be changed in the future**
 
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
@@ -33,8 +34,24 @@ Create a table with columns header and single row using Word. Call `{{#docxTable
 |---|---|---|---|---|
 |{{#docxTable people}}{{name}}|{{email}}{{/docxTable}}|
 
-
 [Example - Table](https://playground.jsreport.net/w/admin/q94T4AJa)
+
+#### Vertical table
+Use helper argument `vertical=true` for rendering vertical table
+
+| | | |
+|-|-|-|
+| name | {{#docxTable people vertical=true}}{{name}} |
+| email | {{email}}{{/docxTable}} |
+
+#### Dynamic columns
+The table can be fully dynamic and even nested. Use `rows=[[]]` and `columns=[]` helper arguments to render dynamic columns.
+
+| |
+|-|
+| {{docxTable rows=rowsItems columns=columnsItems}} |
+||
+
 
 ### docxStyle
 Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamicaly specify text color.
