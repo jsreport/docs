@@ -80,7 +80,7 @@ async function afterRender(req, res) {
 ## request, response
 * `req.template` - modify report template, mostly `content` and `helpers` attributes
 * `req.data` - json object used to modify report input data
-* `req.context.http` - object which contain information about input http headers, query params, etc.
+* `req.context.http` - object which contain information about input http headers, query params, etc. (this is opt-in and you need to enable it using config `extensions.express.exposeHttpHeaders=true`)
 * `res.content` - buffer with output report
 * `res.meta.headers` - output headers
 
