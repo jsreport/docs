@@ -9,7 +9,7 @@
 4. Attach sample input data or scripts if needed
 5. Run the template, you get back dynamically assembled docx report
 
-![docx](/img/docx.png)
+![docx](/img/docx.png?v2)
 
 ## Examples
 
@@ -150,6 +150,12 @@ In case your items are dynamic, you can bind them using `items` parameter. This 
 `[ { value: "a", text: "Some text to select" } ...]`
 ```
 {{docxCombobox value=val items=items}}
+```
+
+### docxPageBreak
+Add a forced page break to the document.
+```
+{{docxPageBreak}}
 ```
 
 ## Development
