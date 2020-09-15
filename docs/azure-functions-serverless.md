@@ -20,7 +20,7 @@ Then install the [Azure Functions Extensions for VS Code](https://docs.microsoft
 ## Create and deploy function
 Now you can deploy the azure function using the VC Code extension.
 
-Select the Azure Functinos extension -> Deploy to Function App -> Choose "Create new Function App in Azure Advaned" -> Fill a name -> Select Node.js 12 stack -> Linux OS -> Consumption plan ->  Resource group ->  A storage account -> Let it create Application insight -> Region 
+Select the Azure Functinos extension -> Deploy to Function App -> Choose "Create new Function App in Azure Advanced" -> Fill a name -> Select Node.js 12 stack -> Linux OS -> Consumption plan ->  Resource group ->  A storage account -> Let it create Application insight -> Region 
 
 ![azure-function-deploy](/img/azure-function-deploy.gif)
 
