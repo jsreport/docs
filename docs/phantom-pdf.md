@@ -1,4 +1,6 @@
-﻿The `Phantom-pdf` recipe uses the [phantomjs](http://phantomjs.org/) screen capture feature to print HTML content into PDF files. This approach is very productive in defining report templates, and also the most used one with jsreport.
+﻿**The [phantomjs](http://phantomjs.org/) project is archived. There are, and will be security issues rising! We recommend to migrate to the jsreport default [pdf printing using chrome](/learn/pdf).**
+
+The `Phantom-pdf` recipe uses the [phantomjs](http://phantomjs.org/) screen capture feature to print HTML content into PDF files. This approach is very productive in defining report templates, and also the most used one with jsreport.
 
 The `Phantom-pdf` recipe is capable of rendering any HTML and JavaScript you provide. This means you can also use external JavaScript libraries or canvas to print visual charts.
 
@@ -138,7 +140,7 @@ However, since headers and footers are rendered like new templates and don't hav
 
 The approach uses some magic numbers (values that will need to be tweaked depending on your machine and content and by your best judgment) to get the total number of pages rendered and do some calculations to be able to emulate headers and footers for each page, or just to render some content in a specific position for each page (like a watermark).
 
-## Printing content in each page for advanced cases (pdf-utils)
+## Printing content in each page for advanced cases (pdf-utils)
 Another option for printing content in each page is to use the [pdf-utils](/learn/pdf-utils) extension, it provides features to merge dynamic content into the pdf output.
 
 ## Different sizes on Windows vs Unix
