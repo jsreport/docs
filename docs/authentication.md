@@ -1,15 +1,15 @@
 > Add login screen to jsreport and user management forms
 
 ## Basics
-Enabling `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.  
+Enabling the `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.  
 
-`Authentication` configuration adds a `user administrator` into the system  responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permissions to alter any other user.
+`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permissions to alter any other user.
 
 ## Basic authentication
 
 ### Configuration
 
-To enable authentication add following json into [configuration](/learn/configuration).
+To enable authentication add the following json into [configuration](/learn/configuration).
 
 ```js
 "extensions": {
@@ -26,9 +26,9 @@ To enable authentication add following json into [configuration](/learn/configur
 }
 ```
 
-You can change admin username or password as you want.
+You can change admin username or password as you wish.
 
-The list of custom cookie options to set is available [here](https://github.com/pillarjs/cookies#cookiesset-name--value---options--), for example you can set `{ "cookie": { "secure": true } }` to indicate that the auth cookie will only be send over HTTPS, which is a good security practice but it requires that your server works under https first.
+The list of custom cookie options to set is available [here](https://github.com/pillarjs/cookies#cookiesset-name--value---options--), for example, you can set `{ "cookie": { "secure": true } }` to indicate that the auth cookie will only be sent over HTTPS, which is a good security practice but it requires that your server works under https first.
 
 ```js
 "extensions": {
@@ -46,24 +46,24 @@ The list of custom cookie options to set is available [here](https://github.com/
 ```
 
 ### API
-You need to add header to every request when is this extension enabled.
+You need to add a Header to every request when this extension is enabled.
 
 `Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==`
 
 Where the hash is based on username and password:
 `base64(username:password)`
 
-You can use standard OData API to manage and query user entities. For example you can query all users using:
+You can use standard OData API to manage and query user entities. For example, you can query all users using:
 
 >`GET` http://jsreport-host/odata/users
 
 ## Token based authentication using an authorization server
 
-> This feature is in preview mode, it means that we have implemented all the necessary steps to complete the authentication flow with an authorization server but we are looking for real feedback about the feature and determine if something is missing or incomplete for other use cases. If you have such feedback don't hesitate to raise a [question](https://forum.jsreport.net) or open an [issue](https://github.com/jsreport/jsreport/issues).
+> This feature is in preview mode, it means that we have implemented all the necessary steps to complete the authentication flow with an authorization server but we are looking for real feedback about the feature to determine if something is missing or incomplete for other use cases. If you have such feedback don't hesitate to raise a [question](https://forum.jsreport.net) or open an [issue](https://github.com/jsreport/jsreport/issues).
 
-If you would like to delegate all authentication in the **jsreport API** to an authorization server that supports token based authentication (Bearer auth schema), you will need to use the `authorizationServer` options, much likely you will only need this if you would like to expose jsreport as a product with Single Sign On support.
+If you would like to delegate all authentication in the **jsreport API** to an authorization server that supports token based authentication (Bearer auth schema), you will need to use the `authorizationServer` options. It is likely you will only need this if you would like to expose jsreport as a product with Single Sign-On support.
 
-When jsreport is configured to use an authorization server the authentication flow looks like the following:
+When jsreport is configured to use an authorization server, the authentication flow looks like the following:
 
 - first of all, somehow you will need to get a token, issuing a token is the responsability of the authorization server and you will need to ask for tokens from one of your applications, the necessary steps and details to get the token will depend on the implementation of your authorization server, you will need the token to later be able to call the jsreport API
 - jsreport will expect to get a token from `Authorization` header in any protected API call, the token must be sent using `Bearer` auth schema, this means that all your requests to the jsreport API must be using a header: `Authorization: Bearer <your token here>`
@@ -77,7 +77,7 @@ For a real implementation of jsreport + authorization server check our [official
 
 ### Configuration
 
-To enable authentication add following json into [configuration file](/learn/configuration).
+To enable authentication, add the following json into [configuration file](/learn/configuration).
 
 ```js
 "extensions": {
