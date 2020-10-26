@@ -454,7 +454,7 @@ The helper call common arguments are the following:
 
 ### Text field
 ```html
- {{{pdfFormField name='firstName' color='#FF0000' required type='text' width='200px' height='20px'}}}
+ {{{pdfFormField name='firstName' color='#FF0000' required=true type='text' width='200px' height='20px'}}}
  ```
 
 **value** - the visible value    
