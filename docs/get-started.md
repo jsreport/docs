@@ -1,5 +1,5 @@
 
-jsreport is an open-source reporting server side tool running cross-platform on [node.js](http://nodejs.org/). It can dynamically produce reports in various formats like [pdf](/learn/chrome-pdf), [excel](/learn/html-to-xlsx), [docx](/learn/docx), [pptx](/learn/pptx) and also many other [text](/learn/text) based formats. The main idea of jsreport is to let users define reports without lame designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and let them use the knowledge they already have.
+jsreport is an open-source reporting server side tool running cross-platform on [node.js](http://nodejs.org/). It can dynamically produce reports in various formats like [pdf](/learn/chrome-pdf), [excel](/learn/html-to-xlsx), [docx](/learn/docx), [pptx](/learn/pptx) and also many other [text](/learn/text) based formats. The main idea of jsreport is to let users define reports without annoying designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and lets them use the knowledge they already have.
 
 This article shows you the most simple use case with jsreport, which is creating a pdf invoice. It covers the basic principles you need to understand to get started.
 
@@ -33,7 +33,7 @@ The sample data needs to be defined in `json` format and for our simple invoice 
 
 ## Define report template
 
-The report template is, together with the rendering process, the heart of the jsreport. A template defines what the report is going to look like and is used together with the input data every time you render a new report. You can create a report template again from the entity tree panel on the top left.<br>
+Together with the rendering process, the report template is the heart of the jsreport. A template defines what the report is going to look like and is used together with the input data every time you render a new report. You can create a report template again from the entity tree panel on the top left.<br>
 Right-click the panel -> new entity -> template.
 
 ### Select sample data
@@ -45,9 +45,9 @@ For the invoice tutorial, the first thing you need to do is associate the sample
 
 ### Recipes
 
-The report output format is defined by the template's [recipe](/learn/recipes). The recipe is an algorithm used by jsreport to convert the output of templating engines into the desired format. Every report template needs to specify exactly one recipe from many of them available.
+The report output format is defined by the template's [recipe](/learn/recipes). The recipe is an algorithm used by jsreport to convert the output of templating engines into the desired format. Every report template needs to specify exactly one recipe from all that are available.
 
-The easiest way to create a pdf invoice is to use html to pdf conversion implemented in [chrome-pdf](/learn/chrome-pdf) recipe, so let's stay with it. Note that not every recipe uses html conversion and it is always recommended to read its documentation in the  [recipes](/learn/recipes) section.
+The easiest way to create a pdf invoice is to use html to pdf conversion implemented in the [chrome-pdf](/learn/chrome-pdf) recipe, so let's stay with it. Note that not every recipe uses html conversion and it is always recommended to read its documentation in the [recipes](/learn/recipes) section.
 
 ![recipe](https://jsreport.net/img/recipe.png?v=2)
 
@@ -57,7 +57,7 @@ Templates are defined using common javascript [templating engines](/learn/templa
 
 Each template can use a different templating engine, and it's up to you which you will choose. They have a very similar feature scope and only use different syntax, but everyone has different preferences.
 
-This time lets use [handlebars](/learn/handlebars) and assemble the invoice html. In a very simple way it can look the following way:
+This time, let's use [handlebars](/learn/handlebars) and assemble the invoice html. In a very simple way it can have the following look:
 
 ```html
 <h1> Invoice </h1>
@@ -100,7 +100,7 @@ Finally it should be like this:
 
 jsreport ships out of the box with several [extensions](/learn/extensions) you can find useful during the development. The most commonly used is the [assets extension](/learn/assets). This extension is typically used when you want to extract parts of the template like styles or scripts into separate entities and reuse them. Or when you want to upload images to jsreport and reference them in the template.
 
-Let's add to the invoice some css styles. Start with creating an asset entity, name it for example `styles.css`<br>
+Let's add some css styles to the invoice. Start by creating an asset entity; name it for example `styles.css`<br>.
 Right-click the entity tree panel -> new entity -> asset.
 
 Now you can fill some css and save it:
@@ -127,7 +127,7 @@ The `{#asset xxx}` isn't a handlebars syntax but the syntax used by the assets e
 > Tip: You can also drag & drop any file to the entity tree and it gets automatically created as an asset entity.
 
 ## Test and preview report
-Now it's time to finish the invoice and preview it from the sample data until you are satisfied. In case you want to skip it and see the result right away, you can find it [here in the playground](https://playground.jsreport.net/w/admin/hBfqC7af).
+Now it's time to finish the invoice and preview it with the sample data until you are satisfied. In case you want to skip it and see the result right away, you can find it [here in the playground](https://playground.jsreport.net/w/admin/hBfqC7af).
 
 
 
@@ -135,7 +135,7 @@ Now it's time to finish the invoice and preview it from the sample data until yo
 
 Now you are ready to integrate your application with jsreport API. It's very simple and in most cases, you just need to do one REST call. You can even try it from your browser's REST plugin.
 
-The following request will invoke rendering of the previously defined template and response pdf stream back:
+The following request will invoke rendering of the previously defined template and response back with a pdf stream:
 > `POST:` https://localhost/api/report<br/>
 > `Headers`: Content-Type: application/json<br/>
 > `BODY:`
@@ -150,4 +150,4 @@ More information about the jsreport API can be found [here](/learn/api).
 
 ## Further study
 
-For further study is recommend checking out the jsreport [playground](/playground), which provides a built-in set of examples demonstrating most of the jsreport rendering capabilities. Then you can continue with the [next tutorials](/learn) and explore more advanced features.
+For further study, we recommend checking out the jsreport [playground](/playground), which provides a built-in set of examples demonstrating most of the jsreport rendering capabilities. Then you can continue with the [next tutorials](/learn) and explore more advanced features.
