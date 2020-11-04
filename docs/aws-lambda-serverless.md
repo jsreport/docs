@@ -2,7 +2,7 @@
 
 <img src="/blog/lambda.png" alt="lambda" width="100" style="margin-left: auto;margin-right: auto; display: block"/>
 <br/>
-You can run jsreport also as serverless in [AWS Lambda](https://aws.amazon.com/lambda/). This is the very convenient way how to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
+You can run jsreport serverlessly in [AWS Lambda](https://aws.amazon.com/lambda/). This is the very convenient way to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
 This documentation helps you with creating the AWS Lambda running jsreport, deploying templates and remote invocation of the rendering.
 
 ## Get started
@@ -32,7 +32,7 @@ Call it using
 ```
 node createLambdaLayer.js
 ```
-Then log in to aws console and upload the preared `layer.zip` to a s3 bucket.
+Then log in to aws console and upload the prepared `layer.zip` to a s3 bucket.
 Then create aws lambda layer referencing the uploaded zip with nodejs 12.x runtime.
 
 ![lambda layer](/img/lambda-layer.png)

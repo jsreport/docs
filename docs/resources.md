@@ -9,9 +9,9 @@
 
 The main idea behind this extension is to move all localizable strings from report templates to the JSON resources and then bind them using javascript templating engines rather then hardcode them. This extension then pushes the right localizable resource to the rendering process based on the requested language.
 
-To localize  a template you need to:
+To localize a template you need to:
 
-- Attach resources containing localizable strings to the template. Each resource containing localizable string needs to be prefixed with language name. So for example attached reosurces should be data items with name `en-invoice` and `de-invoice`.
+- Attach resources containing localizable strings to the template. Each resource containing localizable string needs to be prefixed with a language name. So for example, attached resources should be data items with the name `en-invoice` and `de-invoice`.
 
 - Fill the template default language in the jsreport studio in the resources menu
 
@@ -20,7 +20,7 @@ To localize  a template you need to:
 {{$localizedResource.title}}
 ```
 
-- The `$localizedResource` is normal property on the root data context. When you are inside a loop you need to reach it on the root.
+- The `$localizedResource` is a normal property on the root data context. When you are inside a loop, you need to reach it on the root.
 ```
 handlebars
 {{@root.$localizedResource.title}} 
@@ -31,7 +31,7 @@ jsrender
 {{:~root.$localizedResource.title}}
 ```
 
-- When having multiple resources for each language use the resource names to reach the particular one
+- When having multiple resources for each language, use the resource names to reach the particular one
 ```html
 {{$localizedResource.invoice.title}}
 {{$localizedResource.globals.title}}
@@ -46,7 +46,7 @@ Every template resource is parsed and provided to the templating engine renderin
 
 The first form can be reached in the main object's `$resource` property. There is stored an object which contains all the attached resources' data distinguished by the resources names.
 
-So for example template with attached resources:
+So, for example, template with attached resources:
 
 - data with name `config1`
 ```js
@@ -70,7 +70,7 @@ output "this is config2" when using jsrender
 {{:$resource.config2.foo2}}
 ```
 
-The second form is represented as an array in `$resources` property. This array contains every attached resource in it's complete form including `name`, `shortid` and `data` property. This can be used in some advanced scenarios. To be sure what is actually stored in the `$resources` property you can dump the object in a common way you do in jsreport.
+The second form is represented as an array in `$resources` property. This array contains every attached resource in its complete form including `name`, `shortid` and `data` property. This can be used in some advanced scenarios. To be sure what is actually stored in the `$resources` property you can dump the object in a common way you do in jsreport.
 
 ```js
 //helper function
@@ -97,7 +97,7 @@ request.options.resource
 
 ## API
 
-To specify language in the API call you need to add `language` property in the `options` object.
+To specify language in the API call, you need to add `language` property in the `options` object.
 
 > `POST:` https://jsreport-host/api/report    
 > `Headers`: Content-Type: application/json    
@@ -110,7 +110,7 @@ To specify language in the API call you need to add `language` property in the `
    }
 >```
 
-Resources are stored directly in the template document. Additionally to the `resources` this extension also adds property `defaultLanguage` to the template document.
+Resources are stored directly in the template document. Additionally to the `resources`, this extension also adds property `defaultLanguage` to the template document.
 
 > `GET` http://jsreport-host/odata/templates('aaaa')
 >```js
