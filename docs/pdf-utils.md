@@ -330,7 +330,7 @@ Behavior differs according to passwords you provide:
 
 Additionally, you can select specific permissions:
 
-**printing** - `not allowed` |  `low resolution` | `high resolution`    
+**printing** - `notAllowed` |  `lowResolution` | `highResolution`    
 **modifying** - `true` | `false`    
 **copying** - `true` | `false`    
 **annotating** - `true` | `false`    
