@@ -15,7 +15,7 @@
 
 - [Curriculum vitae (CV)](https://playground.jsreport.net/w/admin/dhuCc7eL)
 - [Invoice](https://playground.jsreport.net/w/admin/yo9J3hvu)
-- [Students](https://playground.jsreport.net/w/admin/d7o0nIWc)     
+- [Students](https://playground.jsreport.net/w/admin/d7o0nIWc)
 - [More docx examples in playground](https://playground.jsreport.net)
 
 
@@ -33,7 +33,8 @@ Create a list with single item using Word and call the `docxList` helper. It wil
 Create a table with columns header and single row using Word. Call `{{#docxTable}}` in the first cell of the data row and end the call `{{/docxTable}}` at the last cell.
 
 |columnA|columnB|
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 |{{#docxTable people}}{{name}}|{{email}}{{/docxTable}}|
 
 [Example - Table](https://playground.jsreport.net/w/admin/q94T4AJa)
@@ -41,16 +42,16 @@ Create a table with columns header and single row using Word. Call `{{#docxTable
 #### Vertical table
 Use helper argument `vertical=true` for rendering vertical table
 
-| | | |
-|-|-|-|
-| name | {{#docxTable people vertical=true}}{{name}} |
-| email | {{email}}{{/docxTable}} |
+|       |                                             |     |
+| ----- | ------------------------------------------- | --- |
+| name  | {{#docxTable people vertical=true}}{{name}} |     |
+| email | {{email}}{{/docxTable}}                     |     |
 
 #### Dynamic columns
 The table can be fully dynamic and even nested. Use `rows=[[]]` and `columns=[]` helper arguments to render dynamic columns.
 
-| |
-|-|
+|                                                   |
+| ------------------------------------------------- |
 | {{docxTable rows=rowsItems columns=columnsItems}} |
 ||
 
@@ -158,6 +159,12 @@ In case your items are dynamic, you can bind them using `items` parameter. This 
 Add a forced page break to the document.
 ```
 {{docxPageBreak}}
+```
+
+### docxRaw
+Allows to insert raw xml into the document, replacing some parent xml element. Intended to be used for advanced users which know how to manipulate the raw xml representation of a docx file
+```
+{{docxRaw xml="<w:r><w:t>raw xml run</w:t></w:r>" replaceParentElement="w:r"}}
 ```
 
 ## Development
