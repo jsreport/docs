@@ -1,4 +1,4 @@
-﻿**The [phantomjs](http://phantomjs.org/) project is archived. There are, and will be security issues rising! We recommend to migrate to the jsreport default [pdf printing using chrome](/learn/pdf).**
+﻿**The [phantomjs](http://phantomjs.org/) project is archived. There are, and will be security issues rising! We recommend to migrate to the jsreport default [pdf printing using chrome](/learn/chrome-pdf).**
 
 The `Phantom-pdf` recipe uses the [phantomjs](http://phantomjs.org/) screen capture feature to print HTML content into PDF files. This approach is very productive in defining report templates, and also the most used one with jsreport.
 
