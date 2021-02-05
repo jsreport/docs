@@ -93,6 +93,8 @@ You may need to postpone pdf printing until some javascript async tasks are proc
 </script>
 ```
 
+See an example of using printing triggers when rendering charts [here](https://playground.jsreport.net/w/admin/O3R9I~xl).
+
 ## Native headers and footers
 The header and footer are evaluated as if they were a full jsreport template. This means you can add, for example, a [child template](/learn/child-templates) reference into a header and it will be extracted. You can also use main template helpers or data in the header/footer. Remember that in order to show the header/footer you need to activate the `displayHeaderFooter` option first and add some top, bottom margin to the template in order to give the page some space to show the header/footer.
 
