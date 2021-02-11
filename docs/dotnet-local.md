@@ -133,6 +133,7 @@ rs.KillAsync().Wait();
 ```
 
 The console application now starts jsreport server and opens the studio in the browser on `http://localhost:5488`. This gives the same experience as using the full jsreport installation.
+See an example of running jsreport in separate project [here](https://github.com/jsreport/jsreport-dotnet-example-multiple-projects).
 
 > HINT - you can also edit report templates directly in the Visual Studio, because the jsreport studio automatically monitor source changes and instantly triggers the preview with the changes.
 
