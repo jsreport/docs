@@ -4,7 +4,7 @@ Do you need to create your own jsreport docker image, because you want to instal
 Assuming you have docker running, create a custom folder with `Dockerfile` file inside.
 
 ```
-FROM jsreport/jsreport:2.7.2
+FROM jsreport/jsreport:2.11.0
 ```
 
 Then run
@@ -23,7 +23,7 @@ Create your config file `jsreport.config.json`
 ```
 And edit `Dockerfile` to include it in the image
 ```
-FROM jsreport/jsreport:2.7.2
+FROM jsreport/jsreport:2.11.0
 COPY --chown=jsreport:jsreport jsreport.config.json /app
 ```
 Rebuild and run the image again. You should be able to `require` custom modules now.
@@ -32,7 +32,7 @@ Rebuild and run the image again. You should be able to `require` custom modules 
 Add custom module installation step to your `Dockerfile`.
 
 ```
-FROM jsreport/jsreport:2.7.2
+FROM jsreport/jsreport:2.11.0
 RUN npm i handlebars-intl --save
 COPY --chown=jsreport:jsreport jsreport.config.json /app
 ```
@@ -47,7 +47,7 @@ HandlebarsIntl.registerWith(handlebars)
 Run your local jsreport and prepare your templates. Then copy the data folder to the same folder you have `Dockerfile`. Now add the following to the `Dockerfile`.
 
 ```
-FROM jsreport/jsreport:2.7.2
+FROM jsreport/jsreport:2.11.0
 RUN npm i handlebars-intl --save
 COPY --chown=jsreport:jsreport jsreport.config.json /app
 COPY --chown=jsreport:jsreport /data /app/data
