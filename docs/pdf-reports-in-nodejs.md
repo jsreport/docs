@@ -64,7 +64,7 @@ require('jsreport').render({
 ```
 
 ## Output formats
-jsreport is not strictly tight to chrome. It is just one of the supported technologies to print output in jsreport. You can for example just [print html](https://jsreport.net/learn/html) or print pdf using [apache fop](https://jsreport.net/learn/fop-pdf). Technology used for printing can be specified using `recipe` property. You can find more about supported recipes [here](https://jsreport.net/learn/recipes). Following example will evaluate javascript templating engines and return html.
+jsreport is not strictly tied to chrome. It is just one of the supported technologies to print output in jsreport. You can for example just [print html](https://jsreport.net/learn/html) or print pdf using [apache fop](https://jsreport.net/learn/fop-pdf). Technology used for printing can be specified using the `recipe` property. You can find more about supported recipes [here](https://jsreport.net/learn/recipes). Following example will evaluate javascript templating engines and return html.
 
 ```js
 require('jsreport').render({
