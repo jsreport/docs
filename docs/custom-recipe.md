@@ -1,6 +1,6 @@
 > **Sources on GitHub [jsreport-html-to-text](https://github.com/jsreport/jsreport-html-to-text)**
 
-This tutorial shows how you can add a custom recipe into jsreport.  
+This tutorial shows how you can add a custom recipe into jsreport.
 
 jsreport is quite often used to render and send emails. Where the email body is usually in html format but sometimes it is required to send the body just in the plain text. In this tutorial you will create a recipe which converts html into nicely structured text which can be
 then used for plain text emails.
@@ -38,6 +38,9 @@ module.exports = (reporter, definition) => {
     name: 'html-to-text',
     execute: (request, response) => {
       response.content = new Buffer(convert.fromString(response.content.toString()))
+
+      response.meta.contentType = 'text/plain'
+      response.meta.fileExtension = 'txt'
     }
   })
 }
@@ -45,7 +48,7 @@ module.exports = (reporter, definition) => {
 
 As you see the `main.js` file exports the function which is called by jsreport during the initialization. The only thing we do in this function's body for now is adding the new recipe into the `reporter.extensionsManager.recipes` collection.
 
-The recipe execution function accepts `request` and `response` parameters. There is already a buffer with output from templating engine in `response.content` which we just convert into the text using previously installed package and we are done.
+The recipe execution function accepts `request` and `response` parameters. There is already a buffer with output from templating engine in `response.content` which we just convert into the text using previously installed package, then we set some metadata information (`response.meta.contentType`, `response.meta.fileExtension`) about the output and we are done.
 
 ## Testing
 
@@ -78,9 +81,10 @@ templateType.htmlToText = { type: 'jsreport.htmlToText' }
 reporter.extensionsManager.recipes.push({
   name: 'html-to-text',
   execute: (request, response) => {
-    response.content = new Buffer(convert.fromString(response.content.toString(), {
-      wordwrap: (request.template.htmlToText || {}).wordWrap || 130
-    }))
+    response.content = new Buffer(convert.fromString(response.content.toString()))
+
+    response.meta.contentType = 'text/plain'
+    response.meta.fileExtension = 'txt'
   }
 })
 
