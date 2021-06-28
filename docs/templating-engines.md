@@ -116,8 +116,8 @@ function formatNow() {
 }
 ```
 
-## Asynchronous helpers
-The helper functions can be also asynchronous and return promises. 
+## Async
+The helper functions can be asynchronous and return promises. 
 This can be handy to perform external calls or invoke modules that don't have synchronous API.
 
 You can, for example, resize an image before putting it to the pdf and produce smaller pdfs.
@@ -133,7 +133,19 @@ async function resize (url) {
 }
 ```
 
-Note the async helpers shouldn't be used to load the input data set or manipulate the input data.
+The helpers section can also asynchronous at the top level. 
+This can be beneficial when a custom library needs an asynchronous initialization code.
+
+```js
+const someLibrary = require('someLibrary')
+await someLibrary.init()
+
+function myHelper() {
+    return someLibrary.foo()
+}
+```
+
+Note the async code in helpers shouldn't be used to load or manipulate the input data.
 Such tasks should be done using [jsreport custom scripts](/learn/scripts).
 
 ## Internationalization
