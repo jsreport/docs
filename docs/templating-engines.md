@@ -133,7 +133,7 @@ async function resize (url) {
 }
 ```
 
-The helpers section can also asynchronous at the top level. 
+The helpers section can be also asynchronous at the top level. 
 This can be beneficial when a custom library needs an asynchronous initialization code.
 
 ```js
