@@ -3,7 +3,7 @@
 ## Basics
 Enabling the `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.  
 
-`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permissions to alter any other user.
+`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permission to alter any other user.
 
 ## Basic authentication
 
@@ -44,6 +44,11 @@ The list of custom cookie options to set is available [here](https://github.com/
 	}
 }
 ```
+
+### Custom users
+The jsreport custom users can be created from the entity tree plus button.
+
+![new user](/learn/static-resources/authentication-new-user.png)
 
 ### API
 You need to add a Header to every request when this extension is enabled.
