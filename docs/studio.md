@@ -1,6 +1,35 @@
 
 
-> The studio extension provides jsreport UI which you typically reach using browser.
+> The studio extension provides jsreport UI accessible using a browser.
+
+## Profiles
+
+jsreport studio doesn't display just the report output, but it can also display additional information collected from the rendering request in real-time. 
+This can be found in the "profile" tab.
+
+![report profile](/learn/static-resources/report-profile.png)
+
+The profiler collects basic information for every rendering request and you can display the diagrams like the one above also for the past requests from the startup page or through the API.
+However, only for the requests triggered from the studio, the profiler collects extra information like input and output of every operation running in the rendering pipeline.
+This means you can download report input and output from the diagram. But also a partial output of the templating engine evaluation for example.
+
+![profile input outpout](/learn/static-resources/profile-input-output.png)
+
+The click to the arrow line between operations pops up a modal dialog with options to display the operation input/output.
+
+![profile inspect](/learn/static-resources/profile-inspect.png)
+
+The information provided in the profile can be also downloaded from the studio and shared with other developers when asking for help.
+
+![profile actions](/learn/static-resources/profile-actions.png)
+
+jsreport studio includes an extra profiler page you can use to monitor currently running requests in real-time and display its profiles.
+The profiler page can be reached from the startup page.
+
+![profiler](/learn/static-resources/profiler.png)
+
+You can switch between "Standard profiling" and "Full profiling" where the second one collects the same additional information when a request runs from the studio in the preview mode.
+This way you can easily get the report input and output
 
 ## Themes
 The jsreport by default comes with a light and dark theme. You can select the theme through the settings menu.    
@@ -35,12 +64,3 @@ The color variables can be general like `primary-color` for the main text or the
 The easiest way to find out the right variable is using the browser F12 developer tools. Select an element you want to style and check its color definition. The varaible name is written in comment `theme-var: variablename`. Just keep in mind the inheritence because the actual color can be defined in the parent.    
 
 ![white-labeling-f12](/img/white-labeling-f12.png)
-
-
-## Startup page
-jsreport studio provides in the startup page some interesting information like last edited templates and logs for the last requests.
-
-![startup](/img/studio-startup.png)
-
-You can disable the startup page or disable persisting logs. Check the configuration details using cli command `jsreport help config`.
-
