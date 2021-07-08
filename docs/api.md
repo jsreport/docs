@@ -36,6 +36,8 @@ In the most typical case, you just need to specify template **name** (or shortid
 }
 ```
 
+### Override templates attributes
+
 You may want to override just some attributes of the template. This is easy because all the request attributes are merged into the stored template before evaluation. If you want to for example just change the template recipe to `html` you can do it with the following request body.
 
 ```js
@@ -47,6 +49,8 @@ You may want to override just some attributes of the template. This is easy beca
 	"data" : { ... },
 }
 ```
+
+### Rendering without stored templates
 
 The template doesn't necessarily need to be stored inside jsreport [templates store](/learn/template-stores) and it can be fully defined in the request body. In this case, you need to specify at least required attributes `recipe`,  `engine` and `content`. The following snippet shows how to define such a request body.
 
@@ -64,10 +68,25 @@ The template doesn't necessarily need to be stored inside jsreport [templates st
 }
 ```
 
-The valid template properties can be found in the following ways:
-- using API dialog which you can open through studio settings
-- using odata metadata definition which you can get from http://jsreport-host/odata/$metadata
-- using F12 browser tools when running the rendering request from the studio
+The valid template properties can be inspected in the jsreport studio. You can define the template to your needs, run it and open the [profile](/learn/studio/#profiles).
+Then click the very first node and use "Open Request". This provides you JSON you can replicate in your API call.
+
+Another option to inspect the valid template properties is to use odata metadata definition. This can be reached at http://jsreport-host/odata/$metadata
+
+The template typically references additional entities like [scripts](/learn/scripts) or additional templates for [pdf utils operations](/learn/pdf-utils).
+When you don't want to use store, you need to specify the full entities' content instead of the references. 
+This is specific for every extension or recipe and you should read the API section of particular extension's docummentation.
+
+### Timeout
+
+The rendering timeout specified in the configuration `reportTimeout` can be overridden in the API call. This possibility needs to be opted in using configuration `enableRequestReportTimeout=true`. Then use `options.timeout` in the request body.
+
+```js
+{
+      "template": { ... },
+      "options": { "timeout": 30000 }
+}
+```
 
 ### Content-Disposition and report name
 
@@ -84,16 +103,15 @@ The file extension adds jsreport depending on the content type of the report bei
 
 In case you want full control over this response header you can specify `options['Content-Disposition']`  in the request body and override the defaults.
 
-### Timeout
+### Clients
 
-The rendering timeout specified in the configuration `reportTimeout` can be overridden in the API call. This possibility needs to be opted in using configuration `enableRequestReportTimeout=true`. Then use `options.timeout` in the request body.
+There are also API wrappers for popular platforms which can be used to invoke report rendering.
 
-```js
-{
-      "template": { ... },
-      "options": { "timeout": 30000 }
-}
-```
+- [.NET](https://jsreport.net/learn/dotnet-client)
+- [Java](https://github.com/hedonCZ/jsreport-javaclient)
+- [nodejs](https://jsreport.net/learn/nodejs-client)
+- [browser](https://jsreport.net/learn/browser-client)
+- [CLI](https://jsreport.net/learn/cli)
 
 ## Querying and CRUD
 
