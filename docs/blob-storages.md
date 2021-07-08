@@ -1,11 +1,19 @@
 
-jsreport supports persisting big blobs like output pdf reports through an abstraction called `Blob storage`. The abstraction is implemented in several extensions which provide particular persistence drivers.
+jsreport supports persisting big blobs like [output reports](/learn/reports) or [profiles](/learn/studio#profiles) through an abstraction called `Blob storage`. The main reason for an extra abstraction is that often it's needed to persist big and high volume data outside the main [templates store](/learn/template-stores). However, the most common is to persist the blobs in the same location. Like in the following config:
 
-- file system (default)
-- [aws s3 storage](https://github.com/jsreport/jsreport-aws-s3-storage)
-- [azure blob storage](https://github.com/jsreport/jsreport-azure-storage)
+```js
+{
+	"store": { 
+		"provider": "mongodb"
+	},
+	"blobStorage": {
+		"provider": "mongodb"
+	}
+}
+```
 
-The blob storage abstraction is then used in the other jsreport extensions to persist blobs. However, currently, there is an only single extension which is using it. The reports extension uses blob storage to persist captured rendering outputs which are then available for later access. See [reports extension documentation](/learn/reports) for details.
+Every [templates store](/learn/template-stores) driver also includes a blob storage provider and typically the blob storage provider is the same as the store provider.
+The exception is the blob storage driver for [aws s3](https://github.com/jsreport/jsreport/packages/jsreport-aws-s3-storage) and [azure storage](https://github.com/jsreport/jsreport/packages/jsreport-azure-storage). Both need extra installation but can be reasonable when for example SQL based store has limited space and there is expected very high consumption for stored output reports.
 
 ## Configuration
 
@@ -25,7 +33,7 @@ The default blobs location on the file system is `data/storage` directory. This 
 }
 ```
 
-The custom blob storage implementation typically needs more options passed through standard extensions configuration. Like in case of [aws s3 storage](https://github.com/jsreport/jsreport-aws-s3-storage),
+The custom blob storage implementation typically needs more options passed through standard extensions configuration. Like in case of [aws s3 storage](https://github.com/jsreport/jsreport/packages/jsreport-aws-s3-storage),
 ```js
 "blobStorage": {  
 	"provider": "aws-s3-storage"
