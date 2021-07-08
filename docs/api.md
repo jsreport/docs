@@ -4,18 +4,18 @@
 
 ## Basics
 
-jsreport API can be split into the two main use cases:
+jsreport API can be split into two main use cases:
 
 1. Rendering reports - use it when you need to invoke the report rendering process
 2. Querying and CRUD - use it in more complex jsreport integration in which you want to update or synchronize entities using API
 
 The following two sections are describing these main use cases in detail.
 
-> The jsreport studio uses the same API exposed to you. In case you are missing something in the documentation you can open F12 browser tools and see what is happening in the network tab.
+> The jsreport studio uses the same API exposed to you. In case you are missing something in the documentation, you can open F12 browser tools and see what is happening in the network tab.
 
 ## Rendering report
 
-Invoking report rendering process is the most commonly used API method. The next snippet shows the service endpoint url as well as the body schema. Options and data fields are optional.
+Invoking the report rendering process is the most commonly used API method. The next snippet shows the service endpoint URL as well as the body schema. Options and data fields are optional.
 
 > `POST:` https://jsreport-host/api/report<br/>
 > `Headers`: Content-Type: application/json<br/>
@@ -28,7 +28,7 @@ Invoking report rendering process is the most commonly used API method. The next
    }
 >```
 
-In the most typical case, you just need to specify template **name** (or shortid) and input data. The template **name** property needs to be unique template name. In the case you use multiple folders it's recommended to pass full path instead of the name. For example   
+In the most typical case, you just need to specify template **name** (or shortid) and input data. The template **name** property needs to be a unique template name. In the case you use multiple folders it's recommended to pass the full path instead of the name. For example   
 ```js
 {
   "template": { "name": "/myfolder/mytemplate" }"
@@ -52,7 +52,7 @@ You may want to override just some attributes of the template. This is easy beca
 
 ### Rendering without stored templates
 
-The template doesn't necessarily need to be stored inside jsreport [templates store](/learn/template-stores) and it can be fully defined in the request body. In this case, you need to specify at least required attributes `recipe`,  `engine` and `content`. The following snippet shows how to define such a request body.
+The template doesn't necessarily need to be stored inside jsreport [templates store](/learn/template-stores) and it can be fully defined in the request body. In this case, you need to specify at least the required attributes `recipe`,  `engine`, and `content`. The following snippet shows how to define such a request body.
 
 ```js
 {
@@ -68,14 +68,14 @@ The template doesn't necessarily need to be stored inside jsreport [templates st
 }
 ```
 
-The valid template properties can be inspected in the jsreport studio. You can define the template to your needs, run it and open the [profile](/learn/studio/#profiles).
+The valid template properties can be inspected in the jsreport studio. You can define the template to your needs, run it, and open the [profile](/learn/studio/#profiles).
 Then click the very first node and use "Open Request". This provides you JSON you can replicate in your API call.
 
-Another option to inspect the valid template properties is to use odata metadata definition. This can be reached at http://jsreport-host/odata/$metadata
+Another option to inspect the valid template properties is to use OData metadata definition. This can be reached at http://jsreport-host/odata/$metadata
 
 The template typically references additional entities like [scripts](/learn/scripts) or additional templates for [pdf utils operations](/learn/pdf-utils).
-When you don't want to use store, you need to specify the full entities' content instead of the references. 
-This is specific for every extension or recipe and you should read the API section of particular extension's docummentation.
+When you don't want to use the store, you need to specify the full entities' content instead of the references. 
+This is specific for every extension or recipe and you should read the API section of a particular extension's documentation.
 
 ### Timeout
 
@@ -205,4 +205,4 @@ Where the hash is based on username and password:
 
 ## Ping
 
-There is public endpoint http://jsreport-host/api/ping which you can use to check if the jsreport is running. This endpoint isn't behind the authentication so you can use it from your loadbalancer or docker heathcheck.
+There is a public endpoint http://jsreport-host/api/ping which you can use to check if the jsreport is running. This endpoint isn't behind the authentication so you can use it from your load-balancer or docker heath check.
