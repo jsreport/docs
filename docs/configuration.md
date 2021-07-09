@@ -1,7 +1,7 @@
 ﻿
 
 
-The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing http port, setting store provider to different mechanism and many others.
+The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
 ```
@@ -10,30 +10,27 @@ jsreport help config
 
 ## Configuration sources
 
-jsreport merges configuration from config file, environment variables, command line arguments and also directly from the application code in this exact order.
+jsreport merges configuration from the config file, environment variables, the command line arguments, and also directly from the application code in this exact order.
 
 ### Configuration file
 The configuration file is the most common way to adapt jsreport. The default `jsreport.config.json` is usually pre-created for you if you follow [installation instructions](/on-prem).
+The config file can be explicitly specified using `configFile=path` with both relative or absolute paths. This means you can have different config files for different environments and distinguish using the `configFile` environment variable which one should be used.
 
-jsreport also loads `dev.config.json` or `prod.config.json` based on the `NODE_ENV=development` or `NODE_ENV=production` environment variable if such file exists.
-
-The config file can be also explicitly specified using `configFile=path` option which can be passed from one of the configuration source methods. The config file path can be both relative or absolute.
-
-`Hint:` You should see the currently applied configuration file name in the first lines of log when starting the instance.
+`Hint:` You should see the currently applied configuration file name in the first lines of the startup logs.
 ```
-info: Initializing jsreport@2.0.0 in development mode using configuration file: jsreport.config.json
+info: Initializing jsreport (version: 2.11.0, mode: production, configuration file: jsreport.config.json, nodejs: 14.17.0)
 ```
 
 ### Environment variables
-The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it to change the port for example:
+The environment variables are collected and merged into the final configuration during the jsreport startup as well. You can use it, for example, to change the port:
 
-unix:
+Unix:
 
 ```sh
 httpPort=3000 jsreport start
 ```
 
-windows:
+Windows:
 
 ```sh
 set httpPort=3000&&jsreport start
@@ -41,44 +38,45 @@ set httpPort=3000&&jsreport start
 
 This will start jsreport on port 3000 even if you have the `httpPort` entry in the config file because the environment variables have the higher priority.
 
-If you want to use environment variable for configuring a complex object you should separate the nested path in the key using `_` :
 
-unix:
+If you want to use an environment variable for configuring a complex object you should separate the nested path in the key using `_` (or `:`):
+
+Unix:
 
 ```sh
 extensions_authentication_admin_username=john jsreport start
 ```
 
-windows:
+Windows:
 
 ```sh
 set extensions_authentication_admin_username=john
 jsreport start
 ```
 
-another alternative to the `_` separator is to use the `:` as separator
-
-unix:
-
-```sh
-env extensions:authentication:admin:username=john jsreport start
+Many systems like Kubernetes don't like `-` in the environment variables. Therefore jsreport supports using camel casing instead of the `-` in the configuration environment variables.
+In other words the following json configuration:
+```js
+"extensions": {
+  "fs-store": {
+    "dataDirectory": "/mydata"
+  }
+}
+```
+Can be transformed into environment variable config this way:
+```
+extensions_fsStore_dataDirectory=/myData
 ```
 
-windows:
-
-```sh
-set extensions:authentication:admin:username=john
-jsreport start
-```
 
 ### Arguments
-The command line arguments are parsed as well. This is very convenient for changing the port for example:
+The command-line arguments are parsed as well. This is very convenient for changing the port for example:
 
 ```sh
 jsreport start --httpPort=3000
 ```
 
-The configuration for complex objects should use the `.`  as separator
+The configuration for complex objects should use the `.`  as a separator
 
 ```sh
 jsreport start --extensions.authentication.admin.username=john
@@ -86,7 +84,7 @@ jsreport start --extensions.authentication.admin.username=john
 
 ### Application code
 
-The last option is to edit the `server.js` file which is part of the default installation. This is usually common when integrating jsreport into existing node.js application. Note this approach cannot be used if you use precompiled jsreport binary.
+The last option is to edit the `server.js` file which is part of the default installation. This is usually common when integrating jsreport into the existing node.js application. Note this approach cannot be used if you use precompiled jsreport binary.
 ```js
 const jsreport = require('jsreport')({
   httpPort: 3000
@@ -95,52 +93,26 @@ const jsreport = require('jsreport')({
 
 ## Configuring extensions
 
-Each extension (recipe, store...) usually provides some options you can apply and adapt its behavior. These options can be typically set through standard configuration under the top level `extensions` property, in which you can put the specific extensions options with extension's name inside it. For example the [authentication](/learn/authentication) can be configured under the same named node in the config.
+jsreport extensions typically provide some configuration options which are nested in the config node `extensions.[extension name]`. The [authentication](/learn/authentication) can be,
+for example, configured like this:
 
 ```js
 "extensions": {
   "authentication": {     
-  	"admin": {
-  		"username" : "admin",
-  		"password": "password"
-  	}
+    "admin": {
+      "username" : "admin",
+      "password": "password"
+    }
   }
 }   
 ```
 
-extensions that has a name with a hyphen in it (like `html-to-xlsx` for example) also supports receiving configuration with the name in camel case, so both of the following examples are valid for extensions with hyphen in its name
 
-```js
-"extensions": {
-  "html-to-xlsx": {
-    ...
-  }
-}
-```
-
-```js
-"extensions": {
-  "htmlToXlsx": {
-    ...
-  }
-}
-```
-
-This support of camel case form of extensions also works when specifying configuration as cli arguments or env vars, which is handy when working in environments where is difficult to pass arguments or env vars with hyphens.
-
-```sh
-jsreport start --extensions.htmlToXlsx.someConfig value
-```
-
-```sh
-extensions_htmlToXlsx_someConfig=value jsreport start
-```
-
-Please refer to particular extension's documentation to find what configuration options you have. There is usually `Configuration` section where you can find it.
+Please refer to the particular extension's documentation to find what configuration options you have. There is usually a `Configuration` section where you can find it.
 
 ### Disabling extensions
 
-You can disable an extension by setting `enabled: false` in the configuration of particular extension. You can for example disable jsreport studio, API and authentication using this config.
+You can disable an extension by setting `enabled: false` in the configuration of a particular extension. You can, for example, disable jsreport studio, scheduling, and authentication using this config.
 
 ```js
 {
@@ -151,7 +123,7 @@ You can disable an extension by setting `enabled: false` in the configuration of
     "studio": {    
       "enabled": false
     },
-    "express": {
+    "scheduling": {
       "enabled": false
     }
   }
@@ -169,8 +141,8 @@ from http to https, if any of `httpPort` and `httpsPort` is specified default pr
 
 ```js
 "certificate": {
-	"key": "certificates/jsreport.net.key",
-	"cert": "certificates/jsreport.net.cert"
+  "key": "certificates/jsreport.net.key",
+  "cert": "certificates/jsreport.net.cert"
 }
 ```
 
@@ -178,8 +150,8 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 ```js
 "certificate": {
-	"pfx": "certificates/jsreport.net.pfx",
-	"passphrase": "<if pfx file is protected specify the password here>"
+  "pfx": "certificates/jsreport.net.pfx",
+  "passphrase": "<if pfx file is protected specify the password here>"
 }
 ```
 
@@ -187,109 +159,84 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
 
-**appPath** (`string`)  - optionally set application path, if you run application on http://appdomain.com/reporting then set "/reporting" to appPath. The default behavior is that it is assumed that jsreport is running behind a proxy, so you need to do url url rewrite /reporting -> / to make it work correctly, See mountOnAppPath when there is no proxy + url rewrite involved in your setup.
+**appPath** (`string`)  - optionally set application path, if you run an application on http://appdomain.com/reporting then set "/reporting" to the `appPath`. The default behavior is that it is assumed that jsreport is running behind a proxy, so you need to do URL rewrite /reporting -> / to make it work correctly, See mountOnAppPath when there is no proxy + URL rewrite involved in your setup.
 
-**mountOnAppPath** (`boolean`) - use this option along with `appPath`. it specifies if all jsreport routes should be available with `appPath` as prefix, therefore making `appPath` the new root url of application
+**mountOnAppPath** (`boolean`) - use this option along with `appPath`. It specifies if all jsreport routes should be available with `appPath` as the prefix, therefore making `appPath` the new root URL of application
 
 ## Store configuration
 
-**store** (`object`) - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `store.provider` attribute. The predefined value in the precreated configuration file is `fs` which employs [jsreport-fs-store](/learn/fs-store) to store report templates on the file system.  Alternatively you can install additional extension providing template store and change `store` to reflect it. You can find the list of available store drivers and further details how to configure them [here](/learn/template-stores).
+**store** (`object`) - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `store.provider` attribute. The predefined value in the pre-created configuration file is `fs` which employs [fs store](/learn/fs-store) to store report templates on the file system.  Alternatively, you can install an additional extension providing a template store and change `store` to reflect it. You can find the list of available store drivers and further details on how to configure them [here](/learn/template-stores).
 
-**blobStorage** (`object`) - optional, specifies type of storage used for storing reports. The particular implementation is distinguish based on `blobStorage.provider` attribute. It can be `fs`, `memory` or `gridFS`. Defaults to `fs` in full jsreport or to `memory` when integrating jsreport into existing node.js application.
+**blobStorage** (`object`) - optional, specifies type of storage used for storing [blobs](/learn/blob-storages). The particular implementation is distinguish based on `blobStorage.provider` attribute. You can find the list of available blob storage drivers and further details how to configure them [here](/learn/blob-storages)
 
 ## Directories configurations
 
 **rootDirectory** (`string`) - optionally specifies where's the application root and where jsreport searches for extensions
 
-**tempDirectory** (`string`) - optionally specifies absolute or relative path to directory where the application stores temporary files
+**tempDirectory** (`string`) - optionally specifies the absolute or relative path to the directory where the application stores temporary files (defaults to [OS TEMP]/jsreport/)
 
-**configFile** (`string`) - relative or absolute path to the configuration json file to be used
+**configFile** (`string`) - relative or absolute path to the configuration JSON file to be used
 
 ## Allow local files and local modules
 
-**allowLocalFilesAccess** (`boolean`) - When true this property specifies that jsreport should allow access to the local file system and use of custom nodejs modules during rendering execution
+**allowLocalFilesAccess** (`boolean`) - general configuration to allow user code in templates to access the local file system. This allows users to `require` custom modules in templating engines and scripts or use assets extension to reference local files. It's reasonable to enable this when the templates are developed by trustest internal developers, but not when the templates are developed by end-users.
 
 ## Report timeouts
 
 **reportTimeout** (`number`)  - total timeout in ms for a one report rendering
 
-Until jsreport reaches version 3.0.0, there are also granular options for timeout like `templatingEngines.timeout` or `chrome.timeout` supported.  However,  these are deprecated and just `reportTimeout` should be used. Both `reportTimeout` and granular options don't work together and in case both are filled in the configuration, just `reportTimeout` is applied. There is currently no default for `reportTimeout` because of back-compatibility. If it isn't filled, the granular timeouts are used.    
+**enableRequestReportTimeout** (`boolean`) - opt-in for letting rendering requests use `options.timeout` to override general `reportTimeout` configuration
 
-**enableRequestReportTimeout** (`boolean`) - opt in for leting rendering requests use `options.timeout` to override general `reportTimeout` configuration
+## Sandbox
 
-## Isolation configuration
+**sandbox** (`object`) - configure the sandboxing of user code like templating engine evaluation or evaluation of custom [jsreport script](/learn/scripts) (`optional`)
 
-jsreport uses by default dedicated processes for rendering pdf or scripts. This solution has higher level of isolation. However you can get better performance when configuring jsreport to reuse processes.
-
-```js
-"chrome": {     
-  "strategy": "chrome-pool"
-},
-"templatingEngines": {       
-  "strategy": "http-server"
-}
-```
-
-## Templating engines configuration
-
-**templatingEngines** (`object`) - this attribute is `optional` and is used to configure the component that executes rendering tasks. This component is used to execute javascript templating engines during rendering or in scripts extension.
-
-**templatingEngines.strategy** (`dedicated-process | http-server | in-process`) - The first strategy uses a new nodejs instance for every task.  The second strategy reuses every instance over multiple requests. Where `http-server` has better performance, the default `dedicated-process` is more suitable to some cloud and corporate environments with proxies.  The last `in-process` strategy simply runs the scripts and helpers inside the same process. This is the fastest, but it is **not safe** to use this strategy with users' templates which can have potentially endless loops or other critical errors which could terminate the application. The `in-process` strategy is also handy when you need to debug jsreport with node.js debugging tools.
-
-**templatingEngines.numberOfWorkers** (`number`) - how many child nodejs instances will be used for task execution
-
-**templatingEngines.host** (`string`) - Set a custom hostname on which script execution server is started, useful is cloud environments where you need to set specific IP.
-
-**templatingEngines.portLeftBoundary** (`number`) - set a specific port range for script execution server
-
-**templatingEngines.portRightBoundary** (`number`) - set a specific port range for script execution server
-
-**templatingEngines.allowedModules** (`array`) - set the allowed external modules that can be used (imported with `require`) inside helpers of template engines. Ex: `allowedModules: ["lodash", "request"]`, alternatively you can enable importing any external module using `allowedModules: "*"`. If instead of helpers you want to control the allowed modules for scripts then check the corresponding [docs](https://jsreport.net/learn/scripts#use-external-modules)
+**sandbox.allowedModules** (`array`) - the array of the npm modules (imported with `require`) allowed inside sandboxed code. For example: `allowedModules: ["axios", "lodash"]`. Alternatively, you can enable importing any external module using `allowedModules: "*"`.
 
 ## Encryption configuration
-jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The extensions like [pdf-sign](learn/pdf-sign) or [office-password](/learn/office-password) then use this API.
+jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The API for encryption is then eventually used by extensions.
+The encryption is disabled when the `encryption` node is missing in the config.
 
 **encryption.secretKey** (`string`) - must be exactly 16 chars long string    
 
-**encryption.enabled** (`boolean`) - the encryption can be disabled this way
+**encryption.enabled** (`boolean`) - enable/disable encryption
+
+## Workers
+
+**workers** (`object`) - configure the worker threads used to process rendering requests and other heavy tasks (`optional`)
+
+**workers.numberOfWorkers** (`number`) - number of worker threads allocated. Every worker can process only one request. This means the config `numberOfWorkers` also specifies how many reports can jsreport process in parallel. defaults to 2 (`optional`)
 
 ## Logging configuration
 
-> Note: Logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package and many of its concepts apply the same for jsreport logging configuration
+> Logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package. Many of its concepts apply the same for jsreport logging configuration.
 
-**logger** (`object`) - To have complete control about logging in jsreport you can declare output (where should logs be sent) and log level using an object:
+
+**logger** (`object`) - optional logging configuration which defaults to:
 
 ```js
 {
     "logger": {
         "console": { "transport": "console", "level": "debug" },
-        "file": { "transport": "file", "level": "info", "filename": "logs/log.txt" },
+        "file": { "transport": "file", "level": "debug", "filename": "logs/log.txt" },
         "error": { "transport": "file", "level": "error", "filename": "logs/error.txt" }
-    }
 }
 ```
 
-For example the above config specifies the following:
+Explanation: 
+- configure an output named `"console"` sending all logs with level `debug`, and all levels with lower priority, to the console
 
-- configure an output named `"console"` which sent all logs with level `debug`, and all levels with low priority than `debug` level (`"level": "debug"`) to the console (`"transport": "console"`)
+- configure and output named `"file"` sending all logs with `debug`, and all levels with lower priority, to the file `"logs/log.txt"`
 
-- configure and output named `"file"` which sent all logs with level `info`, and all levels with low priority than `info` level (`"level": "info"`) to the file system (`"transport": "file"`) storing them at `"logs/log.txt"` (`"filename": "logs/log.txt"`)
+- configure and output named `"error"` sending all logs with level `error`, and all levels with lower priority, to the file `"logs/error.txt"`
 
-- configure and output named `"error"` which sent all logs with level `error`, and all levels with low priority than `error` level (`"level": "error"`) to the file system (`"transport": "file"`) storing them at `"logs/error.txt"` (`"filename": "logs/error.txt"`)
+Supported values for `transport`:
+- `debug` -> pipes to console when environment variable `DEBUG=jsreport`
+- `console` -> pipes to console, [available additional options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#console-transport)
+- `file` -> pipes to file, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#file-transport)
+- `http` -> pipes to an http endpoint, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#http-transport)
 
-Each output object specifies where to send the logs using a `transport` property and which is the level that should taken in consideration using a `level` property.
-
-As you can see in the previous logging configuration each output object can take additional properties that let you configure the functionality of a `transport`, for example in the case of the output named "file", we are using the `filename` property to tell the file `transport` where to save the logs, each `transport` type supports a different set of properties to configure its behaviour.
-
-Values for the `transport` property:
-
-- `debug` -> specifies that logs should be sent to console but they only be visible when using `DEBUG=jsreport` env var
-- `console` -> specifies that logs should be sent to console, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#console-transport)
-- `file` -> specifies that logs should be sent to the file system, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#file-transport)
-- `http` -> specifies that logs should be sent to and http endpoint, [available options here](https://github.com/winstonjs/winston/blob/master/docs/transports.md#http-transport)
-
-Available log `level` ordered by priority (top ones have more priority):
-
+Supported values for `level`, ordered by priority:
 - `silly`
 - `debug`
 - `verbose`
@@ -297,8 +244,20 @@ Available log `level` ordered by priority (top ones have more priority):
 - `warn`
 - `error`
 
-For advanced use cases we provide a way to configure output which can use a `transport` available from external modules using the `module` property, since logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package any external module that is compatible with winston transports will work in jsreport, for example to tell jsreport to use the third-party [winston-loggly](https://github.com/winstonjs/winston-loggly) transport you can create a configuration like the following:
+You can override all or just some part of the predefined configuration using:
 
+```js
+{
+    "logger": {
+        "console": {
+            "level": "error" // log just error level to the console and keep the rest transport configuration
+        }
+    }
+}
+```
+
+A custom `transport` can be specified using the `module` property. Refer to the [winston documentation](https://github.com/winstonjs/winston) to see available external transport packages.
+The following example demonstrates how to use [winston-loggly](https://github.com/winstonjs/winston-loggly) transport and pipe logs to the popular cloud-based logging service.
 ```js
 {
     "logger": {
@@ -318,46 +277,8 @@ For advanced use cases we provide a way to configure output which can use a `tra
 }
 ```
 
-**Default logger configuration in jsreport:**
-
-```js
-{
-    "logger": {
-        "debug": {
-            "transport": "debug",
-            "level": "debug"
-        },
-        "console": {
-            "transport": "console",
-            "level": "debug" // "info" in production mode
-        },
-        "file": {
-            "transport": "file",
-            "level": "debug" // "info" in production mode
-        },
-        "error": {
-            "transport": "file",
-            "level": "error"
-        }
-    }
-}
-```
-
-Note that you can override all or just some part of the predefined configuration using:
-
-```js
-{
-    "logger": {
-        "console": {
-            "level": "error" // now only logs with level "error" will be sent to console, the rest of predefined outputs are still configured, we are only overriding the "level" option for the predefined console output here
-        }
-    }
-}
-```
-
-**Special options:**
-
 - **logger.silent** (`boolean`): handy option to silence (logs will not be stored) all outputs configured. default: false
+
 
 ## Example of the config file
 
@@ -384,10 +305,6 @@ Note that you can override all or just some part of the predefined configuration
         "filename": "logs/error.log"
       }
     },    
-    "templatingEngines": {
-      "numberOfWorkers" : 2,     
-      "strategy": "http-server"
-    },
     "extensions":  {  
       "authentication"  :  {  
         "cookieSession":  {  
