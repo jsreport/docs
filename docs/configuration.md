@@ -18,7 +18,7 @@ The config file can be explicitly specified using `configFile=path` with both re
 
 `Hint:` You should see the currently applied configuration file name in the first lines of the startup logs.
 ```
-info: Initializing jsreport (version: 2.11.0, mode: production, configuration file: jsreport.config.json, nodejs: 14.17.0)
+info: Initializing jsreport (version: 2.11.0, configuration file: jsreport.config.json, nodejs: 14.17.0)
 ```
 
 ### Environment variables
