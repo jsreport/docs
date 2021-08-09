@@ -96,5 +96,6 @@
     "docker": "Docker",
     "templating-engines": "Templating engines",
     "azure-functions-serverless": "Azure Functions serverless",
-    "localization": "Localization"
+    "localization": "Localization",
+    "freeze": "Freeze"
 }
