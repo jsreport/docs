@@ -8,7 +8,7 @@ The extension by default uses its own implementation to track changes and stores
 
 To start using local git you need to additionally install the [jsreport-version-control-git](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-version-control-git) extension.
 ```bash
-npm install jsreport-version-control-git
+npm install @jsreport/jsreport-version-control-git
 ```
 
 And configure the `version-control` to use it for tracking changes.

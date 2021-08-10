@@ -4,7 +4,7 @@
 ## Download
 
 You can use npm
-> npm install jsreport-browser-client-dist
+> npm install @jsreport/jsreport-browser-client-dist
 
 Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-browser-client-dist/releases)
 

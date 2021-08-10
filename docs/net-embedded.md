@@ -104,12 +104,12 @@ new EmbeddedReportingServer(port: 2000) {
 
 
 ## Additional extensions
-There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](https://jsreport.net/learn/wkhtmltopdf).
+There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport/tree/master/packages) which can be additionally installed. Example installing [wkhtmltopdf recipe](https://jsreport.net/learn/wkhtmltopdf).
 
 1.
 Navigate to `jsreport/app` and run
 ```sh
-"../../.bin/npm" install jsreport-wkhtmltopdf --production --save
+"../../.bin/npm" install @jsreport/jsreport-wkhtmltopdf --production --save
 ```
 2.
 Start jsreport studio using `start.cmd`. You should find `wkhtmltopdf` in the list of recipes

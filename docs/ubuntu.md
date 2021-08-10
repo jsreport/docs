@@ -8,7 +8,7 @@ nvm install 8.11.3
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g jsreport-cli
+npm i -g @jsreport/jsreport-cli
 jsreport init
 jsreport configure
 
@@ -34,7 +34,7 @@ pm2 startup
 # optionally if you want to use older phantomjs for pdf rendering
 sudo apt-get install -y --no-install-recommends gnupg git curl wget ca-certificates
 sudo apt-get install -y --no-install-recommends xfonts-base xfonts-75dpi
-npm i jsreport-phantom-pdf --save --save-exact
+npm i @jsreport/jsreport-phantom-pdf --save --save-exact
 ```
 
 

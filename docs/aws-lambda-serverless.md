@@ -8,7 +8,7 @@ This documentation helps you with creating the AWS Lambda running jsreport, depl
 ## Get started
 
 ### Clone starter kit repo
-We prepared starter github repository [jsreport-aws-lambda-starter-kit](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-aws-lambda-starter-kit) for you.
+We prepared starter github repository [jsreport-aws-lambda-starter-kit](https://github.com/jsreport/jsreport-aws-lambda-starter-kit) for you.
 The first you need to clone it.
 ```
 git clone https://github.com/jsreport/jsreport-aws-lambda-starter-kit.git

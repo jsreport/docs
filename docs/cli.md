@@ -13,7 +13,7 @@ The `cli` is also integrated directly into the jsreport distributed in the singl
 We recommend installing `cli` extension globally first, doing this will give you a global `jsreport` command available everywhere in your command line.
 
 ```sh
-npm install jsreport-cli -g
+npm install @jsreport/jsreport-cli -g
 jsreport --help
 ```
 

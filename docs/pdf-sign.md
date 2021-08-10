@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-npm i jsreport-pdf-sign
+npm i @jsreport/jsreport-pdf-sign
 ```
 
 ## Sign using studio

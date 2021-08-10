@@ -205,4 +205,4 @@ Where the hash is based on username and password:
 
 ## Ping
 
-There is a public endpoint http://jsreport-host/api/ping which you can use to check if the jsreport is running. This endpoint isn't behind the authentication so you can use it from your load-balancer or docker heath check.
+There is a public endpoint http://jsreport-host/api/ping which you can use to check if the jsreport is running. This endpoint isn't behind the authentication, so you can use it from your load-balancer or docker health check.

@@ -116,7 +116,7 @@ jsreport render
 
 ## Using extensions outside of the executable
 
-The jsreport executable have its own set of predefined extensions (in the same way that jsreport does), if you want to use a custom extension that is not included by default, for example `jsreport-wkhtmltopdf`, you will need to install the extension using `npm install jsreport-wkhtmltopdf` and then create a jsreport config file (if you don't have one yet), add `discover: true` option to your config:
+The jsreport executable have its own set of predefined extensions (in the same way that jsreport does), if you want to use a custom extension that is not included by default, for example `jsreport-wkhtmltopdf`, you will need to install the extension using `npm install @jsreport/jsreport-wkhtmltopdf` and then create a jsreport config file (if you don't have one yet), add `discover: true` option to your config:
 
 ```js
 {

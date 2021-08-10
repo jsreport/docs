@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-npm i jsreport-office-password
+npm i @jsreport/jsreport-office-password
 ```
 
 ## Studio

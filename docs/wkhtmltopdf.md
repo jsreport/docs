@@ -1,7 +1,7 @@
 
 ## Installation
 ```bash
-npm install jsreport-wkhtmltopdf
+npm install @jsreport/jsreport-wkhtmltopdf
 ```
 
 ## Basics

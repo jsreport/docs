@@ -3,7 +3,7 @@
 ## Installation
 
 ```
-npm i jsreport-pdf-meta
+npm i @jsreport/jsreport-pdf-meta
 ```
 
 ## Fill meta using studio

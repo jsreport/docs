@@ -186,7 +186,7 @@ This instructs jsreport to crawl this directory and search for the additional cu
 To demonstrate this open cmd with the `jsreport` working directory and type:
 
 ```sh
-npm install jsreport-wkhtmltopdf
+npm install @jsreport/jsreport-wkhtmltopdf
 ```
 
 Now you can use [wkhtmltopdf](/learn/wkhtmltopdf) recipe:

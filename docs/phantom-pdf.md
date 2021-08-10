@@ -7,7 +7,7 @@ The `Phantom-pdf` recipe is capable of rendering any HTML and JavaScript you pro
 ## Installation
 
 ```bash
-npm install jsreport-phantom-pdf
+npm install @jsreport/jsreport-phantom-pdf
 ```
 
 ## Basic settings

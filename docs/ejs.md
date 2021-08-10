@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install jsreport-ejs
+npm install @jsreport/jsreport-ejs
 ```
 
 ## Basics

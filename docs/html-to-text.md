@@ -1,6 +1,6 @@
 ## Installation
 ```bash
-npm install jsreport-html-to-text
+npm install @jsreport/jsreport-html-to-text
 ```
 
 ## Basics

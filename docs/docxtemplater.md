@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-npm install jsreport-docxtemplater
+npm install @jsreport/jsreport-docxtemplater
 ```
 
 ## Usage

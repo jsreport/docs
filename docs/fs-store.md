@@ -43,7 +43,7 @@ The deployment of the stored templates to the production server can be done just
 Deployment to the running jsreport instance can be also done using [cli](/learn/cli) and [import-export](/learn/import-export) without downtime and in the consistent way. In this case, you should integrate to your deployment the following steps.
 
 ```
-npm i -g jsreport-cli 
+npm i -g @jsreport/jsreport-cli 
 
 mkdir myjsreportdeployment
 cd myjsreportdeployment
@@ -91,7 +91,7 @@ You need to first create an IAM user with permissions to S3/SNS/SQS and copy the
 
 To configure jsreport persisting templates into AWS S3 you need to install [jsreport-fs-store-aws-s3-persistence](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-fs-store-aws-s3-persistence) extension first.
 ```
-npm install jsreport-fs-store-aws-s3-persistence
+npm install @jsreport/jsreport-fs-store-aws-s3-persistence
 ```
 
 The next step is to configure the fs store persistence using the following options. The jsreport instance should then load and persist templates to specified bucket.
@@ -123,7 +123,7 @@ You need to create an azure storage account and copy the account name and the ac
 
 To configure jsreport persisting templates into Azure Blob Storage you need to install [jsreport-fs-store-azure-storage-persistence](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-fs-store-azure-storage-persistence) extension.
 ```
-npm install jsreport-fs-store-azure-storage-persistence
+npm install @jsreport/jsreport-fs-store-azure-storage-persistence
 ```
 
 The second step is to configure the fs store persistence using the following options. The jsreport instance should then load and persist templates to Azure Blob Storage jsreport container.
