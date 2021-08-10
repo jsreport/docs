@@ -46,7 +46,7 @@ If wish to use other library, you can simply install it and import it. It will b
 ## Examples
 As mentioned previously, the most of the standard extensions are including also UI part. It is quite often very simple and can serve well as an example.
 
-[jsreport-debug](https://github.com/jsreport/jsreport-debug), [jsreport-phantom-pdf](https://github.com/jsreport/jsreport-phantom-pdf), [jsreport-scripts](https://github.com/jsreport/jsreport-scripts), and [more...](https://github.com/jsreport/jsreport-core#list-of-extensions)
+[jsreport-debug](https://github.com/jsreport/jsreport-debug), [jsreport-phantom-pdf](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-phantom-pdf), [jsreport-scripts](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-scripts), and [more...](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core#list-of-extensions)
 
 ## Reference
 

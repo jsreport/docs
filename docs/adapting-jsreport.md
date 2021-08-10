@@ -20,7 +20,7 @@ require('jsreport')({ httpPort: 3000, httpsPort: 0 }).init();
 ```
 
 ## Additional extensions
-jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport-azure-storage).  You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport-core#list-of-extensions). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
+jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-azure-storage).  You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core#list-of-extensions). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
 
 ## Rendering
 The goal of jsreport is to render reports. To do it programmatically you use `jsreport.render`:
@@ -45,7 +45,7 @@ jsreport.init().then(() => {
 });
 ```
 
-See the [jsreport-core](https://github.com/jsreport/jsreport-core) for complete documentation for rendering.
+See the [jsreport-core](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core) for complete documentation for rendering.
 
 ## Debugging
 In order to debug your jsreport app with [nodejs debugging tools](https://nodejs.org/en/docs/guides/debugging-getting-started/) you will need to change your [configuration](/learn/configuration) for `templatingEngines.strategy` to `in-process`, this ensures that all operations in the rendering pipeline of jsreport are executed in the same process, which is something handy when debugging because there will be just single process needed to inspect.

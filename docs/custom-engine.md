@@ -1,4 +1,4 @@
-> **Sources on GitHub [jsreport-ejs](https://github.com/jsreport/jsreport-ejs)**
+> **Sources on GitHub [jsreport-ejs](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-ejs)**
 
 This tutorial shows how you can add a custom [templating engine](https://jsreport.net/learn/templating-engines) into jsreport.  Adding a custom engine is not such common as adding a custom recipe but still can become handy if you prefer to use a specific engine or have some special requirements that already supported engines doesn't fulfill.
 

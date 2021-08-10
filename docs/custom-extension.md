@@ -65,7 +65,7 @@ reporter.beforeRenderListeners.insert({
 ```
 
 ### Document store
-Access to the stored jsreport data is provided through abstraction `DocumentStore`. This abstraction is then routing requests to the registered store implementation like [ms sql store](https://github.com/jsreport/jsreport-mssql-store) or [mongodb sore](https://github.com/jsreport/jsreport-mongodb-store).
+Access to the stored jsreport data is provided through abstraction `DocumentStore`. This abstraction is then routing requests to the registered store implementation like [ms sql store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mssql-store) or [mongodb sore](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store).
 
 ```js
 reporter.documentStore.collection("templates")

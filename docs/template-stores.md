@@ -32,10 +32,10 @@ The currently supported templates store implementation includes:
 | Documentation | Technology |
 | ------------- | ---------- |
 | [jsreport-fs-store](/learn/fs-store) | file system + Azure Storage + AWS S3 |
-| [jsreport-mssql-store](https://github.com/jsreport/jsreport-mssql-store)| Microsoft SQL Server |
-| [jsreport-postgres-store](https://github.com/jsreport/jsreport-postgres-store) | PostgreSQL|
-| [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store) | MongoDB
-| [jsreport-oracle-store](https://github.com/jsreport/jsreport-oracle-store) | Oracle
+| [jsreport-mssql-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mssql-store)| Microsoft SQL Server |
+| [jsreport-postgres-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-postgres-store) | PostgreSQL|
+| [jsreport-mongodb-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) | MongoDB
+| [jsreport-oracle-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-oracle-store) | Oracle
 
 Note the extensions implementing templates store are being used only for persisting the jsreport entities. Its purpose isn't to load the report input data from a source database. This feature is provided through [custom scripts](/learn/scripts) extension.
 

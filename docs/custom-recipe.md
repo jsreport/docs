@@ -1,4 +1,4 @@
-> **Sources on GitHub [jsreport-html-to-text](https://github.com/jsreport/jsreport-html-to-text)**
+> **Sources on GitHub [jsreport-html-to-text](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-html-to-text)**
 
 This tutorial shows how you can add a custom recipe into jsreport.
 
@@ -137,4 +137,4 @@ npm start
 ```
 
 ## More information
-There is dedicated article about extending the jsreport studio - [Extending studio](https://jsreport.net/learn/extending-studio) and also many  existing extensions which you can use as examples for further study available [on github](https://github.com/jsreport/jsreport-core#list-of-extensions).
+There is dedicated article about extending the jsreport studio - [Extending studio](https://jsreport.net/learn/extending-studio) and also many  existing extensions which you can use as examples for further study available [on github](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core#list-of-extensions).

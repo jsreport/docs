@@ -145,7 +145,7 @@ function beforeRender(req, res, done) {
 The public templates supports only read public links. Let us know if you use the write links.
 
 ## jsreport commands
-`--install`,`--uninstall`, `--init`, `--repair` commands are no longer available to be called using `node node_modules/jsreport --init`, use [jsreport-cli](https://github.com/jsreport/jsreport-cli) instead.
+`--install`,`--uninstall`, `--init`, `--repair` commands are no longer available to be called using `node node_modules/jsreport --init`, use [jsreport-cli](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-cli) instead.
 
 ## Scheduling
 Month format of cron expressions is changed from `0-11` to `1-12` to match standard cron expressions.

@@ -6,7 +6,7 @@
 You can use npm
 > npm install jsreport-browser-client-dist
 
-Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport-browser-client-dist/releases)
+Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-browser-client-dist/releases)
 
 The script itself should be compatible with [webpack](https://webpack.js.org/), [requirejs](http://requirejs.org/) and other script bundlers.
 
@@ -39,7 +39,7 @@ jsreport.getTemplateByName(name).then(..)
 jsreport.updateTemplate(template).then(..)
 ```
 
-You can find more details about the `request` argument in the [jsreport-core](https://github.com/jsreport/jsreport-core) repository.
+You can find more details about the `request` argument in the [jsreport-core](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core) repository.
 
 ## Rendering based on submitting hidden form
 This method has several limitations and it is recommended to use previous`renderAsync` if it is possible.

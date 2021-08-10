@@ -36,7 +36,7 @@ The jsreport by default comes with a light and dark theme. You can select the th
 
 ![themes](/img/studio-themes.png)
 
-You can install additional themes or implement your own because themes are just standard jsreport extensions. Take a look at how the [dark theme](https://github.com/jsreport/jsreport-studio-theme-dark) code looks.
+You can install additional themes or implement your own because themes are just standard jsreport extensions. Take a look at how the [dark theme](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-studio-theme-dark) code looks.
 
 You can globally change the default light theme to dark using config<br/>       `extensions.studio.theme.name=dark`. 
 
@@ -59,7 +59,7 @@ The colors can be changed using config `extensions.studio.theme.variables.primar
 The path to the custom css can be provided in config `extensions.studio.theme.customCss.path` or you can pass raw css in config `extensions.studio.theme.customCss.content`.
 
 ### Color variables
-The color variables can be general like `primary-color` for the main text or there're variables also for the specific components like `property-heading-color`. The full list of variables including its defaults is defined [here](https://github.com/jsreport/jsreport-studio/blob/master/lib/themeVarsDefinition.json). The color variables may additionally inherit value, this chain is also described in the linked json.
+The color variables can be general like `primary-color` for the main text or there're variables also for the specific components like `property-heading-color`. The full list of variables including its defaults is defined [here](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-studio/blob/master/lib/themeVarsDefinition.json). The color variables may additionally inherit value, this chain is also described in the linked json.
 
 The easiest way to find out the right variable is using the browser F12 developer tools. Select an element you want to style and check its color definition. The varaible name is written in comment `theme-var: variablename`. Just keep in mind the inheritence because the actual color can be defined in the parent.    
 

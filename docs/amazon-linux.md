@@ -8,7 +8,7 @@ nvm install 8.11.3
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g jsreport-cli
+npm i -g @jsreport/@jsreport/jsreport-cli
 jsreport init
 jsreport configure
 

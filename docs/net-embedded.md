@@ -104,7 +104,7 @@ new EmbeddedReportingServer(port: 2000) {
 
 
 ## Additional extensions
-There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](https://jsreport.net/learn/wkhtmltopdf).
+There are already [more than 40 jsreport extensions](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core#list-of-extensions) which can be additionally installed. Example installing [wkhtmltopdf recipe](https://jsreport.net/learn/wkhtmltopdf).
 
 1.
 Navigate to `jsreport/app` and run

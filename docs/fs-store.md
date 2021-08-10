@@ -89,7 +89,7 @@ The fs store by default writes entities to the file system but it also includes 
 ### AWS S3
 You need to first create an IAM user with permissions to S3/SNS/SQS and copy the access key with the secret access key. Then create a bucket and copy its name.
 
-To configure jsreport persisting templates into AWS S3 you need to install [jsreport-fs-store-aws-s3-persistence](https://github.com/jsreport/jsreport-fs-store-aws-s3-persistence) extension first.
+To configure jsreport persisting templates into AWS S3 you need to install [jsreport-fs-store-aws-s3-persistence](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-fs-store-aws-s3-persistence) extension first.
 ```
 npm install jsreport-fs-store-aws-s3-persistence
 ```
@@ -121,7 +121,7 @@ The next step is to configure the fs store persistence using the following optio
 
 You need to create an azure storage account and copy the account name and the access key first.
 
-To configure jsreport persisting templates into Azure Blob Storage you need to install [jsreport-fs-store-azure-storage-persistence](https://github.com/jsreport/jsreport-fs-store-azure-storage-persistence) extension.
+To configure jsreport persisting templates into Azure Blob Storage you need to install [jsreport-fs-store-azure-storage-persistence](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-fs-store-azure-storage-persistence) extension.
 ```
 npm install jsreport-fs-store-azure-storage-persistence
 ```

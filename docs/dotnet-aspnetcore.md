@@ -8,7 +8,7 @@ If you prefer to construct your reports using ASP.NET MVC engines like Razor you
 
 Note this package is dedicated to `ASP.NET Core` applications. Please navigate to similar [jsreport.MVC](/learn/dotnet-mvc) documentation when working with the ASP.NET application running full .NET framework.
 
-The example sources are hosted in [jsreport/jsreport-dotnet-example-webapp](https://github.com/jsreport/jsreport-dotnet-example-webapp) repository.
+The example sources are hosted in [jsreport/jsreport-dotnet-example-webapp](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-dotnet-example-webapp) repository.
 
 ## Get Started
 

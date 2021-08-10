@@ -4,7 +4,7 @@
 ![export](/img/export.gif)
 
 ## Migrating templates
-This extension can be used to move templates to different servers as well to different servers using different template stores. This means you can for example copy templates from default file system store to [mssql store](https://github.com/jsreport/jsreport-mssql-store) or [postgres store](https://github.com/jsreport/jsreport-postgres-store).
+This extension can be used to move templates to different servers as well to different servers using different template stores. This means you can for example copy templates from default file system store to [mssql store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mssql-store) or [postgres store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-postgres-store).
 
 ## API
 
