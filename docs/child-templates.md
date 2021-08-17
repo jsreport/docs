@@ -1,17 +1,17 @@
 
 
-> Decompose a report template into multiple reusable child templates
+> Compose existing templates into complex reports
 
 ## Basics
 
 A complex report can grow in its size and contain many separate sections. Each section logically needs its specific helpers, input data, or even a [custom script](/learn/scripts) preparing input data. I this case, you can split complex report template into multiple child templates which can be developed separately and possibly also reused. Such use case is covered by this extension.
 
-However, if you only have content like styles, scripts, or part of HTML, which you want to reuse in multiple templates,  it's better to use [assets](https://jsreport.net/learn/assets) extension. Assets are simpler to use and bring better performance.
+However, if you only have static content like styles, scripts, or part of HTML, which you want to reuse in multiple templates,  it's better to use [assets](https://jsreport.net/learn/assets) extension. Assets are simpler to use and bring better performance. Additionaly, in case you want to reuse just html with dynamic templating engines, you should use [components](/learn/components) extension. The child templates should be used when there is a need to attach a [custom script](/learn/scripts) or use existing standalone template in a more complex report.
 
 ## How to use
 
-Child template rendering can be invoked by calling [templating engine](/learn/templating-engines) helper `childTemplate(nameObjectOrPath, data, options)`.
-The helper call invokes full rendering of the specified template and fills the output to the place where it was called.
+Child template rendering can be invoked by calling [templating engine](/learn/templating-engines) helper `childTemplate(nameObjectOrPath)`.
+The helper call invokes the full rendering of the specified template and fills the output to the place where it was called.
 The first argument of the helper should be the child template name or its path and the syntax is specific to the particular templating engine which the main template uses.
 
 [handlebars](/learn/handlebars)
@@ -41,17 +41,23 @@ In the following handlebars example, the template `student` input data would be 
 {{/each}}
 ```
 
-The input data can be also explicitly specified in the second argument.
-The following examples show how you can call the extra helper function to prepare template input data.
+To change the current context, you can wrap the `childTemplate` call into an extra helper.
 
-handlebars
-```
-{{childTemplate "student" (createInputData)}}
+```js
+function prepareData(someAttribute, options) {   
+    return options.fn({
+        ...this,
+        someAttribute
+    })
+}
 ```
 
-jsrender
-```
-{{:~childTemplate("student", ~createInputData()}}
+```handlebars
+{{#each students}}
+  {{#prepareData @root.someAttribute}}
+    {{childTemplate "student"}}
+  {{/prepareData}}
+{{/each}}
 ```
 
 ## Template attributes

@@ -97,5 +97,6 @@
     "templating-engines": "Templating engines",
     "azure-functions-serverless": "Azure Functions serverless",
     "localization": "Localization",
-    "freeze": "Freeze"
+    "freeze": "Freeze",
+    "components": "Components"
 }

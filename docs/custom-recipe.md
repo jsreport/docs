@@ -2,7 +2,7 @@
 
 This tutorial shows how you can add a custom recipe into jsreport.
 
-jsreport is quite often used to render and send emails. Where the email body is usually in html format but sometimes it is required to send the body just in the plain text. In this tutorial you will create a recipe which converts html into nicely structured text which can be
+jsreport is quite often used to render and send emails. Where the email body is usually in HTML format, but sometimes it is required to send the body just in a plain text. In this tutorial, you will create a recipe that converts HTML into nicely structured text which can be
 then used for plain text emails.
 
 ## Get started
