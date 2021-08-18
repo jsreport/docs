@@ -13,7 +13,7 @@ jsreport supports persisting big blobs like [output reports](/learn/reports) or 
 ```
 
 Every [templates store](/learn/template-stores) driver also includes a blob storage provider and typically the blob storage provider is the same as the store provider.
-The exception is the blob storage driver for [aws s3](https://github.com/jsreport/jsreport/packages/jsreport-aws-s3-storage) and [azure storage](https://github.com/jsreport/jsreport/packages/jsreport-azure-storage). Both need extra installation but can be reasonable when for example SQL based store has limited space and there is expected very high consumption for stored output reports.
+The exception is the blob storage driver for [aws s3](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-aws-s3-storage) and [azure storage](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-azure-storage). Both need extra installation but can be reasonable when for example SQL based store has limited space and there is expected very high consumption for stored output reports.
 
 ## Configuration
 
@@ -33,7 +33,7 @@ The default blobs location on the file system is `data/storage` directory. This 
 }
 ```
 
-The custom blob storage implementation typically needs more options passed through standard extensions configuration. Like in case of [aws s3 storage](https://github.com/jsreport/jsreport/packages/jsreport-aws-s3-storage),
+The custom blob storage implementation typically needs more options passed through standard extensions configuration. Like in case of [aws s3 storage](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-aws-s3-storage),
 ```js
 "blobStorage": {  
 	"provider": "aws-s3-storage"

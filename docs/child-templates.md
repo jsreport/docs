@@ -52,7 +52,7 @@ function prepareData(someAttribute, options) {
 }
 ```
 
-```handlebars
+```
 {{#each students}}
   {{#prepareData @root.someAttribute}}
     {{childTemplate "student"}}
