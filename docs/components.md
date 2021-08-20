@@ -15,14 +15,14 @@ A component, with [handlebars templating engine](/learn/handlebars) can look the
 A component can be embedded to the template or to a parent component using [templating engine](/learn/templating-engines) helper `component(path)`. The syntax depends on the particular templating engine used.
 
 [handlebars](/learn/handlebars)
-```handlebars
+```
 {{#each customers}} 
   {{component "./customer"}}
 {{/each}}
 ```
 
 [jsrender](/learn/jsrender)
-```handlebars
+```
 {{for customers}} 
   {{:~component("./customer")}}
 {{/for}}
@@ -41,7 +41,7 @@ function prepareData(someAttribute, options) {
 }
 ```
 
-```handlebars
+```
 {{#each customers}}    
     {{#prepareData @root.someAttribute}}
         {{component "customer"}}
