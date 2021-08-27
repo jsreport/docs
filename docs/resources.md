@@ -1,4 +1,7 @@
 
+**This extension was replaced with the [localization](/learn/localization) extension.**  
+
+
 > Localize your templates or attach any static JSON to the rendering process
 
 ## Basics
