@@ -8,8 +8,8 @@ nvm install 16.6.1
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g @jsreport/@jsreport/jsreport-cli
-jsreport init
+npm i -g @jsreport/@jsreport/jsreport-cli@beta
+jsreport init beta
 jsreport configure
 
 # install chrome dependencies
