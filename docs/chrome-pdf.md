@@ -171,6 +171,33 @@ function beforeRender(req, res) {
 }
 ```
 
+## Chrome process allocation
+The recipe by default allocates a single instance of chrome per worker thread and reuses it. This means that for the configuration `"workers": { "numberOfWorkers": 5 }` there will be 5 chrome instances allocated. 
+
+This is reasonable for most of the cases, but in case your report is initiating many nested reports, you may want to increase the parallelization by increasing the number of chrome instances allocated per thread. 
+
+```js
+{ 
+  "chrome": { 
+    "numberOfWorkers": 3
+  }
+}
+```
+
+Or you can change the allocation strategy and let the recipe always create a new instance of chrome. This increases the parallelization of the nested reports to the maximum.
+However, note that starting a new chrome process costs about 100ms.
+
+```js
+{ 
+  "chrome": { 
+    "strategy": "dedicated-process"
+  }
+}
+```
+
+
+
+
 ## Troubleshooting
 
 self closing divs (`<div />`) are heavily slowing down chrome pdf rendering, don't use them
