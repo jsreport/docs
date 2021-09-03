@@ -36,9 +36,8 @@ Both are very popular with a ton of sources and examples on the internet. The mo
         </div>
         <div class="span4">
             <a href="/learn/ejs">
-                <div class="tile thin bg-darkViolet text-center">
+                <div class="tile thin bg-darkCyan text-center">
                     <div class="tile-content">
-                        <i class="icon-github fg-white"></i>
                         <span class="fg-white">EJS</span>
                     </div>
                 </div>
