@@ -8,6 +8,8 @@ jsreport `authorization` extension implements permission rules evaluation and de
 
 All entities that are nested inside a folder are inheriting permissions form the parent folder. This works recursively down through multiple levels of folders. In the other words you can fill to the folder some permissions and all the entities inside will get this permissions as well. Additionally if a user has permissions to the particular entity, he or she gets readonly permissions to the all parent folders up the tree.
 
+> To edit the folder permissions, you need to do right-click on it in the entity tree and select edit.
+
 User can be also granted to edit to read all entities.
 
 ![all entities](/learn/static-resources/authorization-all-entities.png)
