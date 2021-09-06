@@ -302,7 +302,7 @@ returns:
 
 parameters:
 - `sourcePdfBuf` -> source pdf buffer
-- `pageNumbers` -> Array of numbers or one number, the page numbers starts from 1
+- `options` -> optioaly set password, meta, sign or outlines
 
 returns:
 - promise with pdf buffer with cleaned hidden marks and optionally added meta,password,sign or outlines
