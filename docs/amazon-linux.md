@@ -14,6 +14,7 @@ jsreport configure
 
 # install chrome dependencies
 wget -qO- https://intoli.com/install-google-chrome.sh | bash
+sudo yum install -y libXScrnSaver 
 
 # start jsreport to see it running on port 5488
 
