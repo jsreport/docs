@@ -4,9 +4,9 @@
 ## Download
 
 You can use npm
-> npm install @jsreport/jsreport-browser-client-dist
+> npm install @jsreport/browser-client
 
-Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-browser-client-dist/releases)
+Or download `jsreport.js` from the [release page](https://github.com/jsreport/jsreport/tree/master/packages/browser-client/releases)
 
 The script itself should be compatible with [webpack](https://webpack.js.org/), [requirejs](http://requirejs.org/) and other script bundlers.
 
