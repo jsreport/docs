@@ -148,6 +148,19 @@ function myHelper() {
 Note the async code in helpers shouldn't be used to load or manipulate the input data.
 Such tasks should be done using [jsreport custom scripts](/learn/scripts).
 
+## System helpers
+Many extensions provides system helpers you may use. You can refer to the particular extension's docummentation for the details.
+The core provides the following system helpers: 
+### module(moduleName)
+Import an installed node.js module to the template content. 
+
+This works for all engines, using, for example, [handlebars](/learn/handlebars) an example can look like this.
+
+```html
+<script>{{module "moment"}}</script>
+<script>console.log(moment())</script>
+```
+
 ## Internationalization
 Since the [node.js 14](https://nodejs.org/) you can use the [ECMA script Intl standard](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) to format numbers, dates, or use plural rules.
 
