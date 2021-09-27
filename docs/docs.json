@@ -85,5 +85,6 @@
     "azure-functions-serverless": "Azure Functions serverless",
     "localization": "Localization",
     "freeze": "Freeze",
-    "components": "Components"
+    "components": "Components",
+    "npm": "npm"
 }
