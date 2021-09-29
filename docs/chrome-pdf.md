@@ -23,7 +23,7 @@ The settings reflects the [headless chrome API](https://github.com/GoogleChrome/
 - marginBottom
 - marginLeft
 - waitForJS
-- waitForNetworkIddle
+- waitForNetworkIdle
 
 
 These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.chrome` property.
