@@ -88,6 +88,22 @@ In this case the authentication flow will be like this:
 - in the authorization server you will need to login and give consent to the information the jsreport studio is going to need to get access to (`authorizationServer.authorizationRequest.scope`).
 - if the communication with your authorization server resolves successfully you will now see that you are going to be authenticated in jsreport studio as the jsreport user associated with the user of your authorization server, and you can do any action the associated jsreport user is allowed to
 
+When you configure the studio to have this authentication flow you will probably want to integrate a button or link in your app that redirects the user to the studio.
+
+```html
+<!-- Assumming jsreport is available on localhost:5488 -->
+<a href="http://localhost:5488" />
+```
+
+if you do this then the user will be presented with the login page by default, requiring that user clicks the "LOGIN WITH XXXXX" to start the authentication with the authorization server. you can avoid the user needing to do that by instead using an extra parameter in the link from your app.
+
+```html
+<!-- Assumming jsreport is available on localhost:5488 -->
+<a href="http://localhost:5488/?authServerConnect" />
+```
+
+this will redirect the user to the authorization server directly, and provide a much better experience if the user is already logged-in with the authorization server.
+
 ### Token based authentication using an authorization server
 
 You likely want this if you want to build an app that uses the **jsreport http api**, and want that the calls to the api are authenticated against tokens issued by an authorization server.
