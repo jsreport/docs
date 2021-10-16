@@ -88,6 +88,6 @@ Promise<String> toObjectURL()
 
 // get the original window.fetch response, this can be used to reach the output headers for example
 Response response
-````
+```
 
 
