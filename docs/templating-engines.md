@@ -161,6 +161,16 @@ This works for all engines, using, for example, [handlebars](/learn/handlebars) 
 <script>console.log(moment())</script>
 ```
 
+### toJS(data)
+Convert input into javascript object. This is usefull when you need to access input data inside `<script>`.
+
+```html
+<script>
+    const reportData = {{{toJS this}}}
+    ...
+</script>    
+```
+
 ## Internationalization
 Since the [node.js 14](https://nodejs.org/) you can use the [ECMA script Intl standard](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) to format numbers, dates, or use plural rules.
 
