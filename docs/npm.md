@@ -1,5 +1,7 @@
 > Install and use npm modules from within reports during realtime
 
+**[Example in playground](https://playground.jsreport.net/w/admin/q7MtIkV7)**
+
 ## Basics
 
 This extension allows you to install and use custom [npm](https://www.npmjs.com/) modules without a need to access the environment where is jsreport hosted.

@@ -98,7 +98,7 @@ First, you need to make sure the third-party module is installed and available.
 npm i moment --save
 ```
 
-The next step is enabling access to the local files and modules in the [/learn/configuration](configuration).
+The next step is enabling access to the local files and modules in the [configuration](/learn/configuration).
 
 ```js
 {
@@ -115,6 +115,9 @@ function formatNow() {
     return moment().format('DD.MM.YYYY')
 }
 ```
+
+Alternatively you can also let jsreport install the npm module for you.
+See the [npm](/learn/npm) extension for the details.
 
 ## Async
 The helper functions can be asynchronous and return promises. 
