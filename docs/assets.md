@@ -1,6 +1,8 @@
 
 > Embed static assets like images, CSS, fonts, scripts, and others
 
+**[Asset examples in playground](https://playground.jsreport.net/w/admin/Y8wOHVgM)**
+
 ## Creating assets
 
 You can create an asset using jsreport studio. The most common approach is to just upload a file like CSS. The second is to create an empty asset and edit its content using the jsreport editor. The third option is to create an asset as a link to an existing file. Such a link can be an absolute path or relative path to the folder where the jsreport was started from.
@@ -150,10 +152,6 @@ extensions: {
 ## API
 You can use standard OData API to manage and query assets entities. For example, you can query all assets using
 > `GET` http://jsreport-host/odata/assets
-
-## Examples
-- [Using assets to embed fonts into reports](https://jsreport.net/blog/fonts-in-pdf)
-- [Using assets to create template layouts](https://jsreport.net/blog/template-layouts)
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
