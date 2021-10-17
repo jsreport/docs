@@ -2,6 +2,8 @@
 
 > Compose existing templates into complex reports
 
+**[Example in playground](https://playground.jsreport.net/w/admin/IkdKFoT9)**
+
 ## Basics
 
 A complex report can grow in its size and contain many separate sections. Each section logically needs its specific helpers, input data, or even a [custom script](/learn/scripts) preparing input data. I this case, you can split complex report template into multiple child templates which can be developed separately and possibly also reused. Such use case is covered by this extension.

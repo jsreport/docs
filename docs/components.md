@@ -1,5 +1,7 @@
 > Decompose templates into reusable components
 
+**[Example in playground](https://playground.jsreport.net/w/admin/mcb0pE1a)**
+
 ## Basics
 
 A complex template can be decomposed into components. The component consists of templating engine content and helpers. Its evaluation works similar way to a template. It accepts input data, evaluates templating engine, and returns the output. However components, unlike [child templates](/learn/child-templates), don't have recipes or runs scripts, because components are designed to perform great even when thousands of components are rendered in a loop.
