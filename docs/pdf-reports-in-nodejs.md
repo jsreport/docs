@@ -14,7 +14,7 @@ http.createServer((req, res) => {
     template: {
       content: '<h1>Hello world</h1>',
       engine: 'handlebars',
-      recipe: 'chrone-pdf'
+      recipe: 'chrome-pdf'
     }
   }).then((out)  => {
     out.stream.pipe(res);
