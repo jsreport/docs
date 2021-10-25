@@ -2,6 +2,7 @@
 
 
 
+
 How to...
 
 **General questions**
@@ -65,6 +66,16 @@ You can choose one from the options below:
 2. Filled in the configuration file in the property `license-key`, or `licenseKey`
 3. Passed in the command line parameter as `--license-key=xxx` or `--licenseKey=xxx`
 4. Set in the environment variable as `license-key` or `licenseKey`
+
+In case you purchased the single server enterprise license and need to apply it to the development instance apply the following configuration.
+```js
+{   
+	"license": {
+		"development": true
+	}   
+}
+```
+
 
 When using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md), you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
 
