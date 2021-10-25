@@ -19,7 +19,7 @@ The `@jsreport` scope guarantees the package is distributed and maintained by th
 You won't notice this change in most cases, but when you have custom extensions in the `package.json`, you need to change the dependencies to include the `@jsreport` scope.
 
 ## licensing development mode
-Since v3, you need to properly mark your licensed development instances with config `extensions.licensing.development=true`. Otherwise, you may experience warning dialogs in the studio, notifying you about the parallel license usage.
+Since v3, you need to properly mark your licensed development instances with config `{ "license": { "development": true } }`. Otherwise, you may experience warning dialogs in the studio, notifying you about the parallel license usage.
 
 ## docker full
 We removed `jsreport-wkhtmltopdf`, `jsreport-electron-pdf`, `jsreport-phantom-pdf` and `jsreport-fop-pdf`  extensions from the jsreport full docker image.  
