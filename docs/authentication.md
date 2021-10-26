@@ -1,9 +1,9 @@
 > Add login screen to jsreport and user management forms
 
 ## Basics
-Enabling the `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.  
+Enabling the `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.
 
-`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permissions to alter any other user.
+`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permission to alter any other user.
 
 ## Basic authentication
 
@@ -16,7 +16,7 @@ To enable authentication add the following json into [configuration](/learn/conf
 	"authentication" : {
 	    "cookieSession": {
 	        "secret": "dasd321as56d1sd5s61vdv32",
-					"cookie": { <custom cookie options here> }       
+					"cookie": { <custom cookie options here> }
 	    },
 	    "admin": {
 	        "username" : "admin",
@@ -35,7 +35,7 @@ The list of custom cookie options to set is available [here](https://github.com/
 	"authentication" : {
 	    "cookieSession": {
 	        "secret": "dasd321as56d1sd5s61vdv32",
-					"cookie": { "secure": true }       
+					"cookie": { "secure": true }
 	    },
 	    "admin": {
 	        "username" : "admin",
@@ -44,6 +44,11 @@ The list of custom cookie options to set is available [here](https://github.com/
 	}
 }
 ```
+
+### Custom users
+The jsreport custom users can be created from the entity tree plus button.
+
+![new user](/learn/static-resources/authentication-new-user.png)
 
 ### API
 You need to add a Header to every request when this extension is enabled.
@@ -57,23 +62,64 @@ You can use standard OData API to manage and query user entities. For example, y
 
 >`GET` http://jsreport-host/odata/users
 
-## Token based authentication using an authorization server
+## Authentication using and authorization server
 
 > This feature is in preview mode, it means that we have implemented all the necessary steps to complete the authentication flow with an authorization server but we are looking for real feedback about the feature to determine if something is missing or incomplete for other use cases. If you have such feedback don't hesitate to raise a [question](https://forum.jsreport.net) or open an [issue](https://github.com/jsreport/jsreport/issues).
 
-If you would like to delegate all authentication in the **jsreport API** to an authorization server that supports token based authentication (Bearer auth schema), you will need to use the `authorizationServer` options. It is likely you will only need this if you would like to expose jsreport as a product with Single Sign-On support.
+If you would like to delegate authentication in the **jsreport studio** and in the **jsreport http API** to an authorization server that supports [OpenID](https://openid.net/), you will need to use the `authorizationServer` options. It is likely you will only need this if you would like to expose jsreport as a product with Single Sign-On support.
 
-When jsreport is configured to use an authorization server, the authentication flow looks like the following:
+There are two main authentication cases supported when authorization server is enabled:
 
-- first of all, somehow you will need to get a token, issuing a token is the responsability of the authorization server and you will need to ask for tokens from one of your applications, the necessary steps and details to get the token will depend on the implementation of your authorization server, you will need the token to later be able to call the jsreport API
+- Single Sign On access to jsreport studio
+- Token based authentication to the jsreport http API
+
+As requirements you will need to have this ready:
+
+- both the **jsreport studio** registered as a client, and the **jsreport http api** registered as a api resource in your authorization server, so both can be authenticated and can talk to the authorization server. You will provide the credentials for both in `authorizationServer.studioClient` and `authorizationServer.apiResource` configuration options.
+- associate the jsreport username of an existing jsreport user with a claim (`authorizationServer.usernameField`) linked to the user handled by your authorization server. this association is needed to correctly identify which jsreport entities and permissions the user of your authorization server is able to work with in the context of jsreport
+
+### Single Sign On using and authorization server
+
+You likely want this if you have a multi-tenant application, which handles authentication against a central authorization server and you want to delegate the access to the **jsreport studio** (reusing the same user credentials that your users already have) against the same authorization server.
+
+In this case the authentication flow will be like this:
+
+- if you go to the studio you will notice that the login now has an extra button "LOGIN WITH XXXXX", which is designed to start the authentication/authorization flow against your authorization server, internally the configured `authorizationServer.endpoints.authorization`, `authorizationServer.endpoints.jwks`, `authorizationServer.endpoints.token`, `authorizationServer.endpoints.userinfo` endpoints of your authorization server are going to be reached.
+- in the authorization server you will need to login and give consent to the information the jsreport studio is going to need to get access to (`authorizationServer.authorizationRequest.scope`).
+- if the communication with your authorization server resolves successfully you will now see that you are going to be authenticated in jsreport studio as the jsreport user associated with the user of your authorization server, and you can do any action the associated jsreport user is allowed to
+
+When you configure the studio to have this authentication flow you will probably want to integrate a button or link in your app that redirects the user to the studio.
+
+```html
+<!-- Assumming jsreport is available on localhost:5488 -->
+<a href="http://localhost:5488" />
+```
+
+if you do this then the user will be presented with the login page by default, requiring that user clicks the "LOGIN WITH XXXXX" to start the authentication with the authorization server. you can avoid the user needing to do that by instead using an extra parameter in the link from your app.
+
+```html
+<!-- Assumming jsreport is available on localhost:5488 -->
+<a href="http://localhost:5488/?authServerConnect" />
+```
+
+this will redirect the user to the authorization server directly, and provide a much better experience if the user is already logged-in with the authorization server.
+
+### Token based authentication using an authorization server
+
+You likely want this if you want to build an app that uses the **jsreport http api**, and want that the calls to the api are authenticated against tokens issued by an authorization server.
+
+The authentication flow in this case looks like the following:
+
+- first of all, somehow you will need to get a token, issuing a token is the responsibility of the authorization server and you will need to ask for tokens from one of your applications, the necessary steps and details to get the token will depend on the implementation of your authorization server, you will need the token to later be able to call the jsreport API
 - jsreport will expect to get a token from `Authorization` header in any protected API call, the token must be sent using `Bearer` auth schema, this means that all your requests to the jsreport API must be using a header: `Authorization: Bearer <your token here>`
-- With the token in place, jsreport will send the token (`token=<value of your token>`, `token_type_hint=access_token` fields) along with any other configured data (`authorizationServer.tokenValidation.hint`) or credentials (`authorizationServer.tokenValidation.auth`) to the configured endpoint (`authorizationServer.tokenValidation.endpoint`)
-- The authorization server must return a json response with fields that describe if the token is valid or not (`authorizationServer.tokenValidation.activeField`), and with which user is associated (`authorizationServer.tokenValidation.usernameField`)
-- jsreport will check the information of the token returned from the authorization server (the active field `authorizationServer.tokenValidation.activeField` must be true if the token is valid, the username field `authorizationServer.tokenValidation.usernameField` must be a valid jsreport user, and if scope validation is configured `authorizationServer.tokenValidation.scope` we will also check that the token has a valid `authorizationServer.tokenValidation.scope.valid` scope) and then authenticate the user
+- With the token in place, jsreport will send the token along with any other configured data (`authorizationServer.introspectionRequest.extraBody`) and credentials (`authorizationServer.apiResource`) to the configured introspection endpoint (`authorizationServer.endpoints.introspection`)
+- The authorization server must return a json response with `active` field that describes if the token is valid or not (`{ active: false | true }`), and optionally the response can contain another field (`authorizationServer.usernameField`) which represents the linked jsreport user associated with this token
+- jsreport will check the information of the token returned from the authorization server, and if no linked jsreport user information was found in the previous step the configured userinfo endpoint `authorizationServer.endpoints.userinfo` is going to be called, the response from that call should contain a field (`authorizationServer.usernameField`) with the linked jsreport username. the resolved username must be a valid and existing jsreport user, and if scope validation is configured `authorizationServer.introspectionRequest.tokenValidScopes` we will also check that the token has a valid scope
+- finally if the token is valid and active and the linked jsreport user is resolved correctly then the request will be authenticated
 
-Much of these steps are based on the [token introspection](https://tools.ietf.org/html/rfc7662#section-4) method, which is very common to see in authorization servers based on `OAuth2` or `OpenID Connect`, and if your authorization server is based on any other kind of implementation the described steps are very easy to implement, so you can achieve compatibility with most of the authorization servers.
+All of these steps are based on the [OpenID](https://openid.net/) standard, which is common to see in authorization servers that provide Single Sign On.
 
-For a real implementation of jsreport + authorization server check our [official sample](https://github.com/bjrmatos/jsreport-with-authorization-server-sample)
+For a real implementation of jsreport + authorization server check our [official sample](https://github.com/bjrmatos/jsreport-with-authorization-server-sample).
 
 ### Configuration
 
@@ -83,69 +129,73 @@ To enable authentication, add the following json into [configuration file](/lear
 "extensions": {
 	"authentication" : {
 		"cookieSession": {
-	        "secret": "dasd321as56d1sd5s61vdv32"        
+	        "secret": "dasd321as56d1sd5s61vdv32"
 		},
 		"admin": {
 			"username" : "admin",
 			"password": "password"
 		},
-		// use the "authorizationServer" options when you plan to protect API calls
-		// with token based authentication against an authorization server,
-		// this means that all protected jsreport API calls will be validated with
+		// use the "authorizationServer" options when you plan to delegate authentication
+		// to an authorization server,
+		// this means that jsreport studio access and all protected jsreport http API calls will be validated with
 		// the configured authorization server, giving you the chance to expose
 		// jsreport as a product with Single Sign On support.
-		// see "Token based authentication using an authorization server" section of this document
-		// for more details and a link to a sample with real implementation.
+		// see "Token based authentication using an authorization server" section of this document for more details and a link to a sample with real implementation.
 		"authorizationServer": {
-			"tokenValidation": {
-				// URL to the authorization server endpoint (required)
-				"endpoint": "http://localhost:9800/token/introspection",
-				// time in milliseconds that jsreport will wait before closing the request
-				// sent to the authorization server. (optional, defaults to 6000)
-				"timeout": 6000,
-				// by default jsreport will send data to the authorization server
-				// using "application/x-www-form-urlencoded" content type,
-				// setting this option to true will make jsreport to send the data using
-				// "application/json" content type. (optional, defaults to false)
-				"sendAsJSON": false,
-				// use this option if you would like to pass custom data to
-				// the authorization server. you can configure one or multiple values
-				// for example using "hint": "custom value" will send a "hint" field
-				// with value "custom value" to the authorization server,
-				// to use another field name you can use "hint": { "name": "reportService", value: true } to send a "reportService" field
-				// and use "hint": [{ "name": "reportService", value: true }, { "name": "anotherField", value: true }] to send multiple fields
-				// (optional, defaults to null)
-				"hint": null,
-				// name of the field that jsreport will look at in the response from authorization server to
-				// use as the jsreport username associated with the token. (optional, defaults to "username")
-				"usernameField": "username",
-				// name of the field that jsreport will look at in the response from authorization server to
-				// determine if the token is valid or not. (optional, defaults to "active")
-				"activeField": "active",
-				// options to use if you want that jsreport checks for valid scopes in the token
-				// optional, defaults to null
-				"scope": {
-					// name of the field that jsreport will look at in the response from authorization server to
-					// determine the scope/scopes of the token. (optional, defaults to "scope")
-					"field": "scope",
-					// list of valid scopes that the token needs to have in order to be considered valid, the token must have at least one scope that match with some item in the list in order to be considered valid
-					"valid": ["myscope"]
-				},
-				// options to use if the authorization server is not public and requires authentication,
-				// if your authorization server is public just pass "auth": false
-				// (required)
-				"auth": {
-					// defines which auth schema to use while sending credentials to the authorization server
-					// supported values are "basic" and "bearer"
-					"type": "basic",
-					// credentials to use when using the "basic" type
-					"basic": {
-						"clientId": "test",
-						"clientSecret": "xxxx"
-					},
-					// credentials to use when using the "bearer" type
-					"bearer": "dasdasddw23fsdfsdfr56hvFVdf3"
-				}
+			// name for you authorization server (required), this is used for display purposes in
+			// the studio login (button "LOGIN WITH <name>").
+			"name": "AuthServer",
+			// issuer identifier (required), basically the identifier of your authorization server. it is usually a URL
+			"issuer": "http://localhost:9800",
+			// endpoints to the authorization server, you can easily find the information of these routes in the http://localhost:9800/.well-known/openid-configuration route of your authorization server
+			"endpoints": {
+				// (required) endpoint to get the public keys used to verify any JSON Web Token issued by the authorization server.
+				"jwks": "http://localhost:9800/.well-known/openid-configuration/jwks",
+				// (required) endpoint to start the authentication/consent with the authorization server
+				"authorization": "http://localhost:9800/connect/authorize",
+				// (required) endpoint to get a token
+				"token": "http://localhost:9800/connect/token",
+				// (required) endpoint to the Token introspection https://tools.ietf.org/html/rfc7662 of your authorization server.
+				"introspection": "http://localhost:9800/connect/introspect",
+				// (required) endpoint to the Userinfo https://openid.net/specs/openid-connect-core-1_0.html#UserInfo of your authorization server
+				"userinfo": "http://localhost:9800/connect/userinfo"
+			},
+			// (required) registered client in your authorization server, that identifies the jsreport studio
+			"studioClient": {
+				"clientId": "jsreport-studio",
+				"clientSecret": "---secret---",
+				// configure how the credentials (clientId and clientSecret) are going to
+				// be sent to the authorization server.
+				// valid values are "basic", "post", defaults to "basic"
+				"authType": "basic"
+			},
+			// (required) registered api resource in your authorization server, that identifies the jsreport http api
+			"apiResource": {
+				"clientId": "jsreport-api",
+				"clientSecret": "---secret---",
+				// configure how the credentials (clientId and clientSecret) are going to
+				// be sent to the authorization server.
+				// valid values are "basic", "post", defaults to "basic"
+				"authType": "basic"
+			},
+			// name of the field that jsreport will look at in the response from authorization server to
+			// use as the jsreport username associated with the token. (optional, defaults to "username")
+			"usernameField": "username",
+			// time in milliseconds that jsreport will wait before closing the request
+			// sent to the authorization server. (optional, defaults to 3500)
+			"timeout": 6000,
+			// additional configuration for the jsreport studio authentication (authorize request) against the authorization server
+			"authorizationRequest": {
+				// <string>| Array<string> the scopes that the jsreport studio authentication (authorize request)
+				// is going to request to the authorization server. default: ["openid", "profile"]
+				"scope": "openid profile" // or ["openid", "profile"]
+			},
+			// additional configuration for the token based authentication request against the authorization server
+			"introspectionRequest": {
+				// <string>| Array<string> list of valid scopes that the token needs to have in order to be considered valid, the token must have at least one scope that match with some item in the list in order to be considered valid
+				"tokenValidScopes": "jsreport", // or ["jsreport"]
+				// extra body to sent to the introspection request
+				"extraBody": {}
 			}
 		}
 	}

@@ -61,7 +61,7 @@ The containers reusing can be configured using the property  `discriminatorPath`
 
 ## Custom worker image
 
-The default docker [worker image](https://github.com/jsreport/jsreport-worker) used for sandboxing includes just support for the recipes and engines included in the standard jsreport installation. If you need to use custom extensions you need to create your own image. See the [playground worker image](https://github.com/jsreport/playground-worker) to get an idea how to do it. When you have the image available use config value `container.image` to apply it.
+The default docker [worker image](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-worker) used for sandboxing includes just support for the recipes and engines included in the standard jsreport installation. If you need to use custom extensions you need to create your own image. See the [playground worker image](https://github.com/jsreport/playground-worker) to get an idea how to do it. When you have the image available use config value `container.image` to apply it.
 
 ## Running jsreport instance in docker
 The official jsreport docker image doesn't include this extension yet and you need to create your image the first.
@@ -75,7 +75,7 @@ docker run ... -v /var/run/docker.sock:/var/run/docker.sock
 
 The extension is designed with horizontal scaling in mind. Running multiple servers will multiple the number of containers in the pool because the containers are shared between all servers in the cluster. In the other words. The server always resends the request to another server in cluster if it finds out that the client is already registered there. This maximizes the number of active containers associated with the clients and minimizes the number of containers restarts and recycles.
 
-Running multiple servers typically doesn't require extra configuration. However, we recommend using a full blown database for jsreport store and not the default file system. The extension was primarily tested on the [mongodb store ](https://github.com/jsreport/jsreport-mongodb-store) which is used in our services.
+Running multiple servers typically doesn't require extra configuration. However, we recommend using a full blown database for jsreport store and not the default file system. The extension was primarily tested on the [mongodb store ](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) which is used in our services.
 
 Note the servers in the cluster needs to be able to reach each other. The extension by defaults resolves the local ip address from the network settings. If this isn't working you can override each individual server ip using environment variable `ip`.
 

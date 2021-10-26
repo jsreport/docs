@@ -1,46 +1,86 @@
 
-> Embed static assets like styles, fonts or html
+> Embed static assets like images, CSS, fonts, scripts, and others
+
+**[Asset examples in playground](https://playground.jsreport.net/w/admin/Y8wOHVgM)**
 
 ## Creating assets
 
-You can create an asset using jsreport studio. The most common approach is to just upload a file like css. The second is to create an empty asset and edit its content using jsreport editor. The third option is to create an asset as link to an existing file. Such a link can be an absolute path or relative path to folder where the jsreport was started from.
+You can create an asset using jsreport studio. The most common approach is to just upload a file like CSS. The second is to create an empty asset and edit its content using the jsreport editor. The third option is to create an asset as a link to an existing file. Such a link can be an absolute path or relative path to the folder where the jsreport was started from.
 
 ## Embedding assets
 
-The syntax for embedding asset is the following:
-```
-{#asset [nameOrPath]}
-```
+Assets can be embedded using [templating engine](/learn/templating-engines) helper `asset(nameObjectOrPath, encoding)`.
+The syntax depends on the particular templating engine used.
 
-The `nameOrPath` can be unique asset name or absolute or relative path.    
-Examples:
-```
-{#asset mainTheme.css}
-{#asset /shared/chart.js}
-{#asset ../js/chart.js}
-```
+[handlebars](/learn/handlebars)
+```handlebars
+<style>
+  {{asset "mainTheme.css"}}
+</style>
 
-Such a string will be then replaced in the output as the content of previously uploaded or linked asset. There is no additional transformation running so it is faster than extracting [child templates](https://jsreport.net/learn/child-templates).
-
-The asset can be embedded into template's content, helpers or [custom script](https://jsreport.net/learn/scripts). This enables scenarios like adding common helper functions or adding configuration files to scripts.
-
-The asset extraction is recursive which means you can create a hierarchies of assets. This lets you to group styles' links into a one asset.
-
-The asset extraction runs twice during the rendering. At the beginning after jsreport knows the template and also after the templating engines are executed. This means you can dynamically construct asset names. The following will for example work with jsreport [handlebars](https://jsreport.net/learn/handlebars) engine.
-
-```
-{#asset {{giveMeAssetName}}}
+<img src="{{asset "/shared/logo.png" "dataURI"}}" />
 ```
 
-## Globally shared helpers
-The templating engine helpers needs to be shared between multiple templates very often. This can be achieved using assets because every asset can be marked as globally shared helpers using studio. Such asset is then automatically embedded into all template helpers.
+[jsrender](/learn/jsrender)
+```handlebars
+<style>
+  {{:~asset("mainTheme.css")}}
+</style>
+
+<img src="{{:~asset("/shared/logo.png", "dataURI")}}" />
+```
+
+The assets are static and there is no templating engine evaluation processed on the embedded content. 
+In case you want to decompose big templates into smaller parts with templating engines, look at the [jsreport components](/learn/components).
+
+## Registering helpers from assets
+The assets can be conveniently used to store and reuse templating engine helpers.
+
+The first, create an asset `myHelpers.js` with globaly declared helper functions
+```js
+function upperCase(val) {
+  return val.toUpperCase()
+}
+```
+
+Register the helpers using the following code placed into the template helpers section.
+```js
+const jsreport = require('jsreport-proxy')
+await jsreport.assets.registerHelpers('myHelpers.js')
+```
+
+The helper functions are then reachable from the template content
+```handlebars
+{{upperCase someVal}}
+```
+
+> The asset can be also marked as a "shared helpers asset" and automatically included in every template and [component](/learn/components) helpers.
+This can be done from the asset's properties panel through the jsreport studio.
+
+## Read asset
+The asset content can be reached from the [jsreport script](/learn/scripts) or from the templating engines using `jsreport.assets.read`.
+
+```js
+const jsreport = require('jsreport-proxy')
+const myConfiguration = await jsreport.assets.read('/somepath/myConfiguration.txt')
+```
+
+## Require asset
+The asset can be also loaded into [jsreport script](/learn/scripts) or into templating engine helpers as a nodejs module.
+
+```js
+const jsreport = require('jsreport-proxy')
+const myModule = await jsreport.assets.require('myModule.js')
+
+myModule.myFn()
+```
 
 ## Encoding options
 
-The assets doesn't need to be necessary text files. It can also be a binary file like image or font. In this case you can embed the asset as image in the following way using a `@encoding`
+The assets don't need to be necessary text files. It can also be a binary file like an image or font. In this case, you can specify the encoding using the second parameter.
 
-```
-<img src='{#asset logo.png @encoding=dataURI}'/>
+```handlebars
+<img src="{{asset "/shared/logo.png" "dataURI"}}" />
 ```
 
 Supported encoding values:
@@ -48,7 +88,7 @@ Supported encoding values:
 - `utf8` - default encoding used when not specified, embeds the asset as a raw string in utf8 character set
 
 - `string` - embeds the asset as a raw string in utf8 character set but escaping some characters (`"`, `'`, `\n`, etc) for usage inside a javascript context. Use this encoding when you want put asset content as part of a javascript variable
-ex: `var data = "{#asset vardata.txt @encoding=string}"`
+ex: `var data = "{{asset "vardata.txt" "string"}}"`
 
 - `link` - embeds the asset as a reference to a link (`http://<host>:<port>/assets/content/<asset name>`). for in deep usage and caveats see [Embedding assets as links](#embedding-assets-as-links)
 
@@ -64,15 +104,15 @@ Uploading or linking assets through jsreport studio is not required, although it
 
 ## Embedding assets as links
 
-Assets can be also referenced as links. This is usually better performing in html recipe because browsers can cache the assets or request them in parallel.
+Assets can be also referenced as links. This is usually better performing in HTML recipe because browsers can cache the assets or request them in parallel.
 
-```html
-<script src="{#asset jquery.js @encoding=link}"></script>
+```handlebars
+<script src="{{asset "jquery.js" "link"}}"></script>
 ```
 
-However this approach has several gotchas and you should use it only when it makes really sense.
+However, this approach has several gotchas and you should use it only when it makes sense.
 
-The first problem is that the asset links needs to be publicly accessible for chrome (or external recipes based on browsers, like phantomjs). This can be opted in through config:
+The first problem is that the asset links need to be publicly accessible for chrome (or external recipes based on browsers, like phantomjs). This is opt-in through config:
 
 ```js
 {
@@ -84,13 +124,11 @@ The first problem is that the asset links needs to be publicly accessible for ch
 }
 ```
 
-The second problem is that the assets links are based on the jsreport server url and this is not always easy to automatically determine. There are three cases:
+The second problem is that the assets links are based on the jsreport server URL and this is not always easy to automatically determine. There are three cases:
 
-1. The config contains a value for `assets.rootUrlForLinks` which is then always used as base
-2. The incoming http rendering request is used to construct the root url
-3. There is no incoming request (the rendering is triggered in different way) and the `rootUrlForLinks` is not set. In this case the `localhost:[PORT]` is used as base
-
-
+1. The config contains a value for `assets.rootUrlForLinks` which is then always used as the base
+2. The incoming HTTP rendering request is used to construct the root URL
+3. There is no incoming request (the rendering is triggered differently) and the `rootUrlForLinks` is not set. In this case the `localhost:[PORT]` is used as the base
 
 ## Configuration
 
@@ -112,12 +150,12 @@ extensions: {
 ```
 
 ## API
-You can use standard OData API to manage and query assets entities. For example you can query all assets using
+You can use standard OData API to manage and query assets entities. For example, you can query all assets using
 > `GET` http://jsreport-host/odata/assets
-
-## Examples
-- [Using assets to embed fonts into reports](https://jsreport.net/blog/fonts-in-pdf)
-- [Using assets to create template layouts](https://jsreport.net/blog/template-layouts)
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## The v2 {#asset } syntax
+The original v2 syntax for assets `{#assset}` is still supported, but using helper calls instead is preferred.
+See the [v2 child templates documenation](/learn/2.11.0/assets) for details.

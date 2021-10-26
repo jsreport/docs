@@ -5,7 +5,7 @@
 
 ### Linux
 ```
-npm i jsreport-unoconv
+npm i @jsreport/jsreport-unoconv
 apt-get install unoconv
 ```
 
@@ -14,7 +14,7 @@ apt-get install unoconv
 1. Install Python
 2. Download [unoconv](https://raw.githubusercontent.com/unoconv/unoconv/master/unoconv) script.
 3. Install [LibreOffice](https://www.libreoffice.org/)
-4. `npm i jsreport-unoconv`
+4. `npm i @jsreport/jsreport-unoconv`
 5. Configure jsreport
 
 ```js

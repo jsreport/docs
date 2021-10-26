@@ -116,7 +116,7 @@ jsreport render
 
 ## Using extensions outside of the executable
 
-The jsreport executable have its own set of predefined extensions (in the same way that jsreport does), if you want to use a custom extension that is not included by default, for example `jsreport-wkhtmltopdf`, you will need to install the extension using `npm install jsreport-wkhtmltopdf` and then create a jsreport config file (if you don't have one yet), add `discover: true` option to your config:
+The jsreport executable have its own set of predefined extensions (in the same way that jsreport does), if you want to use a custom extension that is not included by default, for example `jsreport-wkhtmltopdf`, you will need to install the extension using `npm install @jsreport/jsreport-wkhtmltopdf` and then create a jsreport config file (if you don't have one yet), add `discover: true` option to your config:
 
 ```js
 {
@@ -127,6 +127,13 @@ The jsreport executable have its own set of predefined extensions (in the same w
 
 this option will tell the jsreport executable to try to search for jsreport extensions in the `node_modules` directory of your project, after that change any extension that you have installed in `node_modules` will be available in the executable.
 
-## Known limitations
+## Compile custom binary
 
-- only `in-process` [scripts](/learn/scripts) and [engines](/learn/templating-engines) evaluation is supported where full jsreport can be configured to run these in separated process for better isolation
+The jsreport binary includes only the extensions from the default jsreport distribution. However, you are free to compile your own binary and include custom extensions you like.
+This can be done by following these steps.
+
+1. Make sure you have nodejs and yarn installed
+2. Clone jsreport monorepo https://github.com/jsreport/jsreport.
+3. Edit `jsreport.config.json` and include the desired extensions to the property `extensionsList`.
+4. Run `yarn compile`
+

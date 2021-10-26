@@ -15,7 +15,7 @@ The settings reflect the [headless chrome API](https://github.com/GoogleChrome/p
 - clipHeight
 - omitBackground
 - waitForJS
-- waitForNetworkIddle
+- waitForNetworkIdle
 
 
 These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.chromeImage` property.

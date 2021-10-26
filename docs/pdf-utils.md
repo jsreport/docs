@@ -298,6 +298,15 @@ parameters:
 returns:
 - promise with pdf buffer without removed pages
 
+#### `postprocess(sourcePdfBuf, { pdfMeta, pdfPassword, pdfSign, outlines } = {})`
+
+parameters:
+- `sourcePdfBuf` -> source pdf buffer
+- `options` -> optioaly set password, meta, sign or outlines
+
+returns:
+- promise with pdf buffer with cleaned hidden marks and optionally added meta,password,sign or outlines
+
 ## Pdf meta
 The pdf utils extension can fill the basic pdf document metadata `Title`, `Author`, `Subject`, `Keywords`, `Creator`, and `Producer`. These can be filled using the pdf utils extension studio UI. Or you can do it also through the API call.
 ```js

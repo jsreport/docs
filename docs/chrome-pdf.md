@@ -23,7 +23,7 @@ The settings reflects the [headless chrome API](https://github.com/GoogleChrome/
 - marginBottom
 - marginLeft
 - waitForJS
-- waitForNetworkIddle
+- waitForNetworkIdle
 
 
 These basic settings are typically stored with the template, but you can also send them through [API calls](/learn/api)  inside the `template.chrome` property.
@@ -146,20 +146,6 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
 ## CSS Media type and Bootstrap
 Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
 
-## Reuse chrome instances
-The recipe by default starts extra new chrome process every time you render a template. This behavior can be changed and recipe configured to reuse several chrome instances to improve rendering performance.
-
-```js
-{
-  "extensions": {
-    "chrome-pdf": {
-      "strategy": "chrome-pool",
-      "numberOfWorkers": 3
-    }
-  }
-}
-```
-
 ## Printing existing web pages
 You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
 
@@ -184,6 +170,33 @@ function beforeRender(req, res) {
   }
 }
 ```
+
+## Chrome process allocation
+The recipe by default allocates a single instance of chrome per worker thread and reuses it. This means that for the configuration `"workers": { "numberOfWorkers": 5 }` there will be 5 chrome instances allocated. 
+
+This is reasonable for most of the cases, but in case your report is initiating many nested reports, you may want to increase the parallelization by increasing the number of chrome instances allocated per thread. 
+
+```js
+{ 
+  "chrome": { 
+    "numberOfWorkers": 3
+  }
+}
+```
+
+Or you can change the allocation strategy and let the recipe always create a new instance of chrome. This increases the parallelization of the nested reports to the maximum.
+However, note that starting a new chrome process costs about 100ms.
+
+```js
+{ 
+  "chrome": { 
+    "strategy": "dedicated-process"
+  }
+}
+```
+
+
+
 
 ## Troubleshooting
 

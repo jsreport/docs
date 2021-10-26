@@ -2,7 +2,7 @@
 jsreport supports several [recipes](/learn/recipes) which can be used to render pdf documents. There isn't just one because each html to pdf conversion technology used by recipes has its pros and cons. There is simply no clear winner and to provide the best option to every use case jsreport implements several of them. This article should help with choosing the right one based on the specific requirements.
 
 ## Pdf recipes comparison
-| features | [chrome-pdf ](/learn/chrome-pdf)| [phantom-pdf ](/learn/phantom-pdf)| [wkhtmltopdf](learn/wkhtmltopdf) | [electron-pdf](https://github.com/bjrmatos/jsreport-electron-pdf) | [weasyprint-pdf](https://github.com/jsreport/jsreport-weasyprint-pdf)
+| features | [chrome-pdf ](/learn/chrome-pdf)| [phantom-pdf ](/learn/phantom-pdf)| [wkhtmltopdf](learn/wkhtmltopdf) | [electron-pdf](https://github.com/bjrmatos/jsreport-electron-pdf) | [weasyprint-pdf](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-weasyprint-pdf)
 | --- | :---: | :---: | :---: | :---: |
 | technology | [chrome headless](https://developers.google.com/web/updates/2017/04/headless-chrome) | [phantomjs](http://phantomjs.org/) | [wkhtmltopdf](https://wkhtmltopdf.org/) | [electron](https://github.com/electron/electron)| [weasyprint](http://weasyprint.org/)|
 | header & footer| yes | yes | yes | no | yes |

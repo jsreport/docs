@@ -1,7 +1,7 @@
 
 ## Installation
 ```bash
-npm install jsreport-html-embedded-in-docx
+npm install @jsreport/jsreport-html-embedded-in-docx
 ```
 
 ## Basics

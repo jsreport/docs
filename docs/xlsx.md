@@ -105,7 +105,7 @@ Remove element from collection in `filePath` at `xmlPath` at `index`.
 Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageName`, `sheet id`,  `column from`, `row from`, `column to`, `row to`
 
 ### custom
-You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport-xlsx/blob/master/static/helpers.js)
+You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-xlsx/blob/master/static/helpers.js)
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).

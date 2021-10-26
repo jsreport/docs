@@ -1,7 +1,9 @@
 
 jsreport supports durable persistence of templates, assets, scripts and all other entities. This helps to cover full reporting scenario from designing reports in the studio, saving templates to the template store and referencing them to render the final reports based on the input data in the production.
 
-The default jsreport template store is based on file system, however this is not the only option. jsreport provides unified API around the persistent storage which is implemented by the custom extensions providing access layer to the other media like sql database and many more. Switching from the file system persistence to let say mongodb requires in the end only installing a custom extension and changing the connection string.
+> jsreport uses `blob storage` abstraction for persisting bigger and high volume objects like output reports or profiles. See the [blob storages documentation](/learn/blob-storages) for details.
+
+The default jsreport template store is based on the file system, however, this is not the only option. jsreport provides unified API around the persistent storage which is implemented by the custom extensions providing access layer to the other media like sql database and many more. Switching from the file system persistence to let say mongodb requires in the end only installing a custom extension and changing the connection string.
 
 ## Default file system store
 jsreport stores templates by default to the file system. This default implementation generates human readable directory structure with templates and other entities definitions. Such structure is very easy to edit with your favorite text editor, deploy to the production and also version with git or other source control. The file system implementation finally supports also cloud based "storage" like AWS S3 or Azure Storage.
@@ -11,26 +13,29 @@ You can find more information about this default store in the dedicated article 
 ## Template store extensions
 The extensions implementing template store can be installed as any other jsreport extension. Typically it only requires to run `npm install jsreport-xxx` and restart the jsreport server. The automatic jsreport extensions discovery should find and load it afterwards.
 
-Applying particular store extension to the jsreport requires changing the `store.provider` in the [configuration](/learn/configuration).
+Applying store extension to the jsreport requires changing the `store.provider` in the [configuration](/learn/configuration) and configuring the extension based on the instructions in the extension's documentation.
 
 ```js
 "store": {
   "provider": "mongodb",
-  "address": "127.0.0.1",
-  "databaseName" : "std"
+},
+"extensions": {
+  "mongodb-store": {
+      "address": "127.0.0.1",
+      "databaseName" : "std"
+  }
 }
 ```
-Each store extension requires specific options to be set in `store` config. You can always find details the documentation.
 
 The currently supported templates store implementation includes:
 
 | Documentation | Technology |
 | ------------- | ---------- |
 | [jsreport-fs-store](/learn/fs-store) | file system + Azure Storage + AWS S3 |
-| [jsreport-mssql-store](https://github.com/jsreport/jsreport-mssql-store)| Microsoft SQL Server |
-| [jsreport-postgres-store](https://github.com/jsreport/jsreport-postgres-store) | PostgreSQL|
-| [jsreport-mongodb-store](https://github.com/jsreport/jsreport-mongodb-store) | MongoDB
-| [jsreport-oracle-store](https://github.com/jsreport/jsreport-oracle-store) | Oracle
+| [jsreport-mssql-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mssql-store)| Microsoft SQL Server |
+| [jsreport-postgres-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-postgres-store) | PostgreSQL|
+| [jsreport-mongodb-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) | MongoDB
+| [jsreport-oracle-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-oracle-store) | Oracle
 
 Note the extensions implementing templates store are being used only for persisting the jsreport entities. Its purpose isn't to load the report input data from a source database. This feature is provided through [custom scripts](/learn/scripts) extension.
 

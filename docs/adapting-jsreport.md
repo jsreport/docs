@@ -20,35 +20,33 @@ require('jsreport')({ httpPort: 3000, httpsPort: 0 }).init();
 ```
 
 ## Additional extensions
-jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport-azure-storage).  You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport-core#list-of-extensions). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
+jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-azure-storage). You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport/tree/master/packages). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
 
 ## Rendering
-The goal of jsreport is to render reports. To do it programmatically you use `jsreport.render`:
+The goal of jsreport is to render reports. To do it programmatically, you use `jsreport.render`:
 
 ```js
-jsreport.init().then(() => {
-  jsreport.render({
-    template: {
-      content: '<h1>Hello {{foo}}</h1>',
-      engine: 'handlebars',
-      recipe: 'chrome-pdf'
-    },
-    data: {
-      foo: "world"
-    }
-  }).then((resp) => {
-    // write report buffer to a file
-    fs.writeFileSync('report.pdf', resp.content)    
-  });
-}).catch((e) => {
-  console.log(e)
-});
+const fs = require('fs').promises
+
+const jsreport = require('@jsreport/jsreport-core')()
+jsreport.use(require('@jsreport/jsreport-chrome-pdf')())
+jsreport.use(require('@jsreport/jsreport-handlebars')())
+
+await jsreport.init()
+const result = await jsreport.render({
+	template: {
+		content: '<h1>Hello {{foo}}</h1>',
+		engine: 'handlebars',
+		recipe: 'chrome-pdf'
+	},
+	data: {
+		foo: "world"
+	}
+})
+await fs.writeFile('report.pdf', resp.content)
 ```
 
-See the [jsreport-core](https://github.com/jsreport/jsreport-core) for complete documentation for rendering.
-
-## Debugging
-In order to debug your jsreport app with [nodejs debugging tools](https://nodejs.org/en/docs/guides/debugging-getting-started/) you will need to change your [configuration](/learn/configuration) for `templatingEngines.strategy` to `in-process`, this ensures that all operations in the rendering pipeline of jsreport are executed in the same process, which is something handy when debugging because there will be just single process needed to inspect.
+See the [jsreport-core](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core) for complete documentation for rendering.
 
 ## Attach to existing express app
 jsreport by default starts an [express.js](http://expressjs.com/)-based server running on ports specified in config. This behavior can be overridden by passing an `express` application instance to the options. In this case, jsreport `express` extension will just add required routes and middle-wares to the passed instance.
@@ -80,31 +78,8 @@ jsreport.init().then(() => {
 });
 ```
 
-## Using rendering shortcut
-
-It can be convenient sometimes to use jsreport shortcut `require("jsreport").render` if you want to just render a report. This happens to be usefull when you are not interested in starting jsreport server or storing data in the document store. Shortcut doesn't use configuration files but instead you can add/modify configurations dynamically into `require("jsreport").renderDefaults`, just make sure to **only modify the existing `require("jsreport").renderDefaults` object, if you assign a new object in `renderDefaults`, it will not be recognized**.
-
-```js
-const http = require('http');
-const jsreport = require('jsreport');
-
-http.createServer((req, res) => {
-  jsreport.render({
-    template: {
-      content: 'Hello world',
-      engine: 'handlebars',
-      recipe: 'chrome-pdf'
-    }
-  }).then((out) => {
-    out.stream.pipe(res);
-  }).catch((e) => {
-    res.end(e.message);
-  });
-}).listen(1337, '127.0.0.1');
-```
-
 ## Dynamic access to jsreport entities
-Once you have the jsreport running with some templates or reports created, you can reach them on the server using `documentStore` property. The API to search and manipulate underlying jsreport data is very similar to the official [mongodb driver](https://github.com/mongodb/node-mongodb-native). It is just using promises.
+Once you have the jsreport running with some templates or reports created, you can reach them on the server using `documentStore` property. The API to search and manipulate underlying jsreport data is very similar to the official [mongodb driver](https://github.com/mongodb/node-mongodb-native). 
 
 ```js
 reporter.documentStore

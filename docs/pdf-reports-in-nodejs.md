@@ -121,12 +121,12 @@ require('jsreport')({ httpPort: 2000}).init();
 
 In some cases your application just want to connect to an already running jsreport server. You may also want to use [reporting as a service](https://jsreport.net/online) provided by jsreport. In this cases you can use similar rendering functions remotely.
 
-To render pdf remotely you only need to install [jsreport-client](https://www.npmjs.org/package/jsreport-client) and call render in the same way as mentioned earlier in this blog post. Next example shows how to remotely print pdf "hello world". See the full documentation for `jsreport-client` npm package [here](https://jsreport.net/learn/nodejs-client).
+To render pdf remotely you only need to install [@jsreport/nodejs-client](https://www.npmjs.org/package/@jsreport/nodejs-client) and call render in the same way as mentioned earlier in this blog post. Next example shows how to remotely print pdf "hello world". See the full documentation for `@jsreport/nodejs-client` npm package [here](https://jsreport.net/learn/nodejs-client).
 
-> npm install jsreport-client
+> npm install @jsreport/nodejs-client
 
 ```js
-const client = require('jsreport-client')(url, username, password);
+const client = require('@jsreport/nodejs-client')(url, username, password);
 
 client.render({
   template: { content: 'Hello World', recipe: 'chrome-pdf'}

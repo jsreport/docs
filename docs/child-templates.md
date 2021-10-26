@@ -1,58 +1,81 @@
 
 
-> Decompose a report template into multiple reusable child templates
+> Compose existing templates into complex reports
+
+**[Example in playground](https://playground.jsreport.net/w/admin/IkdKFoT9)**
 
 ## Basics
 
-A complex report can grow in its size and contain many separate sections. Each section logically needs its own specific helpers, design input data or even custom script to fetch them remotely. It makes sense in this case to split complex report template into multiple child templates which can be developed separately and possibly also reused. Such use case is covered by this extension.
+A complex report can grow in its size and contain many separate sections. Each section logically needs its specific helpers, input data, or even a [custom script](/learn/scripts) preparing input data. I this case, you can split complex report template into multiple child templates which can be developed separately and possibly also reused. Such use case is covered by this extension.
 
-However, if you only have static content (such as a group of styles, [html layout](https://jsreport.net/blog/template-layouts), etc) the best option (simple and with more performance) is to use the [assets](https://jsreport.net/learn/assets) extension to handle that kind of content.
+However, if you only have static content like styles, scripts, or part of HTML, which you want to reuse in multiple templates,  it's better to use [assets](https://jsreport.net/learn/assets) extension. Assets are simpler to use and bring better performance. Additionaly, in case you want to reuse just html with dynamic templating engines, you should use [components](/learn/components) extension. The child templates should be used when there is a need to attach a [custom script](/learn/scripts) or use existing standalone template in a more complex report.
 
-## How it works
-When rendering reports, jsreport searches for the special tag `{#child [nameOrPath]}` and replaces its content with the output of the referenced template. It calls the whole rendering process for child template, and includes that output where the `{#child [nameOrPath]}` special tag used to be. You can think about it as an string replace.
+## How to use
 
-The `nameOrPath` can be a unique template name or absolute or relative path. Examples:
+Child template rendering can be invoked by calling [templating engine](/learn/templating-engines) helper `childTemplate(nameObjectOrPath)`.
+The helper call invokes the full rendering of the specified template and fills the output to the place where it was called.
+The first argument of the helper should be the child template name or its path and the syntax is specific to the particular templating engine which the main template uses.
 
+[handlebars](/learn/handlebars)
 ```
-{#child departmentsTemplate}
-{#child /contosoCompany/templates/departments}
-{#child ../shared/departments}
-```
-
-
-### Warning about PDF
-Since child templates perform the entire rendering operation, trying to render a child template that generates PDF inside a parent template that generates PDF will fill the parent PDF with garbage (the rendered PDF of the child template).
-
-In this case, set the `recipe` of your child template to `html` when rendering a child template into a parent PDF which is using the `chrome-pdf` recipe.
-
-## Set child template parameters
-The root request input data cascades through the child templates, but you can also pass additional data to the child template through its declaration
-```html
-{#child myChildTemplate @data.paramA=foo}
+{{childTemplate "departmentsTemplate"}}
+{{childTemplate "/contosoCompany/templates/departments"}}
+{{childTemplate "../shared/departments"}}
 ```
 
-Or you can override existing child template attributes, such as the recipe used to render the child template.
-```html
-{#child myChildTemplate @template.recipe=html @options.language=sp}
+[jsrender](/learn/jsrender)
+```
+{{:~childTemplate("departmentsTemplate")}}
+{{:~childTemplate("/contosoCompany/templates/departments")}}
+{{:~childTemplate("../shared/departments")}}
 ```
 
-Note that templating engine's `this` context doesn't flow to the child template rendering. You always get the whole parent data set context in the child template.
+Note child template needs to produce a text which gets embedded into the parent template during templating engine evaluation.
+You can't produce binary output like pdf in the child template and expect it gets embedded into the parent.
+Child templates are typically configured to use [html recipe](/learn/html).
 
-Complex objects can be passed as param using special syntax `$=` and helper `childTemplateSerializeData`.
-
+## Input data
+Child template receives data from the current templating engine context by default.
+In the following handlebars example, the template `student` input data would be equal to the respective item in the `students` array.
 ```
-{#child myChild @data.foo$={{{childTemplateSerializeData foo}}} }
+{{#each students}}
+  {{childTemplate "student"}}
+{{/each}}
 ```
 
-##  Configuration
-
-Add `child-templates` node to the standard config file:
+To change the current context, you can wrap the `childTemplate` call into an extra helper.
 
 ```js
-extensions: {
-  "child-templates": {
-    // controls how many child templates rendering can happen in parallel, defaults to 2
-    "parallelLimit": 5
+function prepareData(someAttribute, options) {   
+    return options.fn({
+        ...this,
+        someAttribute
+    })
+}
+```
+
+```
+{{#each students}}
+  {{#prepareData @root.someAttribute}}
+    {{childTemplate "student"}}
+  {{/prepareData}}
+{{/each}}
+```
+
+## Template attributes
+The child template can be also specified using an object. This can be handy when you want to specify a different recipe.
+
+```
+{{childTemplate (myTempate)}}
+
+function myTemplate() {
+  return {
+    name: "myTemplate",
+    recipe: "html"
   }
 }
 ```
+
+## The v2 {#child } syntax
+The original v2 syntax for child templates `{#child}` is still supported, but using helper calls instead is preferred.
+See the [v2 child templates documenation](/learn/2.11.0/child-templates) for details.

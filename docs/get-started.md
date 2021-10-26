@@ -1,15 +1,14 @@
 
-jsreport is an open-source reporting server side tool running cross-platform on [node.js](http://nodejs.org/). It can dynamically produce reports in various formats like [pdf](/learn/chrome-pdf), [excel](/learn/html-to-xlsx), [docx](/learn/docx), [pptx](/learn/pptx) and also many other [text](/learn/text) based formats. The main idea of jsreport is to let users define reports without annoying designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and lets them use the knowledge they already have.
+jsreport is an open-source reporting server-side tool running cross-platform on [node.js](http://nodejs.org/). It can dynamically produce reports in various formats like [pdf](/learn/chrome-pdf), [excel](/learn/html-to-xlsx), [docx](/learn/docx), [pptx](/learn/pptx) and also many other [text](/learn/text) based formats. The main idea of jsreport is to let users define reports without annoying designers but instead by using code, mostly html and javascript templating engines. This approach gives great power and flexibility to the software developers and lets them use the knowledge they already have.
 
 This article shows you the most simple use case with jsreport, which is creating a pdf invoice. It covers the basic principles you need to understand to get started.
 
 ## Basic workflow
 
 1. Get jsreport
-2. Define sample input data
-3. Define report template
-4. Test and preview report
-5. Call API with real input data
+2. Define report template
+3. Test and preview report
+4. Call API with real input data
 
 ## Get jsreport
 First, you need to [download and install](/on-prem) jsreport on your PC, register for [jsreport as a service solution](/online), or start right away in [jsreport playground](https://playground.jsreport.net).
@@ -18,40 +17,53 @@ No matter which option you choose, you get access to the jsreport browser-based 
 
 ![studio](https://jsreport.net/screenshots/studio.png?v=4)
 
-## Define sample data
+## Create a report template
 
-Before you create a pdf invoice layout, you should prepare some sample data you will later use to preview it. 
+Together with the rendering process, the report template is the heart of the jsreport. A template defines what the report is going to look like and is used together with the input data every time you render a new report. 
 
-You can create sample data in the jsreport studio from the entity tree panel.<br>
-Right-click the panel -> new entity -> sample data.
+To create a report template use the "plus" button in the left entity tree panel -> new entity -> template.
 
-![studio](https://jsreport.net/img/sample-data-create.png)
+![new template](/learn/static-resources/new-template.png)
 
-The sample data needs to be defined in `json` format and for our simple invoice it can contain the following:
+The template creation wizard pops up and helps to define the report template.
+The first wizard step asks for the template name and templating engine and recipe.
+Let's fill just a name and keep the other defaults which will be discussed later.
 
-![sample-data](https://jsreport.net/img/invoice-sample-data.png?v2)
+![new template wizard](/learn/static-resources/new-template-wizard.png)
 
-## Define report template
+In the second wizard step, let's fill a name for the entity we will use for report input data.
 
-Together with the rendering process, the report template is the heart of the jsreport. A template defines what the report is going to look like and is used together with the input data every time you render a new report. You can create a report template again from the entity tree panel on the top left.<br>
-Right-click the panel -> new entity -> template.
+![new template wizard 2](/learn/static-resources/new-template-wizard-2.png)
 
-### Select sample data
+## Render the report
 
-For the invoice tutorial, the first thing you need to do is associate the sample data you previously defined with the newly created template.
+Now you can try to fill in the template content with some simple html and hit the "Run" button.
 
-![invoice-data](https://jsreport.net/img/invoice-data-select.png?v2)
+![render template](/learn/static-resources/studio-render.png)
 
+> Tip: You can use also the F8 shortcut to preview the template. Or you can click `Run->Run and undock preview` button to render into a new tab. Then you can move this tab to the second screen of your PC and comfortably develop on two of them.
 
-### Recipes
+## Recipes
 
 The report output format is defined by the template's [recipe](/learn/recipes). The recipe is an algorithm used by jsreport to convert the output of templating engines into the desired format. Every report template needs to specify exactly one recipe from all that are available.
 
-The easiest way to create a pdf invoice is to use html to pdf conversion implemented in the [chrome-pdf](/learn/chrome-pdf) recipe, so let's stay with it. Note that not every recipe uses html conversion and it is always recommended to read its documentation in the [recipes](/learn/recipes) section.
+The easiest way to create a pdf invoice is to use html to pdf conversion implemented in the [chrome-pdf](/learn/chrome-pdf) recipe, so let's stay with it. 
 
 ![recipe](https://jsreport.net/img/recipe.png?v=2)
 
-### Templating engines
+Every recipe typically provides additional options which can be filled in the left properties menu.
+In this case, you can use [chrome-pdf](/learn/chrome-pdf) margin options, and better position the invoice content.
+
+![chrome margin](/learn/static-resources/chrome-margin.png)
+
+## Define sample data
+
+The template creation wizard already prepared an extra entity we will use to fill the report input data used during report preview.
+The sample data needs to be defined in `json` format and for our simple invoice it can contain the following:
+
+![sample-data](/learn/static-resources/sample-data.png)
+
+## Templating engines
 
 Templates are defined using common javascript [templating engines](/learn/templating-engines) like [jsrender](/learn/jsrender) or [handlebars](/learn/handlebars). Templating engines let you assemble reports dynamically using loops, conditions, javascript helpers, or data binding. Templating engines provide you with a way to define any custom report you like.
 
@@ -72,12 +84,6 @@ This time, let's use [handlebars](/learn/handlebars) and assemble the invoice ht
 </div>
 ```
 
-You can see it is just html with handlebars binding to the sample data you previously created. Now you can click the `Run` button in the jsreport studio and it should preview a pdf in the right pane. This is because you previously selected `chrome-pdf`, which automatically converts html into pdf.
-
-![recipe](https://jsreport.net/img/invoice-simple.png?v=2)
-
-> Tip: You can use also the F8 shortcut to preview the template. Or you can click `Run->Run and undock preview` button to render into a new tab. Then you can move this tab to the second screen of your PC and comfortably develop on two of them.
-
 To make it a little bit more complex, let's add a tax calculation to the template. To do so, you will need to define a custom javascript function calculating tax from the original price. Such a function can be added to the bottom panel in jsreport studio:
 
 ```js
@@ -93,17 +99,14 @@ Then back in the top panel you can use the `tax` function to print the price.
 </div>
 ```
 
-Finally it should be like this:
-<iframe src='https://playground.jsreport.net/w/anon/u47GCzJc?embed=1' width="100%" height="400" frameborder="0"></iframe>
-
-### Assets
+## Assets
 
 jsreport ships out of the box with several [extensions](/learn/extensions) you can find useful during the development. The most commonly used is the [assets extension](/learn/assets). This extension is typically used when you want to extract parts of the template like styles or scripts into separate entities and reuse them. Or when you want to upload images to jsreport and reference them in the template.
 
-Let's add some css styles to the invoice. Start by creating an asset entity; name it for example `styles.css`<br>.
-Right-click the entity tree panel -> new entity -> asset.
+Let's add some CSS styles to the invoice using an asset. Right-click the entity tree panel -> new entity -> asset.
+Name it for example `styles.css`.
 
-Now you can fill some css and save it:
+Then fill in some css and save it:
 ```css
 h1 {
 	color: red
@@ -112,24 +115,23 @@ h1 {
 
 > Tip: You can save the active entity using CTRL+s shortcut
 
-The main trick comes now. You want to reference the asset inside the template. Open the invoice template and add to the top the following code.
+Now you want to reference the asset inside the template and link the style. This can be done by calling [templating engine](/learn/tempating-engines) helper `asset(path, encoding = 'utf8')`. Open the invoice template and add to the top the following code.
 
 ```html
 <style>
-  {#asset styles.css}
+  {{asset "./styles.css"}}
 </style>
 ```
 
-![recipe](https://jsreport.net/img/invoice-asset.png)
+![assets](/learn/static-resources/get-started-assets.png)
 
-The `{#asset xxx}` isn't a handlebars syntax but the syntax used by the assets extension. The extension hooks into the rendering pipeline and replaces this specific string with the actual asset content. In this case, it is just plain text but it can be also an image for example.
+The `asset` helper call will find the asset and extracts its content. In this case, it is just plain text, but it can be also an image for example.
+See [asets](/learn/assets) extension documentation for the details.
 
 > Tip: You can also drag & drop any file to the entity tree and it gets automatically created as an asset entity.
 
 ## Test and preview report
 Now it's time to finish the invoice and preview it with the sample data until you are satisfied. In case you want to skip it and see the result right away, you can find it [here in the playground](https://playground.jsreport.net/w/admin/hBfqC7af).
-
-
 
 ## Call API with real input data
 

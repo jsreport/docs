@@ -1,8 +1,13 @@
 `html-with-browser-client` creates html output with attached [browser client script](https://jsreport.net/learn/browser-client).
 
-The html output is then extended with [jsreport](https://jsreport.net/learn/browser-client) global object. That can be used to invoke jsreport server rendering directly from the output report.
+The HTML output is then extended with [jsreport](https://jsreport.net/learn/browser-client) global object. That can be used to invoke jsreport server rendering directly from the output report.
 
 See the [browser client docs](https://jsreport.net/learn/browser-client) for API details.
+
+**The recipe simply links the browser client for you, but you can also stick with a plain HTML recipe and link the client lib yourself.**
+```html
+<script src={{browserClientLink}}></script>
+```
 
 ## Export part of the report to PDF
 The most simple scenario. You have html report but you want to additionally add controls for printing particular parts into PDF.
@@ -14,112 +19,67 @@ The most simple scenario. You have html report but you want to additionally add 
 <input type='button' onclick='print()' value='print me'></input>
 <script>
     function print() {
-        jsreport.download('report.pdf', {
+        jsreport.render({
           template: {
               content: document.getElementById('printedArea').innerHTML,
               engine: 'none',
-              recipe: 'phantom-pdf'
-        }});
+              recipe: 'chrome-pdf'
+        }}).then(r => r.download('report.pdf')).catch(console.error);
     }
 </script>
 ```
 
-## Drill down to sub report
-Also very common scenario. The report is too complex to display at once and you want let the users to drill down to particular sections.
+## Drill down to subreport
+Also a very common scenario. The report is too complex to display at once and you want to let the users drill down to particular sections.
 
-The master template can contain several links to the detail drill down. Every link can then render different template and also push additional information through data property.
+The master template can contain several links to the detailed drill down. Every link can then render a different template and also push additional information through data property.
 
 ```html
-Hello from master....
+Hello from master...
 <input type='button' onclick='detail()' value='Drill down'></input>
-
 <script>
+    const masterData = {{{toJS this}}}
     function detail() {
-        jsreport.render('_self', {name: 'detail', data: { detailId: 'foo' }});
+        jsreport.render({
+            template: {
+                name: 'detail'
+            },
+            data: { ...masterData, detailId: 'foo' }
+        })
+        .then(r => r.toString())
+        .then((detailStr => {
+            document.open()
+            document.write(detailStr)
+            document.close()
+        }))
+        .catch(console.error)
     }
 </script>
 ```
 
-The detail template can use data provided from the master template or use [custom script](https://jsreport.net/learn/scripts) to actively fetch required data. There can be also `back` button for navigating back to the master template.
-
-```html
-Hello from detail {{detailId}} ....
-<input type='button' onclick='window.history.back()' value='back'/>
-
-<script>
-    function detail() {
-        jsreport.render('_self', { template: { name: 'master'} })
-    }
-</script>
-```
-
-The whole usecase can be implemented also through AJAX calls, this can prevent URL changes.
+Or the drill-down doesn't need to display detail in the whole page but just in the iframe.
 
 ```js
-jsreport.renderAsync({ template: { name: 'master'} }).then(function(r) {
-	document.open();
-    document.write(r.toString());
-    document.close();
-});
-```
-
-
-## Editable templates
-The last example shows how to use the [jsreport borwser client](https://github.com/jsreport/jsreport-browser-client-dist) to edit and preview the template in third party WYSIWYG editor.
-
-```html
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-
-<div>
-    <input type='button' value='Edit Template' id='editACE' onclick='edit()'/>
-    <input type='button' value='Save' id='refresh' onclick='refresh()'/>
-</div>
-
-<div id='editorBox'>
-</div>
-
-<div id="reportBox" >
-</div>
-
+<input type='button' onclick='detail()' value='Drill down'></input>
+<iframe id='detailFrame' frameborder='0' style='width:100%;height:100%;z-index:50'></iframe>
 <script>
-    var template;
-    var templateName = 'My editable report template';
-    var data = { foo: '...' };
-
-    jsreportInit = function() {
-      //load template definition so we can edit it's content
-      jsreport.getTemplateByName(templateName).then(function(r) {
-         template = r;
-      });
-
-      //also render into the preview pane
-      jsreport.render('reportBox', {
-        template: { name: templateName },
-        data: data
-      });
-    }
-
-    //open editor with the edited template content
-    function edit() {
-        tinymce.init({ selector:'#editorBox' });
-        tinyMCE.activeEditor.setContent(template.content);
-    }
-
-    //save the template with updated content and preview
-    function refresh() {
-        template.content = tinyMCE.activeEditor.getContent()
-        tinyMCE.activeEditor.destroy();
-        document.getElementById('editorBox').innerHTML = '';
-        jsreport.updateTemplate(template).then(function() {
-            jsreport.render('reportBox', {
-	            template: { name: templateName },
-	            data: data
-	        });    
-        });
+    document.getElementById('detailFrame').onload = function () {
+        this.style.height = this.contentWindow.document.body.scrollHeight + 'px';  
     }    
-
+    function detail() {
+        jsreport.render({          
+            template: {
+                name: 'detail'
+            }
+        })
+        .then(r => r.toString())
+        .then((detailStr => {
+            const iframeDocument = document.getElementById('detailFrame').contentDocument
+            iframeDocument.open()
+            iframeDocument.write(detailStr)
+            iframeDocument.close()
+        }))
+        .catch(console.error)
+    }
 </script>
 ```
-
-## Performance and omitting data
-The recipe by default serializes the input data into the global `jsreport.data` javascript object. This can hurt performance if the data set is huge. In this case you can omit serializing data using property `template.omitDataFromOutput`. This can be set in API call or also in jsreport studio.

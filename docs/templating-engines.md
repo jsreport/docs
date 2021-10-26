@@ -98,7 +98,7 @@ First, you need to make sure the third-party module is installed and available.
 npm i moment --save
 ```
 
-The next step is enabling access to the local files and modules in the [/learn/configuration](configuration).
+The next step is enabling access to the local files and modules in the [configuration](/learn/configuration).
 
 ```js
 {
@@ -116,8 +116,11 @@ function formatNow() {
 }
 ```
 
-## Asynchronous helpers
-The helper functions can be also asynchronous and return promises. 
+Alternatively you can also let jsreport install the npm module for you.
+See the [npm](/learn/npm) extension for the details.
+
+## Async
+The helper functions can be asynchronous and return promises. 
 This can be handy to perform external calls or invoke modules that don't have synchronous API.
 
 You can, for example, resize an image before putting it to the pdf and produce smaller pdfs.
@@ -133,8 +136,43 @@ async function resize (url) {
 }
 ```
 
-Note the async helpers shouldn't be used to load the input data set or manipulate the input data.
+The helpers section can be also asynchronous at the top level. 
+This can be beneficial when a custom library needs an asynchronous initialization code.
+
+```js
+const someLibrary = require('someLibrary')
+await someLibrary.init()
+
+function myHelper() {
+    return someLibrary.foo()
+}
+```
+
+Note the async code in helpers shouldn't be used to load or manipulate the input data.
 Such tasks should be done using [jsreport custom scripts](/learn/scripts).
+
+## System helpers
+Many extensions provides system helpers you may use. You can refer to the particular extension's docummentation for the details.
+The core provides the following system helpers: 
+### module(moduleName)
+Import an installed node.js module to the template content. 
+
+This works for all engines, using, for example, [handlebars](/learn/handlebars) an example can look like this.
+
+```html
+<script>{{module "moment"}}</script>
+<script>console.log(moment())</script>
+```
+
+### toJS(data)
+Convert input into javascript object. This is usefull when you need to access input data inside `<script>`.
+
+```html
+<script>
+    const reportData = {{{toJS this}}}
+    ...
+</script>    
+```
 
 ## Internationalization
 Since the [node.js 14](https://nodejs.org/) you can use the [ECMA script Intl standard](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) to format numbers, dates, or use plural rules.

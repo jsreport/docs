@@ -2,14 +2,14 @@ The installation script for Amazon Linux
 
 ```bash
 # install node.js
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-# reopen terminal
-nvm install 8.11.3
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.38.0/install.sh | bash
+# you may need to reopen terminal
+nvm install 16.6.1
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g jsreport-cli
-jsreport init
+npm i -g @jsreport/@jsreport/jsreport-cli@beta
+jsreport init beta
 jsreport configure
 
 # install chrome dependencies
@@ -25,8 +25,3 @@ npm install pm2 -g
 pm2 start server.js
 pm2 startup
 # run the output of previous command
-
-# optionally if you want to use older phantomjs for pdf rendering
-npm i jsreport-phantom-pdf --save --save-exact
-```
-

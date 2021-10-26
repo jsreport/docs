@@ -1,10 +1,10 @@
 ﻿jsreport 1.0 looks dramatically different from the UI perspective, but the underlying server part is mostly back compatible with the previous releases. It shouldn't be a big problem to update, mostly it will just work. Here are some notes for problematic and incompatible features.
 
 ## Embedded store
-jsreport now doesn't include deprecated [jsreport-embedded-store](https://github.com/jsreport/jsreport-embedded-store) (`connectionString.name='neDB`) in the default installation. If you still use it, you need to explicitly install it:
+jsreport now doesn't include deprecated [jsreport-embedded-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-embedded-store) (`connectionString.name='neDB`) in the default installation. If you still use it, you need to explicitly install it:
 `npm install jsreport-embedded-store --save`
 
-However we recommend to migrate to the currently default [jsreport-fs-store](https://github.com/jsreport/jsreport-fs-store).
+However we recommend to migrate to the currently default [jsreport-fs-store](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-fs-store).
 
 This can be done manually. Open two instances of jsreport on different ports and copy paste your templates from the instance running on `neDB` to the instance running on `fs`.
 
