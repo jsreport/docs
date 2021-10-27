@@ -1,4 +1,4 @@
-The installation script for Amazon Linux
+The installation script for Amazon Linux 2
 
 ```bash
 # install node.js
@@ -14,10 +14,8 @@ jsreport configure
 
 # install chrome dependencies
 wget -qO- https://intoli.com/install-google-chrome.sh | bash
-sudo yum install -y libXScrnSaver 
 
 # start jsreport to see it running on port 5488
-
 jsreport start
 
 # the next steps are optional to start jsreport on boot
@@ -25,3 +23,4 @@ npm install pm2 -g
 pm2 start server.js
 pm2 startup
 # run the output of previous command
+```
