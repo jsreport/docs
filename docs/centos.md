@@ -1,5 +1,5 @@
 
-These steps were tested on CentOS 7 and Red Hat 8.
+These steps were tested on CentOS 8.
 They may also work for other versions.
 
 ```bash
