@@ -4,12 +4,12 @@ The installation script for Amazon Linux
 # install node.js
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.38.0/install.sh | bash
 # you may need to reopen terminal
-nvm install 16.6.1
+nvm install 16.12.0
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g @jsreport/@jsreport/jsreport-cli@beta
-jsreport init beta
+npm i -g @jsreport/@jsreport/jsreport-cli
+jsreport init
 jsreport configure
 
 # install chrome dependencies

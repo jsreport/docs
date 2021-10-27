@@ -4,8 +4,8 @@ Afterwards open command line terminal and type:
 ```bash
 mkdir jsreportapp
 cd jsreportapp
-npm i -g @jsreport/jsreport-cli@beta
-jsreport init beta
+npm i -g @jsreport/jsreport-cli
+jsreport init
 jsreport configure
 jsreport start
 ```
