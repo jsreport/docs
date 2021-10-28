@@ -232,8 +232,7 @@ Repetitive uploading of the docx template can get easily tedious. Fortunately, y
 ```js
 "extensions": {
   "fs-store": {
-    "syncModifications": {
-      "updateStudio": true
+    "externalModificationsSync": true
     }
   }
 }
