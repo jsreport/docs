@@ -2,6 +2,7 @@
 
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -195,8 +196,15 @@ However, note that starting a new chrome process costs about 100ms.
 }
 ```
 
+## Debugging
 
+In many cases, you can switch to the [html recipe](/learn/html) and debug the output using the F12 browser's tool just like any other page.
 
+To troubleshoot the javascript evaluated in the `chrome-pdf` recipe, you can write to the `console.log` and inspect the outputs in the [studio profile tab](/learn/studio#profiles) when clicking on the `chrome-pdf` operation.
+
+For a full `chrome-pdf` debugging experience, find the video tutorial [here](https://www.youtube.com/watch?v=M_SNsqs1VR0). Full credits go to the author.
+
+Note the same debugging techniques applies also to the [chrome-image](/learn/chrome-image) recipe.
 
 ## Troubleshooting
 
