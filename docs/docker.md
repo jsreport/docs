@@ -2,15 +2,15 @@
 
 [jsreport/jsreport](https://hub.docker.com/r/jsreport/jsreport/) image is automatically pushed with adequate tags into [docker hub](https://www.docker.com/)  public repository in three variations:
 
-- `jsreport/jsreport:3.0.0` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/default/Dockerfile))  contains default installation from npm
-- `jsreport/jsreport:3.0.0` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/full/Dockerfile)) contains default installation plus all the custom extensions, see the list of installed extensions in the dockerfile
-- `jsreport/jsreport:3.0.0-windowsservercore` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/windowsservercore/Dockerfile)) contains default installation with windows server core based image. Use `c:\jsreport` for mounting volume.
+- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/default/Dockerfile))  contains default installation from npm
+- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/full/Dockerfile)) contains default installation plus all the custom extensions, see the list of installed extensions in the dockerfile
+- `jsreport/jsreport:3.0.1-windowsservercore` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/windowsservercore/Dockerfile)) contains default installation with windows server core based image. Use `c:\jsreport` for mounting volume.
 
 You can find the [list of all available tags and previous versions in the docker hub](https://hub.docker.com/r/jsreport/jsreport/tags/)
 
 ## Usage
 1. Install [Docker](https://www.docker.com/)
-2. `docker run -p 5488:5488 jsreport/jsreport:3.0.0`
+2. `docker run -p 5488:5488 jsreport/jsreport:3.0.1`
 
 Start jsreport server on the port 5488 directly in the current shell with data and configuration stored directly in the container.
 
