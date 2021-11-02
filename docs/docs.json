@@ -87,5 +87,6 @@
     "freeze": "Freeze",
     "components": "Components",
     "npm": "npm",
-    "v3-migration-guide": "v3 migration guide"
+    "v3-migration-guide": "v3 migration guide",
+    "azure-web-apps": "Azure Web Apps"
 }

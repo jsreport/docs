@@ -5,7 +5,10 @@ This the most common option. Launch a new VM and use the installation manuals fo
 jsreport by default stores data on the local file system. This can be fine for a single server scenario, but if you want to run multiple instances you need to use a full database store or map an external disk and configure jsreport default store to run in the cluster. See details in the [template stores documentation](/learn/template-stores).
 
 ## Web app 
-jsreport runs in Azure Web Apps with docker based deployment. Both Windows and Linux Azure web apps are supported. You can find the list of jsreport docker images as well as the docker documentation [here](/learn/docker). See also dedicated article [render reports using azure app service](/blog/render-reports-using-azure-app-service).
+jsreport runs in Azure Web Apps with docker based deployment. Both Windows and Linux Azure web apps are supported. 
+You can find the list of jsreport docker images as well as the docker documentation [here](/learn/docker). 
+
+See also the dedicated article on how to [render reports using Azure Web App and jsreport](/learn/azure-web-apps).
 
 Note jsreport won't run in "none docker" Azure Web App because of the platform limitations.
 
