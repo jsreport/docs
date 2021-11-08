@@ -1,4 +1,5 @@
 
+
 ## Basics
 
 `jsreport.Client` is c# client for the [jsreport REST API](/learn/api). It represents convenient way to remotely access jsreport server instance and invoke report rendering using simple c# code. It is compatible with the [on premise](/on-prem), [jsreportonline](/online) as well as [.net local](/learn/dotnet-local) instances. The `jsreport.Client` is implemented as [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) library so it should run pretty much everywhere the .Net Standard `1.6` or higher is implemented.
@@ -86,6 +87,29 @@ rs.RenderAsync(new RenderRequest {
     }
 });
 ```
+
+### Reports extension
+Another example shows how to use the [reports extension](/learn/reports) to store the output report for later use.
+```csharp
+var invoiceResult = await rs.RenderAsync(new RenderRequest
+{
+	Template = new Template
+	{
+		Name = "Invoice"
+	},
+	Data = InvoiceData,
+	Options = new RenderOptions
+	{
+		Reports = new ReportsOptions
+		{
+			Save = true			
+		}
+	}
+});
+Console.WriteLine(invoiceResult.Meta.ReportPermanentLink);
+```
+
+You can also use the [async option](learn/reports#async) and then check the `invoiceResult.Meta.AsyncReportLocation` property.
 
 ### Overwrites
 The provided types only includes the attributes used by the official extensions. However you can also simply use `RenderRequest.Overwrites` property to pass your own data to the request.
