@@ -12,7 +12,7 @@ nvm install 8.11.3
 mkdir jsreportapp
 cd jsreportapp
 npm i -g jsreport-cli
-jsreport init
+jsreport init 2.11.0
 jsreport configure
 
 # install chrome dependencies

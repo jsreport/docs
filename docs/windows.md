@@ -5,7 +5,7 @@ Afterwards open command line terminal and type:
 mkdir jsreportapp
 cd jsreportapp
 npm i -g jsreport-cli
-jsreport init
+jsreport init 2.11.0
 jsreport configure
 jsreport start
 ```

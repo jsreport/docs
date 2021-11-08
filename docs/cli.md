@@ -24,7 +24,7 @@ Please follow to [node.js project integration section](#node-js-project-integrat
 ### Starting jsreport
 As mentioned in the [download](/on-prem) page, the first use-case you touch `cli` is usually the jsreport installation and server startup.
 ```sh
-jsreport init
+jsreport init 2.11.0
 jsreport start --httpPort=6000
 ```
 
