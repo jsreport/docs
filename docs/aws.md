@@ -11,14 +11,7 @@ You can run jsreport also in [AWS Lambda](https://aws.amazon.com/lambda). See th
 
 ## Elastic Beanstalk
 
-You can use Elastic Beanstalk docker to startup jsreport. In this case see the [notes for docker installation](https://hub.docker.com/r/jsreport/jsreport/).
-
-In case you want to create the application from scratch and upload the package archive to AWS see article [jsreport on amazon beanstalk](/blog/jsreport-on-amazon-elastic-beanstalk). Or follow these steps
-1.  Prepare local jsreport installation using the Windows or Unix installation steps
-2.  Zip package.json, jsreport.config.json and server.js
-3.  Create Amazon Elastic Beanstalk Web Server with Node.js predefined configuration
-4.  Upload previously zipped package
-
+You can use Elastic Beanstalk with Docker and EFS to startup jsreport. In this case see the complete tutorial [Running jsreport on AWS EB, Docker and EFS](https://jsreport.net/learn/aws-eb-docker-efs).
 
 ## Elastic container service
 
