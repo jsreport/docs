@@ -8,7 +8,7 @@ Using jsreport studio, create a folder and inside JSON [assets](/learn/assets) r
 
 `en.json`
 ```js
-{ 
+{
     "hello": "Hello world"
 }
 ```
@@ -38,9 +38,9 @@ Now you can render the template, but the first you need to specify the language 
 ## API
 In production, the language is typically specified as part of the rendering request inside `options.localization.language` property.
 
-> `POST:` https://jsreport-host/api/report    
-> `Headers`: Content-Type: application/json    
-> `BODY:`    
+> `POST:` https://jsreport-host/api/report
+> `Headers`: Content-Type: application/json
+> `BODY:`
 >```js
    {
       "template": { "name" : "my-template" },
@@ -55,8 +55,8 @@ The localization function can be used also in the jsreport [scripts](/learn/scri
 
 ```js
 const jsreport = require('jsreport-proxy')
-function beforeRender(req, res) {
-    const localizedString = jsreport.localization.localize("key", "folder")
+async function beforeRender(req, res) {
+    const localizedString = await jsreport.localization.localize("key", "folder")
 }
 ```
 
@@ -65,7 +65,7 @@ You can also use a custom script, to specify the language, used in the templatin
 ```js
 const jsreport = require('jsreport-proxy')
 function beforeRender(req, res) {
-    req.options.localization = { 
+    req.options.localization = {
         language: req.data.myLanguageSpecification
     }
 }
