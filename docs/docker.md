@@ -2,9 +2,9 @@
 
 [jsreport/jsreport](https://hub.docker.com/r/jsreport/jsreport/) image is automatically pushed with adequate tags into [docker hub](https://www.docker.com/)  public repository in three variations:
 
-- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/default/Dockerfile))  contains default installation from npm
-- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/full/Dockerfile)) contains default installation plus all the custom extensions, see the list of installed extensions in the dockerfile
-- `jsreport/jsreport:3.0.1-windowsservercore` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/docker/windowsservercore/Dockerfile)) contains default installation with windows server core based image. Use `c:\jsreport` for mounting volume.
+- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/packages/jsreport/docker/default/Dockerfile))  contains default installation from npm
+- `jsreport/jsreport:3.0.1` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/packages/jsreport/docker/full/Dockerfile)) contains default installation plus all the custom extensions, see the list of installed extensions in the dockerfile
+- `jsreport/jsreport:3.0.1-windowsservercore` ([Dockerfile](https://github.com/jsreport/jsreport/blob/master/packages/jsreport/docker/windowsservercore/Dockerfile)) contains default installation with windows server core based image. Use `c:\jsreport` for mounting volume.
 
 You can find the [list of all available tags and previous versions in the docker hub](https://hub.docker.com/r/jsreport/jsreport/tags/)
 
@@ -89,7 +89,7 @@ You should see jsreport running on port 5488 afterwards.
 Create your config file `jsreport.config.json`
 ```js
 {
-	"allowLocalFilesAccess": true,	
+	"allowLocalFilesAccess": true,
 }
 ```
 And edit `Dockerfile` to include it in the image
@@ -134,7 +134,7 @@ And configure jsreport to use [fs store](/learn/fs-store) using `jsreport.config
 }
 ```
 
-Rebuild the image and run it. You should see your templates in the studio. 
+Rebuild the image and run it. You should see your templates in the studio.
 This way you can easily version your templates inside git and be sure your specific docker image has always the exact templates.
 
 ### Publish the image
