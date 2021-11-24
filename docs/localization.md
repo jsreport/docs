@@ -59,6 +59,7 @@ async function beforeRender(req, res) {
     const localizedString = await jsreport.localization.localize("key", "folder")
 }
 ```
+The `jsreport-proxy` is a virtual module automatically provided to your sandbox, you can't install it from the package manager.
 
 You can also use a custom script, to specify the language, used in the templating engine helpers, based on the input data.
 

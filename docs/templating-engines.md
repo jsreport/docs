@@ -1,3 +1,4 @@
+
 jsreport uses javascript templating engines to define report layout. You can bind input data, use loops, conditions or javascript helpers to dynamically build your content. Templating engines provide a way to define any custom report you like in a very fast, flexible, matured, and well-known way.
 
 ```html
@@ -105,6 +106,7 @@ The next step is enabling access to the local files and modules in the [configur
     "allowLocalFilesAccess": true
 }
 ```
+Alternatively, you can also use config `sandbox.allowedModules=["moment"]` and name the modules you allow.
 
 Then you can use the custom module inside your helpers in the following way. 
 

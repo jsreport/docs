@@ -1,5 +1,6 @@
 ﻿
 
+
 > Run custom javascript to modify report inputs/outputs or to send a report
 
 ## Basics
@@ -28,19 +29,19 @@ function beforeRender(req, res, done) {
 
 ## Use external modules
 
-You can `require` external modules in the node.js way, however you need to first enable them in the config.
+You can `require` external modules as it's common in node.js. However, you need to opt-in in the config first. You can do it either by setting `allowLocalFilesAccess=true` or naming the allowed modules using:
 
 ```js
 {
-  "extensions": {
-    "scripts": {
-      "allowedModules": ["axios"]
-    }
-  }
+  "sandbox": {
+     "allowedModules": ["axios"]
+  }  
 }
 ```
 
-Alternatively you can enable all modules using `extensions.scripts.allowedModules="*"` or using config `allowLocalFilesAccess=true`
+Alternatively, you can enable all modules also using `sandbox.allowedModules="*"`
+
+You can also require modules implemented in your assets. See the [assets extension](/learn/assets) for the details.
 
 The following example uses popular [axios](https://github.com/axios/axios) module to make a rest call and [nodemailer](https://github.com/nodemailer/nodemailer) to email the output service.
 
@@ -76,6 +77,7 @@ async function afterRender(req, res) {
     }
 }
 ```
+You could be interested also in the [jsreport npm extension](/learn/npm) that processes automatically install from the package manager.
 
 ## request, response
 * `req.template` - modify report template, mostly `content` and `helpers` attributes
@@ -116,7 +118,7 @@ async function beforeRender(req, res)  {
 
 ## Rendering another template from script
 
-Script can invoke rendering of another template. To do this you need to `require` special module `jsreport-proxy` and call `render` function on it.
+Script can invoke rendering of another template. To do this you need to `require` special module `jsreport-proxy` and call `render` function on it. **The `jsreport-proxy` can't be installed from the npm, it's is just a virtual module provided automatically to your sandbox.**
 
 ```js
 const jsreport = require('jsreport-proxy')
@@ -150,19 +152,6 @@ function beforeRender(req, res) {
   console.log('i\'m generating logs with debug level')
   console.warn('i\'m generating logs with warn level')
   console.error('i\'m generating logs with error level')  
-}
-```
-
-## Configuration
-
-Add `scripts` node to the standard config file:
-
-```js
-"extensions": {
-  "scripts": {
-    "timeout": 30000,
-    "allowedModules": "*"  
-  }
 }
 ```
 
