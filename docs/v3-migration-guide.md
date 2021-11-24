@@ -57,6 +57,9 @@ See the [browser client docummentation](/learn/browser-client) for details to in
 ## fs store modification synces
 The `extensions.fs-store.syncModifications` was removed because the jsreport now synces changes between multiple servers in the cluster using the journal file. 
 
+Also because of the journal file, the `jsreport-fs-store-aws-sns-sync` and `jsreport-fs-store-azure-sb-sync` extensions are no longer needed. You don't need to install these and the sync will just work implicitly by design.
+Please remove them from your docker image or package.json.
+
 In case you want the original external modifications monitoring through file system polling, use the config 
 `extensions.fs-store.externalModificationsSync=true`.
 
