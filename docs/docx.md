@@ -1,6 +1,3 @@
-
-**This recipe is eperimental and its API can be changed in the future**
-
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
 
 1. Open Word and create docx file using handlebars templating engine.
