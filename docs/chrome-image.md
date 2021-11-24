@@ -1,6 +1,6 @@
 
 # Basics
-`chrome-image` recipe is able to convert html to image. It works just like the [chrome-pdf](/learn/chrome-pdf) recipe only some options are different. 
+`chrome-image` recipe is able to convert html to image. It works just like the [chrome-pdf](/learn/chrome-pdf) recipe only some options are different.
 
 ## Options
 
@@ -14,6 +14,9 @@ The settings reflect the [headless chrome API](https://github.com/GoogleChrome/p
 - clipWidth
 - clipHeight
 - omitBackground
+- mediaType
+- viewportWidth
+- viewportHeight
 - waitForJS
 - waitForNetworkIdle
 
@@ -31,13 +34,14 @@ The options can be also dynamically set from within the page javascript using:
 </script>
 ```
 
+you can customize how the chrome page render the content by using `viewportWidth` and `viewportHeight`, this will have an impact in how the html layout is rendered, which will cause the image to look different depending if you use bigger or smaller viewport.
 
 ## chrome-pdf
 
 The `chrome-image` recipe is part of the same extension as [chrome-pdf](/learn/chrome-pdf) and it shares its configuration. This means you can increase the timeout and other options the same way.
 ```js
 "extensions": {
-  "chrome-pdf": {  
+  "chrome-pdf": {
     "timeout": 30000,
     "launchOptions": {...}
   }
