@@ -98,11 +98,12 @@ Remove element from collection in `filePath` at `xmlPath` at `index`.
 
 ```html
 {{#xlsxAddImage "test" "sheet1.xml" 0 0 1 1}}
-{#asset myImage.png @encoding=base64}
+{{asset "myImage.png" "base64"}}
 {{/xlsxAddImage}}
 ```
 
-Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageName`, `sheet id`,  `column from`, `row from`, `column to`, `row to`
+Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageName`, `sheet id`,  `column from`, `row from`, `column to`, `row to`.
+Only the png images are supported.
 
 ### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-xlsx/blob/master/static/helpers.js)
