@@ -1,5 +1,6 @@
 
-> Export templates store into zip file and later recover the state or import to a different instance
+
+> Export entities and store them into a single file and later recover the state or import to a different instance
 
 ![export](/img/export.gif)
 
@@ -8,7 +9,7 @@ This extension can be used to move templates to different servers as well to dif
 
 ## API
 
-### Export into zip stream
+### Export into stream
 ```js
 POST: /api/export
 BODY: {
@@ -17,14 +18,12 @@ BODY: {
 }
 ```
 
-### Import zip stream
+### Import from stream
 
 ```js
 POST: /api/import
-BODY: /* multipart import.zip */
+BODY: /* multipart import.jsrexport */
 ```
-
-**Important - ** make sure the multipart key for uploaded zip is `import.zip`
 
 You can find how to send multiplart through [postmant here](http://stackoverflow.com/a/16022213/1660996).
 
@@ -33,15 +32,15 @@ You can find how to send multiplart through [postmant here](http://stackoverflow
 The export/import can be called also using [jsreport cli](/learn/cli).
 
 ```
-jsreport export jsreportExport.zip
-jsreport import jsreportExport.zip
+jsreport export jsreportExport.jsrexport
+jsreport import jsreportExport.jsrexport
 ```
 
 This can be done also remotely using `--serverUrl` switch. This is handy for deployment automation.
 
 ```
-jsreport export --serverUrl=myjsreport.com jsreportExport.zip
-jsreport import --serverUrl=myjsreport.com jsreportExport.zip
+jsreport export --serverUrl=myjsreport.com jsreportExport.jsrexport
+jsreport import --serverUrl=myjsreport.com jsreportExport.jsrexport
 ```
 
 The cli export commands support also authentication, importing and exporting specific folder or specific entities, validation and also full import. See details in the cli help.

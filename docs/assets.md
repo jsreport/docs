@@ -54,6 +54,8 @@ The helper functions are then reachable from the template content
 {{upperCase someVal}}
 ```
 
+Note the `jsreport-proxy` is a virtual module automatically provided to your sandbox, you can't install it from the package manager.
+
 > The asset can be also marked as a "shared helpers asset" and automatically included in every template and [component](/learn/components) helpers.
 This can be done from the asset's properties panel through the jsreport studio.
 

@@ -1,6 +1,3 @@
-
-**This recipe is eperimental and its API can be changed in the future** 
-
 `pptx` recipe generates office powerpoint presentations based on the uploaded pptx template  with [handlebars](/learn/handlebars) tags filled inside using Powerpoint application.
 
 1. Open Powerpoint and create pptx file using handlebars templating engine. 

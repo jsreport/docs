@@ -18,6 +18,7 @@ function myHelper() {
     return "Today is " + moment()
 }
 ```
+Note the `jsreport-proxy` is a virtual module automatically provided to your sandbox, you can't install it from the package manager.
 
 ## Use npm module in the template content
 

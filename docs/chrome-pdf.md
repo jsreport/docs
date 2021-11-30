@@ -23,6 +23,9 @@ The settings reflects the [headless chrome API](https://github.com/GoogleChrome/
 - marginRight
 - marginBottom
 - marginLeft
+- mediaType
+- viewportWidth
+- viewportHeight
 - waitForJS
 - waitForNetworkIdle
 
@@ -47,7 +50,7 @@ Use `chrome-pdf` node in the standard [config](/learn/configuration) file.
 
 ```js
 "extensions": {
-  "chrome-pdf": {  
+  "chrome-pdf": {
     "timeout": 30000,
     "launchOptions": {...}
   }
@@ -173,13 +176,13 @@ function beforeRender(req, res) {
 ```
 
 ## Chrome process allocation
-The recipe by default allocates a single instance of chrome per worker thread and reuses it. This means that for the configuration `"workers": { "numberOfWorkers": 5 }` there will be 5 chrome instances allocated. 
+The recipe by default allocates a single instance of chrome per worker thread and reuses it. This means that for the configuration `"workers": { "numberOfWorkers": 5 }` there will be 5 chrome instances allocated.
 
-This is reasonable for most of the cases, but in case your report is initiating many nested reports, you may want to increase the parallelization by increasing the number of chrome instances allocated per thread. 
+This is reasonable for most of the cases, but in case your report is initiating many nested reports, you may want to increase the parallelization by increasing the number of chrome instances allocated per thread.
 
 ```js
-{ 
-  "chrome": { 
+{
+  "chrome": {
     "numberOfWorkers": 3
   }
 }
@@ -189,8 +192,8 @@ Or you can change the allocation strategy and let the recipe always create a new
 However, note that starting a new chrome process costs about 100ms.
 
 ```js
-{ 
-  "chrome": { 
+{
+  "chrome": {
     "strategy": "dedicated-process"
   }
 }
@@ -224,12 +227,12 @@ tables with long content expand across multiple pages as needed, and if you have
 <hr>
  chrome/puppeteer doesn't run by default in limited environment like docker and it usually asks to pass `--no-sandbox` argument. This can be achieved using the following config. See also [puppeteer troubleshooting](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md).
 
- ```js   
- "extensions": {  
-  "chrome-pdf": {  
-    "launchOptions": {  
-      "args": ["--no-sandbox"]  
+ ```js
+ "extensions": {
+  "chrome-pdf": {
+    "launchOptions": {
+      "args": ["--no-sandbox"]
     }
   }
-}  
+}
 ```
