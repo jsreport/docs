@@ -30,11 +30,11 @@ Select the Azure Functions extension -> Deploy to Function App -> Choose "Create
 
 This can take several minutes, afterward you should see the successful notification.
 
-![azure-function-deploy-ok](/learn/static-resources/img/azure-function-deploy-ok.png)
+![azure-function-deploy-ok](/learn/static-resources/azure-function-deploy-ok.png)
 
 If you click "View output" you should see these lines:
 
-> 10:39:23 PM jsreportfn: HTTP Trigger Urls:
+> 10:39:23 PM jsreportfn: HTTP Trigger Urls:    
 HttpTrigger1: https://jsreportfn.azurewebsites.net/api/HttpTrigger1
 
 You can open the url and after few seconds the sample invoice pdf should be displayed.
@@ -49,7 +49,7 @@ npm start
 
 Afterward, you can open `http://localhost:5488` and you should see the running jsreport studio.
 
-![studio](/learn/static-resources//studio.png)
+![studio](/learn/static-resources/studio.png)
 
 This is the place where you can define your templates.  You can find the tutorials [here](https://jsreport.net/learn) if you are new to jsreport.
 
