@@ -2,6 +2,8 @@
 
 `html-to-xlsx` recipe generates excel xslx files from html tables. This isn't a full html -> excel conversion but a rather pragmatic and fast way to create excel files from jsreport. The recipe reads input table and extract a couple of css style properties using a specific html engine (which defaults to chrome), and finally uses the styles to create the excel cells.
 
+** This recipe doesn't work with nodejs 16. You need to either use nodejs 14 (or lower) or upgrade to jsreport v3. **    
+
 ## Examples
 
 - [Basic table](https://playground.jsreport.net/w/admin/h45L49Dp)
