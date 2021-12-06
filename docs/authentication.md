@@ -62,7 +62,7 @@ You can use standard OData API to manage and query user entities. For example, y
 
 >`GET` http://jsreport-host/odata/users
 
-## Authentication using and authorization server
+## Authentication using an authorization server
 
 > This feature is in preview mode, it means that we have implemented all the necessary steps to complete the authentication flow with an authorization server but we are looking for real feedback about the feature to determine if something is missing or incomplete for other use cases. If you have such feedback don't hesitate to raise a [question](https://forum.jsreport.net) or open an [issue](https://github.com/jsreport/jsreport/issues).
 
@@ -78,7 +78,7 @@ As requirements you will need to have this ready:
 - both the **jsreport studio** registered as a client, and the **jsreport http api** registered as a api resource in your authorization server, so both can be authenticated and can talk to the authorization server. You will provide the credentials for both in `authorizationServer.studioClient` and `authorizationServer.apiResource` configuration options.
 - associate the jsreport username of an existing jsreport user with a claim (`authorizationServer.usernameField`) linked to the user handled by your authorization server. this association is needed to correctly identify which jsreport entities and permissions the user of your authorization server is able to work with in the context of jsreport
 
-### Single Sign On using and authorization server
+### Single Sign On using an authorization server
 
 You likely want this if you have a multi-tenant application, which handles authentication against a central authorization server and you want to delegate the access to the **jsreport studio** (reusing the same user credentials that your users already have) against the same authorization server.
 
