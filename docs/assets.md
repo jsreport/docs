@@ -160,4 +160,4 @@ See general documentation for office preview in studio [here](/learn/office-prev
 
 ## The v2 {#asset } syntax
 The original v2 syntax for assets `{#assset}` is still supported, but using helper calls instead is preferred.
-See the [v2 child templates documenation](/learn/assets?version=2.11.0) for details.
+See the [v2 child templates documentation](/learn/assets/?version=2.11.0) for details.
