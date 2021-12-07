@@ -30,7 +30,7 @@ The syntax depends on the particular templating engine used.
 <img src="{{:~asset("/shared/logo.png", "dataURI")}}" />
 ```
 
-The assets are static and there is no templating engine evaluation processed on the embedded content. 
+The assets are static and there is no templating engine evaluation processed on the embedded content.
 In case you want to decompose big templates into smaller parts with templating engines, look at the [jsreport components](/learn/components).
 
 ## Registering helpers from assets
@@ -141,7 +141,7 @@ extensions: {
   assets: {
     // wildcard pattern for accessible linked or external files
     allowedFiles: "static/**.css",
-    // enables access to files not stored as linked assets in jsreport store    
+    // enables access to files not stored as linked assets in jsreport store
     searchOnDiskIfNotFoundInStore: false,
     // root url used when embedding assets as links {#asset foo.js @encoding=link}
     rootUrlForLinks: "http://mydomain.com",
@@ -160,4 +160,4 @@ See general documentation for office preview in studio [here](/learn/office-prev
 
 ## The v2 {#asset } syntax
 The original v2 syntax for assets `{#assset}` is still supported, but using helper calls instead is preferred.
-See the [v2 child templates documenation](/learn/2.11.0/assets) for details.
+See the [v2 child templates documenation](/learn/assets?version=2.11.0) for details.
