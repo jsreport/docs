@@ -121,6 +121,11 @@ In the most of the cases it is better to use [pdf-utils](/learn/pdf-utils) inste
 
 The chrome by default displays the current date in the header and file name in the footer when `displayHeaderFooterSelected`. You can place an empty tag `<span/>` to the header or footer to avoid this behavior.
 
+The header/footer has some extra padding you can remove using:
+```html
+<style>#header, #footer { padding: 0 !important; }</style>
+```
+
 Example showing how to use the special css classes and the workaround for the scaling issues.
 
 ```html
