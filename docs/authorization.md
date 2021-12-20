@@ -14,6 +14,16 @@ User can be also granted to edit to read all entities.
 
 ![all entities](/learn/static-resources/authorization-all-entities.png)
 
+## User groups
+Users can be associated into logical groups using entity `UsersGroup`. The group can be created just like any other entity in the studio and the users associated in the properties.
+
+![user group create](/learn/static-resources/user-group-create.png)
+
+Every entity then can get granted access from the users in the group by associating group permissions. This works also with folder based structures where the nested folders inherit group permissions from the parent.
+
+![user-group-permissions](/learn/static-resources/user-group-permissions.png)
+
+
 ## API
 
 `Authorization` extensions adds to every jsreport object `readPermissions` and `editPermissions` properties. These properties contains list of user ids you can easily alter from the odata API.
