@@ -1,7 +1,4 @@
-﻿
-
-
-> Run custom javascript to modify report inputs/outputs or to send a report
+﻿> Run custom javascript to modify report inputs/outputs or to send a report
 
 ## Basics
 
@@ -89,8 +86,14 @@ You could be interested also in the [jsreport npm extension](/learn/npm) that pr
 ## Multiple scripts
 You can associate multiple scripts to the report template. The scripts are then serially executed one after one in the order specified in the jsreport studio. The `req` and `res` parameters are properly passed through the scripts chain. This means you can use for example `req.data` to pass information between scripts.
 
-## Global scripts
-You can set up a script to run for every single template by adding flag `isGlobal`. This can be done for example in jsreport studio script's properties. Global script can be useful for common tasks like adding common helpers or settings to templates.
+## Script scope
+The script scope defines when it should be executed:
+- **template** - run for templates where its explicitly referenced
+- **global** - run for all templates
+- **folder** - run for all templates in the same folder hierarchy
+
+The order of the executed script is the following:
+global scoped scripts (sorted alphabetically) -> folder scope scripts (sorted alphabetically) -> template scoped scripts (template specific order)
 
 ## Environment variables and configuration
 You can reach environment variables using node.js [process module](https://nodejs.org/api/process.html).
