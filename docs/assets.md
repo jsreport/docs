@@ -1,4 +1,5 @@
 
+
 > Embed static assets like images, CSS, fonts, scripts, and others
 
 **[Asset examples in playground](https://playground.jsreport.net/w/admin/Y8wOHVgM)**
@@ -56,8 +57,8 @@ The helper functions are then reachable from the template content
 
 Note the `jsreport-proxy` is a virtual module automatically provided to your sandbox, you can't install it from the package manager.
 
-> The asset can be also marked as a "shared helpers asset" and automatically included in every template and [component](/learn/components) helpers.
-This can be done from the asset's properties panel through the jsreport studio.
+### Shared helpers
+The helpers in an asset can be also automatically included in all templates and [components](/learn/components) or in all templates and [components](/learn/components) in the same folder hierarchy. This can be specified using studio during the asset creation or in the asset entity properties.
 
 ## Read asset
 The asset content can be reached from the [jsreport script](/learn/scripts) or from the templating engines using `jsreport.assets.read`.
