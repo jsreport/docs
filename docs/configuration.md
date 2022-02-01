@@ -1,6 +1,7 @@
 ﻿
 
 
+
 The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
@@ -205,7 +206,7 @@ The encryption is disabled when the `encryption` node is missing in the config.
 
 **workers** (`object`) - configure the worker threads used to process rendering requests and other heavy tasks (`optional`)
 
-**workers.numberOfWorkers** (`number`) - number of worker threads allocated. Every worker can process only one request. This means the config `numberOfWorkers` also specifies how many reports can jsreport process in parallel. defaults to 2 (`optional`)
+**workers.numberOfWorkers** (`number`) - the number of worker threads allocated. Every worker can process only one request in parallel. This means the config `numberOfWorkers` also specifies how many reports can jsreport process in parallel. If there is no available worker, the render requests are queued and wait until there is an available worker. Every request is executed in exactly one thread. This means increasing this value doesn’t speed up the rendering of a single request. The value defaults to 2. The reasonable value could be 2x number of CPUs (`optional`)
 
 ## Logging configuration
 
