@@ -1,5 +1,6 @@
 
 
+
 > Schedule a reoccurring background job rendering specific report template
 
 ## Basics
@@ -8,6 +9,8 @@ Every report rendering time plan is specified by the report template and [CRON e
 `Scheduling` requires and heavily relies on [scripts](/learn/scripts) and [reports](/learn/reports) extension. Where reports are used to store rendering output and scripts are usually used to fetch input data and send the result.
 
 Common use case for `scheduling` extension can be daily sending summary report. Where`schedule` report template will define document with summary tables and charts. Script will fetch input data before rendering and afterwards sends report by mail or upload result to external service. Note the script can reach more information about the current schedule in property  `req.options.scheduling.schedule`.
+
+The extension implements mechanism to support the proper function in clustered environment with multiple jsreport instances. It's guaranteed only one schedule will be triggered.
 
 ## CRON expression
 
