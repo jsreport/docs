@@ -1,4 +1,5 @@
 
+
 > Store localized texts for specific languages in JSON asset and reach them using helper calls
 
 **[Example in playground](https://playground.jsreport.net/w/admin/1cC6FCIe)**
@@ -71,3 +72,59 @@ function beforeRender(req, res) {
     }
 }
 ```
+
+## Complex use case
+It can be often helpful to create your own `localization` helper and adapt the behavior for your needs. The following example uses [shared assets](/learn/assets#shared-helpers) to add `translate`  helper with more complex flow to every template.
+```js
+const jsreport = require('jsreport-proxy');
+const defaultLanguage = 'en'
+
+// add to helpers custom localization function
+async function translate(key, translationsPath) {   
+    if (typeof translationsPath !== 'string') {
+        // default to specific translations folder
+        const template = jsreport.req.template
+        const templatePath = await jsreport.folders.resolveEntityPath(template, 'templates')
+        const folderPath = templatePath.substring(0, templatePath.lastIndexOf('/'))
+        translationsPath = folderPath + '/translations'
+    }
+
+    let localizedVal
+    try {
+        localizedVal = await jsreport.localization.localize(key, translationsPath)
+    } catch (e) {
+         // asset with requested language not found, try default language
+         try {
+            localizedVal = await jsreport.localization.localize({
+                key, 
+                folder: translationsPath,
+                language: defaultLanguage
+            })
+         } catch (e) {
+             // asset for default language not found
+             return `[${key}]`
+         }
+    }
+
+    if (localizedVal == null) {
+        // key not found in the asset, try search for key in the asset for default language
+        try {
+            localizedVal = await jsreport.localization.localize({
+                key, 
+                folder: translationsPath,
+                language: defaultLanguage
+            })
+        } catch (e) {
+            // asset for default language not found
+            return `[${key}]`
+        }
+        if (localizedVal == null) {
+            return `[${key}]`
+        }
+        return localizedVal
+    }
+
+    return localizedVal
+}
+```
+
