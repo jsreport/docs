@@ -8,7 +8,7 @@ nvm install 16.12.0
 
 mkdir jsreportapp
 cd jsreportapp
-npm i -g @jsreport/@jsreport/jsreport-cli
+npm i -g @jsreport/jsreport-cli
 jsreport init
 jsreport configure
 
