@@ -221,6 +221,7 @@ The encryption is disabled when the `encryption` node is missing in the config.
         "console": { "transport": "console", "level": "debug" },
         "file": { "transport": "file", "level": "debug", "filename": "logs/log.txt" },
         "error": { "transport": "file", "level": "error", "filename": "logs/error.txt" }
+    }
 }
 ```
 
