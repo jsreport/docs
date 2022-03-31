@@ -155,6 +155,11 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
 ## CSS Media type and Bootstrap
 Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
 
+## ARIA
+Chrome by default adds special tags to the pdf to make it more accessible to people with disabilities. This is typically good but can cause performance problems in very long pdfs. The rendering time can be affected as well as the final pdf size. In this case, you can try to disable the pdf tagging by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.     
+
+You can simply double check if the output pdf is ARIA tagged if you open it in an text editor and find text `/StructTreeRoot`
+
 ## Printing existing web pages
 You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
 
