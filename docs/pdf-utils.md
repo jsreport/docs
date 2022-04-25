@@ -1,4 +1,5 @@
 
+
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -232,7 +233,7 @@ You can find a complete example using pdf-utils in script [here](https://playgro
 
 Methods available:
 
-#### `parse(sourcePdfBuf, includeText = false)`
+### `parse(sourcePdfBuf, includeText = false)`
 
 parameters:
 - `sourcePdfBuf` -> a buffer which contains the pdf to parse
@@ -251,7 +252,7 @@ returns:
 }
 ```
 
-#### `prepend(sourcePdfBuf, prependedPdfBuf)`
+### `prepend(sourcePdfBuf, prependedPdfBuf)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to prepend the second param
@@ -260,7 +261,7 @@ parameters:
 returns:
 - promise of the buffer with concatenated pdfs
 
-#### `append(sourcePdfBuf, appendedPdfBuf)`
+### `append(sourcePdfBuf, appendedPdfBuf)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to append the second param
@@ -269,7 +270,7 @@ parameters:
 returns:
 - promise of the buffer with concatenated pdfs
 
-#### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront = false)`
+### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront = false)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to merge
@@ -279,8 +280,17 @@ parameters:
 returns:
 - promise of final pdf buffer with merged content
 
+### `addAttachment(sourcePdfBuf, attachmentBuf, options)`
 
-#### `outlines(sourcePdfBuf, outlines)`
+parameters:
+- `sourcePdfBuf` -> source pdf buffer
+- `attachmentBuf` -> buffer with attachment content
+- `options` -> `{ name, description, creationDate, modificationDate }` only the `name` is required
+
+returns:
+- promise with pdf buffer with attachment
+
+### `outlines(sourcePdfBuf, outlines)`
 
 parameters:
 - `sourcePdfBuf` -> source pdf buffer
@@ -289,7 +299,7 @@ parameters:
 returns:
 - promise with pdf buffer extended with outlines
 
-#### `removePages(sourcePdfBuf, pageNumbers)`
+### `removePages(sourcePdfBuf, pageNumbers)`
 
 parameters:
 - `sourcePdfBuf` -> source pdf buffer
@@ -298,7 +308,7 @@ parameters:
 returns:
 - promise with pdf buffer without removed pages
 
-#### `postprocess(sourcePdfBuf, { pdfMeta, pdfPassword, pdfSign, outlines } = {})`
+### `postprocess(sourcePdfBuf, { pdfMeta, pdfPassword, pdfSign, outlines } = {})`
 
 parameters:
 - `sourcePdfBuf` -> source pdf buffer
@@ -529,6 +539,12 @@ The submit button can additionally include one or more submit flags. Please see 
 ```html
 {{{pdfFormField name='test' type='signature' width='100px' height='50px'}}}
 ```
+
+### Checkbox field
+```html
+{{{pdfFormField name='isOnSale' type='checkbox' visualType='square' width='150px' defaultValue=true height='20px'}}}
+```
+Two `visualType` are supported: `check` and `square`. The `defaultValue` and `value` accepts `true|false`.
 
 ## API
 The extension features can be used also directly through API without a need to use the studio or persist templates.
