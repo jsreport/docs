@@ -2,6 +2,7 @@
 
 
 
+
 The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
@@ -159,6 +160,10 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
 **extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
+
+**extensions.express.cors.enabled** (`boolean`) - optionaly you can disable cors, default`true`
+
+**extensions.express.exposeHttpHeaders** (`boolean`) - specifies if incoming request http headers should be exposed as `req.context.http.headers` inside jsreport scripts, default`false`
 
 **appPath** (`string`)  - optionally set application path, if you run an application on http://appdomain.com/reporting then set "/reporting" to the `appPath`. The default behavior is that it is assumed that jsreport is running behind a proxy, so you need to do URL rewrite /reporting -> / to make it work correctly, See mountOnAppPath when there is no proxy + URL rewrite involved in your setup.
 
