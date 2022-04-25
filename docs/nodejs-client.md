@@ -1,4 +1,5 @@
 
+
 jsreport node.js client is a wrapper around [jsreport api](https://jsreport.net/learn/api) allowing to connect to a remote jsreport server, render pdf reports and operate on the entities. It supports both local [on-premise](https://jsreport.net/on-prem) jsreport server as well as jsreport [online SaaS](https://jsreport.net/online).
 
 ## Installation
@@ -28,6 +29,7 @@ async function render () {
     data: { someText: 'world!!' }
   })
 
+  console.log(res.headers)
   const bodyBuffer = await res.body()
   console.log(bodyBuffer.toString())
 }
