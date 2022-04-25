@@ -132,7 +132,7 @@ You can disable an extension by setting `enabled: false` in the configuration of
 }
 ```
 
-## Web server configuration
+## Web server
 
 **httpPort** `(number)` - http port on which is jsreport running, if both `httpPort` and `httpsPort` are specified, jsreport will automaticaly create http redirects
 from http to https, if any of `httpPort` and `httpsPort` is specified default process.env.PORT will be used
@@ -169,13 +169,13 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **mountOnAppPath** (`boolean`) - use this option along with `appPath`. It specifies if all jsreport routes should be available with `appPath` as the prefix, therefore making `appPath` the new root URL of application
 
-## Store configuration
+## Store
 
 **store** (`object`) - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `store.provider` attribute. The predefined value in the pre-created configuration file is `fs` which employs [fs store](/learn/fs-store) to store report templates on the file system.  Alternatively, you can install an additional extension providing a template store and change `store` to reflect it. You can find the list of available store drivers and further details on how to configure them [here](/learn/template-stores).
 
 **blobStorage** (`object`) - optional, specifies type of storage used for storing [blobs](/learn/blob-storages). The particular implementation is distinguish based on `blobStorage.provider` attribute. You can find the list of available blob storage drivers and further details how to configure them [here](/learn/blob-storages)
 
-## Directories configurations
+## Directories
 
 **rootDirectory** (`string`) - optionally specifies where's the application root and where jsreport searches for extensions
 
@@ -199,7 +199,11 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **sandbox.allowedModules** (`array`) - the array of the npm modules (imported with `require`) allowed inside sandboxed code. For example: `allowedModules: ["axios", "lodash"]`. Alternatively, you can enable importing any external module using `allowedModules: "*"`.
 
-## Encryption configuration
+**sandbox.cache.max** (`number`) - number of compiled templating engine templates in the cache, default `100`
+
+**sandbox.cache.enabled** (`boolean`) - optionally disable the cache
+
+## Encryption
 jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The API for encryption is then eventually used by extensions.
 The encryption is disabled when the `encryption` node is missing in the config.
 
@@ -213,7 +217,20 @@ The encryption is disabled when the `encryption` node is missing in the config.
 
 **workers.numberOfWorkers** (`number`) - the number of worker threads allocated. Every worker can process only one request in parallel. This means the config `numberOfWorkers` also specifies how many reports can jsreport process in parallel. If there is no available worker, the render requests are queued and wait until there is an available worker. Every request is executed in exactly one thread. This means increasing this value doesn’t speed up the rendering of a single request. The value defaults to 2. The reasonable value could be 2x number of CPUs (`optional`)
 
-## Logging configuration
+**workers.resourceLimits** (`object`) - limit resources used by individual threads, see [nodejs docs](https://nodejs.org/api/worker_threads.html#worker_threads_worker_resourcelimits) for the details
+
+## Profiler
+
+**profiler.defaultMode** (`full | standard | disabled`) - the profiling used for API requests, default `standard`.
+
+**profiler.maxProfilesHistory** (`number`) - how many profiles to store before cleaned up, default `1000`
+
+**profiler.cleanupInterval** (`string`) - how often to delete old profiles, default `1m`
+
+**profiler.maxResponseSize** (`string`) - max  response size to store in the profiles, default `50mb`
+
+
+## Logging
 
 > Logging in jsreport is implemented using the [winston](https://github.com/winstonjs/winston) package. Many of its concepts apply the same for jsreport logging configuration.
 
