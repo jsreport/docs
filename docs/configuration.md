@@ -173,6 +173,8 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **store** (`object`) - jsreport supports multiple implementations for storing templates. The particular implementation is distinguish based on `store.provider` attribute. The predefined value in the pre-created configuration file is `fs` which employs [fs store](/learn/fs-store) to store report templates on the file system.  Alternatively, you can install an additional extension providing a template store and change `store` to reflect it. You can find the list of available store drivers and further details on how to configure them [here](/learn/template-stores).
 
+**store.transactions.enabled** (`boolean`) -  optionally disable transactions, this can be needed for some cloud databases like Azure CosmosDb or AWS DocumentDB that badly supports transactions.
+
 **blobStorage** (`object`) - optional, specifies type of storage used for storing [blobs](/learn/blob-storages). The particular implementation is distinguish based on `blobStorage.provider` attribute. You can find the list of available blob storage drivers and further details how to configure them [here](/learn/blob-storages)
 
 ## Directories
