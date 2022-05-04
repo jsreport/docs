@@ -120,6 +120,11 @@ Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to
 {{#docxStyle textColor='0000FF'}}Simple text{{/docxStyle}}
 ```
 
+Supported attributes:
+- backgroundColor
+- textColor
+
+
 [Example - Style](https://playground.jsreport.net/w/admin/Mc2Pdcyo)
 
 ### docxImage
