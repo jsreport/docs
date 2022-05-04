@@ -1,28 +1,130 @@
+`xlsx` recipe generates excel xlsx reports based on the uploaded xlsx template with [handlebars](/learn/handlebars) tags filled inside using Excel application. 
 
+1.  Open Excel and create xlsx file using handlebars templating engine.
+2.  Upload created xlsx file as an asset to the jsreport studio
+3.  Create template, select xlsx recipe and link the previously uploaded asset
+4.  Attach sample input data or scripts if needed
+5.  Run the template, you get back dynamically assembled xlsx report
 
+![xlsx](/learn/static-resources/xlsx.png) 
 
-`xlsx` recipe generates excel files from plain [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx). The source xml is assembled using templating engines and helpers provided itself. See the example in playground:
+This is the first phase used for generating basic xlsx reports. We call it generation. The second phase, we call transformation, can be used to modify the `xlsx` file source described in [Office Open XML SpreadsheetML](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) at the lower level. The transformation requires deeper understanding of the `xlsx` format but is irreplaceable when you need to do advanced things.
 
-<iframe src='https://playground.jsreport.net/studio/workspace/rJftqRaQ/10?embed=1' width="100%" height="400" frameborder="0"></iframe>
+## Generation
 
-## Examples
+> The `xlsx` recipe originally implemented just the second phase while this generation phase is very new.  The second phase is very stable with the same API running for years. The generation phase API can be unstable and maybe changed in the future.
 
-- [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
-- [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
-- [Log and debug](https://playground.jsreport.net/studio/workspace/ryaUvq21e/3)
-- [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
-- [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
-- [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
-- [Add multiple sheets](https://playground.jsreport.net/w/jan_blaha/wFq~T2U1)
-- [Clone sheet](https://playground.jsreport.net/studio/workspace/rJWIm-2Rg/3)
-- [Pivot table tutorial](https://jsreport.net/learn/dynamic-excel-pivot-table)
-- [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
-- [Table](https://playground.jsreport.net/studio/workspace/Hy_V2BSh/4)
-- [Update cell](https://playground.jsreport.net/studio/workspace/Hkr4xanxg/7)
-- [Formulas](https://playground.jsreport.net/studio/workspace/rkWcRiHog/27)
-- [Recalculate formulas](https://playground.jsreport.net/studio/workspace/BkcNMahxg/6)
+The principle is simple and works the same in other office based recipes like [docx](/learn/docx) and [pptx](/learn/pptx). You simply type using Excel application to the cells [handlebars](/learn/handlebars) tags like
 
-## General concept
+|   |    |
+| - | - |
+| `{{someVariableToReplace}}`  | |
+
+or
+
+|   |  |
+| - | - |
+| `{{#each numbers}}{{this}}` | `{{/each}}` |
+
+The recipe transforms these tags using the handlebars engine and produces output xlsx with filled data. Using this approach, you can create dynamic tables with auto determined cell data types and formulas. Using the supported built-in helpers, you can even create charts.
+
+> Hint: Speed up your template development with the [same trick you can use for docx](/learn/docx#development)
+
+### Built-in generation helpers
+
+#### xlsxChart
+
+Create a chart inside the desktop Excl application and use `xlsxChart` helper call inside the chart title.
+
+The helper call in a title can look like this:
+
+```html
+A title{{xlsxChart data=fruits}}
+```
+
+With the following data on the input:
+```js
+{
+    "fruits": {
+        "labels": ["Q1", "Q2", "Q3", "Q4"],
+        "datasets": [{
+            "label": "Apples",
+            "data": [100,50,10,70]
+        }, {
+            "label": "Oranges",
+            "data": [20,30,20,40]
+        }]
+    }
+}
+```
+
+The `data.labels` describes labels on the X axis. The `data.datasets` includes values for the Y axis.
+
+Each dataset need to contain a label, and the data associated with it, additionally (only for `scatterChart` type) it can also define some labels for each specific unit of data (dataLabels)
+
+```js
+{
+    "fruits": {
+        "labels": ["Q1", "Q2", "Q3", "Q4"],
+        "datasets": [{
+            "label": "Apples",
+            "data": [100,50,10,70],
+            "dataLabels": [
+                "Full",
+                "Medium",
+                "Low",
+                {
+                    "value": "Medium",
+                    // possible values are: "left", "right", "center", "top", "bottom"
+                    "position": "left"
+                }
+            ]
+        }, {
+            "label": "Oranges",
+            "data": [20,30,20,40]
+        }]
+    }
+}
+```
+
+You can also pass some options to the chart that control the way the chart display, limit the information.
+
+```
+{{xlsxChart data=fruits options=options}}
+```
+
+the supported options are:
+
+- scales (`object`) -> Options to control the display of the chart axis
+    - scales.xAxes (`array`) -> Options to control the display of the x axes
+    - scales.yAxes (`array`) -> Options to control the display of the y axes
+    Axis options
+        - display (`boolean`) -> wheter to show or hide the axis
+        - ticks.stepSize (`number`) -> the step size to use to separate the axis's ticks
+        - ticks.min (`number`) -> the min value to show in the axis's ticks
+        - ticks.max (`number`) -> the max value to show in the axis's ticks
+
+```js
+// example options
+{
+    "scales": {
+        "xAxes": [{
+              "display": true,
+              "ticks": {
+                  "stepSize": 2,
+                  "min": 1,
+                  "max": 15
+              }
+        }]
+    }
+}
+```
+
+#### xlsxColAutofit
+
+When you double click a column's right border in desktop excel, it automatically fits the width of the cells to the widest content. The same thing can be achieven using the `xlsxColAutofit` helper. The helper call `{{xlsxColAutofit}}` needs to be placed to the first cell's note of the column you want to autofit. The note is Excel feature you can find in the section "Revision" and "Notes" or "Comments". In case you want to autofit all columns, you can place to the first cell call `{{xlsxColAutofit all=true}}`.
+
+## Transformation
 
 Excel files are defined by several xml files zipped into one with xlsx extension. This recipe employs templating engine to directly modify these source files and produces excel files.
 
@@ -48,18 +150,35 @@ Using other provided helper you should be able to manipulate the source xml into
 
 Unfortunately [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) is not very well documented and quite hard to handle, but you can look [here](http://officeopenxml.com/SScontentOverview.php) for a general overview of what tags and attributes are supported. When you are lost, it is always good idea to create a test xlsx file in excel, unzip it and analyze its content. Another approach we recommend is to create the whole excel the first, upload it into jsreport and then only replace its data, which is simple.
 
-## Predefined helpers
+### Examples
 
-### xlsxPrint
+- [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
+- [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
+- [Log and debug](https://playground.jsreport.net/studio/workspace/ryaUvq21e/3)
+- [Conditional formatting](https://playground.jsreport.net/studio/workspace/H1BHqBZw/9)
+- [Merged cells](https://playground.jsreport.net/studio/workspace/rkX89bHD/2)
+- [Add sheet](https://playground.jsreport.net/studio/workspace/SyL6aErP/2)
+- [Add multiple sheets](https://playground.jsreport.net/w/jan_blaha/wFq~T2U1)
+- [Clone sheet](https://playground.jsreport.net/studio/workspace/rJWIm-2Rg/3)
+- [Pivot table tutorial](https://jsreport.net/learn/dynamic-excel-pivot-table)
+- [Chart](https://playground.jsreport.net/studio/workspace/rJftqRaQ/10)
+- [Table](https://playground.jsreport.net/studio/workspace/Hy_V2BSh/4)
+- [Update cell](https://playground.jsreport.net/studio/workspace/Hkr4xanxg/7)
+- [Formulas](https://playground.jsreport.net/studio/workspace/rkWcRiHog/27)
+- [Recalculate formulas](https://playground.jsreport.net/studio/workspace/BkcNMahxg/6)
+
+### Built-in transformation helpers
+
+#### xlsxPrint
 The must be the call to `xlsxPrint` at the end of every template.
 
-### xlsxReplace
+#### xlsxReplace
 ```html
 {{#xlsxReplace filePath xmlPath}}...{{/xlsxReplace}}
 ```
 Replace the whole xml in `filePath` and `xmlPath` with the xml produced by the block helper.
 
-### xlsxMerge
+#### xlsxMerge
 ```html
 {{#xlsxMerge filePath xmlPath}}...{{/xlsxMerge}}
 ```
@@ -80,21 +199,21 @@ function replace(str, pattern, value)  {
 }
 ```
 
-### xlsxAdd
+#### xlsxAdd
 ```html
 {{#xlsxAdd filePath xmlPath}}...{{/xlsxAdd }}
 ```
 Add xml provided by block helper into `filePath` and collection found at `xmlPath`.
 
 
-### xlsxRemove
+#### xlsxRemove
 
 ```html
 {{#xlsxRemove filePath  xmlPath index}}...{{/xlsxRemove }}
 ```
 Remove element from collection in `filePath` at `xmlPath` at `index`.
 
-### xlsxAddImage
+#### xlsxAddImage
 
 ```html
 {{#xlsxAddImage "test" "sheet1.xml" 0 0 1 1}}
@@ -105,7 +224,7 @@ Remove element from collection in `filePath` at `xmlPath` at `index`.
 Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageName`, `sheet id`,  `column from`, `row from`, `column to`, `row to`.
 Only the png images are supported.
 
-### custom
+#### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-xlsx/blob/master/static/helpers.js)
 
 ## Preview in studio
@@ -159,4 +278,3 @@ In case you don't have the xlsx template stored as an asset you can send it dire
     "addBufferSize": 50000000,
   }
 }
-```
