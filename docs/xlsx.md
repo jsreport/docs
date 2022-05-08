@@ -14,7 +14,7 @@ This is the first phase used for generating basic xlsx reports. We call it gener
 
 > The `xlsx` recipe originally implemented just the second phase while this generation phase is very new.  The second phase is very stable with the same API running for years. The generation phase API can be unstable and maybe changed in the future.
 
-The principle is simple and works the same as in other office based recipes like [docx](/learn/docx) and [pptx](/learn/pptx). You simply type to the cells [handlebars](/learn/handlebars) tags using Excel desktop application.
+The principle is simple and works the same in other office based recipes like [docx](/learn/docx) and [pptx](/learn/pptx). You simply type using Excel application to the cells [handlebars](/learn/handlebars) tags like
 
 |   |    |
 | - | - |
@@ -30,11 +30,16 @@ The recipe transforms these tags using the handlebars engine and produces output
 
 > Hint: Speed up your template development with the [same trick you can use for docx](/learn/docx#development)
 
+### Examples
+
+- [Invoice](https://playground.jsreport.net/w/admin/Lh8Kjc~f)
+- [Chart](https://playground.jsreport.net/w/admin/uNizDuc4)
+
 ### Built-in generation helpers
 
 #### xlsxChart
 
-Create a chart inside the desktop Excel application and use `xlsxChart` helper call inside the chart title.
+Create a chart inside the desktop Excl application and use `xlsxChart` helper call inside the chart title.
 
 The helper call in a title can look like this:
 
@@ -122,7 +127,7 @@ the supported options are:
 
 #### xlsxColAutofit
 
-When you double click a column's right border in desktop excel, it automatically fits the width of the cells to the widest content. The same thing can be achieved using the `xlsxColAutofit` helper. The helper call `{{xlsxColAutofit}}` needs to be placed to the first cell's note of the column you want to autofit. The note is Excel feature you can find in the section "Revision" and "Notes" or "Comments". In case you want to autofit all columns, you can place to the first cell call `{{xlsxColAutofit all=true}}`.
+When you double click a column's right border in desktop excel, it automatically fits the width of the cells to the widest content. The same thing can be achieven using the `xlsxColAutofit` helper. The helper call `{{xlsxColAutofit}}` needs to be placed to the first cell's note of the column you want to autofit. The note is Excel feature you can find in the section "Revision" and "Notes" or "Comments". In case you want to autofit all columns, you can place to the first cell call `{{xlsxColAutofit all=true}}`.
 
 ## Transformation
 
@@ -278,4 +283,3 @@ In case you don't have the xlsx template stored as an asset you can send it dire
     "addBufferSize": 50000000,
   }
 }
-```
