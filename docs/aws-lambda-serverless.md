@@ -41,7 +41,6 @@ Then create AWS lambda layer referencing the uploaded zip with nodejs 16.x runti
 
 ### Create lambda function
 
-```
 Then create lambda function with node 16.x runtime.
 
 ![lambda function](/learn/static-resources/aws-lambda-create-function.png)
