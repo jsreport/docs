@@ -9,9 +9,7 @@
   "base": {
     "url": "${cwd}/myAssets"
   },
-  "phantom-pdf": {
-    "allowLocalFilesAccess": true
-  }
+  "trustUserCode": true
 }
 ```
 
@@ -28,14 +26,14 @@ The extension then injects [html base tag](https://www.tutorialspoint.com/html/h
 </html>
 ```
 
-The base tag assures that relatively linked scripts, images or styles gets loaded from the specified folder without additional extra work. Only note that you may need to enable local file access in some of the pdf rendering recipe like [phantom-pdf](/learn/phantom-pdf) using `phanton.allowLocalFilesAccess: true` option.
+The base tag assures that relatively linked scripts, images or styles gets loaded from the specified folder without additional extra work. Only note that you need to allow users to reach the local system through the `trustUserCode: true`.
 
 ### Send base address when running through cli
 
 ```
 jsreport render
   --template.engine=none
-  --template.recipe=phantom-pdf
+  --template.recipe=chrome-pdf
   --template.content=test.html
   --options.base=%cd%
   --out=out.pdf

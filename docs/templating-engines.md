@@ -103,7 +103,7 @@ The next step is enabling access to the local files and modules in the [configur
 
 ```js
 {
-    "allowLocalFilesAccess": true
+    "trustUserCode": true
 }
 ```
 Alternatively, you can also use config `sandbox.allowedModules=["moment"]` and name the modules you allow.

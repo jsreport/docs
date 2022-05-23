@@ -39,6 +39,6 @@ The extension exposes custom helper `npmModule` that reads the bundled distribut
 
 The usage of the npm modules is opt-in and can be enabled in the following ways:
 
-1. enable config `allowLocalFilesAccess:true` for the whole server
-2. set conifg `extensions.npm.allowedModule:"*"`
-3. set conifg `extensions.npm.allowedModule:["moment@2.29.1"]` and explicitly list modules users can require
+1. enable config `trustUserCode:true` for the whole server
+2. set conifg `extensions.npm.allowedModules:"*"`
+3. set conifg `extensions.npm.allowedModules:["moment@2.29.1"]` and explicitly list modules users can require

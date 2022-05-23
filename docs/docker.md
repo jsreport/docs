@@ -89,7 +89,7 @@ You should see jsreport running on port 5488 afterwards.
 Create your config file `jsreport.config.json`
 ```js
 {
-	"allowLocalFilesAccess": true,
+	"trustUserCode": true,
 }
 ```
 And edit `Dockerfile` to include it in the image
@@ -127,7 +127,7 @@ And configure jsreport to use [fs store](/learn/fs-store) using `jsreport.config
 
 ```js
 {
-	"allowLocalFilesAccess": true,
+	"trustUserCode": true,
 	"store": {
 		"provider": "fs"
 	}

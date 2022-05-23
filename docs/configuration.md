@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
+﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
 
 > `Hint:` You can get the list of supported configuration options using command<br> 
 ```
@@ -70,7 +65,6 @@ Can be transformed into environment variable config this way:
 extensions_fsStore_dataDirectory=/myData
 ```
 
-
 ### Arguments
 The command-line arguments are parsed as well. This is very convenient for changing the port for example:
 
@@ -108,7 +102,6 @@ for example, configured like this:
   }
 }   
 ```
-
 
 Please refer to the particular extension's documentation to find what configuration options you have. There is usually a `Configuration` section where you can find it.
 
@@ -177,17 +170,9 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **blobStorage** (`object`) - optional, specifies type of storage used for storing [blobs](/learn/blob-storages). The particular implementation is distinguish based on `blobStorage.provider` attribute. You can find the list of available blob storage drivers and further details how to configure them [here](/learn/blob-storages)
 
-## Directories
+## Trusting users code
 
-**rootDirectory** (`string`) - optionally specifies where's the application root and where jsreport searches for extensions
-
-**tempDirectory** (`string`) - optionally specifies the absolute or relative path to the directory where the application stores temporary files (defaults to [OS TEMP]/jsreport/)
-
-**configFile** (`string`) - relative or absolute path to the configuration JSON file to be used
-
-## Allow local files and local modules
-
-**allowLocalFilesAccess** (`boolean`) - general configuration to allow user code in templates to access the local file system. This allows users to `require` custom modules in templating engines and scripts or use assets extension to reference local files. It's reasonable to enable this when the templates are developed by trustest internal developers, but not when the templates are developed by end-users.
+**trustUserCode** (`boolean`) - jsreport evaluates user code in the safe sandbox by default. This means users can't access the local system or require custom modules. The sandboxing of the user code has a small performance penalty and can be disabled by setting `trustUserCode: true`. However, this should be done only in case the jsreport users have full trust because it becomes easy to reach the local system.  The option can be also enabled when the safe execution is guaranteed through the virtualization like when [docker workers extension](https://jsreport.net/learn/docker-workers) is used. When the `trustUserCode` is `true`, the `sandbox.allowedModules` is ignored. In other words, custom modules can be normally required.
 
 ## Report timeouts
 
@@ -220,6 +205,14 @@ The encryption is disabled when the `encryption` node is missing in the config.
 **workers.numberOfWorkers** (`number`) - the number of worker threads allocated. Every worker can process only one request in parallel. This means the config `numberOfWorkers` also specifies how many reports can jsreport process in parallel. If there is no available worker, the render requests are queued and wait until there is an available worker. Every request is executed in exactly one thread. This means increasing this value doesn’t speed up the rendering of a single request. The value defaults to 2. The reasonable value could be 2x number of CPUs (`optional`)
 
 **workers.resourceLimits** (`object`) - limit resources used by individual threads, see [nodejs docs](https://nodejs.org/api/worker_threads.html#worker_threads_worker_resourcelimits) for the details
+
+## Directories
+
+**rootDirectory** (`string`) - optionally specifies where's the application root and where jsreport searches for extensions
+
+**tempDirectory** (`string`) - optionally specifies the absolute or relative path to the directory where the application stores temporary files (defaults to [OS TEMP]/jsreport/)
+
+**configFile** (`string`) - relative or absolute path to the configuration JSON file to be used
 
 ## Profiler
 
@@ -312,7 +305,7 @@ The following example demonstrates how to use [winston-loggly](https://github.co
 {   
     "store": { "provider": "fs" },   
     "httpPort": 3000,
-    "allowLocalFilesAccess": true,
+    "trustUserCode": false,
     "blobStorage": { "provider": "fs" },
     "reportTimeout": 60000,
     "logger": {

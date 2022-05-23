@@ -33,7 +33,7 @@ npm install axios --save-exact
 And you need to also make sure the jsreport is [configured](/learn/configuration) with access to the local files and modules in `jsreport.config.json`. Note you need to restart jsreport after the config changes.
 ```js
 {
-  "allowLocalFilesAccess": true
+  "trustUserCode": true
 }
 ```
 

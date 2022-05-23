@@ -26,7 +26,7 @@ function beforeRender(req, res, done) {
 
 ## Use external modules
 
-You can `require` external modules as it's common in node.js. However, you need to opt-in in the config first. You can do it either by setting `allowLocalFilesAccess=true` or naming the allowed modules using:
+You can `require` external modules as it's common in node.js. However, you need to opt-in in the config first. You can do it either by setting `trustUserCode=true` or naming the allowed modules using:
 
 ```js
 {
