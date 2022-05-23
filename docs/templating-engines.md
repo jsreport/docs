@@ -1,4 +1,3 @@
-
 jsreport uses javascript templating engines to define report layout. You can bind input data, use loops, conditions or javascript helpers to dynamically build your content. Templating engines provide a way to define any custom report you like in a very fast, flexible, matured, and well-known way.
 
 ```html
@@ -148,6 +147,26 @@ await someLibrary.init()
 function myHelper() {
     return someLibrary.foo()
 }
+```
+
+The async helper result can be explicitely awaited. Like in this case, the helper parameter is result of an async helper call.
+```
+{{myHelper  (asset  "config.json")}}
+```
+Then the parameter value needs to be awaited using the following call.
+```js
+const jsreport = require('jsreport-proxy')
+async  function myHelper(configAsync)  {
+  const configStr = await jsreport.templatingEngines.waitForAsyncHelper(configAsync) 
+  return JSON.parse(configStr ).propA
+}
+```
+
+To await all async helper calls and run some final code, use the following
+
+```js
+jsreport.templatingEngines.waitForAsyncHelpers()
+	.then(() => console.log('all async helpers processed'))
 ```
 
 Note the async code in helpers shouldn't be used to load or manipulate the input data.
