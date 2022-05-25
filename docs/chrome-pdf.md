@@ -3,6 +3,7 @@
 
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -159,6 +160,9 @@ Chrome by default uses `print` CSS media query when printing pdf. This impacts C
 Chrome by default adds special tags to the pdf to make it more accessible to people with disabilities. This is typically good but can cause performance problems in very long pdfs. The rendering time can be affected as well as the final pdf size. In this case, you can try to disable the pdf tagging by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.     
 
 You can simply double check if the output pdf is ARIA tagged if you open it in an text editor and find text `/StructTreeRoot`
+
+## Images increasing pdf size
+The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the original size is the same and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
 
 ## Printing existing web pages
 You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
