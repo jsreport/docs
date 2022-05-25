@@ -5,8 +5,6 @@
 You can run jsreport serverless in [AWS Lambda](https://aws.amazon.com/lambda/). This is the very convenient way to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
 This documentation helps you with creating the AWS Lambda running jsreport, deploying templates and remote invocation of the rendering.
 
-> This docummentation is in the construction, it will be ready in May 2022.
-
 ## Get started
 
 ### Clone starter kit repo
