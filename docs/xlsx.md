@@ -129,6 +129,15 @@ the supported options are:
 
 When you double click a column's right border in desktop excel, it automatically fits the width of the cells to the widest content. The same thing can be achieven using the `xlsxColAutofit` helper. The helper call `{{xlsxColAutofit}}` needs to be placed to the first cell's note of the column you want to autofit. The note is Excel feature you can find in the section "Revision" and "Notes" or "Comments". In case you want to autofit all columns, you can place to the first cell call `{{xlsxColAutofit all=true}}`.
 
+### Custom helpers
+You can implement also your own custom helpers and use them in the word templates. The helpers section can be toggled in the studio using the "show helpers" button.
+
+### Child templates
+The recipe doesn't support using [child templates](/learn/child-templates) or [assets](/learn/assets) to insert another xlsx file into one template. Both can be used just to insert text.
+
+
+![office helpers](/learn/static-resources/office-helpers.png)
+
 ## Transformation
 
 Excel files are defined by several xml files zipped into one with xlsx extension. This recipe employs templating engine to directly modify these source files and produces excel files.

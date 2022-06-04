@@ -40,6 +40,15 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 
 [Example - Image](https://playground.jsreport.net/w/admin/MBHWcK~B)
 
+## Custom helpers
+You can implement also your own custom helpers and use them in the word templates. The helpers section can be toggled in the studio using the "show helpers" button.
+
+## Child templates
+The recipe doesn't support using [child templates](/learn/child-templates) or [assets](/learn/assets) to insert another pptx file into one template. Both can be used just to insert text.
+
+
+![office helpers](/learn/static-resources/office-helpers.png)
+
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
 

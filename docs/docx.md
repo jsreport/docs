@@ -1,3 +1,4 @@
+
 `docx` recipe generates office docx reports based on the uploaded docx template  with [handlebars](/learn/handlebars) tags filled inside using Word application.
 
 1. Open Word and create docx file using handlebars templating engine.
@@ -283,6 +284,14 @@ Allows to insert raw xml into the document, replacing some parent xml element. I
 ```
 {{docxRaw xml="<w:r><w:t>raw xml run</w:t></w:r>" replaceParentElement="w:r"}}
 ```
+
+## Custom helpers
+You can implement also your own custom helpers and use them in the word templates. The helpers section can be toggled in the studio using the "show helpers" button.
+
+![docx helpers](/learn/static-resources/office-helpers.png)
+
+## Child templates
+The recipe doesn't support using [child templates](/learn/child-templates) or [assets](/learn/assets) to insert another docx file into one template. Both can be used just to insert text.
 
 ## Development
 Repetitive uploading of the docx template can get easily tedious. Fortunately, you can use the [fs store external editor editing](/learn/fs-store#editing-templates-in-custom-editor) feature with docx as with any other file. The first you need to change the configuration to enable automatic files reload on external changes.
