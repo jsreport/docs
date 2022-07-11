@@ -1,6 +1,6 @@
 ﻿The easiest way to adapt jsreport to your needs is to change its configuration. jsreport configuration provides many options like changing an HTTP port, setting store provider to a different mechanism, and many others.
 
-> `Hint:` You can get the list of supported configuration options using command<br> 
+> `Hint:` You can get the list of supported configuration options using command<br>
 ```
 jsreport help config
 ```
@@ -94,13 +94,13 @@ for example, configured like this:
 
 ```js
 "extensions": {
-  "authentication": {     
+  "authentication": {
     "admin": {
       "username" : "admin",
       "password": "password"
     }
   }
-}   
+}
 ```
 
 Please refer to the particular extension's documentation to find what configuration options you have. There is usually a `Configuration` section where you can find it.
@@ -111,11 +111,11 @@ You can disable an extension by setting `enabled: false` in the configuration of
 
 ```js
 {
-  "extensions": {    
-    "authentication": {      
+  "extensions": {
+    "authentication": {
       "enabled": false
     },
-    "studio": {    
+    "studio": {
       "enabled": false
     },
     "scheduling": {
@@ -152,7 +152,7 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 
 **hostname** `(string)` - hostname to be used for the jsreport server (`optional`)
 
-**extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `2mb`
+**extensions.express.inputRequestLimit** (`string`) - optional limit for incoming request size, default is `50mb`
 
 **extensions.express.cors.enabled** (`boolean`) - optionaly you can disable cors, default`true`
 
@@ -194,7 +194,7 @@ or if your certificate is a `.pfx` file then you can use the `pfx` and `passphra
 jsreport core provides general functions for encrypting/decrypting sensitive data like passwords or certificates. The API for encryption is then eventually used by extensions.
 The encryption is disabled when the `encryption` node is missing in the config.
 
-**encryption.secretKey** (`string`) - must be exactly 16 chars long string    
+**encryption.secretKey** (`string`) - must be exactly 16 chars long string
 
 **encryption.enabled** (`boolean`) - enable/disable encryption
 
@@ -242,7 +242,7 @@ The encryption is disabled when the `encryption` node is missing in the config.
 }
 ```
 
-Explanation: 
+Explanation:
 - configure an output named `"console"` sending all logs with level `debug`, and all levels with lower priority, to the console
 
 - configure and output named `"file"` sending all logs with `debug`, and all levels with lower priority, to the file `"logs/log.txt"`
@@ -302,8 +302,8 @@ The following example demonstrates how to use [winston-loggly](https://github.co
 ## Example of the config file
 
 ```javascript
-{   
-    "store": { "provider": "fs" },   
+{
+    "store": { "provider": "fs" },
     "httpPort": 3000,
     "trustUserCode": false,
     "blobStorage": { "provider": "fs" },
@@ -323,17 +323,17 @@ The following example demonstrates how to use [winston-loggly](https://github.co
         "level": "error",
         "filename": "logs/error.log"
       }
-    },    
-    "extensions":  {  
-      "authentication"  :  {  
-        "cookieSession":  {  
-          "secret":  "dasd321as56d1sd5s61vdv32"  
-        },  
-        "admin":  {  
+    },
+    "extensions":  {
+      "authentication"  :  {
+        "cookieSession":  {
+          "secret":  "dasd321as56d1sd5s61vdv32"
+        },
+        "admin":  {
           "username": "admin",
-          "password": "password"  
-        }  
-      }  
+          "password": "password"
+        }
+      }
    }
 }
 ```
