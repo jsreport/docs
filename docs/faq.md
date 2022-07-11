@@ -3,6 +3,7 @@
 
 
 
+
 How to...
 
 **General questions**
@@ -77,7 +78,7 @@ In case you purchased the single server enterprise license and need to apply it 
 ```
 
 
-When using the [official jsreport docker image](https://github.com/jsreport/jsreport/blob/master/docker/README.md), you can follow [these instructions](https://github.com/jsreport/jsreport/blob/master/docker/README.md#apply-license-key) to apply your license key.
+When using the [official jsreport docker image](https://hub.docker.com/r/jsreport/jsreport/), you can follow [these instructions](https://jsreport.net/learn/docker#apply-license-key) to apply your license key.
 
 The license key validation is invoked remotely and requires internet connection. In case your production server doesn't have internet connection you can either ignore the warning in the logs, or let the validation happen on computer with internet connection. The validation during the first run creates file `jsreport.license.json` which you can just copy paste to the production server without internet. Note in case of yearly subscription the license validation runs every year.
 
