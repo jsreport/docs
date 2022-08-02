@@ -277,9 +277,10 @@ The parameters that `docxWatermark` helper supports are the following:
   - fontItalic (`boolean`) -> whether to use italic in text or not
   - transparency (`string`) -> the percentage of transparency to use for the text, it can be anything between 0% and 100%. Example: `65%`
   - orientation (`string`) -> the orientation to use for the text, it can be `horizontal` or `diagonal`. Example: `diagonal`
+
 ### Automatic sync of Table of Contents
 
-A docx document requires to always refresh the TOC to keep it in sync with the content/titles of the document. This presents an issue when you generate the content/titles of the document dynamically, because when you open the docx file you will noticed that the generated TOC is out of sync with what the document contains. To help with this we automatically update the TOC when producing the docx file, we do our best to produce the same result as you would get by refreshing manually, but sometimes it's not possible to produce the same result, just keep in mind that even if the styles don't match the TOC at least should have the same items/titles as the document.
+A docx document requires to always refresh the TOC to keep it in sync with the content/titles of the document. This presents an issue when you generate the content/titles of the document dynamically, because when you open the docx file you will noticed that the generated TOC is out of sync with what the document contains. To help with this we automatically update the TOC list and titles when producing the docx file, we do our best to produce the same result as you would get by refreshing manually, but sometimes it's not possible to produce the same result, currently we are not able to update the page numbers, because there is no way to specify that in a document environment like docx. just keep in mind that even with the auto-sync if the styles don't match the TOC at least should have the same items/titles as the document.
 
 ### Forms
 
