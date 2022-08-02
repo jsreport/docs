@@ -242,9 +242,9 @@ the supported options are:
 
 Create a watermark inside the desktop word application and use `docxWatermark` helper call inside the watermark text input. **the helper is only needed when you want to configure options on the watermark with your logic**, if you just want to modify the text and re-use the options you already applied to the word application then just use standard handlebars syntax.
 
-![watermark usage](/learn/static-resources/docx-watermark.png)
+![watermark usage](/learn/static-resources/docx-watermark.jpg)
 
-![watermark helper usage](/learn/static-resources/docx-watermark-helper.png)
+![watermark helper usage](/learn/static-resources/docx-watermark-helper.jpg)
 
 The helper call in the text input can look like this:
 
