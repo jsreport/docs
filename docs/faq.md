@@ -118,6 +118,10 @@ The studio also warns in the modal dialog that the maximum number of templates w
 
 ### <a name="subscription-renew"></a>Subscription renew
 
-The subscriptions gets automatically renewed every year. You should receive an email informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
+The subscriptions get automatically renewed every year. You should receive an email informing you about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card.
 
-The jsreport instance will still boot if the subscription renewal fails.  There is one month additional period to solve the payment problems, during which jsreport just logs warning. 
+The jsreport instance automatically remotely revalidates the license key during the start when you reach the date when the renewal should happen. This information, when the revalidation should happen, is stored in the file `jsreport.license.json` which is created during the first license key validation.
+  
+The jsreport instance will still boot if the subscription renewal fails. There is a one-month additional period to solve the payment problems, during which jsreport just logs a warning.
+
+If the jsreport instance doesn't have an internet connection, you should start the same instance locally with an internet connection and let it revalidate the license and update the `jsreport.license.json`. Then you can copy it to the production instance. However, the jsreport only logs a warning when isn't able to reach the licensing server, so you can also only ignore it.
