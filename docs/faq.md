@@ -1,9 +1,3 @@
-
-
-
-
-
-
 How to...
 
 **General questions**
@@ -125,3 +119,5 @@ The studio also warns in the modal dialog that the maximum number of templates w
 ### <a name="subscription-renew"></a>Subscription renew
 
 The subscriptions gets automatically renewed every year. You should receive an email informing about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card. 
+
+The jsreport instance will still boot if the subscription renewal fails.  There is one month additional period to solve the payment problems, during which jsreport just logs warning. 
