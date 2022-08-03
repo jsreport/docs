@@ -217,7 +217,7 @@ the supported options are:
     - scales.xAxes (`array`) -> Options to control the display of the x axes
     - scales.yAxes (`array`) -> Options to control the display of the y axes
     Axis options
-        - display (`boolean`) -> wheter to show or hide the axis
+        - display (`boolean`) -> whether to show or hide the axis
         - ticks.stepSize (`number`) -> the step size to use to separate the axis's ticks
         - ticks.min (`number`) -> the min value to show in the axis's ticks
         - ticks.max (`number`) -> the max value to show in the axis's ticks
@@ -237,6 +237,46 @@ the supported options are:
     }
 }
 ```
+
+### docxWatermark
+
+Create a watermark inside the desktop word application and use `docxWatermark` helper call inside the watermark text input. **the helper is only needed when you want to configure options on the watermark with your logic**, if you just want to modify the text and re-use the options you already applied to the word application then just use standard handlebars syntax.
+
+![watermark usage](/learn/static-resources/docx-watermark.jpg)
+
+![watermark helper usage](/learn/static-resources/docx-watermark-helper.jpg)
+
+The helper call in the text input can look like this:
+
+```html
+{{docxWatermark text=watermark style=watermarkStyle}}
+```
+
+With the following data on the input:
+```js
+{
+    "watermark": "CLASSIFIED",
+    "watermarkStyle": {
+        "fontFamily": 'Times New Roman',
+        "fontColor": '#c45911',
+        "fontSize": 66,
+        "fontBold": true
+    }
+}
+```
+
+The parameters that `docxWatermark` helper supports are the following:
+
+- text (`string`) **required** -> the text to display in the watermark
+- enabled (`boolean`) -> whether to display the watermark or not, it is `true` by default
+- style (`object`) -> options to control the styles on the watermark
+  - fontFamily (`string`) -> the font family to use for the text shown. Example: `Times New Roman`
+  - fontColor (`string`) -> the color to use for the text shown. it can be any css hex color, it also support color names but for better compatibility use hex. Example: `#c45911`
+  - fontSize (`number`) -> the font size in number of points. Example: `66`
+  - fontBold (`boolean`) -> whether to use bold in text or not
+  - fontItalic (`boolean`) -> whether to use italic in text or not
+  - transparency (`string`) -> the percentage of transparency to use for the text, it can be anything between 0% and 100%. Example: `65%`
+  - orientation (`string`) -> the orientation to use for the text, it can be `horizontal` or `diagonal`. Example: `diagonal`
 
 ### Automatic sync of Table of Contents
 
