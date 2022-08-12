@@ -1,6 +1,6 @@
 
 
-`html-to-xlsx` recipe generates excel xslx files from html tables. This isn't a full html -> excel conversion but a rather pragmatic and fast way to create excel files from jsreport. The recipe reads input table and extract a couple of css style properties using a specific html engine (which defaults to chrome), and finally uses the styles to create the excel cells.
+`html-to-xlsx` recipe generates Excel xslx files from HTML tables. This isn't a full HTML -> Excel conversion but a rather pragmatic and fast way to create Excel files from jsreport. The recipe reads input table and extract a couple of CSS style properties using a specific HTML engine (which defaults to chrome), and finally uses the styles to create the Excel cells.
 
 ## Examples
 
@@ -14,35 +14,37 @@
 - [Conversion JS trigger](https://playground.jsreport.net/w/admin/c5~LtyXi)
 - [Insert output into xlsx template](https://playground.jsreport.net/w/admin/QiHIBqsq)
 
-The following css properties are supported:
+The following CSS properties are supported:
 
 - `background-color` - cell background color
 - `color` - cell foreground color
-- `border` - all the `border-[left|right|top|bottom]-width`, `border-[left|right|top|bottom]-style`, `boder-[left|right|top|bottom]-color` will be transformed into excel cells borders.
-- `text-align` - text horizontal align in the excel cell
-- `vertical-align` - vertical align in the excel cell
-- `width` - the excel column will get the highest width, it can be little bit inaccurate because of pixel to excel points conversion
-- `height` - the excel row will get the highest height
+- `border` - all the `border-[left|right|top|bottom]-width`, `border-[left|right|top|bottom]-style`, `border-[left|right|top|bottom]-color` will be transformed into Excel cells borders.
+- `text-align` - text horizontal align in the Excel cell
+- `vertical-align` - vertical align in the Excel cell
+- `width` - the Excel column will get the highest width; it can be little bit inaccurate because of pixel to Excel points conversion
+- `height` - the Excel row will get the highest height
 - `font-family` - font family, defaults to `Calibri`
 - `font-size` - font size, defaults to `16px`
 - `font-style` - `normal`, and `italic` styles are supported
 - `font-weight` - control whether the cell's text should be bold or not
 - `text-decoration` - `underline` and `line-through` are supported
-- `colspan`- numeric value that merges current column with columns to the right
+- `overflow` - the Excel cell will have text wrap enabled if this is set to scroll.
+
+The following HTML attributes are supported:
+- `colspan` - numeric value that merges current column with columns to the right
 - `rowspan` - numeric value that merges current row with rows below.
-- `overflow` - the excel cell will have text wrap enabled if this is set to scoll.
 
 ## Options
 
-- `htmlEngine` - `String` (supported values here depends on the html engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install better performing cheerio as html engine too)
-- `waitForJS` - `Boolean` whether to wait for the js trigger to be enabled before trying to read the html tables on the page or not. defaults to `false`.
-- `insertToXlsxTemplate` - `Boolean` controls if the result of the html to excel tables conversion should be added as new sheets of existing xlsx template, it needs that you set an xlsx template in order to work. defaults to `false`.
+- `htmlEngine` - `String` (supported values here depends on the HTML engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install better performing cheerio as HTML engine too)
+- `waitForJS` - `Boolean` whether to wait for the JavaScript trigger to be enabled before trying to read the HTML tables on the page or not. defaults to `false`.
+- `insertToXlsxTemplate` - `Boolean` controls if the result of the HTML to Excel tables conversion should be added as new sheets of existing xlsx template, it needs you to set an xlsx template to work. Default is `false`.
 
 ## Sheets
 
-Each table detected on the html source is converted to a new sheet in the final xlsx file. The sheets names are by default  `Sheet1`, `Sheet2` etc. However, you can specify a custom sheet name using the `name` or `data-sheet-name` attribute on the `table` element where the `data-sheet-name` has precedence.
+Each table detected on the HTML source is converted to a new sheet in the final xlsx file. The sheets names are by default `Sheet1`, `Sheet2` etc. However, you can specify a custom sheet name using the `name` or `data-sheet-name` attribute on the `table` element where the `data-sheet-name` has precedence.
 
-```html
+```HTML
 <table name="Data1">
     <tr>
         <td>1</td>
@@ -57,7 +59,7 @@ Each table detected on the html source is converted to a new sheet in the final 
 
 ## Cells with data types
 
-To produce a cell with specific data type you need to use the `data-cell-type` on the `td` element. The supported data types are `number`, `boolean`, `date`, `datetime` and `formula` (which will be explained in next sections)
+To produce a cell with specific data type you need to use the `data-cell-type` on the `td` element. The supported data types are `number`, `boolean`, `date`, `datetime` and `formula`:
 
 ```html
 <table>
@@ -72,7 +74,9 @@ To produce a cell with specific data type you need to use the `data-cell-type` o
 
 ## Format
 
-Excel supports setting cell string format. This can be done using `data-cell-format-str` (to specify the raw string format) or `data-cell-format-enum` (to select an existing format) on the `td` element.
+Excel supports setting cell string format. Add the following attributes to the `td` element:
+- `data-cell-format-str` -> Specify the raw string format
+- `data-cell-format-enum` -> Select an existing format
 
 Possible values of the `data-cell-format-enum` are:
 
@@ -109,7 +113,7 @@ Possible values of the `data-cell-format-enum` are:
 - `48` -> format equal to `##0.0e+0`
 - `49` -> format equal to `@`
 
-```html
+```HTML
 <style>
     td {
         width: 60px;
@@ -125,15 +129,15 @@ Possible values of the `data-cell-format-enum` are:
 </table>
 ```
 
-Setting the format is also required when the cell needs to have a specific format category which depends on the particular computer locale. The cell is otherwise categorized by excel as "General". 
+Setting the format is also required when the cell needs to have a specific format category which depends on the computer locale. The cell is otherwise categorized by Excel as `General`. 
 
-For example using `data-cell-type="date"` makes the cell a date and you can use it in the date based calculations. However, the cell format category in excel is displayed as "General" and not the "Date". To reach this you need to edit `data-cell-format-str` to match your locale.
+For example, using `data-cell-type="date"` makes the cell a date and you can use it in the date-based calculations. However, the cell format category in Excel is displayed as `General` and not `Date`. To rectify this, you need to use `data-cell-format-str` to match your locale.
 
 ## Formula
 
-A formula cell can be specified using `data-cell-type="formula"`on the `td` element.
+A formula cell can be specified using `data-cell-type="formula"` on the `td` element.
 
-```html
+```HTML
 <table>
     <tr>
         <td data-cell-type="number">10</td>
@@ -145,9 +149,9 @@ A formula cell can be specified using `data-cell-type="formula"`on the `td` elem
 
 ## Font family
 
-You can use the following css styles to change the default font-family for all cells in table.
+You can use the following CSS styles to change the default font-family for all cells in table.
 
-```css
+```CSS
 td  { 
   font-family: 'Verdana'; 
   font-size: 18px; 
@@ -156,17 +160,22 @@ td  {
 
 ## Insert output into xlsx template
 
-The table to xlsx conversion can be enough for some cases. However for more complex cases (like producing pivot tables or complex charts using excel) there is an option to insert the produced tables into an existing xlsx template (as new sheets) instead of producing a new xlsx file.
+The table to xlsx conversion can be enough for some cases. However, for more complex cases (like producing pivot tables or complex charts using Excel) there is an option to insert the produced tables into an existing xlsx template (as new sheets) instead of producing a new xlsx file.
 
-The flow is the following. Open your desktop excel application and prepare file with pivot tables and charts on the one sheet and with static data on the second. Upload the xlsx to jsreport studio and link it with your `html-to-xlsx` template generating dynamic table. Just make sure the table name matches with the data sheet name in your excel. Running the template now produces dynamic excel with charts or pivots based on the data assembled by jsreport.
+The flow is the following:
+- Open your desktop Excel application and prepare file with pivot tables and charts on the one sheet and with static data on the second.
+- Upload the xlsx to jsreport studio and link it with your `html-to-xlsx` template generating dynamic table.
+- Make sure the table name matches with the data sheet name in your Excel.
+
+Running the template now produces dynamic Excel with charts or pivots based on the data assembled by jsreport.
 
 [See this example to get an idea of what can be possible with this feature.](https://playground.jsreport.net/w/admin/QiHIBqsq)
 
 ## Conversion triggers
 
-You may need to postpone conversion of tables until some javascript async tasks are processed. If this is your case set the `htmlToXlsx.waitForJS=true` in the API options or `Wait for conversion trigger` in the studio menu. Then the conversion won't start until you set `window.JSREPORT_READY_TO_START=true` inside your template's javascript.
+You may need to postpone conversion of tables until some JavaScript `async` tasks are processed. If this is the case; set `htmlToXlsx.waitForJS = true` in the API options or `Wait for conversion trigger` in the studio menu. When set, the conversion won't start until you set `window.JSREPORT_READY_TO_START = true` inside your template's JavaScript.
 
-```html
+```HTML
 ...
 <script>
     // do some calculations or something async
@@ -177,48 +186,48 @@ You may need to postpone conversion of tables until some javascript async tasks 
 </script>
 ```
 
-## Issues with row height being more larger than actual the content
+## Issues with row height being larger than actual the content
 
-When using `phantomjs` as engine there are cases when a row height ends with a bigger height than the actual content. This is caused by a phantomjs bug that retrieves bigger height when the content of cells have white space characters.
+When using `phantomjs` as the engine there are cases when a row height ends with a larger height than the actual content. This is caused by a `phantomjs` bug that retrieves a larger height when the content of cells contains white space characters.
 
-There are two possible workarounds if this bigger height of row is problematic for your excel file:
+There are two possible workarounds:
 
-- use `"letter-spacing"` css property with some negative value ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/30))
+- use `letter-spacing` CSS property with some negative value ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/30))
 
-```html
-<!-- without "letter-spacing" row would be more larger -->
+```HTML
+<!-- without "letter-spacing" the row would be more larger -->
 <table style="letter-spacing: -4px">
     <tr>
-        <td> From Date: NA</td>
-        <td> To Date: NA </td>
-        <td> Search Text: NA </td>
-        <td> Sort Order: NA </td>
-        <td> Sort Key: NA </td>
-        <td> Filter: NA </td>
+        <td> From Date: N/A</td>
+        <td> To Date: N/A </td>
+        <td> Search Text: N/A </td>
+        <td> Sort Order: N/A </td>
+        <td> Sort Key: N/A </td>
+        <td> Filter: N/A </td>
     </tr>
 </table>
 ```
 
-- use `"line-height: 0"` with a specific `"height"` ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/31))
+- use `line-height: 0` with a specific `height` ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/31))
 
-```html
-<!-- without "line-height" and "height" row would be more larger -->
+```HTML
+<!-- without "line-height" and "height" the row would be more larger -->
 <table style="line-height: 0">
     <tr style="height: 20px">
-        <td> From Date: NA</td>
-        <td> To Date: NA </td>
-        <td> Search Text: NA </td>
-        <td> Sort Order: NA </td>
-        <td> Sort Key: NA </td>
-        <td> Filter: NA </td>
+        <td> From Date: N/A</td>
+        <td> To Date: N/A </td>
+        <td> Search Text: N/A </td>
+        <td> Sort Order: N/A </td>
+        <td> Sort Key: N/A </td>
+        <td> Filter: N/A </td>
     </tr>
 </table>
 ```
 
 ## Performance
-The chrome engine can have performance problems when evaluating huge tables with many cells. For this cases the recipe provides additional helper which splits long table into chunks and runs evaluation in the batches. The usage looks the same as when using the handlebars `each` or jsrender `for` helpers.
+The chrome engine can have performance problems when evaluating huge tables with many cells. For these cases the recipe provides an additional helper which splits large tables into chunks and runs evaluation in batches. Usage is like `each` or jsrender `for` handlebar helpers.
 
-```html
+```HTML
 <table>
     {{#htmlToXlsxEachRows people}}
       <tr>
@@ -229,30 +238,30 @@ The chrome engine can have performance problems when evaluating huge tables with
 </table>
 ```
 
-### Cheerio html engine
-Although `htmlToXlsxEachRows` helper prevents chrome from hanging, the rendering can still be too slow. This is because chrome needs to create dom for the whole table and evaluate every single cell. Fortunately, there is a better option for long tables - using custom html engine [cheerio-page-eval](https://github.com/jsreport/cheerio-page-eval).
+### Cheerio HTML engine
+Although the `htmlToXlsxEachRows` helper prevents Chrome from hanging, the rendering can still be slow. This is because Chrome needs to create DOM elements for the whole table and evaluate every single cell. Fortunately, there is a better option for large tables – using the custom HTML engine [cheerio-page-eval](https://github.com/jsreport/cheerio-page-eval).
 
-This custom engine needs to be additionally installed because it is experimental for now.
+This custom engine is experimental and requires manual installation through NPM.
 
 ```
 npm i cheerio-page-eval
 restart jsreport
 ```
 
-Afterward, you can select it in the studio html to xlsx menu and start using it. This engine doesn't create dom representation like chrome so it is much better performing. However, the lack of dom also introduces some limitations.
+Afterward, you can select it in the studio HTML to xlsx menu and start using it. This engine doesn't create DOM representation like Chrome, so it has much better performance. However, the lack of DOM also introduces some limitations.
 
-- The cheerio engine doesn't support global css styles in the `<style>` tag. You need to use inline styles on particular cells.
-- It also doesn't evaluate javascript in the `<script>` tags. The helpers and templating engines aren't limited.
+- The cheerio engine doesn't support global CSS styles in the `<style>` tag. You need to use in-line styles on cells.
+- It also doesn't evaluate JavaScript in the `<script>` tags. The helpers and templating engines aren't limited.
 
-`htmlToXlsxEachRows` helper works also with cheerio engine and can significantly improve rendering memory footprint on long tables.
+`htmlToXlsxEachRows` helper also works with the cheerio engine and can significantly improve rendering memory footprint on long tables.
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
 
 ## API
-You can specifty template the standard way using name/shortid or you can also send it fully in the API call. In case you have the excel template stored as an asset you can also reference it in the request.
+You can specify the template the standard way by using `name` or `shortid`, or alternatively you can also send it in the API request. If you have the Excel template stored as an asset you can also reference it in the request.
 
-```js
+```JSON
 {  
   "template":  {  
     "recipe":  "html-to-xlsx",  
@@ -267,9 +276,9 @@ You can specifty template the standard way using name/shortid or you can also se
 
 ```
 
-In case you don't have the xlsx template stored as an asset you can send it directly in the API call.
+If you don't have the xlsx template stored as an asset you can send it directly in the API request.
 
-```js
+```JSON
 {  
   "template":  {  
     "recipe":  "html-to-xlsx",  
