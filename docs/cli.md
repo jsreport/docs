@@ -95,9 +95,7 @@ To see available options and usage example type `jsreport configure -h`.
 
 `Command only available when local version is installed in your project`
 
-Install your project as a windows service (WINDOWS ONLY)
-
-> To install the service in production mode make sure to have the `NODE_ENV` env var set to `production` before running the command
+Install your project as a windows service (WINDOWS ONLY)    
 
 To see available options and usage example type `jsreport win-install -h`.
 
