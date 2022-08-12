@@ -44,7 +44,7 @@ The following HTML attributes are supported:
 
 Each table detected on the HTML source is converted to a new sheet in the final xlsx file. The sheets names are by default `Sheet1`, `Sheet2` etc. However, you can specify a custom sheet name using the `name` or `data-sheet-name` attribute on the `table` element where the `data-sheet-name` has precedence.
 
-```HTML
+```html
 <table name="Data1">
     <tr>
         <td>1</td>
@@ -113,7 +113,7 @@ Possible values of the `data-cell-format-enum` are:
 - `48` -> format equal to `##0.0e+0`
 - `49` -> format equal to `@`
 
-```HTML
+```html
 <style>
     td {
         width: 60px;
@@ -137,7 +137,7 @@ For example, using `data-cell-type="date"` makes the cell a date and you can use
 
 A formula cell can be specified using `data-cell-type="formula"` on the `td` element.
 
-```HTML
+```html
 <table>
     <tr>
         <td data-cell-type="number">10</td>
@@ -151,7 +151,7 @@ A formula cell can be specified using `data-cell-type="formula"` on the `td` ele
 
 You can use the following CSS styles to change the default font-family for all cells in table.
 
-```CSS
+```css
 td  { 
   font-family: 'Verdana'; 
   font-size: 18px; 
@@ -175,7 +175,7 @@ Running the template now produces dynamic Excel with charts or pivots based on t
 
 You may need to postpone conversion of tables until some JavaScript `async` tasks are processed. If this is the case; set `htmlToXlsx.waitForJS = true` in the API options or `Wait for conversion trigger` in the studio menu. When set, the conversion won't start until you set `window.JSREPORT_READY_TO_START = true` inside your template's JavaScript.
 
-```HTML
+```html
 ...
 <script>
     // do some calculations or something async
@@ -194,7 +194,7 @@ There are two possible workarounds:
 
 - use `letter-spacing` CSS property with some negative value ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/30))
 
-```HTML
+```html
 <!-- without "letter-spacing" the row would be more larger -->
 <table style="letter-spacing: -4px">
     <tr>
@@ -210,7 +210,7 @@ There are two possible workarounds:
 
 - use `line-height: 0` with a specific `height` ([demo](https://playground.jsreport.net/studio/workspace/H1c7vr8Cb/31))
 
-```HTML
+```html
 <!-- without "line-height" and "height" the row would be more larger -->
 <table style="line-height: 0">
     <tr style="height: 20px">
@@ -227,7 +227,7 @@ There are two possible workarounds:
 ## Performance
 The chrome engine can have performance problems when evaluating huge tables with many cells. For these cases the recipe provides an additional helper which splits large tables into chunks and runs evaluation in batches. Usage is like `each` or jsrender `for` handlebar helpers.
 
-```HTML
+```html
 <table>
     {{#htmlToXlsxEachRows people}}
       <tr>
@@ -261,7 +261,7 @@ See general documentation for office preview in studio [here](/learn/office-prev
 ## API
 You can specify the template the standard way by using `name` or `shortid`, or alternatively you can also send it in the API request. If you have the Excel template stored as an asset you can also reference it in the request.
 
-```JSON
+```json
 {  
   "template":  {  
     "recipe":  "html-to-xlsx",  
@@ -278,7 +278,7 @@ You can specify the template the standard way by using `name` or `shortid`, or a
 
 If you don't have the xlsx template stored as an asset you can send it directly in the API request.
 
-```JSON
+```json
 {  
   "template":  {  
     "recipe":  "html-to-xlsx",  
