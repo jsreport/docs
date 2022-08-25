@@ -119,6 +119,7 @@ The studio also warns in the modal dialog that the maximum number of templates w
 ### <a name="subscription-renew"></a>Subscription renew
 
 The subscriptions get automatically renewed every year. You should receive an email informing you about the renewal payment every year. The license key stays the same. This means there is no change needed in your application. Keep in mind you should [update your payment details](#update-payment-details) if you change the bank card.
+In case you don't want automatic renewal, you can cancel the subscription after the purchase and it will stay active only for 1 year.
 
 The jsreport instance automatically remotely revalidates the license key during the start when you reach the date when the renewal should happen. This information, when the revalidation should happen, is stored in the file `jsreport.license.json` which is created during the first license key validation.
   
