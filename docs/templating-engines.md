@@ -12,7 +12,7 @@ jsreport uses javascript templating engines to define report layout. You can bin
 
 ## Integrated engine libraries
 jsreport default installation includes two templating engines. It's [handlebars](/learn/handlebars) and [jsrender](/learn/jsrender).
-Both are very popular with a ton of sources and examples on the internet. The most common start is with handlebars, but use the one you like the most. Additionally you can install custom templating engines [EJS](/learn/ejs) and [PUG](https://github.com/bjrmatos/jsreport-pug) or even provide your own [custom engine](/learn/custom-engine).
+Both are very popular with a ton of sources and examples on the internet. The most common start is with handlebars, and it's also recommended because some recipes currently support just handlebars. Additionally you can install custom templating engines [EJS](/learn/ejs) and [PUG](https://github.com/bjrmatos/jsreport-pug) or even provide your own [custom engine](/learn/custom-engine).
 
 <div class="grid">        
     <div class="row">
