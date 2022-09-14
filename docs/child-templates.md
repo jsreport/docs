@@ -1,5 +1,3 @@
-
-
 > Compose existing templates into complex reports
 
 **[Example in playground](https://playground.jsreport.net/w/admin/IkdKFoT9)**
@@ -43,24 +41,7 @@ In the following handlebars example, the template `student` input data would be 
 {{/each}}
 ```
 
-To change the current context, you can wrap the `childTemplate` call into an extra helper.
-
-```js
-function prepareData(someAttribute, options) {   
-    return options.fn({
-        ...this,
-        someAttribute
-    })
-}
-```
-
-```
-{{#each students}}
-  {{#prepareData @root.someAttribute}}
-    {{childTemplate "student"}}
-  {{/prepareData}}
-{{/each}}
-```
+The root context is automatically merged to the current one, so you can easily reach it from the child templates as well.
 
 ## Template attributes
 The child template can be also specified using an object. This can be handy when you want to specify a different recipe.
@@ -73,6 +54,36 @@ function myTemplate() {
     name: "myTemplate",
     recipe: "html"
   }
+}
+```
+
+## Wrapping childTemplate helper
+To avoid repetitive code, you can wrap the standard helper with your own and add custom logic.
+
+```js
+// handlebars
+function myChildTemplate(name, paramA, opts) {
+    return childTemplate.call({
+        ...this,
+        // add extra param
+        paramA
+    }, {
+        name,
+        // force html recipe
+        recipe: 'html'
+    }, opts)
+}
+```
+
+Note you can also completely skip using standard `childTemplate` helper and invoke rendering of a template from the helper like this.
+```js
+async function myHelper(name) {
+  const jsreport = require('jsreport-proxy')
+  const response = await jsreport.render({  
+       template: { name },
+       data: this
+  })
+  return response.content.toString()
 }
 ```
 
