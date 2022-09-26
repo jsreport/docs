@@ -280,7 +280,9 @@ The parameters that `docxWatermark` helper supports are the following:
 
 ### Automatic sync of Table of Contents
 
-A docx document requires to always refresh the TOC to keep it in sync with the content/titles of the document. This presents an issue when you generate the content/titles of the document dynamically, because when you open the docx file you will noticed that the generated TOC is out of sync with what the document contains. To help with this we automatically update the TOC when producing the docx file, we do our best to produce the same result as you would get by refreshing manually, but sometimes it's not possible to produce the same result, just keep in mind that even if the styles don't match the TOC at least should have the same items/titles as the document.
+A docx document requires to always refresh the TOC to keep it in sync with the content/titles of the document. This presents an issue when you generate the content/titles of the document dynamically, because when you open the docx file you will noticed that the generated TOC is out of sync with what the document contains. To help with this we automatically update the TOC when producing the docx file, we do our best to produce the same result as you would get by refreshing manually just keep in mind that even if the styles don't match the TOC at least should have the same items/titles as the document. Page numbers in the TOC is something that we can not sync automatically, so by default when we detect there is TOC in the document we add a setting in the file that makes MS Word prompt and ask if you want to sync the TOC (fields, and page numbers) when you open the document for the first time. In case you find such prompt to be annoying then you can avoid such setting to be adding by using the `docxTOCOptions` helper with `updateFields` param in the TOC heading, you can pass `false` to this param to avoid the prompt.
+
+![watermark usage](/learn/static-resources/docx-TOC-updateFields-option.jpg)
 
 ### Forms
 
