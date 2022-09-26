@@ -148,6 +148,78 @@ Supported attributes:
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
 
+### docxHtml
+
+Allows embedding html into docx by converting html tags (`<p>`, `<ul>`, `<a>`, etc) and styles into docx elements (paragraphs, lists, hyperlinks, etc).
+
+The main idea is that you write the helper call `{{docxHtml content=...}}` in a paragraph of your docx document, this text then will be processed and converted into docx elements based on the tags and styles evaluated in the html.
+
+For example a document with data
+
+```js
+{
+    "html": "<h1>Introduction</h1><p><a href=\"https://jsreport.net/\">jsreport</a> is a <b>javascript reporting server</b>, which enables innovative and unlimited reporting based on javascript templating engines</p><h1>Features</h1><ul><li>Various output formats can be produced just from the html and javascript (pdf, excel, docx, html, csv)</li><li>Templating engines for powerful dynamic layouts, custom javascript hooks for data fetching, full support for the latest css and javascript</li><li>jsreport includes web based designer, just connect with a modern browser and you're ready to design reports</li><li>scheduling, templates versioning, import export and backup, sub reports, users management</li><li>Use simple REST API, CLI or SDKs to render a report from everywhere</li><ul>"
+}
+```
+
+will produce the following document:
+
+![docxHtml output](/learn/static-resources/docxHtml-output.jpg)
+
+There are two modes (`inline`, `block`) in which the `docxHtml` helper can be used, and you will use one or the other depending on your use case
+
+#### docxHtml block mode
+
+```
+{{docxHtml content=html}}
+```
+
+this is the default mode, it will look for the first helper call in the paragraph (in case there are other `docxHtml` calls in same paragraph), and **replace the whole paragraph with the content generated with the html**, which can include creating even more paragraphs. Use of this mode is recommended when you want to produce chunks of content directly from html, multiple sections with styles, or even produce the content of a whole document directly from html.
+
+#### docxHtml inline mode
+
+```
+jsreport is a {{docxHtml content=html inline=true}}
+```
+
+In this mode **the content of the paragraph** that contains the helper call **will be preserved**, the **html will be processed in a way that will only produce text and styles that only affects text**. Use of this mode is recommended when you want to replace only specific part of a existing paragraph in the document, or when you want that the html input does not affect the structure of the existing paragraph.
+
+#### docxHtml supported tags
+
+The following tags are supported, tags that are not part of this list are just considered unsupported and therefore treated as `<span>` elements:
+
+- `<p>`, `<div>` (to produce paragraphs)
+- `<span>` and text (to produce text)
+- `<b>`, `<strong>` (to produce text with bold style)
+- `<i>`, `<em>` (to produce text with italic style)
+- `<u>`, `<ins>` (to produce text with underline style)
+- `<small>`, `<sub>` (to produce text with subscript style)
+- `<sup>` (to produce text with superscript style)
+- `<s>`, `<del>` (to produce text with strikethrough style)
+- `<code>` (to produce text with background/highlight style)
+- `<pre>` (to produce text with Courier font and retaining white space in its content)
+- `<h1>` to `<h6>` (to produce paragraphs with heading styles)
+- `<ul>`, `<ol>`, `<li>` (to produce lists)
+- `<br />` (to produce line breaks)
+- `<a>` (to produce hyperlinks)
+
+#### docxHtml supported styles
+
+For the moment only inline styles are supported (styles applied directly to html tags like `<span style="font-size: 30px">text</span>`).
+
+The following styles properties are supported:
+
+- `font-size` (in px, pt, em, rem, %)
+- `font-family`
+- `color` (names and rgb colors, hex, color names, hsl, hsv)
+- `background-color` (names and rgb colors, hex, color names, hsl, hsv)
+- `text-decoration` (underline, line-through)
+- `text-align` (justify, left, right, center)
+- `padding` (left, right, top, bottom, and shorthand)
+- `margin` (left, right, top, bottom, and shorthand)
+- `break-before:page` (to produce page break before content)
+- `break-after:page` (to produce page break after content)
+
 ### docxChart
 
 Create a chart inside the desktop word application and use `docxChart` helper call inside the chart title.
