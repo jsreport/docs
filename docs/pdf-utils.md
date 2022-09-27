@@ -1,5 +1,6 @@
 
 
+
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -428,6 +429,50 @@ POST http://jsreportserver:5488/api/report
 }
 ```
 
+## pdf/A
+The pdf-utils can try to convert the pdf output into pdf/A-1B compatible format. This can be enabled in the pdf utils UI or through API. Please note this feature is currently in beta.
+
+```js
+ "template": {
+     ...
+     "pdfA": {
+        "enabled": true
+     }
+  }
+}
+```
+ 
+## pdf accessibility
+The [chrome-pdf](/learn/chrome-pdf) recipe by default produce pdf with accessibility tags. However, these tags aren't preserved when joining multiple documents together with pdf-utils. The accessibility tags propagation can be preserved through pdf-utils UI or through API. Please note this feature is currently in beta.
+
+```js
+{
+	"template": {
+        ...
+		"pdfAccessibility": {
+		      "enabled": true
+		 }
+	 }
+ }
+```
+
+## pdfDest
+This helper can be used to create cross template links in the pdf.
+
+In one template you can create anchor as usual, the only trick is to put it  the same `id` attribute as it is targeting.
+```html
+<!-- one template-->  
+<a href='#1' id='1'> 
+  link to another template 
+</a>
+```
+
+The second template then uses `pdfDest` helper to mark the place, where the link is targeted.
+```html
+<!-- second template (appended)--> 
+{{{pdfDest "1"}}} 
+<h1>hello</h1>
+```
 
 ## Forms
 > The pdf forms are an experimental jsreport feature and the API may change in the future versions. Please help us and report problems or submit feature requests.
@@ -592,6 +637,12 @@ The extension features can be used also directly through API without a need to u
        "fillingForms": true
        "contentAccessibility": true
        "documentAssembly": true 
+    },
+    "pdfAccessibility": {
+      "enabled": true
+    },
+    "pdfA": {
+      "enabled": true
     }
   },
   "options": {
