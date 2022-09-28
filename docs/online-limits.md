@@ -1,15 +1,7 @@
-The timeouts for specific jsreport tasks are not depending on the pricing plan. The following table lists the timeouts for the most important recipes and tasks. The `chrome-pdf` recipe timeout is for example `20s` but the `templating engine` rendering is limited with `10s`, afterwards it gets killed. The last `hard container timeout` is the fixed timeout for any task, after the whole docker container used to execute the task or recipe is restarted.
 
-| task        | timeout |
-| ----------  |:--------:|
-| phantomjs         | 20s     |
-| chrome         | 20s     |
-| electron           | 20s     |
-| templating engine | 10s     |
-| scripts           | 20s     |
-| hard container timeout | 50s |
-
-Each jsreportonline has its own throttling limits for rendering or amount of stored entities. The rendering throttling is always measured in the 5 minutes window. If the time spent in the rendering containers reaches the limit,  the new requests are rejected until the 5 minutes window is closed. Each account has also limit for number of entities stored in each entity set.
+The timeout isn't depending on the pricing plan and is always 60s.
+ 
+Each jsreportonline account has additionally its own throttling limits for rendering or amount of stored entities. The rendering throttling is always measured in the 5 minutes window. If the time spent in the rendering containers reaches the limit,  the new requests are rejected until the 5 minutes window is closed. Each account has also limit for number of entities stored in each entity set.
 
 | plan | render throttling | entity amount limit |
 | -----|:------------------:|:-------------------:|  
