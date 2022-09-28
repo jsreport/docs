@@ -73,7 +73,7 @@ The reports stored from async calls are forever persisted by default. You can ch
       // how often the cleanup runs
       "cleanInterval": "5m",
       // how much old reports should be deleted
-      "cleanTreshold": "1d"
+      "cleanThreshold": "1d"
     }
   }
 }
