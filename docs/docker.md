@@ -14,6 +14,21 @@ You can find the [list of all available tags and previous versions in the docker
 
 Start jsreport server on the port 5488 directly in the current shell with data and configuration stored directly in the container.
 
+## Usage on macOS M1 hardware
+
+To run the docker images on macOS with M1 hardware, you have two options:
+
+- use the `arm64` build of the image, each jsreport image (`default`, `full`) is build for the linux architectures `linux/amd64`, `linux/arm64`, for the apple M1 hardware the fastest and the most stable option is to use the `linux/arm64` architecture
+
+	```sh
+	docker run --platform=linux/arm64 -p 5488:5488 jsreport/jsreport:3.8.0
+	```
+- if for some reason the image in the `linux/arm64` does not work, you can still use the image for the `linux/amd64`, docker for apple M1 allows to either use the fastest `linux/arm64` or the `linux/amd64` (through virtualization, that is why it is expected to be slower compared to the `linux/arm64`). To do this you need to pass a flag `--platform linux/amd64` to docker and pass some additional chrome options. The docker run command for it looks like this:
+
+	```sh
+	docker run --platform=linux/amd64 -p 5488:5488 -e "chrome_launchOptions_executablePath=/usr/bin/chromium-browser" -e "chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-dev-profile, --no-zygote, --disable-gpu, --disable-audio-output, --disable-setuid-sandbox, --single-process" jsreport/jsreport:3.8.0
+	```
+
 ## Start on reboot
 
 You may want to additionally run the container as a daemon and restart it on system reboot
