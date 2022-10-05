@@ -35,7 +35,7 @@ You can for example allow access to the local files or specify the root path for
 ```csharp
 var rs = new LocalReporting()
 	.UseBinary(JsReportBinary.GetBinary())
-	.Configure(cfg =>cfg.AllowLocalFilesAccess().BaseUrlAsWorkingDirectory())
+	.Configure(cfg =>cfg.DoTrustUserCode().BaseUrlAsWorkingDirectory())
 	.AsUtility()
 	.Create();
 ```
@@ -73,12 +73,12 @@ The `jsreport.Local` can be also used together with asp.net razor templates to r
 
 ## Custom npm helpers
 
-To be able to use custom npm helpers make sure the configuration allows using custom modules through `AllowLocalFilesAccess`.
+To be able to use custom npm helpers make sure the configuration allows using custom modules through `DoTrustUserCode`.
 
 ```csharp
 var rs = new LocalReporting()
 	.UseBinary(JsReportBinary.GetBinary())	
-	.Configure(cfg => cfg.AllowLocalFilesAccess())
+	.Configure(cfg => cfg.DoTrustUserCode())
 	.AsUtility()
 	.Create();
 ```
@@ -236,18 +236,8 @@ The list of nugets including jsreport binary can be found [here](https://github.
 Running the `jsreport.Local` in [Docker](https://www.docker.com/) linux container requires this adaptation of `Dockerfile`. And of course using the correct binary as mentioned in the previous chapter.
 
 ```
-# install chrome with deps, see https://github.com/jsreport/jsreport/blob/master/docker/full/Dockerfile
-RUN apt-get update && apt-get install -y --no-install-recommends libgconf-2-4 gnupg git curl wget ca-certificates libgconf-2-4 && \
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    apt-get update && \  
-    apt-get install -y lsb-release google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst libxtst6 libxss1 --no-install-recommends
-
-# debian needs this additional install
-RUN apt-get install -y libx11-6 libx11-xcb1
-
-ENV chrome_launchOptions_executablePath google-chrome-stable
-ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage,--single-process,--no-zygote
+RUN apt update && apt install -y gconf-service libgbm-dev libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
+ENV chrome_launchOptions_args --no-sandbox,--disable-dev-shm-usage
 ```
 
 Make sure you add this to the right position of `Dockerfile`. Visual Studio usually generates docker file with multiple sections and this should be part of the `Base` image at the top.
