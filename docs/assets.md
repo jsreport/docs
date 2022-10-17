@@ -10,7 +10,7 @@ You can create an asset using jsreport studio. The most common approach is to ju
 
 ## Embedding assets
 
-Assets can be embedded using [templating engine](/learn/templating-engines) helper `asset(nameObjectOrPath, encoding)`.
+Assets can be embedded using [templating engine](/learn/templating-engines) helper `asset(nameOrPath, encoding)`.
 The syntax depends on the particular templating engine used.
 
 [handlebars](/learn/handlebars)
