@@ -1,4 +1,4 @@
-`xlsx` recipe generates excel xlsx reports based on the uploaded xlsx template with [handlebars](/learn/handlebars) tags filled inside using Excel application. 
+`xlsx` recipe generates excel xlsx reports based on the uploaded xlsx template with [handlebars](/learn/handlebars) tags filled inside using Excel application.
 
 1.  Open Excel and create xlsx file using handlebars templating engine.
 2.  Upload created xlsx file as an asset to the jsreport studio
@@ -6,7 +6,7 @@
 4.  Attach sample input data or scripts if needed
 5.  Run the template, you get back dynamically assembled xlsx report
 
-![xlsx](/learn/static-resources/xlsx.png) 
+![xlsx](/learn/static-resources/xlsx.png)
 
 This is the first phase used for generating basic xlsx reports. We call it generation. The second phase, we call transformation, can be used to modify the `xlsx` file source described in [Office Open XML SpreadsheetML](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) at the lower level. The transformation requires deeper understanding of the `xlsx` format but is irreplaceable when you need to do advanced things.
 
@@ -235,8 +235,13 @@ Remove element from collection in `filePath` at `xmlPath` at `index`.
 {{/xlsxAddImage}}
 ```
 
-Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageName`, `sheet id`,  `column from`, `row from`, `column to`, `row to`.
+Add an base64 encoded image provided by the block helper content into the sheet cell. Arguments are `imageNameOrOptions`, `sheet id`,  `column from`, `row from`, `column to`, `row to`.
+
 Only the png images are supported.
+
+When `imageNameOrOptions` argument is object, it can contain the following properties:
+- `name` - name of the image
+- `altText` - alternative text for the image (used for accessibility)
 
 #### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-xlsx/blob/master/static/helpers.js)
@@ -248,33 +253,33 @@ See general documentation for office preview in studio [here](/learn/office-prev
 
 You can specifty template the standard way using name/shortid or you can also send it fully in the API call:
 ```js
-{  
-  "template":  {  
-    "recipe":  "xlsx",  
-    "engine":  "handlebars",  
+{
+  "template":  {
+    "recipe":  "xlsx",
+    "engine":  "handlebars",
     "content": "{{{xlsxPrint}}}",
-    "xlsx":  {  
-      "templateAssetShortid":  "xxxx"  
-    }  
-  },  
+    "xlsx":  {
+      "templateAssetShortid":  "xxxx"
+    }
+  },
   "data":  {}
 }
 ```
 In case you don't have the xlsx template stored as an asset you can send it directly in the API call.
 
 ```js
-{  
-  "template":  {  
-    "recipe":  "xlsx",  
-    "engine":  "handlebars",  
+{
+  "template":  {
+    "recipe":  "xlsx",
+    "engine":  "handlebars",
     "content": "{{{xlsxPrint}}}",
-    "xlsx":  {  
-      "templateAsset":  {  
+    "xlsx":  {
+      "templateAsset":  {
         "content": "base64 encoded word file",
         "encoding":"base64"
        }
-    }  
-  },  
+    }
+  },
   "data":  {}
 }
 ```
@@ -283,7 +288,7 @@ In case you don't have the xlsx template stored as an asset you can send it dire
 
 ```js
 "extensions": {
-  "xlsx": {   
+  "xlsx": {
     // default is to escape & into &amp;amp;
     "escapeAmp": true,
     // recipe stops parsing xlsxAdd output into json after the following is reached
