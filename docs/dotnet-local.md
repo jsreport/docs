@@ -43,13 +43,17 @@ var rs = new LocalReporting()
 In case you want to use the jsreport config file, you need to create directory "jsreport" in the project root. Then create `jsreport.config.json` inside and change its properties to "Copy" to the output directory.
 
 ## Temp files
-The sdk during the first render extracts [jsreport.exe binary](learn/single-file-executable) into the user's temp directory. The jsreport.exe afterwards extracts also some files to the same location. This can cause some problems when the user running the app has temp somewhere where doesn't have write access. This is happening when using IIS. In this case you can explicitely change the temp directory to your desired location.
+The sdk during the first render extracts [jsreport.exe binary](learn/single-file-executable) into the user's temp directory. 
+The jsreport.exe afterwards extracts also some files to the same location. 
+This can cause some problems when the user running the app has temp somewhere where doesn't have write access. This is happening when using IIS. 
+In this case you can explicitely change the temp directory to your desired location.
 
 ```csharp
 new LocalReporting().TempDirectory("my temp path")
 ```
+The path can be absolute or relative. Just for the absolute make sure the disk letter is capitalized, otherwise, chrome throws ERR_ACCESS_DENIED.
 
-Note it can sometimes help to clean up the jsreport temp files when it gets corrupted. You can find it in `[userstemp]/jsreport`.
+Note it can sometimes help to clean up the jsreport temp files when it gets corrupted. You can find it in `[userstemp]/jsreport` by default.
 
 ## jsreport background process
 The sdk by default uses background jsreport processes to improve the rendering performance. The background process occupies the default 5488 port. In case you have multiple apps using jsreport on the same machine, you need to make sure the jsreport ports differ.
