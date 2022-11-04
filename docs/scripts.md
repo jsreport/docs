@@ -2,7 +2,11 @@
 
 ## Basics
 
-Define global functions `beforeRender`  or (and) `afterRender` in script and use parameters  `req` and `res` to reach your needs. script functions expect parameters to be `req, res, done` or `req, res`.
+The script can be created, like any other entity, through the jsreport studio. You just need to associate it with a template through template properties afterward.
+
+![script associate](/learn/static-resources/script-associate.png)
+
+Then define a global functions `beforeRender`  or (and) `afterRender` in script and use parameters  `req` and `res` to reach your needs. script functions expect parameters to be `req, res, done` or `req, res`.
 
 ```js
 async function beforeRender(req, res) {
@@ -23,6 +27,8 @@ function beforeRender(req, res, done) {
   done()
 }
 ```
+
+You can find an example [here](https://playground.jsreport.net/w/admin/hG7mEoll).
 
 ## Use external modules
 
@@ -200,5 +206,5 @@ Some people prefer to push data into jsreport from the client and some people pr
 
 ## Examples
 - [Sending reports periodically in email article](https://jsreport.net/blog/sending-reports-periodically-in-email)
-- [Downloading report data using script in playground](https://playground.jsreport.net/#/playground/lyWJuycgAc)
+- [Downloading report data using script in playground](https://playground.jsreport.net/w/admin/hG7mEoll)
 - [Using scripts to create template layouts](https://jsreport.net/blog/template-layouts)
