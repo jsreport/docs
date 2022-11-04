@@ -149,7 +149,7 @@ When the custom extension is published in `npm` user just needs to type the sing
 >npm install jsreport-custom-extension
 
 ## Further study
-This is article is far away from being a full reference to creating a custom extension. It's rather a quick start to the basic architecture. If you are interested in creating advanced extensions check out the source code of the existing ones. There are plenty of them available on [github](https://github.com/jsreport/jsreport/tree/master/extension) and could be used as examples you need.
+This is article is far away from being a full reference to creating a custom extension. It's rather a quick start to the basic architecture. If you are interested in creating advanced extensions check out the source code of the existing ones. There are plenty of them available on [github](https://github.com/jsreport/jsreport/tree/master/packages) and could be used as examples you need.
 
 > **[How to write a custom engine](/learn/custom-engine)**
 
