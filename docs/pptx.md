@@ -1,6 +1,6 @@
 `pptx` recipe generates office powerpoint presentations based on the uploaded pptx template  with [handlebars](/learn/handlebars) tags filled inside using Powerpoint application.
 
-1. Open Powerpoint and create pptx file using handlebars templating engine. 
+1. Open Powerpoint and create pptx file using handlebars templating engine.
 2. Upload created pptx file as an asset to the jsreport studio
 3. Create template, select pptx recipe and link the previously uploaded asset
 4. Attach sample input data or scripts if needed
@@ -19,7 +19,7 @@ Main helper used to multiply slides. The helper call should be placed on the sli
 ```
 {{pptxSlides item}}
  ```
- 
+
 [Example - Slides](https://playground.jsreport.net/w/admin/Jix3rnoQ)
 
 ### pptxList
@@ -27,7 +27,7 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 ```
  - {{#pptxList people}}{{name}}{{/pptxList }}
  ```
- 
+
 [Example - List](https://playground.jsreport.net/w/admin/QCStNYjG)
 
 ### pptxImage
@@ -36,9 +36,16 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 2. Insert to the slide a new text box with content `{{pptxImage src=myDataURIForImage}}`
 3. Move the text box over previously created image
 4. Select both image and text box and click group from the "Picture Tools/Format" toolbar
-5. Run the template with `myDataURIForImage` prop in the input data and you should see the image replaced in the output. 
+5. Run the template with `myDataURIForImage` prop in the input data and you should see the image replaced in the output.
 
 [Example - Image](https://playground.jsreport.net/w/admin/MBHWcK~B)
+
+`pptxImage` supports the following configuration properties:
+
+- `src` (`string`) -> specifies the base64 dataURI string representation of the image to load or an url from which to fetch the image
+- `usePlaceholderSize` (`boolean`) -> when true the dimensions of the image will be set to the same dimensions than the placeholder image defined on the pptx file. Ex: `{{pptxImage src=src usePlaceholderSize=true}}`
+- `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{pptxImage src=src width="150px"}}`
+- `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{pptxImage src=src height="100px"}}`
 
 ## Custom helpers
 You can implement also your own custom helpers and use them in the word templates. The helpers section can be toggled in the studio using the "show helpers" button.
