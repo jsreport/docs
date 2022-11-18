@@ -30,6 +30,22 @@ Create a list with single item using Word and call the `pptxList` helper. It wil
 
 [Example - List](https://playground.jsreport.net/w/admin/QCStNYjG)
 
+### pptxTable
+Create a table with columns header and single row using Pptx. Call `{{#pptxTable}}` in the first cell of the data row and end the call `{{/pptxTable}}` at the last cell.
+
+| columnA                       | columnB                 |
+|-------------------------------|-------------------------|
+| ---                           | ---                     |
+| {{#pptxTable people}}{{name}} | {{email}}{{/pptxTable}} |
+
+#### Vertical table
+Use helper argument `vertical=true` for rendering vertical table
+
+|       |                                             |   |
+|-------|---------------------------------------------|---|
+| name  | {{#pptxTable people vertical=true}}{{name}} |   |
+| email | {{email}}{{/pptxTable}}                     |   |
+
 ### pptxImage
 
 1. Prepare image placeholder using Powerpoint- place any image to the desired position and format it to your needs.
