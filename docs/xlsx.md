@@ -1,3 +1,4 @@
+
 `xlsx` recipe generates excel xlsx reports based on the uploaded xlsx template with [handlebars](/learn/handlebars) tags filled inside using Excel application.
 
 1.  Open Excel and create xlsx file using handlebars templating engine.
@@ -245,6 +246,14 @@ When `imageNameOrOptions` argument is object, it can contain the following prope
 
 #### custom
 You can always write your custom helpers. The best is to get started by checking the [source of the standard ones](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-xlsx/blob/master/static/helpers.js)
+
+### Troubleshooting
+
+The common problem is that excel signals the file is corrupted and offers it will fix it. There are two options in this case.
+
+You can let excel fix the file, save it and decompress it. Then compare the source xmls with the corrupted one and find out what to do to fix your code. This takes time but should lead to the identification of the problem.
+
+The second approach is problem isolation. Try to remove code block by block and identify the minimal part causing the problem. Now you can either let excel fix it and use the first approach, but you most likely get to the problem source just by isolating it. 
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
