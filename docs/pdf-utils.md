@@ -1,6 +1,7 @@
 
 
 
+
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -332,7 +333,8 @@ The pdf utils extension can fill the basic pdf document metadata `Title`, `Autho
 	    "subject": "subject",  
 	    "keywords": "keywords",  
 	    "creator": "creator",
-	    "producer": "producer"  
+	    "producer": "producer",
+	    "custom": "{\"aKey\": \"a val\"}"  
 	}	
   }
 }
@@ -617,7 +619,8 @@ The extension features can be used also directly through API without a need to u
 	    "subject": "subject",  
 	    "keywords": "keywords",  
 	    "creator": "creator",
-	    "producer": "producer"  
+	    "producer": "producer",
+	    "custom": "{\"aKey\": \"a val\"}"    
 	},
 	"pdfSign": {
       "certificateAsset": {
