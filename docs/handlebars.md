@@ -1,4 +1,5 @@
 
+
 ## Basics
 
 jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
@@ -96,6 +97,13 @@ jsreport quite often provides some heplful information on the root data context.
 {{#each items}}
   {{@root.$localizedResource.message}}
 {{/each}}
+```
+
+The root context can be reached inside a helper function using the last argument `opts.data.root`.
+```js
+function aHelper(someArg, opts) {
+  return opts.data.root.rootProp
+}
 ```
 
 ## Thirdparty helper libraries
