@@ -67,13 +67,15 @@ In this case the returned `Permanent-Link` will be public url bypassing the auth
 ## Cleanup
 The reports stored from async calls are forever persisted by default. You can change this and enable automatic old reports clean up. This can be done through config.
 ```json
-{ 
-  "extensions": { 
+{
+  "extensions": {
     "reports": {
       // how often the cleanup runs
       "cleanInterval": "5m",
       // how much old reports should be deleted
-      "cleanThreshold": "1d"
+      "cleanThreshold": "1d",
+      // how many deletes are processed in parallel (this avoids putting too much pressure on the database), defaults to 10
+      "cleanParallelLimit": 10
     }
   }
 }
