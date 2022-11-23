@@ -148,6 +148,58 @@ Supported attributes:
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
 
+### docxChild
+
+Allows embedding text from a child docx template (stored as an asset in jsreport or inline) into the caller docx template.
+
+Assuming you have a docx asset "template.docx" stored in jsreport, you can call the child template this way in you main docx template:
+
+```handlebars
+{{docxChild "template.docx"}}
+```
+
+this call will then be replaced by the text nodes found in the "template.docx" document.
+
+You can also specific the docx template inline (this allows specifying the docx template in a dynamic way), by passing an object to the helper:
+
+```handlebars
+{{docxChild (getDynamicDocxTemplate)}}
+```
+
+you will need to have a helper that returns the following object:
+
+```js
+{
+    content: "<string content here>",
+    encoding: "base64"
+}
+```
+
+for example, according to the helper call above, we need to have a `getDynamicDocxTemplate` helper defined, its implementation can look like this:
+
+```js
+const jsreport = require('jsreport-proxy')
+
+async function getDynamicDocxTemplate () {
+    // in this case we just get the docx template from the assets,
+    // but you can easily get your desired docx template from a fs read or a http request call, etc
+    const assetFound = await jsreport.documentStore.collection('assets').findOne({
+        name: 'template.docx'
+    })
+
+    if (!assetFound) {
+        throw new Error('docx asset not found')
+    }
+
+    const docxBuf = assetFound.content
+
+    return {
+        content: docxBuf.toString('base64'),
+        encoding: 'base64'
+    }
+}
+```
+
 ### docxHtml
 
 Allows embedding html into docx by converting html tags (`<p>`, `<ul>`, `<a>`, etc) and styles into docx elements (paragraphs, lists, hyperlinks, etc).
