@@ -1,5 +1,6 @@
 
 
+
 ## Basics
 
 jsreport handlebars engine uses [handlebars](http://handlebarsjs.com) library and therefore is fully compatible with it. This page contains only some examples. Full documentation is located at [http://handlebarsjs.com](http://handlebarsjs.com)
@@ -73,6 +74,12 @@ And then you can call function in handlebars using:
 ```html
 say hello world loudly: {{{toUpperCase "hello world"}}}
 ```
+
+The helper parameters can be dynamically calculated using handlebars [subexpressions](https://handlebarsjs.com/guide/expressions.html#subexpressions) and this way you can use another helper to calculated the arg value.
+```html
+{{outer-helper (inner-helper 'abc') 'def'}}
+```
+
 
 ### Calling helper from helper
 Handlebars allow calling a helper from another helper through `Handlebars.helpers.helperName`.
