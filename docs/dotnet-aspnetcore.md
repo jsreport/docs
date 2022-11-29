@@ -2,6 +2,7 @@
 
 
 
+
 ## Basics
 
 If you prefer to construct your reports using ASP.NET MVC engines like Razor you can benefit from [jsreport.AspNetCore](https://www.nuget.org/packages/jsreport.AspNetCore) nuget package. This package provides middleware filter capable of transforming view output into any format jsreport supports. You can for example easily transform MVC view into pdf or excel. The idea is to use views as html generator and jsreport server as transformer to the desired output.
@@ -85,6 +86,9 @@ public async Task<IActionResult> InvoiceWithHeader()
 }	
 ```
 
+## Troubleshooting
+See the [local troubleshooting section](https://jsreport.net/learn/dotnet-local#troubleshooting) for details.
+
 ## Pdf headers
 
 The pdf headers can be specified in extra partial view and rendered in runtime along with the main pdf content.  The first you need to get the `IJsReportMVCService` helper class from the asp.net container.
@@ -114,22 +118,6 @@ public IActionResult InvoiceWithHeader()
 	return View("Invoice", InvoiceModel.Example());
 }
 ```  
-
-## Debug logs
-
-Calling `DebugLogsToResponse` instructs the filter to write jsreport logs into the response instead of the report content. This is useful when dealing with errors  which may occur during chrome conversion.
-
-```csharp
-[MiddlewareFilter(typeof(JsReportPipeline))]
-public IActionResult InvoiceDebugLogs()
-{
-    HttpContext.JsReportFeature()
-        .DebugLogsToResponse()
-        .Recipe(Recipe.ChromePdf);
-
-    return View("Invoice", InvoiceModel.Example());
-}
-```
 
 ## Render from html without Razor
 You don't have to use Razor and MVC views to render the report html content. The rendering can be invoked just from raw html as well.
