@@ -1,3 +1,4 @@
+
 ## Basics
 `jsreport.Local` brings jsreport reporting power directly into c# without any other dependency or external server. It wraps the compiled [jsreport.exe](/learn/single-file-executable) binary with c# API on the top of it. This gives the same experience as having the access to the external full jsreport server instance but in very convenient way.
 
@@ -75,10 +76,13 @@ new LocalReporting().UseBinary().AsUtility().KeepAlive(false)
 
 The `jsreport.Local` can be also used together with asp.net razor templates to render pdf or excel. This can be easily achieved using the [jsreport.AspNetCore](/learn/dotnet-aspnetcore) package which includes proper helpers and filters. The examples and description for asp.net helpers can be found in the separate [jsreport.MVC section](/learn/dotnet-aspnetcore).
 
-## Custom npm helpers
+## Custom npm modules
 
 To be able to use custom npm helpers make sure the configuration allows using custom modules through `DoTrustUserCode`.
 
+You can use [npm extension](https://jsreport.net/learn/npm) and let it install the custom npm modules during the runtime.
+
+The other option is to install modules explicitely before the deployment.
 ```csharp
 var rs = new LocalReporting()
 	.UseBinary(JsReportBinary.GetBinary())	
@@ -105,7 +109,9 @@ function now () {
 }
 ```
 
-Note [handlebars-intl](https://github.com/yahoo/handlebars-intl) package currently doesn't work because it requires some native Intl features to be compiled with the node.
+## Troubleshooting
+The easiest way to obtain usefull logs for the particular report rendering is to let the report render through the .net app and then reach [jsreport profiler](https://jsreport.net/learn/studio) at http://localhost:5488.  The profiler incudes logs for the recent requests with javascript errors, `console.log` outputs as well as the resource network calls.
+
 
 ## Locally stored templates
 The `jsreport.Local` includes also web based studio for designing reports. There is no limitation in comparison with the [full jsreport installation](/on-prem) and you can do the whole report designing and rendering workflow also with `jsreport.Local`.
