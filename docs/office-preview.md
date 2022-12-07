@@ -1,4 +1,5 @@
 
+
 jsreport previews office reports directly in the browser when running from the studio by default.  This is handy because it creates faster development cycles. This behavior can be of course generaly disabled or you can use the "Download" option from the "Run" button context menu if you want to return the office file stream. 
 
 ## Security
@@ -60,4 +61,15 @@ You can also force the office preview from the API call using `options.office.pr
        "preview": true
     }
   }
+```
+
+## Scripts
+The `afterRender` [scripts](/learn/scripts) receives the preview html instead of the xlsx file in the `res.content` when you preview with the studio. This is undesired when you want to test postprocessing the output. In this case, you can use the "Download" button instead of "Run" or disable the preview in the script.
+```js
+function beforeRender (req, res) {
+	req.options.office = {
+		...req.options.office,
+		preview: false
+	}
+}
 ```
