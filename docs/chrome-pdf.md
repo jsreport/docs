@@ -1,9 +1,4 @@
 ﻿
-
-
-
-
-
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -157,7 +152,7 @@ The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich feat
 Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
 
 ## ARIA
-Chrome by default adds special tags to the pdf to make it more accessible to people with disabilities. This is typically good but can cause performance problems in very long pdfs. The rendering time can be affected as well as the final pdf size. In this case, you can try to disable the pdf tagging by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.     
+Chrome by default adds special tags to the pdf to make it more accessible to people with disabilities. This is typically good but can cause performance problems in very long pdfs. The rendering time can be affected as well as the final pdf size. In this case, you can try to disable the pdf tagging by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.
 
 You can simply double check if the output pdf is ARIA tagged if you open it in an text editor and find text `/StructTreeRoot`
 
@@ -232,12 +227,16 @@ some users experienced freezing chrome because of wrong indentation of source ht
 chrome may do page breaks badly if you use images, it helps if you explicitly set image height in the wrapped div
 
 ```html
- <div style='height:500'>
-   <img src='foo' />
- </div>
+<div style='height:500'>
+  <img src='foo' />
+</div>
 ```
 <hr>
-tables with long content expand across multiple pages as needed, and if you have table headers/footer those will be replicated in each page which the table's content is present. however the headers/footers replicated in each page don't leave any kind of space by default, this result in having weird layout issues in which header content overlaps rows in other pages. The solution for this is to add the needed space (represented as padding) in an empty header/footer cell to properly separate the content that is split across pages. There is also issue with the borders when content is large, the solution for this is to not use `border-spacing: collapse` which does not work properly when content is split across pages. An example of both cases and solutions is available [here](https://playground.jsreport.net/w/admin/wsa4boBl)
+tables with long content expand across multiple pages as needed, and if you have table headers/footer those will be replicated in each page which the table's content is present. however the headers/footers replicated in each page don't leave any kind of space by default, this result in having weird layout issues in which header content overlaps rows in other pages. The solution for this is to add the needed space (represented as padding) in an empty header/footer cell to properly separate the content that is split across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/4OhuNUro)
+<hr>
+tables also have issues with the borders when content is large, the solution for this is to not use `border-spacing: collapse` which does not work properly when content is split across pages. So different approach should be done in order to replicate borders that work properly across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/ZuJyy6jy)
+<hr>
+putting multiples tables in a single document can generate layout issues when converted to pdf, so it is best that instead of creating new `<table>` in a loop, we create new `<tbody>` elements. Example for this solution available [here](https://playground.jsreport.net/w/anon/NAchcYBm)
 <hr>
  chrome/puppeteer doesn't run by default in limited environment like docker and it usually asks to pass `--no-sandbox` argument. This can be achieved using the following config. See also [puppeteer troubleshooting](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md).
 
