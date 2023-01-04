@@ -110,3 +110,24 @@ jsreport.download('myreport.pdf', {
     template: { name: 'your template' }
 })
 ```
+
+## Pdf preview
+
+<object id="pdfPreview" data="" width="800" height="500"> 
+</object>
+
+<script>
+    async function preview() {        
+        const report = await jsreport.render({
+            template: {
+                name: 'mytemplate'
+                pdfMeta: {
+                    title: 'my report'
+                }       
+            }             
+        })
+        document.getElementById('pdfPreview').data = await report.toObjectURL()
+    }
+    
+    preview().catch(console.error)
+</script>
