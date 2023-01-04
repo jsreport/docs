@@ -113,6 +113,7 @@ jsreport.download('myreport.pdf', {
 
 ## Pdf preview
 
+```html
 <object id="pdfPreview" data="" width="800" height="500"> 
 </object>
 
@@ -131,3 +132,4 @@ jsreport.download('myreport.pdf', {
     
     preview().catch(console.error)
 </script>
+```
