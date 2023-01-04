@@ -512,7 +512,7 @@ The helper call common arguments are the following:
 **height** `(required)` - the field height, needs to be in `px`     
 **color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color    
 **backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color    
-**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=392)    
+**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf#page=392)    
 **fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts](https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment    
 **fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width    
 **textAlign** - one of the left, center, right    
