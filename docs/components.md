@@ -1,4 +1,5 @@
 
+
 > Decompose templates into reusable components
 
 **[Example in playground](https://playground.jsreport.net/w/admin/mcb0pE1a)**
@@ -33,18 +34,8 @@ A component can be embedded to the template or to a parent component using [temp
 
 The templating engine current context is automatically applied in the component. This means the current array item from `customers` in the previous example will be `this` in the component.
 
-Passing some extra attributes to the component is possible through extending the context. This can be done in a generic way in handlebars:
+Extra data attributes can be conveniently passed using handlebars named/hash arguments.
 
-```js
-function componentExt(path, opts) {
-	return Handlebars.helpers.component.call({
-		...this,
-		...opts.hash
-	}, path, opts)
-}
-```
-
-Then you can pass extra arguments like this
 ```
 {{#each customers}}        
     {{component "customer" prop1="A" prop2=@root.prop}} 
