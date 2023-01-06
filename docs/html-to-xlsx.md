@@ -1,5 +1,6 @@
 
 
+
 `html-to-xlsx` recipe generates Excel xslx files from HTML tables. This isn't a full HTML -> Excel conversion but a rather pragmatic and fast way to create Excel files from jsreport. The recipe reads input table and extract a couple of CSS style properties using a specific HTML engine (which defaults to chrome), and finally uses the styles to create the Excel cells.
 
 ## Examples
@@ -13,6 +14,7 @@
 - [Multiple sheets](https://playground.jsreport.net/w/admin/Ds9ngUSx)
 - [Conversion JS trigger](https://playground.jsreport.net/w/admin/c5~LtyXi)
 - [Insert output into xlsx template](https://playground.jsreport.net/w/admin/QiHIBqsq)
+- [Postprocess using xlsx](https://playground.jsreport.net/w/anon/tWGz8qVs)
 
 The following CSS properties are supported:
 
@@ -257,6 +259,11 @@ Afterward, you can select it in the studio HTML to xlsx menu and start using it.
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
+
+## Postprocess using xlsx recipe
+The `html-to-xlsx` will be always limited and you may miss some features that aren't yet implemented in it. In this case you can use [xlsx](/learn/xlsx) recipe and postprocess the `html-to-xlsx` and modify what you need using low level `xlsx` helpers.
+
+[Demo in playground](https://playground.jsreport.net/w/anon/tWGz8qVs)
 
 ## API
 You can specify the template the standard way by using `name` or `shortid`, or alternatively you can also send it in the API request. If you have the Excel template stored as an asset you can also reference it in the request.
