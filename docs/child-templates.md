@@ -1,3 +1,4 @@
+
 > Compose existing templates into complex reports
 
 **[Example in playground](https://playground.jsreport.net/w/admin/IkdKFoT9)**
@@ -62,17 +63,21 @@ To avoid repetitive code, you can wrap the standard helper with your own and add
 
 ```js
 // handlebars
-function myChildTemplate(name, paramA, opts) {
+function myChildTemplate(name, opts) {
     return childTemplate.call({
         ...this,
-        // add extra param
-        paramA
+        // extra data params
+		...opts.hash
     }, {
         name,
         // force html recipe
         recipe: 'html'
     }, opts)
 }
+```
+
+```
+{{myChildTemplate  "aTemplateName"  someProp="x"}}
 ```
 
 Note you can also completely skip using standard `childTemplate` helper and invoke rendering of a template from the helper like this.
