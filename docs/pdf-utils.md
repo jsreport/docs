@@ -1,7 +1,3 @@
-
-
-
-
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -13,7 +9,8 @@
 - [Merge with groups (jsrender)](https://playground.jsreport.net/w/admin/zjSOfVWn)
 - [Merge dynamic header with items](https://playground.jsreport.net/w/admin/ihh7laK2)
 - [Merge dynamic header with items (jsrender)](https://playground.jsreport.net/w/admin/LHIiC3D8)
-- [TOC - table of contents](https://playground.jsreport.net/w/admin/akYBA4rS)
+- [TOC - render twice](https://playground.jsreport.net/w/admin/tV6sVKbV)
+- [TOC - merge](https://playground.jsreport.net/w/admin/akYBA4rS)
 - [Manual operations inside script](https://playground.jsreport.net/w/admin/UpVVJcAk)
 - [Page numbers relative to the groups](https://playground.jsreport.net/w/admin/k1fGHFZp)
 - [Merge with render for every page enabled](https://playground.jsreport.net/w/admin/1A7l_UG_)
@@ -151,54 +148,34 @@ jsrender:
 {{pdfAddPageItem name="Jan" age=33 /}}
 ```
 
-## TOC - table of contents
-The pdf utils can be used also to dynamically create pdf table of contents including the outlines. This is done mainly using pdf-utils fundamentals like merge operation and page items. The flow is the following.
+## ToC - table of contents
+The pdf utils can be used also to dynamically create pdf table of contents including the outlines. The main fundamental problem here is that we don't know the page numbers of headings at the time we render the template. There are two approaches how to solve this. However, some concepts are common.
 
-The main template renders TOC at the top just like any other content using templating engines. To make the links clickable the html should use anchors (`a` tags) with `#` in `href` pointing to particular headings. Like
-
+The clickable links are implemented using standard html anchors.
 ```html
-<a href='#hello-world'>Hello world</a>
-...
-<h1 id='hello-world'>Hello world</a>
+<a href='#hello-world'>Hello world</a> 
+<h1 id='hello-world'>Hello world</h1>
 ```
 
-The problem is the main template doesn't know the page numbers for the links. This can be solved with pdf-utils fundamentals.
+The `pdfAddPageItem` is used to add hidden marks next to headings so we can later calculate the page number based on the heading id.     
 
-Every heading should be followed by page item which is later used to identify it in the merge operation.
+The `data-pdf-outline` pdf utils attributes are used to create pdf bookmarks for easier navigation.
 
-```html
-<h1 id='hello-world'>Hello world</a>
-{{{pdfAddPageItem id='hello-world'}}}
-```
+### Render twice
+The easiest approach is to render the template twice using [script](/learn/scripts). The pdf from the first time render is parsed using `afterRender` script and with the knowledge of page numbers marked using `pdfAddPageItem` rendered again.
 
-Then there needs to be a new template that renders the same content as the TOC at the top of the main and it gets merged using pdf utils operation to the main template. This extra template can then use the pdf utils properties to calculate the page numbers of the headings.
+[Demo in playground](https://playground.jsreport.net/w/admin/tV6sVKbV)
 
-```js
-function getPage(root, id) {
-    for (let i = 0; i < root.$pdf.pages.length; i++) {
-        const item = root.$pdf.pages[i].items.find(item => item.id === id)
+Rendering main template twice may cost significant time. If this is your case, check the next approach.
 
-        if (item) {
-            return i + 1
-        }
-    }
-}
-```
+### Merge extra ToC template
+The main idea is to create an extra template for the ToC and merge it into the main one using the pdf utils operation. 
 
-The last step is to add the pdf outlines for easier navigation. This is done using anchor's special attribute `data-pdf-outline`.
+Only the Toc template will be rendered twice. As an html [child template](/learn/child-templates) inside the main one, this time we don't know the page numbers so the values will be just skipped. The second time ToC will be rendered as pdf utils merge operation. At this time the page numbers will be known and properly merged.
 
-```html
-<a href='#hello-world' data-pdf-outline'>
-  Hello world         
-</a>
-```
+[Demo in playground](https://playground.jsreport.net/w/admin/akYBA4rS)
 
-This by default uses the anchors inner content for the outline title which can be overwritten using `data-pdf-outline-title` attribute. To create hierarchic outlines structure the `data-pdf-outline-parent` with `id` of the parent outline can be used.
-
-This documentation mainly highlights the idea of how the TOC can be implemented using pdf-utils. It can look a bit tedious to implement and maintain, but this can be improved a lot using jsreport [child-templates](/learn/child-templates) which helps with reusing the TOC part.
-
-You can find a complex example which does all of this together here:
-https://playground.jsreport.net/w/admin/akYBA4rS
+This approach is more complicated, because you may need to position the ToC in the middle of the document or even add multiple ToC.  The [stock showcase](https://playground.jsreport.net/w/admin/S3xqZ0Zc) may serve as a good example for complex cases.
 
 ## Usage in script
 
