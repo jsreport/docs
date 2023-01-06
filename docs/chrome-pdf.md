@@ -1,4 +1,5 @@
 ﻿
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -158,6 +159,38 @@ You can simply double check if the output pdf is ARIA tagged if you open it in a
 
 ## Images increasing pdf size
 The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the original size is the same and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
+
+## Inline script data
+The request data or template definition can be reached inside inline `script` tag using function `await window.jsreport.getRequest()`
+
+```html
+recipe: <span id='recipe' />
+<script>  
+  (async () => {
+    const req = await window.jsreport.getRequest()
+    document.getElementById('recipe').innerText = req.template.recipe
+  })()
+</script>
+```
+To improve performance you can also select just specific data you need.
+```html
+some prop: <span id='someProp' />
+<script>  
+  (async () => {
+    const someProp = await window.jsreport.getRequest('data.someProp')
+    document.getElementById('someProp').innerText = someProp
+  })()
+</script>
+```
+
+Another option is to serailize data into the html during the templating engine evaluation using [toJS](/learn/templating-engines#tojs-data-) system helper.
+
+```html
+<script> 
+  const reportData = {{{toJS this}}} 
+  ... 
+</script>
+```
 
 ## Printing existing web pages
 You can also print an existing webpage through `chrome-pdf` recipe without a need to define your templates in jsreport studio. Just send a request like this:
