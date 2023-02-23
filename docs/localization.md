@@ -2,7 +2,8 @@
 
 > Store localized texts for specific languages in JSON asset and reach them using helper calls
 
-**[Example in playground](https://playground.jsreport.net/w/admin/1cC6FCIe)**
+**[Example in playground](https://playground.jsreport.net/w/admin/1cC6FCIe)**    
+**[Example with interpolation](https://playground.jsreport.net/w/anon/3O_g94m1)**
 
 ## Get started
 Using jsreport studio, create a folder and inside JSON [assets](/learn/assets) representing your localized texts. The assets should be named as `[language abbreviation].json`. For example `en.json` and `de.json`. The content should contain key-value pairs for the localized texts. For example
@@ -127,4 +128,6 @@ async function translate(key, translationsPath) {
     return localizedVal
 }
 ```
+
+You can also extend the localization function with interpolation for example. See an [example in playground](https://playground.jsreport.net/w/anon/3O_g94m1).
 
