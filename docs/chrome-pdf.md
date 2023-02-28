@@ -5,7 +5,7 @@
 
 ## Options
 
-The settings reflects the [headless chrome API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions) where you can also find detail information.
+The settings reflects the [headless chrome API](https://github.com/GoogleChrome/puppeteer/blob/v1.11.0/docs/api.md#pagepdfoptions) where you can also find detail information.
 
 - scale
 - displayHeaderFooter
@@ -54,7 +54,7 @@ Use `chrome-pdf` node in the standard [config](/learn/configuration) file.
 }
 ```
 
-to find more information about what is available in `launchOptions` configuration object you can check the [docs here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions).
+to find more information about what is available in `launchOptions` configuration object you can check the [docs here](https://github.com/puppeteer/puppeteer/blob/v1.11.0/docs/api.md#puppeteerlaunchoptions).
 
 you can also use top level `chrome` property in configuration, the difference is that this configuration will be shared with any other extension that uses chrome and the configuration snippet above is specifically for options in `chrome-pdf` extension.
 
