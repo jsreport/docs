@@ -85,7 +85,7 @@ The `templatingEngines.allowedModules` is removed. Instead, the `sandbox.allowed
 ## resources extension
 The `resources` extension is replaced with [localization](/learn/localization) extension in v3.  The localization extension doesn't need strict references and uses folders and assets instead.
 
-The v3 includes automatic migration for the templates using resources. It copies the linked resources into assets and attaches jsreport [script](/learn/script) which implementation replicates the same behavior as the resources extension provided in the v2. In other words, you can just upgrade jsreport and your current template using resources will work the same.
+The v3 includes automatic migration for the templates using resources. It copies the linked resources into assets and attaches jsreport [script](/learn/scripts) which implementation replicates the same behavior as the resources extension provided in the v2. In other words, you can just upgrade jsreport and your current template using resources will work the same.
 
 Although the migration will give you the same behavior, we strongly recommend adapting your templates to use the [localization extension](/learn/localization) instead.
 
