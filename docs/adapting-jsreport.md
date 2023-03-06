@@ -1,4 +1,5 @@
 
+
 ## Configuration file
 The most common way to adapt jsreport settings is using the configuration file. The configuration file is stored at the root directory with name `jsreport.config.json`. Editing this file, you can change, for example, which port service is running or scale up the number of worker processes jsreport uses. You can find full documentation of various options [here](/learn/configuration).
 
@@ -19,18 +20,12 @@ In the following example are the options passed directly to the jsreport instant
 require('jsreport')({ httpPort: 3000, httpsPort: 0 }).init();
 ```
 
-## Additional extensions
-jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-azure-storage). You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport/tree/master/packages). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
-
 ## Rendering
 The goal of jsreport is to render reports. To do it programmatically, you use `jsreport.render`:
 
 ```js
 const fs = require('fs').promises
-
-const jsreport = require('@jsreport/jsreport-core')()
-jsreport.use(require('@jsreport/jsreport-chrome-pdf')())
-jsreport.use(require('@jsreport/jsreport-handlebars')())
+const jsreport = require('jsreport')()
 
 await jsreport.init()
 const result = await jsreport.render({
@@ -46,7 +41,17 @@ const result = await jsreport.render({
 await fs.writeFile('report.pdf', resp.content)
 ```
 
-See the [jsreport-core](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-core) for complete documentation for rendering.
+## Running without web server
+To render reports without starting the web server, you just need to disable `express` extension.
+```js
+const jsreport = require('jsreport')({
+    extensions: {
+        express: { enabled: false },
+        studio: { enabled: false }
+    }
+})
+await jsreport.init()
+```
 
 ## Attach to existing express app
 jsreport by default starts an [express.js](http://expressjs.com/)-based server running on ports specified in config. This behavior can be overridden by passing an `express` application instance to the options. In this case, jsreport `express` extension will just add required routes and middle-wares to the passed instance.
@@ -77,6 +82,9 @@ jsreport.init().then(() => {
   console.error(e);
 });
 ```
+
+## Additional extensions
+jsreport can be easily extended with additional extensions. Extensions usually add a new engine, recipe or even complex studio functionality. There are plenty of them ready to be installed like an extension allowing you to store templates in [mongodb](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-mongodb-store) or another extension storing reports in [Microsoft Azure](https://github.com/jsreport/jsreport/tree/master/packages/jsreport-azure-storage). You can find the list of extensions in the [jsreport official documentation](/learn/extensions) or on the [github](https://github.com/jsreport/jsreport/tree/master/packages). If you didn't find what you are looking for, you can even implement your own custom extension. This topic is described separately [here](/learn/custom-extension).
 
 ## Dynamic access to jsreport entities
 Once you have the jsreport running with some templates or reports created, you can reach them on the server using `documentStore` property. The API to search and manipulate underlying jsreport data is very similar to the official [mongodb driver](https://github.com/mongodb/node-mongodb-native). 
