@@ -90,5 +90,5 @@
     "v3-migration-guide": "v3 migration guide",
     "azure-web-apps": "Azure Web Apps",
     "aws-eb-docker-efs": "AWS Elastic Beanstalk with Docker and EfS",
-    "gcloud-functions": "Google Cloud functions serverless"
+    "gcloud-functions-serverless": "Google Cloud functions serverless"
 }
