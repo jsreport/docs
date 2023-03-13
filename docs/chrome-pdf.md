@@ -165,7 +165,7 @@ The request data or template definition can be reached inside inline `script` ta
 
 ```html
 recipe: <span id='recipe' />
-<script>  
+<script>
   (async () => {
     const req = await window.jsreport.getRequest()
     document.getElementById('recipe').innerText = req.template.recipe
@@ -175,7 +175,7 @@ recipe: <span id='recipe' />
 To improve performance you can also select just specific data you need.
 ```html
 some prop: <span id='someProp' />
-<script>  
+<script>
   (async () => {
     const someProp = await window.jsreport.getRequest('data.someProp')
     document.getElementById('someProp').innerText = someProp
@@ -186,9 +186,9 @@ some prop: <span id='someProp' />
 Another option is to serailize data into the html during the templating engine evaluation using [toJS](/learn/templating-engines#tojs-data-) system helper.
 
 ```html
-<script> 
-  const reportData = {{{toJS this}}} 
-  ... 
+<script>
+  const reportData = {{{toJS this}}}
+  ...
 </script>
 ```
 
@@ -267,7 +267,7 @@ chrome may do page breaks badly if you use images, it helps if you explicitly se
 <hr>
 tables with long content expand across multiple pages as needed, and if you have table headers/footer those will be replicated in each page which the table's content is present. however the headers/footers replicated in each page don't leave any kind of space by default, this result in having weird layout issues in which header content overlaps rows in other pages. The solution for this is to add the needed space (represented as padding) in an empty header/footer cell to properly separate the content that is split across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/4OhuNUro)
 <hr>
-tables also have issues with the borders when content is large, the solution for this is to not use `border-spacing: collapse` which does not work properly when content is split across pages. So different approach should be done in order to replicate borders that work properly across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/ZuJyy6jy)
+tables also have issues with the borders when content is large, the solution for this is to not use `border-collapse: collapse` which does not work properly when content is split across pages. So different approach should be done in order to replicate borders that work properly across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/ZuJyy6jy)
 <hr>
 putting multiples tables in a single document can generate layout issues when converted to pdf, so it is best that instead of creating new `<table>` in a loop, we create new `<tbody>` elements. Example for this solution available [here](https://playground.jsreport.net/w/anon/NAchcYBm)
 <hr>
