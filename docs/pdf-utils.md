@@ -31,7 +31,7 @@ Each template can contain an ordered list of pdf operations which will be invoke
 ## Operations order
 The operations are executed sequentially in the specified order. This is an important attribute because the input of every operation is the output of the previous one. This behavior can be explained on the following example.
 
-**Example**    
+**Example**
 *It is required that the output pdf has at the beginning a single cover page and every other page includes a dynamic header. This can be solved with one prepend and one merge operation. However, if you move the merge operation after the prepend, it results in the undesired output with the header also merged into the first cover page.  This is because the prepend operation in such an order runs the first and expands the final output with another page. This expanded pdf is then used as input of the second operation which invokes merge into every page which means also to the cover. The correct order, in this case, should be the merge operation the first and the prepend as the second.*
 
 ## Input data
@@ -54,11 +54,11 @@ The input data from the original template are forwarded to the rendering of the 
 Note the `$pdf` is just another prop on the templating engine data context. When you are inside a loop, the context is different and you need to reach it in the templating engine specific way.
 ```
 handlebars
-{{@root.$pdf}} 
+{{@root.$pdf}}
 ```
 
 ```
-jsrender  
+jsrender
 {{:~root.$pdf}}
 ```
 ## Append and prepend
@@ -124,7 +124,7 @@ Another use case is when the report is represented by multiple groups of pages a
 The main pdf report producing the list of students can look like this
 ```html
 {{#each students}}
-    <h1 style='page-break-before: always'>{{name}}</h1>    
+    <h1 style='page-break-before: always'>{{name}}</h1>
     {{{pdfCreatePagesGroup name}}}
     <div>lots of other content expanding to multiple pages</div>
     ....
@@ -153,11 +153,11 @@ The pdf utils can be used also to dynamically create pdf table of contents inclu
 
 The clickable links are implemented using standard html anchors.
 ```html
-<a href='#hello-world'>Hello world</a> 
+<a href='#hello-world'>Hello world</a>
 <h1 id='hello-world'>Hello world</h1>
 ```
 
-The `pdfAddPageItem` is used to add hidden marks next to headings so we can later calculate the page number based on the heading id.     
+The `pdfAddPageItem` is used to add hidden marks next to headings so we can later calculate the page number based on the heading id.
 
 The `data-pdf-outline` pdf utils attributes are used to create pdf bookmarks for easier navigation.
 
@@ -169,7 +169,7 @@ The easiest approach is to render the template twice using [script](/learn/scrip
 Rendering main template twice may cost significant time. If this is your case, check the next approach.
 
 ### Merge extra ToC template
-The main idea is to create an extra template for the ToC and merge it into the main one using the pdf utils operation. 
+The main idea is to create an extra template for the ToC and merge it into the main one using the pdf utils operation.
 
 Only the Toc template will be rendered twice. As an html [child template](/learn/child-templates) inside the main one, this time we don't know the page numbers so the values will be just skipped. The second time ToC will be rendered as pdf utils merge operation. At this time the page numbers will be known and properly merged.
 
@@ -240,11 +240,13 @@ parameters:
 returns:
 - promise of the buffer with concatenated pdfs
 
-### `append(sourcePdfBuf, appendedPdfBuf)`
+### `append(sourcePdfBuf, appendedPdfBuf, options)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to append the second param
 - `appendedPdfBuf` -> pdf buffer appended after source
+- `options` -> (optional)
+  - `options.appendAfterPageNumber` -> the number of page from `sourcePdfBuf` which the pages from `appendedPdfBuf` should be inserted after
 
 returns:
 - promise of the buffer with concatenated pdfs
@@ -303,16 +305,16 @@ The pdf utils extension can fill the basic pdf document metadata `Title`, `Autho
   "template": {
     "content": "Main Template",
     "recipe": "chrome-pdf",
-    "engine": "handlebars",  
-    "pdfMeta":  {  
+    "engine": "handlebars",
+    "pdfMeta":  {
 	    "title": "title",
-	    "author": "author",  
-	    "subject": "subject",  
-	    "keywords": "keywords",  
+	    "author": "author",
+	    "subject": "subject",
+	    "keywords": "keywords",
 	    "creator": "creator",
 	    "producer": "producer",
-	    "custom": "{\"aKey\": \"a val\"}"  
-	}	
+	    "custom": "{\"aKey\": \"a val\"}"
+	}
   }
 }
 ```
@@ -329,13 +331,13 @@ Behavior differs according to passwords you provide:
 
 Additionally, you can select specific permissions:
 
-**printing** - `notAllowed` |  `lowResolution` | `highResolution`    
-**modifying** - `true` | `false`    
-**copying** - `true` | `false`    
-**annotating** - `true` | `false`    
-**fillingForms** - `true` | `false`    
-**contentAccessibility** - `true` | `false`    
-**documentAssembly** - `true` | `false`    
+**printing** - `notAllowed` |  `lowResolution` | `highResolution`
+**modifying** - `true` | `false`
+**copying** - `true` | `false`
+**annotating** - `true` | `false`
+**fillingForms** - `true` | `false`
+**contentAccessibility** - `true` | `false`
+**documentAssembly** - `true` | `false`
 
 The complete details can be found in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=63).
 
@@ -345,7 +347,7 @@ The pdf encryption can be set through jsreport studio and also through API call.
   "template": {
     "content": "Main Template",
     "recipe": "chrome-pdf",
-    "engine": "handlebars",   
+    "engine": "handlebars",
     "pdfPassword": {
        "password": "password",
        "ownerPassword": "password",
@@ -355,7 +357,7 @@ The pdf encryption can be set through jsreport studio and also through API call.
 	   "annotating" true,
        "fillingForms": true
        "contentAccessibility": true
-       "documentAssembly": true 
+       "documentAssembly": true
     }
   }
 }
@@ -368,9 +370,9 @@ You can use the extension to sign the output pdf with the p12 certificates. Note
 Open studio and upload p12 certificate as a new [asset](https://jsreport.net/learn/assets). For the testing purposes, you can create your p12 certificate using openssl.
 
 ```sh
-openssl genrsa -out myKey.pem    
-openssl req -new -key myKey.pem -out cert.csr    
-openssl x509 -req -in cert.csr -signkey myKey.pem -out cert.crt    
+openssl genrsa -out myKey.pem
+openssl req -new -key myKey.pem -out cert.csr
+openssl x509 -req -in cert.csr -signkey myKey.pem -out cert.crt
 openssl pkcs12 -export -in cert.crt -inkey myKey.pem -out cert.p12
 ```
 
@@ -380,9 +382,9 @@ If your certificate has a password, fill it in through asset pdf sign settings p
 
 In this case, you need to configure or disable also  [jsreport encryption](https://jsreport.net/learn/configuration#encryption-configuration)  because this extension uses the encryption API to protect password before storing.
 
-The next step is to select the certificate in the pdf utils template menu.     
+The next step is to select the certificate in the pdf utils template menu.
 
-The last step is to verify the pdf is properly signed. Install the certificate on your client machine and make sure it is trusted. Then open the Adobe Acrobat and you should see the message "Signed and all signatures are valid". 
+The last step is to verify the pdf is properly signed. Install the certificate on your client machine and make sure it is trusted. Then open the Adobe Acrobat and you should see the message "Signed and all signatures are valid".
 
 ![signed pdf](https://jsreport.net/img/pdf-sign-acrobat.png)
 
@@ -393,7 +395,7 @@ You may want to avoid storing your certificates inside jsreport store. In this c
 ```js
 POST http://jsreportserver:5488/api/report
 
-{ 
+{
   "template": {
     "name": "my template",
     "pdfSign": {
@@ -420,7 +422,7 @@ The pdf-utils can try to convert the pdf output into pdf/A-1B compatible format.
   }
 }
 ```
- 
+
 ## pdf accessibility
 The [chrome-pdf](/learn/chrome-pdf) recipe by default produce pdf with accessibility tags. However, these tags aren't preserved when joining multiple documents together with pdf-utils. The accessibility tags propagation can be preserved through pdf-utils UI or through API. Please note this feature is currently in beta.
 
@@ -440,16 +442,16 @@ This helper can be used to create cross template links in the pdf.
 
 In one template you can create anchor as usual, the only trick is to put it  the same `id` attribute as it is targeting.
 ```html
-<!-- one template-->  
-<a href='#1' id='1'> 
-  link to another template 
+<!-- one template-->
+<a href='#1' id='1'>
+  link to another template
 </a>
 ```
 
 The second template then uses `pdfDest` helper to mark the place, where the link is targeted.
 ```html
-<!-- second template (appended)--> 
-{{{pdfDest "1"}}} 
+<!-- second template (appended)-->
+{{{pdfDest "1"}}}
 <h1>hello</h1>
 ```
 
@@ -467,32 +469,32 @@ Example:
     </span>
 </div>
 <div>
-    {{{pdfFormField 
-        name='btnSubmit' 
-        type='button' 
-        action='submit' 
+    {{{pdfFormField
+        name='btnSubmit'
+        type='button'
+        action='submit'
         label='submit'
-        exportFormat=true 
+        exportFormat=true
         url='http://mydomain.com'
-        backgroundColor='#AAAA00' 
-        width='245px' 
-        height='20px' 
+        backgroundColor='#AAAA00'
+        width='245px'
+        height='20px'
         }}}
 </div>
 ```
 
 The helper call common arguments are the following:
 
-**name** `(required)` - the field identification    
-**type** `(required)` - currently supported text, button, combo    
-**width** `(required)` - the field width, needs to be in `px`    
-**height** `(required)` - the field height, needs to be in `px`     
-**color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color    
-**backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color    
-**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf#page=392)    
-**fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts](https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment    
-**fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width    
-**textAlign** - one of the left, center, right    
+**name** `(required)` - the field identification
+**type** `(required)` - currently supported text, button, combo
+**width** `(required)` - the field width, needs to be in `px`
+**height** `(required)` - the field height, needs to be in `px`
+**color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color
+**backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color
+**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf#page=392)
+**fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts](https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment
+**fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width
+**textAlign** - one of the left, center, right
 
 
 ### Text field
@@ -500,17 +502,17 @@ The helper call common arguments are the following:
  {{{pdfFormField name='firstName' color='#FF0000' required=true type='text' width='200px' height='20px'}}}
  ```
 
-**value** - the visible value    
-**defaultValue** - value stored in form, when nothing is filled, this value isn't visible    
-**readOnly** - bool if the field is read only    
-**required** - bool if the field is required    
-**multiline** - bool  for multiline text fields    
-**password** - bool for password like text fields    
+**value** - the visible value
+**defaultValue** - value stored in form, when nothing is filled, this value isn't visible
+**readOnly** - bool if the field is read only
+**required** - bool if the field is required
+**multiline** - bool  for multiline text fields
+**password** - bool for password like text fields
 
 #### Formatting
 The text fields can be quickly formatted using the following `pdfFormField` arguments.
 
-**formatType** - one of the `date`, `time`, `percent`, `number`, `zip`, `zipPlus4`, `phone` or `ssn`    
+**formatType** - one of the `date`, `time`, `percent`, `number`, `zip`, `zipPlus4`, `phone` or `ssn`
 
 ##### Date format
 
@@ -534,11 +536,11 @@ The text fields can be quickly formatted using the following `pdfFormField` argu
 
 ##### Number and percent
 
-**formatFractionalDigits** - the number of places after the decimal point    
-**formatSepComma** - bool if pdf should display a comma separator, otherwise do not display a separator.    
-**formatNegStyle**  the value must be one of `MinusBlack` , `Red`,  `ParensBlack`, `ParensRed`    
-**formatCurrency**  a currency symbol to display    
-**formatCurrencyPrepend**  set to true to prepend the currency symbol    
+**formatFractionalDigits** - the number of places after the decimal point
+**formatSepComma** - bool if pdf should display a comma separator, otherwise do not display a separator.
+**formatNegStyle**  the value must be one of `MinusBlack` , `Red`,  `ParensBlack`, `ParensRed`
+**formatCurrency**  a currency symbol to display
+**formatCurrencyPrepend**  set to true to prepend the currency symbol
 
 ### Combo field
 ```html
@@ -553,9 +555,9 @@ The combo field additionally requires the `items` attribute. That can be a strin
 {{{pdfFormField name='btn2' type='button' action='reset' label='reset' width='200px' height='50px'}}}
 ```
 
-**action** - submit/reset    
-**label** - text on the button    
-**url** - url where to send the form after submit    
+**action** - submit/reset
+**label** - text on the button
+**url** - url where to send the form after submit
 
 The submit button can additionally include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
 
@@ -590,14 +592,14 @@ The extension features can be used also directly through API without a need to u
       },
       "type": "merge"
     }],
-    "pdfMeta":  {  
+    "pdfMeta":  {
 	    "title": "title",
-	    "author": "author",  
-	    "subject": "subject",  
-	    "keywords": "keywords",  
+	    "author": "author",
+	    "subject": "subject",
+	    "keywords": "keywords",
 	    "creator": "creator",
 	    "producer": "producer",
-	    "custom": "{\"aKey\": \"a val\"}"    
+	    "custom": "{\"aKey\": \"a val\"}"
 	},
 	"pdfSign": {
       "certificateAsset": {
@@ -616,7 +618,7 @@ The extension features can be used also directly through API without a need to u
 	   "annotating" true,
        "fillingForms": true
        "contentAccessibility": true
-       "documentAssembly": true 
+       "documentAssembly": true
     },
     "pdfAccessibility": {
       "enabled": true
