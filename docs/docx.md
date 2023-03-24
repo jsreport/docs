@@ -254,6 +254,17 @@ The following tags are supported, tags that are not part of this list are just c
 - `<ul>`, `<ol>`, `<li>` (to produce lists)
 - `<br />` (to produce line breaks)
 - `<a>` (to produce hyperlinks)
+- `<img>` (to produce images)
+  - the `src` attribute can target an [asset](https://jsreport.net/learn/assets) or image from a remote url
+  - if `width` or `height` attributes or styles attributes are not set, the dimensions of the specified image will be used
+  - the `width` attribute or style attribute specifies the width of the image, value can be in `px` or `cm`. when only width is set, the height will be automatically generated based on the aspect ratio of the image.
+  - the `height` attribute or style attribute specifies the height of the image, value can be in `px` or `cm`. when only height is set, the width will be automatically generated based on the aspect ratio of the image.
+- `<table>`, `<thead>`, `<tbody>`, `<tfoot>`, `<tr>`, `<td>`, `<th>` (to produce tables)
+  - the `width` attribute or style attribute on `table` tag can be used to specify the width of the table, value can be in `px` or `cm`, `%`
+  - the `colspan` attribute on `td`, `th` tags can be used to produce merged cells horizontally
+  - the `rowspan` attribute on `td`, `th` tags can be used to produce merged cells vertically
+  - the `width` attribute or style attribute on `td`, `th` tags can be used to specify the width of the cell, value can be in `px` or `cm`, `%`
+  - the `height` attribute or style attribute on `tr`, `td`, `th` tags can be used to specify the height of the cell, value can be in `px` or `cm`
 
 #### docxHtml supported styles
 
@@ -271,6 +282,8 @@ The following styles properties are supported:
 - `margin` (left, right, top, bottom, and shorthand)
 - `break-before:page` (to produce page break before content)
 - `break-after:page` (to produce page break after content)
+- `width` (for `<img>`, `<td>`, `<th>` tags)
+- `height` (for `<img>`, `<tr>`, `<td>`, `<th>` tags)
 
 ### docxChart
 
