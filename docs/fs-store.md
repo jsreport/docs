@@ -107,11 +107,20 @@ The next step is to configure the fs store persistence using the following optio
     }
   },
   "fs-store-aws-s3-persistence": {
+    "bucket": "...",
+    // the rest is otional
     "accessKeyId": "...",
     "secretAccessKey": "...",
-    "bucket": "....",
+    "prefix": "someBucketInFolder",
     "lock": {
-      "queueName": "jsreport-lock.fifo"     
+      "queueName": "jsreport-lock.fifo",
+      "region": "us-east-1",
+      "enabled": true,
+      "attributes": {}
+    },
+    "s3Options": {
+       // additional s3 constructor options
+       "maxRetries": 10
     }
   }
 }
