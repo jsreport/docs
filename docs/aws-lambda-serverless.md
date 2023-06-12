@@ -33,13 +33,13 @@ Call it using
 node createLambdaLayer.js
 ```
 Then log in to AWS console and upload the prepared `layer.zip` to a s3 bucket.
-Then create AWS lambda layer referencing the uploaded zip with nodejs 16.x runtime.
+Then create AWS lambda layer referencing the uploaded zip with nodejs 18.x runtime.
 
 ![lambda layer](/learn/static-resources/aws-lambda-create-layer.png)
 
 ### Create lambda function
 
-Then create lambda function with node 16.x runtime.
+Then create lambda function with node 18.x runtime.
 
 ![lambda function](/learn/static-resources/aws-lambda-create-function.png)
 
