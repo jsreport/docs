@@ -331,12 +331,12 @@ Behavior differs according to passwords you provide:
 
 Additionally, you can select specific permissions:
 
-**printing** - `notAllowed` |  `lowResolution` | `highResolution`
-**modifying** - `true` | `false`
-**copying** - `true` | `false`
-**annotating** - `true` | `false`
-**fillingForms** - `true` | `false`
-**contentAccessibility** - `true` | `false`
+**printing** - `notAllowed` |  `lowResolution` | `highResolution`    
+**modifying** - `true` | `false`    
+**copying** - `true` | `false`    
+**annotating** - `true` | `false`    
+**fillingForms** - `true` | `false`     
+**contentAccessibility** - `true` | `false`     
 **documentAssembly** - `true` | `false`
 
 The complete details can be found in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=63).
