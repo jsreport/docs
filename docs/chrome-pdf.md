@@ -1,5 +1,6 @@
 ﻿
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -255,6 +256,11 @@ Note the same debugging techniques applies also to the [chrome-image](/learn/chr
 
 ## Troubleshooting
 
+`Protocol error (Page.printToPDF): Printing failed` can becaused by various things, but the most common solution is
+- increase provided memory and cpu
+- [disable accessibility](#aria)
+- [make sure your images have proper size](#images-increasing-pdf-size)
+<hr>
 self closing divs (`<div />`) are heavily slowing down chrome pdf rendering, don't use them
 <hr>
 some users experienced freezing chrome because of wrong indentation of source html, this may sounds strange but it can help to click code reformat
