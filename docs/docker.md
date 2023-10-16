@@ -116,7 +116,7 @@ You should see jsreport running on port 5488 afterwards.
 
 ### Permissions in the container
 
-the jsreport images by default run with the `jsreport` user, which is a user that does not have admin privileges. this means that when customizing the docker image if you need to execute any step that requires admin privileges, then the step/command is going to fail because permissions errors. the solution is to temporarily switch to the `root` user for the steps that need the admin privileges, and then switch back to the `jsreport` user.
+The official jsreport images run with the specific `jsreport` user that doesn't have admin privileges. This means you need to temporarily switch to the `root` user when customizing the image and need the admin privileges.
 
 ```
 FROM jsreport/jsreport:4.1.0
