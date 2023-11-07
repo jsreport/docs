@@ -351,7 +351,7 @@ The pdf encryption can be set through jsreport studio and also through API call.
     "pdfPassword": {
        "password": "password",
        "ownerPassword": "password",
-       "printing": "HighResolution",
+       "printing": "highResolution",
 	   "modifying": true,
 	   "copying": true,
 	   "annotating" true,
