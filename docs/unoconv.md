@@ -1,4 +1,5 @@
 
+
 > Extension using [unoconv](https://github.com/dagwieers/unoconv) to convert reports to the OpenoOffice/LibreOffice supported formats
 
 ## Installation
@@ -26,7 +27,6 @@ apt-get install unoconv
   }
 }
 ```
-
 ## Usage
 
 1. Prepare template generating an office document like xlsx or docx
@@ -34,6 +34,22 @@ apt-get install unoconv
 3. Run the template
 
 ![unoconv](https://jsreport.net/img/unoconv.gif)
+
+
+## Parallel run
+The LibreOffice doesn't support parallel run of the requests. The workaround is to use a global lock on unoconv
+
+```
+{ 
+  "extensions": {
+    "unoconv": {
+      "command": "/usr/bin/timeout 30 flock -w 20 lockfile /usr/bin/unoconv"
+    }
+  }
+}
+```
+
+This workaround was originally described [on forum](https://forum.jsreport.net/topic/2976/unoconv-pdf-conversion-having-problems-with-simultaneous-requests/3).
 
 ## Configuration
 
