@@ -115,7 +115,7 @@ The `docxTable` helper call provides also `@rowIndex` and `@columnIndex` variabl
 
 
 ### docxStyle
-Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamicaly specify text color.
+Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamically specify text color.
 
 ```
 {{#docxStyle textColor='0000FF'}}Simple text{{/docxStyle}}
