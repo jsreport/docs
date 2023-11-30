@@ -147,6 +147,8 @@ Supported attributes:
 - `usePlaceholderSize` (`boolean`) -> when true the dimensions of the image will be set to the same dimensions than the placeholder image defined on the docx file. Ex: `{{docxImage src=src usePlaceholderSize=true}}`
 - `width` (`string`) -> specifies the width of the image, value can be in `px` or `cm`. when only `width` is set, the `height` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src width="150px"}}`
 - `height` (`string`) -> specifies the height of the image, value can be in `px` or `cm`. when only `height` is set, the `width` will be automatically generated based on the aspect ratio of the image. Ex: `{{docxImage src=src height="100px"}}`
+- `fallbackSrc` (`string`) -> specifies the base64 dataURI string representation of the image to load or an url from which to fetch the image to use as fallback in case the `src` image fails to load. Ex: `{{docxImage src=src fallbackSrc=fallbackSrc}}`
+- `failurePlaceholderAction` (`string`) -> specifies the action to take in case the `src`, or `fallbackSrc` image fails to load. Possible values are: `remove` (remove the placeholder image from the document), `preserve` (preserve the original placeholder image). Ex: `{{docxImage src=src failurePlaceholderAction="remove"}}`
 
 ### docxChild
 
