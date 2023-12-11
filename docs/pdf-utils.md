@@ -1,3 +1,4 @@
+
 > Encrypt pdf with password, sign pdf with a certificate, fill output pdf meta, dynamically merge or concatenate multiple pdf templates into one output pdf.
 
 ## Examples
@@ -426,12 +427,15 @@ The pdf-utils can try to convert the pdf output into pdf/A-1B compatible format.
 ## pdf accessibility
 The [chrome-pdf](/learn/chrome-pdf) recipe by default produce pdf with accessibility tags. However, these tags aren't preserved when joining multiple documents together with pdf-utils. The accessibility tags propagation can be preserved through pdf-utils UI or through API. Please note this feature is currently in beta.
 
+The initial limited [PDF/UA](https://en.wikipedia.org/wiki/PDF/UA) support was added in jsreport 4.2.0. The current implementation requires the template developer to additionally add `alt` attributes or adapt styles for the pdf output to match the `PDF/UA` spec.
+
 ```js
 {
 	"template": {
         ...
 		"pdfAccessibility": {
-		      "enabled": true
+		      "enabled": true,
+		      "pdfUA": true
 		 }
 	 }
  }
@@ -625,7 +629,11 @@ The extension features can be used also directly through API without a need to u
     },
     "pdfA": {
       "enabled": true
-    }
+    },
+    "pdfAccessibility": {
+      "enabled": true,
+      "pdfUA": true
+    }    
   },
   "options": {
     "pdfUtils": {
