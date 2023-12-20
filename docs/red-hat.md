@@ -8,7 +8,6 @@ Red Hat Enterprise Linux 8.7
 # install node.js
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 # reopen terminal 
-# install nodejs >=18.15.0
 nvm install 20.10.0
 
 mkdir jsreportapp
