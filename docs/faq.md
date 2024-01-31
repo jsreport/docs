@@ -1,3 +1,4 @@
+
 How to...
 
 **General questions**
@@ -14,6 +15,7 @@ How to...
 - [Cancel subscription](#cancel-subscription)     
 - [5 templates limitation in free plan](#5-templates-limitation-in-free-plan)
 - [Subscription renew](#subscription-renew)
+- [Upgrade existing perpetual one time license](#upgrade-existing-perpetual-one-time-license)
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
 
@@ -126,3 +128,8 @@ The jsreport instance automatically remotely revalidates the license key during 
 The jsreport instance will still boot if the subscription renewal fails. There is a one-month additional period to solve the payment problems, during which jsreport just logs a warning.
 
 If the jsreport instance doesn't have an internet connection, you should start the same instance locally with an internet connection and let it revalidate the license and update the `jsreport.license.json`. Then you can copy it to the production instance. However, the jsreport only logs a warning when isn't able to reach the licensing server, so you can also only ignore it.
+
+### <a name="upgrade-existing-perpetual-one-time-license"></a>Upgrade existing perpetual one time license
+
+The one-time perpetual licenses cover just six months of jsreport updates after the purchase. If you need an update after this period, you can purchase the upgrade package from your customer portal. The upgrade package adds another 6 months of updates. The price is 495$ for the perpetual license and 1395$ for the scale license.
+
