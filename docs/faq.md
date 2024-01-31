@@ -131,5 +131,5 @@ If the jsreport instance doesn't have an internet connection, you should start t
 
 ### <a name="upgrade-existing-perpetual-one-time-license"></a>Upgrade existing perpetual one time license
 
-The one-time perpetual licenses cover just six months of jsreport updates after the purchase. If you need an update after this period, you can purchase the upgrade package from your customer portal. The upgrade package adds another 6 months of updates. The price is 495$ for the perpetual license and 1395$ for the scale license.
+The one-time perpetual licenses cover just six months of jsreport updates after the purchase. If you need an update after this period, you can purchase the upgrade package from your customer portal. The upgrade package adds another 6 months of updates. The price is 495$ for the single instance license and 1395$ for the scale license.
 
