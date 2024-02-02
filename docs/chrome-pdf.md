@@ -1,6 +1,7 @@
 ﻿
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -278,6 +279,16 @@ tables with long content expand across multiple pages as needed, and if you have
 tables also have issues with the borders when content is large, the solution for this is to not use `border-collapse: collapse` which does not work properly when content is split across pages. So different approach should be done in order to replicate borders that work properly across pages. Example for this solution available [here](https://playground.jsreport.net/w/admin/ZuJyy6jy)
 <hr>
 putting multiples tables in a single document can generate layout issues when converted to pdf, so it is best that instead of creating new `<table>` in a loop, we create new `<tbody>` elements. Example for this solution available [here](https://playground.jsreport.net/w/anon/NAchcYBm)
+<hr>
+google fonts may have letter spacing issues, the solution is to add the following style
+
+```html
+<style> 
+  * { 
+    text-rendering: geometricprecision !important; 
+  } 
+</style>
+```
 <hr>
  chrome/puppeteer doesn't run by default in limited environment like docker and it usually asks to pass `--no-sandbox` argument. This can be achieved using the following config. See also [puppeteer troubleshooting](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md).
 
