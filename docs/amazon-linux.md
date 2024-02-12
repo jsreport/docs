@@ -1,6 +1,6 @@
 The following jsreport installation steps were tested Amazon Linux 2023
 
-```sh
+```bash
 # install node.js
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 # reopen terminal 
