@@ -1,6 +1,6 @@
 
 ## EC2
-This the most common option. Launch a new VM and use the installation manuals for [Ubuntu](/learn/ubuntu), [RedHat](/learn/redhat), [Amazon Linux](/learn/amazon-linux), [Windows](/learn/windows) or [Docker](https://hub.docker.com/r/jsreport/jsreport/). The size of the VM requirement is relative to your expected load. However even the micro instance is enough for small loads.
+This the most common option. Launch a new VM and use the installation manuals for [Ubuntu](/learn/ubuntu), [RedHat](/learn/red-hat), [Amazon Linux](/learn/amazon-linux), [Windows](/learn/windows) or [Docker](https://hub.docker.com/r/jsreport/jsreport/). The size of the VM requirement is relative to your expected load. However even the micro instance is enough for small loads.
 
 jsreport by default stores data on the local file system. This can be fine for single server scenario, but if you want to run multiple instances you need to do further setups. 
 

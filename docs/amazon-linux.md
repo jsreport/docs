@@ -1,3 +1,6 @@
+The following jsreport installation steps were tested Amazon Linux 2023
+
+```sh
 # install node.js
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 # reopen terminal 
@@ -13,3 +16,4 @@ jsreport configure
 sudo dnf install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 
 jsreport start
+```

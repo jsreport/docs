@@ -20,3 +20,4 @@ sudo apt install -y fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-
 
 # start jsreport to see it running on port 5488
 jsreport start
+```
