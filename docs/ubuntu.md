@@ -1,10 +1,10 @@
-The installation script tested on Ubuntu 16.04 and 20.04
+The installation script tested on Ubuntu 16.04, 20.04, 22.04
 
 ```bash
 # install node.js
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-# you may need to reopen terminal
-nvm install 16.12.0
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+# reopen terminal 
+nvm install 20.10.0
 
 mkdir jsreportapp
 cd jsreportapp
@@ -20,10 +20,3 @@ sudo apt install -y fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-
 
 # start jsreport to see it running on port 5488
 jsreport start
-
-# the next steps are optional to start jsreport on boot
-npm install pm2 -g
-pm2 start server.js
-pm2 startup
-# run the output of the previous command
-```
