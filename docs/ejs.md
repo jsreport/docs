@@ -17,3 +17,5 @@ jsreport EJS engine uses [EJS](http://www.ejs.co/) library and therefore is full
 <% } %>
 </ul>
 ```
+
+> ejs engine works only with jsreport config `trustUserCode:true`
