@@ -139,8 +139,8 @@ The one-time perpetual licenses cover just six months of jsreport updates after 
 
 jsreport company address and VAT number which are part of the invoices are the following:
 
-jsreport s.r.o.
-Jičínská 226/17
-130 00 Prague
-Czech Republic
- VAT: CZ05821916
+jsreport s.r.o.    
+Jičínská 226/17    
+130 00 Prague    
+Czech Republic    
+VAT: CZ05821916
