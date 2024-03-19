@@ -1,4 +1,5 @@
 
+
 How to...
 
 **General questions**
@@ -16,6 +17,7 @@ How to...
 - [5 templates limitation in free plan](#5-templates-limitation-in-free-plan)
 - [Subscription renew](#subscription-renew)
 - [Upgrade existing perpetual one time license](#upgrade-existing-perpetual-one-time-license)
+- [Invoices address and VAT number](#invoices-address-and-vat-number)
 
 ### <a name="update-server"></a>Update existing jsreport server to the latest version
 
@@ -133,3 +135,12 @@ If the jsreport instance doesn't have an internet connection, you should start t
 
 The one-time perpetual licenses cover just six months of jsreport updates after the purchase. If you need an update after this period, you can purchase the upgrade package from your customer portal. The upgrade package adds another 6 months of updates. The price is 495$ for the single instance license and 1395$ for the scale license.
 
+### <a name="invoices-address-and-vat-number"></a>Invoices address and VAT number
+
+jsreport company address and VAT number which are part of the invoices are the following:
+
+jsreport s.r.o.
+Jičínská 226/17
+130 00 Prague
+Czech Republic
+ VAT: CZ05821916
