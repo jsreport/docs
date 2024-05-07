@@ -95,7 +95,7 @@ function tax(price) {
 Then back in the top panel you can use the `tax` function to print the price.
 ```html
 <div>
-    <span>tax: {{#tax price}}{{/tax}}$</span></span>
+    <span>tax: {{#tax price}}{{/tax}}$</span>
 </div>
 ```
 
@@ -109,7 +109,7 @@ Name it for example `styles.css`.
 Then fill in some css and save it:
 ```css
 h1 {
-	color: red
+	color: red;
 }
 ```
 
