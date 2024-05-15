@@ -2,6 +2,7 @@
 
 
 
+
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -152,17 +153,29 @@ Example showing how to use the special css classes and the workaround for the sc
 The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich features to merge dynamic content into the chrome pdf output, like rich header/footer, print page numbers, watermarks, merge pages with different orientation, etc. make sure to check the [docs](/learn/pdf-utils) for some examples.
 
 ## CSS Media type and Bootstrap
-Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
+Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.	
 
-## ARIA
-Chrome by default adds special tags to the pdf to make it more accessible to people with disabilities. This is typically good but can cause performance problems in very long pdfs. The rendering time can be affected as well as the final pdf size. In this case, you can try to disable the pdf tagging by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.
+## Performance optimization
 
-You can simply double check if the output pdf is ARIA tagged if you open it in an text editor and find text `/StructTreeRoot`
+First, make sure the `chrome-pdf` recipe is the bottleneck by checking the studio profile tab.
 
-## Images increasing pdf size
-The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the original size is the same and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
+**ARIA**    
+Then you can try to disable chrome accessibility tags generation which affects the rendering time and the pdf size for reports with many elements. This can be done by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.
+
+**Image sizes**    
+The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the stored size is the same as the original and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
 
 Also the css style `object-fit: cover` may cause pdf size increase and you may need to avoid it.
+
+**Scale the HW**    
+Trying to increase CPU or removing container limits is always a good idea when troubleshooting performance.
+
+**Isolate the problem**    
+Chrome is a big black box you won't be able to analyze deeply. The only option is to isolate the problem by removing parts of the template content. You can isolate the problem to a chart that needs to disable animations or a long table that needs to optimize some CSS. This is always specific to a particular report.
+
+**Search forum for community tips**    
+Try searching jsreport forum. You may have luck and find a tip that will be the solution for you
+[https://forum.jsreport.net/search](https://forum.jsreport.net/search)
 
 ## Inline script data
 The request data or template definition can be reached inside inline `script` tag using function `await window.jsreport.getRequest()`
