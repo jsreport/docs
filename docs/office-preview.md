@@ -5,7 +5,7 @@ jsreport previews office reports directly in the browser when running from the s
 ## Security
 The office preview uses Microsoft Office Online service which requires public access to the displayed file. This is why we need to upload the office file to our publicly running server. This is happening only during the preview thus your production data are safe. The file on our servers has also unique secure id and stays just for max 5 minutes before it is automatically deleted. 
 
-## Configruation
+## Configuration
 You can fully disable the preview behavior in the configuration and let jsreport studio always download office file instead of previewing it.
 
 ```js
