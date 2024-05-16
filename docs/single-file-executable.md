@@ -16,7 +16,7 @@ The executable can be used as state-less, server-less and dependency-less pdf or
 
 ### Simple html to pdf conversion
 
-The most basic example of jsreport exacutable usage can be simple html to pdf conversion.
+The most basic example of jsreport executable usage can be simple html to pdf conversion.
 ```sh
 jsreport render
   --template.engine=none
