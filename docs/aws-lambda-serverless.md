@@ -1,5 +1,6 @@
 
 
+
 <img src="/blog/lambda.png" alt="lambda" width="100" style="margin-left: auto;margin-right: auto; display: block"/>
 <br/>
 You can run jsreport serverless in [AWS Lambda](https://aws.amazon.com/lambda/). This is the very convenient way to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
@@ -43,6 +44,7 @@ Then create lambda function with node 20.x runtime.
 
 ![lambda function](/learn/static-resources/aws-lambda-create-function.png)
 
+You can disable the default automatic [lambda runtime updates](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html) to avoid unexpected break of OS-chrome dependencies.
 
 ### Upload lambda package
 
