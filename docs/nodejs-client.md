@@ -38,7 +38,7 @@ render().catch(console.error)
 ```
 
 ## Chaining response stream
-Object returned in callback of `render` method is a report stream and can be piped to the file or also directly to the [express](http://expressjs.com) response. Response already contains all the proper headers and can by directly opened in the browser.
+Object returned in callback of `render` method is a report stream and can be piped to the file or also directly to the [express](http://expressjs.com) response. Response already contains all the proper headers and can be directly opened in the browser.
 ```js
 app.get('/report', (req, res, next) => {
   client.render({
