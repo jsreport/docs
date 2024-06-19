@@ -1,3 +1,4 @@
+
 > Persist report rendering outputs for later access
 
 ## Basics
@@ -46,6 +47,9 @@ Sending rendering request with `options.reports.save = true` will instruct the e
 
 In this case you receive response with `Location` header containing url to the rendering status page. It will be something like `http://jsreport-host/reports/id/status`. You can then ping the status page to check if the rendering is done. In that case the response status will be `201` and the location header will contain address to the stored report.
 
+The other option to trigger async rendering is to send http header `jsreport-Options-Reports-Async=true`.
+In this case jsreport won't need to wait for available worker to parse the input and the response will be fully immediate.
+
 ## Public reports
 The stored reports are protected by [authentication](/learn/authentication) as any other entity by default. However, you can expose the report to the public by adding `options.reports.public=true` to the rendering request.
 
@@ -63,6 +67,7 @@ The stored reports are protected by [authentication](/learn/authentication) as a
 
 In this case the returned `Permanent-Link` will be public url bypassing the authentication.
 
+The async rendering triggered using header `jsreport-Options-Reports-Async=true` additionally accepts also header `jsreport-Options-Reports-Public=true` to specify the public output.
 
 ## Cleanup
 The reports stored from async calls are forever persisted by default. You can change this and enable automatic old reports clean up. This can be done through config.
