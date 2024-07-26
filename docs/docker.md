@@ -114,20 +114,6 @@ docker run -p 5488:5488 myjsreport
 ```
 You should see jsreport running on port 5488 afterwards.
 
-### Permissions in the container
-
-The official jsreport images run with the specific `jsreport` user that doesn't have admin privileges. This means you need to temporarily switch to the `root` user when customizing the image and need the admin privileges.
-
-```
-FROM jsreport/jsreport:4.5.0
-USER root
-RUN apk add 'libhwy<=1.0.6' \
-    && apk update \
-    && apk upgrade
-USER jsreport:jsreport
-# ..more steps here..
-```
-
 ### Use your own config file
 Create your config file `jsreport.config.json`
 ```js
