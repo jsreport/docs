@@ -283,6 +283,7 @@ The following styles properties are supported:
 - `background-color` (names and rgb colors, hex, color names, hsl, hsv)
 - `text-decoration` (underline, line-through)
 - `text-align` (justify, left, right, center)
+- `vertical-align` (top, middle, bottom for `<td>` tags)
 - `padding` (left, right, top, bottom, and shorthand)
 - `margin` (left, right, top, bottom, and shorthand)
 - `break-before:page` (to produce page break before content)
