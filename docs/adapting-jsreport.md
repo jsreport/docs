@@ -38,7 +38,7 @@ const result = await jsreport.render({
 		foo: "world"
 	}
 })
-await fs.writeFile('report.pdf', resp.content)
+await fs.writeFile('report.pdf', result.content)
 ```
 
 ## Running without web server
