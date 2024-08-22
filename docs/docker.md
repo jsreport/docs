@@ -1,3 +1,4 @@
+
 ## Tags
 
 [jsreport/jsreport](https://hub.docker.com/r/jsreport/jsreport/) image is automatically pushed with adequate tags into [docker hub](https://www.docker.com/)  public repository in three variations:
@@ -10,7 +11,7 @@ You can find the [list of all available tags and previous versions in the docker
 
 ## Usage
 1. Install [Docker](https://www.docker.com/)
-2. `docker run -p 5488:5488 jsreport/jsreport:4.6.0`
+2. `docker run -p 5488:5488 -e "chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-gpu" jsreport/jsreport:4.6.0`
 
 Start jsreport server on the port 5488 directly in the current shell with data and configuration stored directly in the container.
 
@@ -32,7 +33,7 @@ To run the docker images on macOS with [Apple Silicon](https://en.wikipedia.org/
 - if for some reason the image in the `linux/arm64` does not work, you can still use the image for the `linux/amd64`, docker for macOS allows to either use the fastest `linux/arm64` or the `linux/amd64` (through virtualization, that is why it is expected to be slower compared to the `linux/arm64`). To do this you need to pass a flag `--platform linux/amd64` to docker and pass some additional chrome options. The docker run command for it looks like this:
 
 	```sh
-	docker run --platform=linux/amd64 -p 5488:5488 -e "chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-dev-profile, --no-zygote, --disable-gpu, --disable-audio-output, --disable-setuid-sandbox" jsreport/jsreport:4.6.0
+	docker run --platform=linux/amd64 -p 5488:5488 -e "chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-gpu" jsreport/jsreport:4.6.0
 	```
 
 	or if you have `Use Rosetta for x86/amd64 emulation on Apple Silicon` enabled in Docker Desktop macos, you should be able to use the command without extra options:
