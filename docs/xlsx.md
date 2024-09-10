@@ -9,7 +9,41 @@
 
 ![xlsx](/learn/static-resources/xlsx.png)
 
-This is the first phase used for generating basic xlsx reports. We call it generation. The second phase, we call transformation, can be used to modify the `xlsx` file source described in [Office Open XML SpreadsheetML](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) at the lower level. The transformation requires deeper understanding of the `xlsx` format but is irreplaceable when you need to do advanced things.
+## Considerations
+
+If you use these special characters (`"`, `'`, `<`, `>`, `&`) directly in your document and you plan to use them as part of some parameter
+for a handlebars helper, please be aware that what you may receive in the handlebars helper as parameter may be the xml/html encoded version of the character.
+
+example:
+
+somewhere in your .xlsx file
+```handlebars
+{{isEqual data "Day & Night"}}
+```
+
+data
+```json
+{
+    "data": "Day & Night"
+}
+```
+
+helpers
+
+```js
+function isEqual (a, b) {
+    // what you may receive in "b" parameter may be an xml/html escaped
+    // version of the string "Day & Night" which is "Day &amp; Night".
+    // so the logic bellow will return false if you don't unescape the
+    // value. please always ensure to unescape a literal value you pass
+    // from the document
+    return a === b
+}
+```
+
+## Basics
+
+There are two steps that are executed for generating xlsx. The first phase is used for generating basic xlsx reports. We call it generation. The second phase, we call transformation, can be used to modify the `xlsx` file source described in [Office Open XML SpreadsheetML](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) at the lower level. The transformation requires deeper understanding of the `xlsx` format but is irreplaceable when you need to do advanced things.
 
 ## Generation
 
@@ -253,7 +287,7 @@ The common problem is that excel signals the file is corrupted and offers it wil
 
 You can let excel fix the file, save it and decompress it. Then compare the source xmls with the corrupted one and find out what to do to fix your code. This takes time but should lead to the identification of the problem.
 
-The second approach is problem isolation. Try to remove code block by block and identify the minimal part causing the problem. Now you can either let excel fix it and use the first approach, but you most likely get to the problem source just by isolating it. 
+The second approach is problem isolation. Try to remove code block by block and identify the minimal part causing the problem. Now you can either let excel fix it and use the first approach, but you most likely get to the problem source just by isolating it.
 
 ## Preview in studio
 See general documentation for office preview in studio [here](/learn/office-preview).
