@@ -31,7 +31,7 @@ The recipe transforms these tags using the handlebars engine and produces output
 
 > Hint: Speed up your template development with the [same trick you can use for docx](/learn/docx#development)
 
-### Examples
+### Examples generation
 
 - [Invoice](https://playground.jsreport.net/w/admin/Lh8Kjc~f)
 - [Chart](https://playground.jsreport.net/w/admin/uNizDuc4)
@@ -165,7 +165,7 @@ Using other provided helper you should be able to manipulate the source xml into
 
 Unfortunately [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.com/en-us/library/dd922181%28v=office.12%29.aspx) is not very well documented and quite hard to handle, but you can look [here](http://officeopenxml.com/SScontentOverview.php) for a general overview of what tags and attributes are supported. When you are lost, it is always good idea to create a test xlsx file in excel, unzip it and analyze its content. Another approach we recommend is to create the whole excel the first, upload it into jsreport and then only replace its data, which is simple.
 
-### Examples
+### Examples transformation
 
 - [Add row](https://playground.jsreport.net/studio/workspace/r1vaurbw/3)
 - [Using xlsxMerge to rename sheet](https://playground.jsreport.net/studio/workspace/BJa5OBWD/2)
@@ -181,6 +181,8 @@ Unfortunately [Office Open XML SpreadsheetML File Format](http://msdn.microsoft.
 - [Update cell](https://playground.jsreport.net/studio/workspace/Hkr4xanxg/7)
 - [Formulas](https://playground.jsreport.net/studio/workspace/rkWcRiHog/27)
 - [Recalculate formulas](https://playground.jsreport.net/studio/workspace/BkcNMahxg/6)
+- [Freeze rows](https://playground.jsreport.net/w/anon/nJiWyZq9)
+
 
 ### Built-in transformation helpers
 
