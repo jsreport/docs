@@ -9,6 +9,38 @@
 
 ![docx](/img/docx.png?v2)
 
+## Considerations
+
+If you use these special characters (`"`, `'`, `<`, `>`, `&`) directly in your document and you plan to use them as part of some parameter
+for a handlebars helper, please be aware that what you may receive in the handlebars helper as parameter may be the xml/html encoded version of the character.
+
+example:
+
+somewhere in your .docx file
+```handlebars
+{{isEqual data "Day & Night"}}
+```
+
+data
+```json
+{
+    "data": "Day & Night"
+}
+```
+
+helpers
+
+```js
+function isEqual (a, b) {
+    // what you may receive in "b" parameter may be an xml/html escaped
+    // version of the string "Day & Night" which is "Day &amp; Night".
+    // so the logic bellow will return false if you don't unescape the
+    // value. please always ensure to unescape a literal value you pass
+    // from the document
+    return a === b
+}
+```
+
 ## Examples
 
 - [Curriculum vitae (CV)](https://playground.jsreport.net/w/admin/dhuCc7eL)
