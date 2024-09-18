@@ -1,4 +1,5 @@
 
+
 This tutorial describes how to quickly set up jsreport server on [
 Azure Web App](https://azure.microsoft.com/en-us/services/app-service/web/) through docker and start creating pdf or excel reports in no time. 
 
@@ -22,6 +23,11 @@ Now you can skip the next steps and directly hit "Review + create" and submit th
 Creating application takes usually several minutes so be patient. You should be able to open web application in the browser afterwards.
 
 ![studio](https://jsreport.net/screenshots/studio.png?v=2)
+
+Currently (jsreport 4.6.0), you need to add the following environment variable in order to make chrome generation working
+```
+chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-gpu
+```
 
 ## Configure jsreport 
 

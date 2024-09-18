@@ -1,3 +1,4 @@
+
 Download and install the LTS version of [node.js](https://nodejs.org).
 Afterwards open command line terminal and type:
 
@@ -22,4 +23,10 @@ To uninstall the service use
 
 ```bash
 jsreport win-uninstall
+```
+
+If you run the service with a system user and get chrome generation timeout, you will need to add the following config to the root.
+
+```js
+ "chrome": { "launchOptions": { "args": ["--no-sandbox"] } }
 ```
