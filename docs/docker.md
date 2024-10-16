@@ -178,7 +178,7 @@ A common requirement is to run containers in readonly environments like [AWS Lam
 jsreport always needs a writable temp folder, fortunately, docker provides in-memory temp using  [tmpfs](https://docs.docker.com/storage/tmpfs/)  switch. Then it is just about configuring [template store](https://jsreport.net/learn/template-stores]) to run only in memory and also [logger](https://jsreport.net/learn/configuration#logging-configuration) to write to the temp instead of the app folder.
 
 ```bash
-docker run -p 5488:5488 --read-only --tmpfs=/tmp -e store_provider=memory -e blobStorage_provider=memory -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log jsreport/jsreport:4.6.0
+docker run -p 5488:5488 --read-only --tmpfs=/tmp -e store_provider=memory -e blobStorage_provider=memory -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log -e XDG_CONFIG_HOME=/tmp/.chromium -e XDG_CACHE_HOME=/tmp/.chromium jsreport/jsreport:4.6.0
 ```
 
 Note in [AWS Lambda](https://jsreport.net/learn/aws-lambda-serverless) is the `/tmp` already writable and you only need to configure the logger and store.
@@ -190,7 +190,7 @@ In case you use an external [template store](https://jsreport.net/learn/template
 In case you want to mount a volume with your templates you can do it the following way. Then only the temp and the data volume will be writable, the rest of the container stays read-only.
 
 ```bash
-docker run -p 5488:5488 --read-only --tmpfs=/tmp -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log -v /mydata:/app/data jsreport/jsreport:4.6.0
+docker run -p 5488:5488 --read-only --tmpfs=/tmp -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log -v /mydata:/app/data -e XDG_CONFIG_HOME=/tmp/.chromium -e XDG_CACHE_HOME=/tmp/.chromium jsreport/jsreport:4.6.0
 ```
 
 You may want to ship your templates directly inside the container. This is another approach. In this case, you typically create your `Dockerfile` with a `COPY` part to add the templates. Because you want to run the container in the read-only mode, you need to additionally copy the templates to a temp location during the container start.
