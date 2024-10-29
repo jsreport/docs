@@ -61,6 +61,14 @@ or
 | - | - |
 | `{{#each numbers}}{{this}}` | `{{/each}}` |
 
+or (vertical loop **in beta**)
+
+|   |  |
+| - | - |
+| Name | `{{#each items vertical=true}}{{name}}` |
+| Lastname | `{{lastname}}` |
+| Age | `{{age}}{{/each}}` |
+
 The recipe transforms these tags using the handlebars engine and produces output xlsx with filled data. Using this approach, you can create dynamic tables with auto determined cell data types and formulas. Using the supported built-in helpers, you can even create charts.
 
 > Hint: Speed up your template development with the [same trick you can use for docx](/learn/docx#development)
