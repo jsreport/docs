@@ -340,6 +340,7 @@ The following tags are supported, tags that are not part of this list are just c
 - `<pre>` (to produce text with Courier font and retaining white space in its content)
 - `<h1>` to `<h6>` (to produce paragraphs with heading styles)
 - `<ul>`, `<ol>`, `<li>` (to produce lists)
+  - the `start` attribute for `<ol>` lists, it specifies from which number the list should start
 - `<br />` (to produce line breaks)
 - `<a>` (to produce hyperlinks)
 - `<img>` (to produce images)
