@@ -52,6 +52,9 @@ You can adapt the studio look and add for example your company logo. You can als
 
 ![studio-white-labeling](/img/studio-white-labeling.png)
 
+**Favicon**<br/>
+The favicon can be changed using config `extensions.studio.favicon` which expects path to an image.
+
 **Logo**<br/>
 The logo can be changed using config `extensions.studio.theme.logo.path` which expects path to the image or `extensions.studio.theme.logo.base64` which expects string image representation.
 
