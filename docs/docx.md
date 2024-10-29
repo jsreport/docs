@@ -147,7 +147,7 @@ The `docxTable` helper call provides also `@rowIndex` and `@columnIndex` variabl
 
 
 ### docxStyle
-Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` parameter to dynamically specify text color.
+Wrap block with `{{#docxStyle}}{{/docxStyle}}` and pass `textColor` or `backgroundColor` parameter to dynamically specify text or background color.
 
 ```
 {{#docxStyle textColor='0000FF'}}Simple text{{/docxStyle}}
@@ -157,6 +157,9 @@ Supported attributes:
 - backgroundColor
 - textColor
 
+Additionally, the helper supports specifying a `target` attribute, the possible values are: `text`, `paragraph`, `cell`, `row`.
+This value allows customizing the level where the styles (`textColor`, `backgroundColor`) are going to be applied.
+By default if not specified, the styles are applied to the text directly.
 
 [Example - Style](https://playground.jsreport.net/w/admin/Mc2Pdcyo)
 
