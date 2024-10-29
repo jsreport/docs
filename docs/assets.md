@@ -98,6 +98,7 @@ ex: `var data = "{{asset "vardata.txt" "string"}}"`
 - `base64` - embeds the asset as a [base64](https://en.wikipedia.org/wiki/Base64) representation of its content
 
 - `dataURI` - embeds the asset as a [base64](https://en.wikipedia.org/wiki/Base64) representation of its content but using a [data URI](https://en.wikipedia.org/wiki/Data_URI_scheme). Useful when embedding images and fonts.
+- `buffer` - the result of the helper call will be a buffer, which is useful when working directly with code inside scripts or helpers.
 
 Each encoding has different use cases, so make sure to use the correct one depending on your case.
 
