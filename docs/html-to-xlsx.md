@@ -1,6 +1,7 @@
 
 
 
+
 `html-to-xlsx` recipe generates Excel xslx files from HTML tables. This isn't a full HTML -> Excel conversion but a rather pragmatic and fast way to create Excel files from jsreport. The recipe reads input table and extract a couple of CSS style properties using a specific HTML engine (which defaults to chrome), and finally uses the styles to create the Excel cells.
 
 ## Examples
@@ -161,17 +162,27 @@ td  {
 ```
 
 ## Insert output into xlsx template
+You can use the following flow to produce a complex xlsx with charts or pivot tables.
 
-The table to xlsx conversion can be enough for some cases. However, for more complex cases (like producing pivot tables or complex charts using Excel) there is an option to insert the produced tables into an existing xlsx template (as new sheets) instead of producing a new xlsx file.
+- open your desktop Excel application and prepare a file with a chart on one sheet and static data on the second
+- upload the xlsx to jsreport studio and link it with your `html-to-xlsx` template
+- generate `<table>` but with `name` attribute matching the existing sheet with data
 
-The flow is the following:
-- Open your desktop Excel application and prepare file with pivot tables and charts on the one sheet and with static data on the second.
-- Upload the xlsx to jsreport studio and link it with your `html-to-xlsx` template generating dynamic table.
-- Make sure the table name matches with the data sheet name in your Excel.
+See the example [Chart with html-to-xlsx recipe](https://playground.jsreport.net/w/admin/QiHIBqsq)
 
-Running the template now produces dynamic Excel with charts or pivots based on the data assembled by jsreport.
+In this case, the data source for the chart is dynamic and needs to use a named formula.
+To define such a formula, use "Name Manager" in the "Formulas" ribbon.
+```
+=OFFSET(Data!$A$2;;;COUNTIF(Data!$A$2:$A$999999;"<>"))
+```
+![name manager](/learn/static-resources/html-to-xlsx-name-manager.png)
 
-[See this example to get an idea of what can be possible with this feature.](https://playground.jsreport.net/w/admin/QiHIBqsq)
+This formula defines the range of non-empty cells starting `A2`  in column `A` .
+To apply this named formula, you click on the chart's series and in the Excel formula box update the `SERIES` function
+```
+=SERIES("Sales";book1.xlsx!ChartMonths;book1.xlsx!ChartValues;1)
+```
+![series](/learn/static-resources/html-to-xlsx-series.png)
 
 ## Conversion triggers
 
