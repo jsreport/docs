@@ -177,6 +177,10 @@ Chrome is a big black box you won't be able to analyze deeply. The only option i
 Try searching jsreport forum. You may have luck and find a tip that will be the solution for you
 [https://forum.jsreport.net/search](https://forum.jsreport.net/search)
 
+**Split long reports**    
+Sometimes you can use jsreport script to split a long report into multiple smaller parts which you combine after rendering.
+This is demonstrated in the following [demo](https://playground.jsreport.net/w/admin/DUkq5YOf).
+
 ## Inline script data
 The request data or template definition can be reached inside inline `script` tag using function `await window.jsreport.getRequest()`
 
