@@ -69,11 +69,13 @@ To produce a cell with specific data type you need to use the `data-cell-type` o
     <tr>
         <td data-cell-type="number">10</td>
         <td data-cell-type="boolean" style="width: 85px">1</td>
-        <td data-cell-type="date">2019-01-22</td>
-        <td data-cell-type="datetime">2019-01-22T17:31:36.000-05:00</td>
+        <td data-cell-type="date">2019-01-22Z</td>
+        <td data-cell-type="datetime">2025-02-12T20:57:28.597Z</td>
     </tr>
 </table>
 ```
+
+The `datetime` and `date` should be specified in ISO format with `Z` and in UTC. Otherwise Windows servers will parse it in local time.
 
 ## Format
 
@@ -127,7 +129,7 @@ Possible values of the `data-cell-format-enum` are:
     <tr>
         <td data-cell-type="number" data-cell-format-str="0.00">10</td>
         <td data-cell-type="number" data-cell-format-enum="3">100000</td>
-        <td data-cell-type="date" data-cell-format-str="m/d/yyy">2019-01-22</td>
+        <td data-cell-type="date" data-cell-format-str="m/d/yyy">2019-01-22Z</td>
     </tr>
 </table>
 ```
