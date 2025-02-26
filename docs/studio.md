@@ -1,5 +1,6 @@
 
 
+
 > The studio extension provides jsreport UI accessible using a browser.
 
 ## Profiles
@@ -33,6 +34,10 @@ The profiler page can be reached from the startup page.
 ![profiler](/learn/static-resources/profiler.png)
 
 The profiler lets you globaly switch between "standard profiling" and "full profiling". This can be used to collect additional information about the running requests for easier troubleshooting.
+
+![profiler canceling](/learn/static-resources/studio-cancel-profile.png)
+
+The running report can be canceled from the Profiler page after selection using "Cancel" tool bar menu.
 
 ## Themes
 The jsreport by default comes with a light and dark theme. You can select the theme through the settings menu.
