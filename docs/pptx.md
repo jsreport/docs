@@ -146,6 +146,9 @@ The `pptxTable` helper call provides also `@rowIndex` and `@columnIndex` variabl
 {{/pptxTable}}
 ```
 
+#### Custom col width
+You can pass the helper argument `colsWidth=[]` to customize the col widths in the table. the value passed should be an array of width values in either `px` or `cm`. example: ["500px"], if you dont want to specify a specific column just pass null `[null, "500px"]`.
+
 ### pptxStyle
 Wrap text block with `{{#pptxStyle}}{{/pptxStyle}}` and pass `textColor` parameter to dynamically specify text color.
 
