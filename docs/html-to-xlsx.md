@@ -22,6 +22,7 @@ The following CSS properties are supported:
 - `background-color` - cell background color
 - `color` - cell foreground color
 - `border` - all the `border-[left|right|top|bottom]-width`, `border-[left|right|top|bottom]-style`, `border-[left|right|top|bottom]-color` will be transformed into Excel cells borders.
+- `transform: rotate()` - rotate text at certain angles to produce vertical text (only specific set of angles work to replicate what the xlsx format supports).
 - `text-align` - text horizontal align in the Excel cell
 - `vertical-align` - vertical align in the Excel cell
 - `width` - the Excel column will get the highest width; it can be little bit inaccurate because of pixel to Excel points conversion
@@ -32,6 +33,7 @@ The following CSS properties are supported:
 - `font-weight` - control whether the cell's text should be bold or not
 - `text-decoration` - `underline` and `line-through` are supported
 - `overflow` - the Excel cell will have text wrap enabled if this is set to scroll.
+- `writing-mode`, `text-orientation` - use a combination of these styles to produce different styles of vertical text
 
 The following HTML attributes are supported:
 - `colspan` - numeric value that merges current column with columns to the right
@@ -55,7 +57,7 @@ Each table detected on the HTML source is converted to a new sheet in the final 
 </table>
 <table data-sheet-name="Data2">
     <tr>
-        <td>2</td>      
+        <td>2</td>
     </tr>
 </table>
 ```
@@ -134,7 +136,7 @@ Possible values of the `data-cell-format-enum` are:
 </table>
 ```
 
-Setting the format is also required when the cell needs to have a specific format category which depends on the computer locale. The cell is otherwise categorized by Excel as `General`. 
+Setting the format is also required when the cell needs to have a specific format category which depends on the computer locale. The cell is otherwise categorized by Excel as `General`.
 
 For example, using `data-cell-type="date"` makes the cell a date and you can use it in the date-based calculations. However, the cell format category in Excel is displayed as `General` and not `Date`. To rectify this, you need to use `data-cell-format-str` to match your locale.
 
@@ -157,9 +159,9 @@ A formula cell can be specified using `data-cell-type="formula"` on the `td` ele
 You can use the following CSS styles to change the default font-family for all cells in table.
 
 ```css
-td  { 
-  font-family: 'Verdana'; 
-  font-size: 18px; 
+td  {
+  font-family: 'Verdana';
+  font-size: 18px;
 }
 ```
 
@@ -282,15 +284,15 @@ The `html-to-xlsx` will be always limited and you may miss some features that ar
 You can specify the template the standard way by using `name` or `shortid`, or alternatively you can also send it in the API request. If you have the Excel template stored as an asset you can also reference it in the request.
 
 ```json
-{  
-  "template":  {  
-    "recipe":  "html-to-xlsx",  
-    "engine":  "handlebars",  
+{
+  "template":  {
+    "recipe":  "html-to-xlsx",
+    "engine":  "handlebars",
     "content": "<table></table>",
-    "htmlToXlsx":  {  
-      "templateAssetShortid":  "xxxx"  
-    }  
-  },  
+    "htmlToXlsx":  {
+      "templateAssetShortid":  "xxxx"
+    }
+  },
   "data":  {}
 }
 
@@ -299,18 +301,18 @@ You can specify the template the standard way by using `name` or `shortid`, or a
 If you don't have the xlsx template stored as an asset you can send it directly in the API request.
 
 ```json
-{  
-  "template":  {  
-    "recipe":  "html-to-xlsx",  
-    "engine":  "handlebars",  
+{
+  "template":  {
+    "recipe":  "html-to-xlsx",
+    "engine":  "handlebars",
     "content": "<table></table>",
-    "htmlToXlsx":  {  
-      "templateAsset":  {  
+    "htmlToXlsx":  {
+      "templateAsset":  {
         "content": "base64 encoded word file",
         "encoding":"base64"
        }
-    }  
-  },  
+    }
+  },
   "data":  {}
 }
 ```
