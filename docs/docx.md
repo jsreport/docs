@@ -368,11 +368,12 @@ The following styles properties are supported:
 - `text-decoration` (underline, line-through)
 - `text-align` (justify, left, right, center)
 - `vertical-align` (top, middle, bottom for `<td>` tags)
+- `border` (for `<table>`, `<colgroup>`, `<col>`, `<td>`, `<th>` tags)
 - `padding` (left, right, top, bottom, and shorthand)
 - `margin` (left, right, top, bottom, and shorthand)
 - `break-before:page` (to produce page break before content)
 - `break-after:page` (to produce page break after content)
-- `width` (for `<img>`, `<td>`, `<th>` tags)
+- `width, min-width` (for `<img>`, `<colgroup>`, `<col>`, `<td>`, `<th>` tags)
 - `height` (for `<img>`, `<tr>`, `<td>`, `<th>` tags)
 
 ### docxChart
