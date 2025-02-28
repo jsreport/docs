@@ -24,7 +24,7 @@ Creating application takes usually several minutes so be patient. You should be 
 
 ![studio](https://jsreport.net/screenshots/studio.png?v=2)
 
-Currently (jsreport `4.6.0`, `4.7.0`), you need to add the following environment variable in order to make chrome generation working
+Currently (jsreport `4.6.0`, `4.7.0`, `4.8.0`), you need to add the following environment variable in order to make chrome generation working
 ```
 chrome_launchOptions_args=--no-sandbox, --disable-dev-shm-usage, --disable-gpu
 ```
