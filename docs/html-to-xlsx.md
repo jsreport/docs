@@ -39,6 +39,8 @@ The following HTML attributes are supported:
 - `colspan` - numeric value that merges current column with columns to the right
 - `rowspan` - numeric value that merges current row with rows below.
 
+> Note: When using vertical text you need to set an explicit width and height if you want a predictable result. this is needed because taking dimensions from the document (either with browser based tools or  cheerio) is unpredictable, the default dimensions when vertical text is used may change between versions.
+
 ## Options
 
 - `htmlEngine` - `String` (supported values here depends on the HTML engines that you have available in your jsreport installation, by default just `chrome` is available but you can additionally install better performing cheerio as HTML engine too)
