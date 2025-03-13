@@ -206,3 +206,16 @@ Running such command is the same as for previous cases, the only required change
 ```bash
 docker run -p 5488:5488 --read-only --tmpfs=/tmp -e extensions_fsStore_dataDirectory=/tmp/data -e blobStorage_dataDirectory=/tmp/data/storage -e logger_file_filename=/tmp/reporter.log -e logger_error_filename=/tmp/error.log myimage
 ```
+
+### Fonts in default image
+The default image based on Alpine Linux includes only the default fonts compared to the full image. If you notice problems with fonts in the default image that don't occur in the full image, you may install additional fonts like this.
+```dockerfile
+FROM jsreport/jsreport:4.8.0
+
+RUN set -x \   
+    && apk add --no-cache \    
+    font-terminus font-inconsolata font-dejavu font-noto font-noto-cjk font-awesome font-noto-extra
+```
+
+If you need additional fonts, you can look into the Alpine documentation
+https://wiki.alpinelinux.org/wiki/Fonts
