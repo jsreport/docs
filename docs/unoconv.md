@@ -1,6 +1,11 @@
 
 
-> Extension using [unoconv](https://github.com/dagwieers/unoconv) to convert reports to the OpenoOffice/LibreOffice supported formats
+**DEPRECATED** please use the [libreoffice](/learn/LibreOffice) extension instead 
+
+----
+
+
+Extension using [unoconv](https://github.com/dagwieers/unoconv) to convert reports to the OpenoOffice/LibreOffice supported formats
 
 ## Installation
 
