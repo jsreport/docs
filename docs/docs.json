@@ -91,5 +91,6 @@
     "azure-web-apps": "Azure Web Apps",
     "aws-eb-docker-efs": "AWS Elastic Beanstalk with Docker and EfS",
     "gcloud-functions-serverless": "Google Cloud functions serverless",
-    "google-cloud": "Google Cloud"
+    "google-cloud": "Google Cloud",
+    "libreoffice": "LibreOffice"
 }
