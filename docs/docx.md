@@ -408,7 +408,7 @@ The following styles properties are supported:
 - `width, min-width` (for `<img>`, `<colgroup>`, `<col>`, `<td>`, `<th>` tags)
 - `height` (for `<img>`, `<tr>`, `<td>`, `<th>` tags)
 
-#### Loading images from using a custom loader
+#### Loading images from html using a custom loader
 You can pass pass extra option to `docxHtml` to specify how do you want images found in the html to be fetched. This will allow to have more control about how an image is downloaded, letting implement custom logic to load images. Ex: `{{docxHtml content=html imageLoader=(imageLoader)}}`
 
 The `imageLoader` expects to receive a function which will run when the time to fetch the image comes.
