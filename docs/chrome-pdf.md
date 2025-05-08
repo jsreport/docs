@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 # Basics
 `Chrome-pdf` recipe is using [headless chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) to print html content into pdf files.
 
@@ -153,31 +149,40 @@ Example showing how to use the special css classes and the workaround for the sc
 The [pdf-utils](/learn/pdf-utils) extension provides advanced and more rich features to merge dynamic content into the chrome pdf output, like rich header/footer, print page numbers, watermarks, merge pages with different orientation, etc. make sure to check the [docs](/learn/pdf-utils) for some examples.
 
 ## CSS Media type and Bootstrap
-Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.	
+Chrome by default uses `print` CSS media query when printing pdf. This impacts CSS frameworks like Bootstrap which usually produces different results for `print` media type. The pdf in this case applies different styles then html. You can adapt/unite this by changing media type settings from `print` to `screen` in the template's chrome settings.
+
+## Loading non-critical external resources
+By default, chrome will wait for the content on your page to load, if some of the content takes a long time to load then it will hang the whole rendering. this may not be the ideal scenario for certain cases. to have better control for these kind of resources you can use the `chromeResourceWithTimeout(resourceURL, timeoutMs)` helper.
+
+For example to load an image that it is nice to have but not critical for the content (we just give it a maximum of 2s to load), then you can define it as:
+
+```html
+<img src="{{chromeResourceWithTimeout 'http://some-domain/image.png' 2000}}" />
+```
 
 ## Performance optimization
 
 First, make sure the `chrome-pdf` recipe is the bottleneck by checking the studio profile tab.
 
-**ARIA**    
+**ARIA**
 Then you can try to disable chrome accessibility tags generation which affects the rendering time and the pdf size for reports with many elements. This can be done by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.
 
-**Image sizes**    
+**Image sizes**
 The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the stored size is the same as the original and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
 
 Also the css style `object-fit: cover` may cause pdf size increase and you may need to avoid it.
 
-**Scale the HW**    
+**Scale the HW**
 Trying to increase CPU or removing container limits is always a good idea when troubleshooting performance.
 
-**Isolate the problem**    
+**Isolate the problem**
 Chrome is a big black box you won't be able to analyze deeply. The only option is to isolate the problem by removing parts of the template content. You can isolate the problem to a chart that needs to disable animations or a long table that needs to optimize some CSS. This is always specific to a particular report.
 
-**Search forum for community tips**    
+**Search forum for community tips**
 Try searching jsreport forum. You may have luck and find a tip that will be the solution for you
 [https://forum.jsreport.net/search](https://forum.jsreport.net/search)
 
-**Split long reports**    
+**Split long reports**
 Sometimes you can use jsreport script to split a long report into multiple smaller parts which you combine after rendering.
 This is demonstrated in the following [demo](https://playground.jsreport.net/w/admin/DUkq5YOf).
 
@@ -251,13 +256,26 @@ This is reasonable for most of the cases, but in case your report is initiating 
 }
 ```
 
-Or you can change the allocation strategy and let the recipe always create a new instance of chrome. This increases the parallelization of the nested reports to the maximum.
+You can change the allocation strategy and let the recipe always create a new instance of chrome if that is what you prefer. This increases the parallelization of the nested reports to the maximum.
 However, note that starting a new chrome process costs about 100ms.
 
 ```js
 {
   "chrome": {
     "strategy": "dedicated-process"
+  }
+}
+```
+
+Finally there is a third option, you can connect to an existing instance chrome that it is running somewhere else. This is useful if you want to use external services that host chrome.
+
+```js
+{
+  "chrome": {
+    "strategy": "connect",
+    "connectOptions": {
+      "browserWSEndpoint": "<endpoint to the remote instance of chrome>"
+    }
   }
 }
 ```
@@ -300,10 +318,10 @@ putting multiples tables in a single document can generate layout issues when co
 google fonts may have letter spacing issues, the solution is to add the following style
 
 ```html
-<style> 
-  * { 
-    text-rendering: geometricprecision !important; 
-  } 
+<style>
+  * {
+    text-rendering: geometricprecision !important;
+  }
 </style>
 ```
 <hr>
