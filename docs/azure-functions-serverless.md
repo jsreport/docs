@@ -3,6 +3,8 @@
 <img src="/learn/static-resources/azure-functions.png" alt="azure functions" width="200" style="margin-left: auto;margin-right: auto; display: block"/>
 <br/>
 
+**This tutorial is outdated. The current Azure Functions Runtime doesn't include libs required by Chromium. Use Azure Container Apps instead. See the dedicated tutorial [here](/learn/azure-container-apps).**
+
 You can run jsreport also as serverless in [Azure Functions](https://azure.microsoft.com/en-us/services/functions/). This is a very convenient way how to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
 This documentation helps you with creating the Azure Function running jsreport, deploying templates and remote invocation of the rendering.
 
