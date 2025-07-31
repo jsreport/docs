@@ -55,13 +55,15 @@ The principle is simple and works the same in other office based recipes like [d
 | - | - |
 | `{{someVariableToReplace}}`  | |
 
-or
+The recipe transforms these tags using the handlebars engine and produces output xlsx with filled data. Using this approach, you can create dynamic tables with auto determined cell data types and formulas. Using the supported built-in helpers, you can even create charts.
+
+### Loop
 
 |   |  |
 | - | - |
 | `{{#each numbers}}{{this}}` | `{{/each}}` |
 
-or (vertical loop **in beta**)
+### Vertical Loop (beta)
 
 |   |  |
 | - | - |
@@ -69,7 +71,62 @@ or (vertical loop **in beta**)
 | Lastname | `{{lastname}}` |
 | Age | `{{age}}{{/each}}` |
 
-The recipe transforms these tags using the handlebars engine and produces output xlsx with filled data. Using this approach, you can create dynamic tables with auto determined cell data types and formulas. Using the supported built-in helpers, you can even create charts.
+### Dynamic Cells
+
+|   |    |
+| - | - |
+| `{{#each cells=items}}{{this}}{{/each}}`  | |
+
+with data
+
+```json
+{
+  "items": [
+    ["Name", "Lastname", "Score"],
+    ["Boris", "Matos", 50]
+    ["Alexander", "Smith", 32],
+    ["John", "Doe", 25]
+  ]
+}
+```
+
+will generate the following cells
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Boris</td>
+            <td>Matos</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Alexander</td>
+            <td>Smith</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>25</td>
+        </tr>
+    </tbody>
+</table>
+
+You can also use the following Handlebars data variables inside the loop for dynamic cells:
+
+- `@first` - a `boolean` that will be `true` for the first row being generated
+- `@last` - a `boolean` that will be `true` for the last row being generated
+- `@rowIndex` - a `number` that will contain the current row index being generated, starting from 0
+- `@firstColumn` - a `boolean` that will be `true` for the first column in the row being generated
+- `@lastColumn` - a `boolean` that will be `true` for the last column in the row being generated
+- `@columnIndex` - a `number` that will contain the current column index in the row being generated, starting from 0
 
 > Hint: Speed up your template development with the [same trick you can use for docx](/learn/docx#development)
 
@@ -79,6 +136,21 @@ The recipe transforms these tags using the handlebars engine and produces output
 - [Chart](https://playground.jsreport.net/w/admin/uNizDuc4)
 
 ### Built-in generation helpers
+
+#### xlsxCType
+
+By default, when a cell only contains a handlebars tag/expression, the return value of the Handlebars tag/expression will be used to determine the cell type. If the value is a number, the cell type will be set to a number, if it is a boolean, the cell type will be set to boolean, and so on. However, there may be cases when controlling the exact cell type is needed, for this cases you can use the `xlsxCType` helper.
+
+The `xlsxCType` expects the `t` parameter to be set, it accepts one of the following values:
+
+- `b` - the cell type will be set to boolean
+- `n` - the cell type will be set to number
+
+Usage: You just need to call this helper anywhere in the cell, whatever value the cell ends containing in the output will be treated as the type specified by the `t` parameter.
+
+```html
+{{xlsxCType t="n"}}{{value}}
+```
 
 #### xlsxChart
 
