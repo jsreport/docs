@@ -143,6 +143,7 @@ By default, when a cell only contains a handlebars tag/expression, the return va
 
 The `xlsxCType` expects the `t` parameter to be set, it accepts one of the following values:
 
+- `s` - the cell type will be set to string
 - `b` - the cell type will be set to boolean
 - `n` - the cell type will be set to number
 
