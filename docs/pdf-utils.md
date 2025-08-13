@@ -443,6 +443,21 @@ The initial limited [PDF/UA](https://en.wikipedia.org/wiki/PDF/UA) support was a
  }
 ```
 
+## pdf compression
+The pdf utils may compress the final pdf and reduce its size. This can be enabled in the studio pdf utils properties or through API.
+This is currently in beta, please don't hesitate to report issues.
+
+```js
+{  
+	"template":  {  
+		...
+		"pdfCompression":  { 
+			 "enabled":  true
+		}
+	}
+}
+```
+
 ## pdfDest
 This helper can be used to create cross template links in the pdf.
 
@@ -635,6 +650,15 @@ The extension features can be used also directly through API without a need to u
     "pdfAccessibility": {
       "enabled": true,
       "pdfUA": true
+    },
+    "pdfCompression": {
+	"enabled": true,
+	"jpegQuality": 60,
+	"removeAccessibility": true,
+	"useObjectStreams": true,
+	"recompressStreams": true,
+	"convertImagesToJpeg": true,
+	"removeEffects": true
     }    
   },
   "options": {
