@@ -3,7 +3,7 @@ jsreport isn't limited for rendering static documents like pdf or excel. You can
 
 ![northwind dashboard](https://jsreport.net/img/northwind-dashboard.gif)
 
-> **[See the full demo live here](https://playground.jsreport.net/w/admin/tW8CsfTt)**    
+> **[See the full demo live here](https://playground.jsreport.net/w/admin/tW8CsfTt)**
 
 This tutorial explains how to create a simple (master - detail) interactive report. However if you are rather curious how can look like a complex dashboard, don't hesitate to open the links below the image and come back to tutorial afterwards.
 
@@ -15,7 +15,7 @@ The script runs on the server side in [node.js](http://nodejs.org/) sandbox and 
 
 At this point we just simply use [handlebars](https://jsreport.net/learn/handlebars) templating engine and [html](https://jsreport.net/learn/html) recipe to render static html table with the downloaded data.
 
-<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/7?embed=1' width="100%" height="400" frameborder="0"></iframe>
+<iframe src="https://playground.jsreport.net/w/admin/HJkzTqb~?embed=1" width="100%" height="400" frameborder="0"></iframe>
 
 ## Drilling down
 Time to make the report interactive. We need another script downloading particular customer's data, another template displaying customer detail and extend the master customers template with the drill down function.
@@ -26,7 +26,7 @@ The detail template is basically just plain html using input data and [chart.js]
 
 Afterwards we need to change the master template's recipe to the [html-with-browser-client](https://jsreport.net/learn/html-with-browser-client). This recipe adds to the page [browser client](https://jsreport.net/learn/browser-client) which is used to render the `detail` template when the user clicks on the customer.
 
-<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/9?embed=1' width="100%" height="400" frameborder="0"></iframe>
+<iframe src="https://playground.jsreport.net/w/admin/iUY4oy89?embed=1" width="100%" height="400" frameborder="0"></iframe>
 
 ## Exporting static report
 
@@ -36,7 +36,7 @@ To demonstrate this,  the master template needs to be extended with an export bu
 
 To produce the proper pdf after the chart animation is finished, the detail template was extended with printing trigger which is called in the chart.js callback.
 
-<iframe src='https://playground.jsreport.net/studio/workspace/ryRU5cmw/11?embed=1' width="100%" height="400" frameborder="0"></iframe>
+<iframe src="https://playground.jsreport.net/w/admin/ZgnakXnQ?embed=1" width="100%" height="400" frameborder="0"></iframe>
 
 ## Sharing link to report
 Now if you have the working live report, you can share it with others using simple link. You can find the button showing the link in the jsreport toolbar.
