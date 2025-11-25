@@ -52,7 +52,7 @@ In this case you receive response with `Location` header containing url to the r
 
 the status page will use the following response status codes depending on the rendering state:
 - `200` - when the `Report-State` is either `planned` or `error`
-- `201 `- when the `Report-State` is `success`, in this case the `Location` header will contain address to the stored report.
+- `201` - when the `Report-State` is `success`, in this case the `Location` header will contain address to the stored report.
 
 be aware that the status page can also returns errors (`404`, `401`) depending if the report was not found or if the user is not authorized to access it, so make sure to handle these cases when doing requests to the status page.
 
