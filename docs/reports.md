@@ -45,7 +45,16 @@ Sending rendering request with `options.reports.save = true` will instruct the e
    }
 >```
 
-In this case you receive response with `Location` header containing url to the rendering status page. It will be something like `http://jsreport-host/reports/id/status`. You can then ping the status page to check if the rendering is done. In that case the response status will be `201` and the location header will contain address to the stored report.
+In this case you receive response with `Location` header containing url to the rendering status page. It will be something like `http://jsreport-host/reports/id/status`. You can then ping the status page and check the `Report-State` header to know when the rendering is done. The `Report-State` can have following values:
+- `planned` - the report has not finished rendering
+- `error` - the report finished with error
+- `success` - the report finished successfully
+
+the status page will use the following response status codes depending on the rendering state:
+- `200` - when the `Report-State` is either `planned` or `error`
+- `201 `- when the `Report-State` is `success`, in this case the `Location` header will contain address to the stored report.
+
+be aware that the status page can also returns errors (`404`, `401`) depending if the report was not found or if the user is not authorized to access it, so make sure to handle these cases when doing requests to the status page.
 
 The other option to trigger async rendering is to send http header `jsreport-Options-Reports-Async=true`.
 In this case jsreport won't need to wait for available worker to parse the input and the response will be fully immediate.
