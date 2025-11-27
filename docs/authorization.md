@@ -28,5 +28,18 @@ Every entity then can get granted access from the users in the group by associat
 
 `Authorization` extensions adds to every jsreport object `readPermissions` and `editPermissions` properties. These properties contains list of user ids you can easily alter from the odata API.
 
+## Insert entities at root
+By default users without explicit permissions are allowed to insert entities at the root level. This can be changed by setting the `extensions.authorization.allowInsertInRootFolderWithoutEditPermissions` option to `false`.
+
+```js
+{
+  "extensions": {
+    "authorization": {
+      "allowInsertAtRootForUsersWithoutExplicitPermissions": false
+    }
+  }
+}
+```
+
 ## Limitations
 [Scheduling](/learn/scheduling) and [Version Control](https://jsreport.net/learn/version-control) extension is currently enabled just for admin user.
