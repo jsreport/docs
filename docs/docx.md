@@ -159,7 +159,7 @@ Supported attributes:
 - backgroundColor
 - textColor
 
-Additionally, the helper supports specifying a `target` attribute, the possible values are: `text`, `paragraph`, `cell`, `row`.
+Additionally, the helper supports specifying a `target` attribute, the possible values are: `text`, `paragraph`, `shape`, `cell`, `row`.
 This value allows customizing the level where the styles (`textColor`, `backgroundColor`) are going to be applied.
 By default if not specified, the styles are applied to the text directly.
 
@@ -278,7 +278,7 @@ Assuming you have a docx asset "template.docx" stored in jsreport, you can call 
 {{docxChild "template.docx"}}
 ```
 
-this call will then be replaced by the text nodes found in the "template.docx" document.
+this call will then be replaced by the text nodes and images found in the "template.docx" document.
 
 You can also specific the docx template inline (this allows specifying the docx template in a dynamic way), by passing an object to the helper:
 
@@ -617,6 +617,15 @@ Allows to insert raw xml into the document, replacing some parent xml element. I
 ```
 {{docxRaw xml="<w:r><w:t>raw xml run</w:t></w:r>" replaceParentElement="w:r"}}
 ```
+
+### docxRemove
+Allows to conditionally remove some content from the document. if the value of the `v` attribute evaluates to true the target content (determined by the `t` attribute) inside the helper call will be removed from the document.
+
+```
+{{docxRemove v=shouldRemove t="paragraph"}}
+```
+
+the values for the target attribute `t` are: `paragraph`, `row`, `table`, if not specified the default value for `t` is `paragraph`.
 
 ## Custom helpers
 You can implement also your own custom helpers and use them in the word templates. The helpers section can be toggled in the studio using the "show helpers" button.
