@@ -34,6 +34,7 @@ The following CSS properties are supported:
 - `text-decoration` - `underline` and `line-through` are supported
 - `overflow` - the Excel cell will have text wrap enabled if this is set to scroll.
 - `writing-mode`, `text-orientation` - use a combination of these styles to produce different styles of vertical text
+- `white-space` - to control how the white space characters are treated inside the cell
 
 The following HTML attributes are supported:
 - `colspan` - numeric value that merges current column with columns to the right
@@ -258,7 +259,7 @@ The chrome engine can have performance problems when evaluating huge tables with
 ```
 
 ### Cheerio HTML engine
-Although the `htmlToXlsxEachRows` helper prevents Chrome from hanging, the rendering can still be slow. This is because Chrome needs to create DOM elements for the whole table and evaluate every single cell. Fortunately, there is a better option for large tables – using the custom HTML engine [cheerio-page-eval](https://github.com/jsreport/cheerio-page-eval).
+Although the `htmlToXlsxEachRows` helper prevents Chrome from hanging, the rendering can still be slow. This is because Chrome needs to create DOM elements for the whole table and evaluate every single cell. Fortunately, there is a better option for large tables - using the custom HTML engine [cheerio-page-eval](https://github.com/jsreport/cheerio-page-eval).
 
 This custom engine is experimental and requires manual installation through NPM.
 
@@ -270,6 +271,7 @@ restart jsreport
 Afterward, you can select it in the studio HTML to xlsx menu and start using it. This engine doesn't create DOM representation like Chrome, so it has much better performance. However, the lack of DOM also introduces some limitations.
 
 - The cheerio engine doesn't support global CSS styles in the `<style>` tag. You need to use in-line styles on cells.
+- Since there is no DOM, the whitespace is not normalized and styles that affect it does not have any effect (like `white-space`), cheerio will take the whitespace present in the source html as it is.
 - It also doesn't evaluate JavaScript in the `<script>` tags. The helpers and templating engines aren't limited.
 
 `htmlToXlsxEachRows` helper also works with the cheerio engine and can significantly improve rendering memory footprint on long tables.
