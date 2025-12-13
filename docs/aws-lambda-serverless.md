@@ -1,6 +1,7 @@
 
 
 
+
 <img src="/blog/lambda.png" alt="lambda" width="100" style="margin-left: auto;margin-right: auto; display: block"/>
 <br/>
 You can run jsreport serverless in [AWS Lambda](https://aws.amazon.com/lambda/). This is the very convenient way to run cheap and automatically scalable reports rendering without a need for paying for the actual servers.
@@ -27,20 +28,23 @@ On Linux, make sure you have the required chrome shared libraries mentioned in t
 
 Then open `http://localhost:5488` and prepare jsreport templates the same way you would do when running normal jsreport.
 
-### Prepare layer
-The best way is to create lambda layer with node_modules folder and then have just templates and configs inside the lambda function package itself. There is `createLambdaLayer.js` script that helps you with that.
-Call it using 
+### Prepare layers
+The best way is to create lambda layers with node_modules folder and then have just templates and configs inside the lambda function package itself. 
+
+All the modules in the `node_modules` are too big so you need to create two layers. One for chromium and one for the rest. There are two helpers for this in the starterkit repository
+
 ```
-node createLambdaLayer.js
+node createJsReportLayer.js
+node createChromiumLayer.js
 ```
-Then log in to AWS console and upload the prepared `layer.zip` to a s3 bucket.
-Then create AWS lambda layer referencing the uploaded zip with nodejs 20.x runtime.
+Then log in to AWS console and upload the prepared layers to an s3 bucket.
+Then create AWS lambda layer referencing the uploaded zip with nodejs 24.x runtime.
 
 ![lambda layer](/learn/static-resources/aws-lambda-create-layer.png)
 
 ### Create lambda function
 
-Then create lambda function with node 20.x runtime.
+Then create lambda function with node 24.x runtime.
 
 ![lambda function](/learn/static-resources/aws-lambda-create-function.png)
 
@@ -58,7 +62,7 @@ Then upload the prepared `lambda.zip` through the AWS Console.
 
 ![lambda upload](/learn/static-resources/aws-lambda-upload-package.png)
 
-### Add layer to the function
+### Add layers to the function
 
 Then add the layer you previously created.
 
