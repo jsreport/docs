@@ -234,11 +234,13 @@ returns:
 }
 ```
 
-### `prepend(sourcePdfBuf, prependedPdfBuf)`
+### `prepend(sourcePdfBuf, prependedPdfBuf, options)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to prepend the second param
-- `prependedPdfBuf` -> pdf buffer prepended before source
+- `prependedPdfBuf` -> pdf buffer prepended before source    
+- `options` -> (optional)
+  - `pdfAccessibility.enabled` -> if the accessibility tags should be copied during the operation
 
 returns:
 - promise of the buffer with concatenated pdfs
@@ -249,17 +251,20 @@ parameters:
 - `sourcePdfBuf` -> pdf buffer to which to append the second param
 - `appendedPdfBuf` -> pdf buffer appended after source
 - `options` -> (optional)
-  - `options.appendAfterPageNumber` -> the number of page from `sourcePdfBuf` which the pages from `appendedPdfBuf` should be inserted after
+  - `appendAfterPageNumber` -> the number of page from `sourcePdfBuf` which the pages from `appendedPdfBuf` should be inserted after    
+  - `pdfAccessibility.enabled` -> if the accessibility tags should be copied during the operation
 
 returns:
 - promise of the buffer with concatenated pdfs
 
-### `merge(sourcePdfBuf, extraPdfBuf, mergeToFront = false)`
+### `merge(sourcePdfBuf, extraPdfBuf, options)`
 
 parameters:
 - `sourcePdfBuf` -> pdf buffer to which to merge
-- `extraPdfBuf` -> it can be one buffer representing pdf document which gets merged into source or an array of pdf buffers representing individual pages which gets merged into source page by page
-- `mergeToFront` -> boolean that indicates if the pages should be merged in front of the current pages
+- `extraPdfBuf` -> it can be one buffer representing pdf document, which gets merged into the source or an array of pdf buffers representing individual pages which gets merged into source page by page
+- `options` -> (optional)
+  - `mergeToFront` -> boolean that indicates if the pages should be merged in front of the current pages
+  - `pdfAccessibility.enabled` -> if the accessibility tags should be copied during the operation
 
 returns:
 - promise of final pdf buffer with merged content
