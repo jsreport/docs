@@ -3,7 +3,7 @@
 ## Basics
 Enabling the `authentication` extension will add a login screen into jsreport studio and authenticate all incoming requests. The browser authentication is based on the cookie and API calls are verified using [basic](https://en.wikipedia.org/wiki/Basic_access_authentication) authentication or using [bearer](https://tools.ietf.org/html/rfc6750) authentication verified against a configured authorization server.
 
-`Authentication` configuration adds a `user administrator` into the system responsible for managing other users. This user can create users, remove users or change their passwords. All other individual users do not have permission to alter any other user.
+`Authentication` configuration adds a `super administrator` user into the system responsible for managing other users. By default, this user is the only one authorized to create users, remove users or change their passwords. If you would like to have the same user management privileges of the super administrator in other user sessions, from the super administrator session you can give other users admin privileges, using either the jsreport studio or via http api (`isAdmin` field). All other users do not have permission to alter any other user.
 
 ## Basic authentication
 
