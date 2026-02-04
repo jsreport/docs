@@ -40,6 +40,33 @@ The following HTML attributes are supported:
 - `colspan` - numeric value that merges current column with columns to the right
 - `rowspan` - numeric value that merges current row with rows below.
 
+The following data attributes are supported:
+- `data-sheet-name` on table - specify a custom sheet name for the table
+- `data-cell-type`, `data-cell-format-str`, `data-cell-format-enum` on cells - see [cells with data types](#cells-with-data-types)
+- `data-cell-indent` on cells - numeric value that controls the indentation level of the cell content
+- `data-sheet-page-paper-size` on table - what paper size to use, supported values are `Letter`, `Legal`, `Executive`, `A3`, `A4`, `A5`, `B5-JIS`, `Envelope-10`, `Envelope-DL`, `Envelope-C5`, `Envelope-B5`, `Envelope-Monarch`, `Double-Japan-Postcard-Rotated`, `16K-197x273`
+- `data-sheet-page-orientation` on table - Orientation of the page, supported values are `portrait` and `landscape`
+- `data-sheet-page-print-area` on table - the Print Area for a sheet. ex: `A1:G20`, `A1:G10&&A11:G20`
+- `data-sheet-page-print-titles-row` on table - Repeat specific rows on every printed page. ex: `1:3`
+- `data-sheet-page-print-titles-column` on table - Repeat specific columns on every printed page. ex: `A:C`
+- `data-sheet-page-margin-left` on table - Whitespace on the left border of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-margin-right` on table - Whitespace on the right border of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-margin-top` on table - Whitespace on the top border of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-margin-bottom` on table - Whitespace on the bottom border of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-margin-header` on table - Whitespace on the header of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-margin-footer` on table - Whitespace on the footer of the page. Units are inches. ex: `0.4`
+- `data-sheet-page-scale` on table - Percentage value to increase or reduce the size of the print. ex: `70`
+- `data-sheet-page-order` on table - Which order to print the pages, supported values are `downThenOver` and `overThenDown`
+- `data-sheet-page-black-and-white` on table - Print without color. ex: `0` or `1`
+- `data-sheet-page-draft` on table - Print with less quality (and ink). ex: `0` or `1`
+- `data-sheet-page-cell-comments` on table - Where to place comments, supported values are `None`, `atEnd`, `asDisplayed`
+- `data-sheet-page-errors` on table - Where to show errors, supported values are `dash`, `blank`, `NA`, `displayed`
+- `data-sheet-page-show-row-col-headers` on table - Whether to show the row numbers and column letters. ex: `0` or `1`
+- `data-sheet-page-show-grid-lines` on table - Whether to show grid lines. ex: `0` or `1`
+- `data-sheet-page-first-page-number` on table - Which number to use for the first page. ex: `2`
+- `data-sheet-page-horizontal-centered` on table - Whether to center the sheet data horizontally. ex: `0` or `1`
+- `data-sheet-page-vertical-centered` on table - Whether to center the sheet data vertically. ex: `0` or `1`
+
 > Note: When using vertical text you need to set an explicit width and height if you want a predictable result. this is needed because taking dimensions from the document (either with browser based tools or  cheerio) is unpredictable, the default dimensions when vertical text is used may change between versions.
 
 ## Options
@@ -153,6 +180,18 @@ A formula cell can be specified using `data-cell-type="formula"` on the `td` ele
         <td data-cell-type="number">10</td>
         <td data-cell-type="number">10</td>
         <td data-cell-type="formula">=SUM(A1, B1)</td>
+    </tr>
+</table>
+```
+
+## Images
+
+You can embed images into cells using the `asset` helper
+
+```html
+<table>
+    <tr>
+        <td><img src="{{asset "image.png" "dataURI"}}" /></td>
     </tr>
 </table>
 ```
