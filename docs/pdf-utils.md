@@ -511,15 +511,15 @@ Example:
 
 The helper call common arguments are the following:
 
-**name** `(required)` - the field identification
-**type** `(required)` - currently supported text, button, combo
-**width** `(required)` - the field width, needs to be in `px`
-**height** `(required)` - the field height, needs to be in `px`
-**color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color
-**backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color
-**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf#page=392)
-**fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts](https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment
-**fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width
+**name** `(required)` - the field identification    
+**type** `(required)` - currently supported text, button, combo    
+**width** `(required)` - the field width, needs to be in `px`    
+**height** `(required)` - the field height, needs to be in `px`    
+**color** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for text color    
+**backgroundColor** - the [color string](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) css style for background color    
+**border** - the pdf like border definition, defaults to "0,0,0". Please refer to the [pdf spec](https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf#page=392)     
+**fontFamily** - the font isn't inherited from the outer text at this moment and if you want to use a specific font, you need to set here one of the [pdf standard fonts]    (https://kbpdfstudio.qoppa.com/standard-14-pdf-fonts/). The custom embedded fonts aren't supported in fields at this moment    
+**fontSize** - the text size, needs to be in `px`. The default size is computed to fit the field height and width    
 **textAlign** - one of the left, center, right
 
 
@@ -528,12 +528,12 @@ The helper call common arguments are the following:
  {{{pdfFormField name='firstName' color='#FF0000' required=true type='text' width='200px' height='20px'}}}
  ```
 
-**value** - the visible value
-**defaultValue** - value stored in form, when nothing is filled, this value isn't visible
-**readOnly** - bool if the field is read only
-**required** - bool if the field is required
-**multiline** - bool  for multiline text fields
-**password** - bool for password like text fields
+**value** - the visible value     
+**defaultValue** - value stored in form, when nothing is filled, this value isn't visible    
+**readOnly** - bool if the field is read only    
+**required** - bool if the field is required    
+**multiline** - bool  for multiline text fields    
+**password** - bool for password like text fields    
 
 #### Formatting
 The text fields can be quickly formatted using the following `pdfFormField` arguments.
@@ -562,10 +562,10 @@ The text fields can be quickly formatted using the following `pdfFormField` argu
 
 ##### Number and percent
 
-**formatFractionalDigits** - the number of places after the decimal point
-**formatSepComma** - bool if pdf should display a comma separator, otherwise do not display a separator.
-**formatNegStyle**  the value must be one of `MinusBlack` , `Red`,  `ParensBlack`, `ParensRed`
-**formatCurrency**  a currency symbol to display
+**formatFractionalDigits** - the number of places after the decimal point    
+**formatSepComma** - bool if pdf should display a comma separator, otherwise do not display a separator.    
+**formatNegStyle**  the value must be one of `MinusBlack` , `Red`,  `ParensBlack`, `ParensRed`    
+**formatCurrency**  a currency symbol to display    
 **formatCurrencyPrepend**  set to true to prepend the currency symbol
 
 ### Combo field
@@ -581,8 +581,8 @@ The combo field additionally requires the `items` attribute. That can be a strin
 {{{pdfFormField name='btn2' type='button' action='reset' label='reset' width='200px' height='50px'}}}
 ```
 
-**action** - submit/reset
-**label** - text on the button
+**action** - submit/reset    
+**label** - text on the button    
 **url** - url where to send the form after submit
 
 The submit button can additionally include one or more submit flags. Please see the description in the [pdf specification here](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf#page=459).
