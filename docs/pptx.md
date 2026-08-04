@@ -150,7 +150,7 @@ The `pptxTable` helper call provides also `@rowIndex` and `@columnIndex` variabl
 You can pass the helper argument `colsWidth`, which expects an array, to customize the col widths in the table. the value passed should be an array of width values in either `px` or `cm`. example: ["500px"], if you dont want to specify a specific column just pass null `[null, "500px"]`.
 
 ### pptxStyle
-Wrap text block with `{{#pptxStyle}}{{/pptxStyle}}` and pass `textColor` parameter to dynamically specify text color.
+Wrap text block with `{{#pptxStyle}}{{/pptxStyle}}` and pass `textColor` or `backgroundColor` parameter to dynamically specify text or background color.
 
 ```
 {{#pptxStyle textColor='0000FF'}}Simple text{{/pptxStyle}}
@@ -159,6 +159,10 @@ Wrap text block with `{{#pptxStyle}}{{/pptxStyle}}` and pass `textColor` paramet
 Supported attributes:
 - backgroundColor
 - textColor
+
+Additionally, the helper supports specifying a `target` attribute, the possible values are: `text`, `paragraph`, `shape`, `cell`, `row`.
+This value allows customizing the level where the styles (`textColor`, `backgroundColor`) are going to be applied.
+By default if not specified, the styles are applied to the text directly.
 
 <!-- When playground has updated pptx we should add pptxStyle example -->
 <!-- [Example - Style](https://playground.jsreport.net/w/admin/Mc2Pdcyo) -->
