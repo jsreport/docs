@@ -296,7 +296,60 @@ The following example demonstrates how to use [winston-loggly](https://github.co
 }
 ```
 
+The format of the logs can be configured globally using the `logger.format` property, this property defined how the logs are formatted before they are sent to the transport. The available formats are:
+- `text` - Produces logs like: `info: message key=value, key2=value2`
+- `textWithTimestamp` - **The default format**. Produces logs like: `2024-01-01T12:00:00.000Z - info: message key=value`
+- `json` - Produces logs in JSON format, one JSON object per line: `{"timestamp":"2024-01-01T12:00:00.000Z","level":"info","message":"Rendering template ...","operationId":"abc123","templateName":"invoice"}` (suitable for log aggregators like Datadog, Splunk, ELK)
+
+```js
+{
+  "logger": {
+    "format": "json"
+    ...
+  }
+}
+```
+
+Additionally, the format can be configured per transport using the `format` property inside the transport configuration
+
+```js
+{
+  "logger": {
+    "console": { "transport": "console", "level": "info", "format": "textWithTimestamp" },
+    "file":    { "transport": "file", "level": "info", "filename": "jsreport.log", "format": "json" }
+  }
+}
+```
+
+Custom formats can be specified using the `module` property. A module that exports a factory returning a [winston format](https://github.com/winstonjs/winston/blob/master/README.md#formats) can be registered under `logger.formats` and then referenced by name. The factory receives the options object you specify alongside module.
+
+```js
+{
+  logger: {
+    formats: {
+      logstash: {
+        module: '@my/winston-logstash-format',
+        options: { app: 'reports' }
+      }
+    },
+    http: { transport: 'http', level: 'info', host: 'logs.example.com', format: 'logstash' }
+  }
+}
+```
+
+A minimal custom format module looks like this
+```js
+// my-format.js
+const { loggerFormat, MESSAGE } = require('@jsreport/jsreport-core').loggerConstants
+
+module.exports = loggerFormat((info, options) => {
+	info[loggerConstants.MESSAGE] = `[${options.prefix || 'APP'}] ${info.level}: ${info.message}`
+	return info
+})
+```
+
 - **logger.silent** (`boolean`): handy option to silence (logs will not be stored) all outputs configured. default: false
+
 
 
 ## Example of the config file
