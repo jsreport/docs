@@ -220,3 +220,11 @@ RUN set -x \
 
 If you need additional fonts, you can look into the Alpine documentation
 https://wiki.alpinelinux.org/wiki/Fonts
+
+## Deploy on Easypanel
+
+[Easypanel](https://easypanel.io) is a self-hosted Docker deployment platform, and it maintains a one-click deployment template for jsreport.
+
+[![Deploy on Easypanel](https://easypanel.io/img/deploy-on-easypanel-40.svg)](https://easypanel.io/templates/jsreport)
+
+![jsreport service running in the Easypanel dashboard](/learn/static-resources/easypanel-panel.jpg)
