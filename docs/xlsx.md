@@ -83,7 +83,7 @@ with data
 {
   "items": [
     ["Name", "Lastname", "Score"],
-    ["Boris", "Matos", 50]
+    ["Boris", "Matos", 50],
     ["Alexander", "Smith", 32],
     ["John", "Doe", 25]
   ]
