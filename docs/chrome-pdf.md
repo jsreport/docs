@@ -11,6 +11,7 @@ The settings reflects the [headless chrome API](https://github.com/GoogleChrome/
 - headerTemplate
 - footerTemplate
 - printBackground
+- tagged
 - pageRanges
 - format
 - width
@@ -164,8 +165,24 @@ For example to load an image that it is nice to have but not critical for the co
 
 First, make sure the `chrome-pdf` recipe is the bottleneck by checking the studio profile tab.
 
+**Tagged pdf**
+Chrome generates a tagged (accessible) pdf by default. The tags slow down rendering and increase the pdf size for reports with many elements. You can disable them by unchecking the `tagged` option in studio. This produces much smaller files and lets you render bigger reports.
+
+```js
+{
+  "template": {
+    "recipe": "chrome-pdf",
+    "chrome": {
+      "tagged": false
+    }
+  }
+}
+```
+
+Note that the pdf won't be accessible to screen readers once you disable the tags.
+
 **ARIA**
-Then you can try to disable chrome accessibility tags generation which affects the rendering time and the pdf size for reports with many elements. This can be done by adding `aria-hidden="true"` attribute to the HTML body or wrapping element.
+Another way to disable chrome accessibility tags is to add the `aria-hidden="true"` attribute to the HTML body or wrapping element. Use this when you want to skip tags only for part of the content.
 
 **Image sizes**
 The images printed to the pdf keep the original size despite the `width` and `height` attributes set. Visually the images are properly sized, but the stored size is the same as the original and can dramatically increase the pdf output. The solution is to resize the images to the desired size before starting the chrome pdf printing. One of the approaches using templating engines helper is mentioned [here](https://jsreport.net/learn/templating-engines#async).
@@ -294,6 +311,7 @@ Note the same debugging techniques applies also to the [chrome-image](/learn/chr
 
 `Protocol error (Page.printToPDF): Printing failed` can becaused by various things, but the most common solution is
 - increase provided memory and cpu
+- [disable tagged pdf](#tagged-pdf)
 - [disable accessibility](#aria)
 - [make sure your images have proper size](#images-increasing-pdf-size)
 <hr>
