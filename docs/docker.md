@@ -12,7 +12,7 @@ You can find the [list of all available tags and previous versions in the docker
 
 ## Usage
 1. Install [Docker](https://www.docker.com/)
-2. `docker run -p 5488:5488 jsreport/jsreport:4.14.4`
+2. `docker run -p 5488:5488 jsreport/jsreport:4.15.0`
 
 Start jsreport server on the port 5488 directly in the current shell with data and configuration stored directly in the container.
 
@@ -42,7 +42,7 @@ To run the docker images on macOS with [Apple Silicon](https://en.wikipedia.org/
 	or if for some reason the image in the `linux/arm64` does not work or if the `linux/amd64` with Rosetta enabled in docker does not work, you can still use the image for the `linux/amd64`, docker for macOS allows to either use the fastest `linux/arm64` or the `linux/amd64` (through virtualization, that is why it is expected to be slower compared to the `linux/arm64`). To do this you need to pass a flag `--platform linux/amd64` to docker and pass some additional chrome options. The docker run command for it looks like this:
 
 	```sh
-	docker run --platform=linux/amd64 -p 5488:5488 jsreport/jsreport:4.14.4
+	docker run --platform=linux/amd64 -p 5488:5488 jsreport/jsreport:4.15.0
 	```
 
 ## Start on reboot
